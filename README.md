@@ -2,4 +2,6 @@
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+# workflows
+
+uncomment `.github/workflows/analyze.yml` to allow github to analyze the project on each PR to Push to master.
