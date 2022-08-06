@@ -45,6 +45,7 @@ jobs:
         path: build/app/outputs/apk/release
         
   deploy:
+    needs: build_web
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
