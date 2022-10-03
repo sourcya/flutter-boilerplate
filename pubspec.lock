@@ -300,14 +300,14 @@ packages:
       name: playx
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2"
+    version: "0.0.3"
   playx_core:
     dependency: transitive
     description:
       name: playx_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1"
+    version: "0.0.2"
   playx_theme:
     dependency: transitive
     description:

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/app/modules/sign_in/controllers/signin_controller.dart';
+import 'package:flutter_boilerplate/app/modules/sign_in/controllers/sign_in_controller.dart';
 import 'package:flutter_boilerplate/app/shared/widgets/center_loading.dart';
 import 'package:flutter_boilerplate/app/shared/widgets/text_field.dart';
 import 'package:playx/playx.dart';

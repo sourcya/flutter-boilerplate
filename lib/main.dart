@@ -5,7 +5,6 @@ import 'package:flutter_boilerplate/app/config/lang.dart';
 import 'package:flutter_boilerplate/app/config/theme.dart';
 import 'package:flutter_boilerplate/app/routes/app_pages.dart';
 import 'package:playx/playx.dart';
-import 'package:playx_core/playx_core.dart';
 
 void main() async {
   await boot();

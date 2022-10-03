@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:playx_core/playx_core.dart' hide Response;
+import 'package:playx/playx.dart' hide Response;
 
 Object? extractError(dynamic data) {
   if (data is Map) {
