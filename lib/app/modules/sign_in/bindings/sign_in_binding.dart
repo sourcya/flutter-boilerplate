@@ -1,6 +1,5 @@
+import 'package:flutter_boilerplate/app/modules/sign_in/controllers/sign_in_controller.dart';
 import 'package:get/get.dart';
-
-import '../controllers/signin_controller.dart';
 
 class SignInBinding extends Bindings {
   @override

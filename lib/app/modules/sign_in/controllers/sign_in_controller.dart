@@ -1,9 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/app/routes/app_pages.dart';
+import 'package:flutter_boilerplate/app/services/auth.dart';
 import 'package:playx/playx.dart';
-
-import '../../../services/auth.dart';
 
 class SignInController extends GetxController {
   final isLoading = false.obs;

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:playx_core/playx_core.dart';
-import '../config/endpoints.dart';
-import '../helpers/http_client.dart';
-import '../models/user.dart';
+import 'package:flutter_boilerplate/app/config/endpoints.dart';
+import 'package:flutter_boilerplate/app/helpers/http_client.dart';
+import 'package:flutter_boilerplate/app/models/user.dart';
+import 'package:playx/playx.dart';
 
 class AuthService {
   final HttpClient client;
