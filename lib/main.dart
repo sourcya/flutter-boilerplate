@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_boilerplate/app/config/app.dart';
 import 'package:flutter_boilerplate/app/config/dependencies.dart';
 import 'package:flutter_boilerplate/app/config/lang.dart';
@@ -14,6 +15,9 @@ void main() async {
     app: PlayXThemeBuilder(
       builder: (xTheme) {
         final selectedLang = Prefs.getString('lang') ?? 'en';
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.portraitUp,
+        ]);
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: "Application",
