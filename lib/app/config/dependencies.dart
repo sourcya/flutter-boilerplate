@@ -10,7 +10,6 @@ Future<void> boot() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  WidgetsFlutterBinding.ensureInitialized();
   final HttpClient client = HttpClient(
     Dio(
       BaseOptions(
