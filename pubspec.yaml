@@ -16,7 +16,7 @@ dependencies:
   flutter_readable: ^0.0.5
   get: 4.6.5
   google_fonts: ^2.3.2
-  playx: ^0.0.3
+  playx: ^0.0.4
   queen_validators: ^1.0.0
   sentry_flutter: ^6.8.0
   shared_preferences: ^2.0.15
