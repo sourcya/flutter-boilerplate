@@ -300,7 +300,7 @@ packages:
       name: playx
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.3"
+    version: "0.0.4"
   playx_core:
     dependency: transitive
     description:
@@ -314,7 +314,7 @@ packages:
       name: playx_theme
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1"
+    version: "0.0.1+1"
   plugin_platform_interface:
     dependency: transitive
     description:

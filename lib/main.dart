@@ -8,10 +8,14 @@ import 'package:flutter_boilerplate/app/routes/app_pages.dart';
 import 'package:playx/playx.dart';
 
 void main() async {
+  final appConfig = AppConfig();
   await boot();
-  await Playx.runPlayX(
+  await Playx.boot(
     themeConfig: AppThemeConfig(),
-    appConfig: AppConfig(),
+    appConfig: appConfig,
+  );
+  await Playx.runPlayX(
+    appConfig: appConfig,
     app: PlayXThemeBuilder(
       builder: (xTheme) {
         final selectedLang = Prefs.getString('lang') ?? 'en';
