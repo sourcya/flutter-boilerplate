@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:playx/playx.dart';
 
+import '../../../../../core/config/theme.dart';
 import '../../../../../core/resources/assets.dart';
-import '../../../../../core/resources/colors.dart';
 import '../../../../../core/resources/translation/app_translations.dart';
 import '../../../../../core/widgets/center_loading.dart';
 import '../../../../../core/widgets/text_field.dart';
@@ -46,8 +46,9 @@ class RegisterView extends GetView<RegisterController> {
                         child: Text(
                           AppTrans.registerText.tr,
                           style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              color: AppColors.pink,
+                            textStyle: TextStyle(
+                              color: AppThemeConfig.getColorScheme(context)
+                                  .onBackground,
                               fontSize: 40,
                             ),
                           ),
@@ -63,15 +64,15 @@ class RegisterView extends GetView<RegisterController> {
                           label: AppTrans.emailLabel.tr,
                           hint: AppTrans.emailHint.tr,
                           controller: controller.emailController,
-                          fillColor: AppColors.blue,
                           type: TextInputType.emailAddress,
                           validator: qValidator([
                             IsRequired(AppTrans.emailRequired.tr),
                             IsEmail(AppTrans.notEmailError.tr),
                           ]),
-                          prefix: const Icon(
+                          prefix: Icon(
                             Icons.email,
-                            color: AppColors.pink,
+                            color: AppThemeConfig.getColorScheme(context)
+                                .secondary,
                           ),
                         ),
                       ),
@@ -86,7 +87,6 @@ class RegisterView extends GetView<RegisterController> {
                             hint: AppTrans.passwordHint.tr,
                             controller: controller.passwordController,
                             obscureText: controller.hidePassword.value,
-                            fillColor: AppColors.blue,
                             type: TextInputType.visiblePassword,
                             suffix: IconButton(
                               icon: Icon(
@@ -95,7 +95,8 @@ class RegisterView extends GetView<RegisterController> {
                                     : Icons.visibility,
                               ),
                               onPressed: controller.changeHidePasswordState,
-                              color: AppColors.pinkDark,
+                              color: AppThemeConfig.getColorScheme(context)
+                                  .secondary,
                             ),
                             validator: qValidator([
                               IsRequired(
@@ -106,9 +107,10 @@ class RegisterView extends GetView<RegisterController> {
                                 AppTrans.passwordMinLengthError.tr,
                               )
                             ]),
-                            prefix: const Icon(
+                            prefix: Icon(
                               Icons.lock,
-                              color: AppColors.pink,
+                              color: AppThemeConfig.getColorScheme(context)
+                                  .secondary,
                             ),
                           ),
                         );
@@ -124,7 +126,6 @@ class RegisterView extends GetView<RegisterController> {
                             hint: AppTrans.confirmPasswordHint.tr,
                             controller: controller.confirmPasswordController,
                             obscureText: controller.hideConfirmPassword.value,
-                            fillColor: AppColors.blue,
                             type: TextInputType.visiblePassword,
                             suffix: IconButton(
                               icon: Icon(
@@ -134,7 +135,8 @@ class RegisterView extends GetView<RegisterController> {
                               ),
                               onPressed:
                                   controller.changeHideConfirmPasswordState,
-                              color: AppColors.pinkDark,
+                              color: AppThemeConfig.getColorScheme(context)
+                                  .secondary,
                             ),
                             validator: qValidator([
                               IsRequired(
@@ -145,9 +147,10 @@ class RegisterView extends GetView<RegisterController> {
                                 error: AppTrans.confirmPasswordMatchError.tr,
                               ),
                             ]),
-                            prefix: const Icon(
+                            prefix: Icon(
                               Icons.lock,
-                              color: AppColors.pink,
+                              color: AppThemeConfig.getColorScheme(context)
+                                  .secondary,
                             ),
                           ),
                         );
@@ -163,11 +166,9 @@ class RegisterView extends GetView<RegisterController> {
                           ),
                           child: ElevatedButton(
                             style: ButtonStyle(
-                              backgroundColor: const MaterialStatePropertyAll(
-                                AppColors.pinkLight,
-                              ),
-                              textStyle: const MaterialStatePropertyAll(
-                                TextStyle(color: Colors.white),
+                              backgroundColor: MaterialStatePropertyAll(
+                                AppThemeConfig.getColorScheme(context)
+                                    .secondary,
                               ),
                               shape: MaterialStatePropertyAll(
                                 RoundedRectangleBorder(
@@ -185,14 +186,18 @@ class RegisterView extends GetView<RegisterController> {
                               width: context.width * 0.5,
                               height: context.height * 0.05,
                               child: controller.isLoading.value
-                                  ? const CenterLoading(
-                                      color: Colors.white,
+                                  ? CenterLoading(
+                                      color:
+                                          AppThemeConfig.getColorScheme(context)
+                                              .onSecondary,
                                     )
                                   : Center(
                                       child: Text(
                                         AppTrans.registerText.tr,
-                                        style: const TextStyle(
-                                          color: Colors.white,
+                                        style: TextStyle(
+                                          color: AppThemeConfig.getColorScheme(
+                                                  context)
+                                              .onSecondary,
                                           fontSize: 18,
                                         ),
                                       ),
@@ -210,14 +215,17 @@ class RegisterView extends GetView<RegisterController> {
                           child: RichText(
                             text: TextSpan(
                               text: AppTrans.haveAccountText.tr,
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: AppThemeConfig.getColorScheme(context)
+                                    .onBackground,
                               ),
                               children: <TextSpan>[
                                 TextSpan(
                                   text: AppTrans.loginNow.tr,
-                                  style: const TextStyle(
-                                    color: Colors.yellow,
+                                  style: TextStyle(
+                                    color:
+                                        AppThemeConfig.getColorScheme(context)
+                                            .secondary,
                                   ),
                                 ),
                               ],
@@ -233,30 +241,34 @@ class RegisterView extends GetView<RegisterController> {
                         child: RichText(
                           text: TextSpan(
                             text: AppTrans.termsAndPrivacyInitialText.tr,
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: AppThemeConfig.getColorScheme(context)
+                                  .onBackground,
                               fontSize: 12,
                             ),
                             children: <TextSpan>[
                               TextSpan(
                                 text: AppTrans.terms.tr,
-                                style: const TextStyle(
-                                  color: Colors.yellow,
+                                style: TextStyle(
+                                  color: AppThemeConfig.getColorScheme(context)
+                                      .secondary,
                                 ),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {},
                               ),
                               TextSpan(
                                 text: AppTrans.andText.tr,
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: AppThemeConfig.getColorScheme(context)
+                                      .onBackground,
                                   fontSize: 12,
                                 ),
                               ),
                               TextSpan(
                                 text: AppTrans.privacyPolicyText.tr,
-                                style: const TextStyle(
-                                  color: Colors.yellow,
+                                style: TextStyle(
+                                  color: AppThemeConfig.getColorScheme(context)
+                                      .secondary,
                                 ),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {},

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/config/theme.dart';
 import 'package:playx/playx.dart';
 
 import '../controllers/select_language_controller.dart';
@@ -12,8 +13,8 @@ class SelectLanguageView extends GetView<SelectLanguageController> {
         title: Text(
           'Select Language',
           style: context.h6?.copyWith(
-            color: Colors.white,
             fontSize: 18,
+            color: AppThemeConfig.getColorScheme(context).onPrimary,
           ),
         ),
         centerTitle: true,
@@ -45,7 +46,8 @@ class SelectLanguageView extends GetView<SelectLanguageController> {
                       title: Text(
                         e,
                         style: context.bodyText1?.copyWith(
-                          color: Colors.white,
+                          color: AppThemeConfig.getColorScheme(context)
+                              .onBackground,
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                         ),

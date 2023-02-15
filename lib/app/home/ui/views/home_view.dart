@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:playx/exports.dart';
 
+import '../../../../../core/config/theme.dart';
 import '../../../../core/navigation/app_routes.dart';
 import '../controllers/home_controller.dart';
 
@@ -27,7 +29,8 @@ class HomeView extends GetView<HomeController> {
                 const Center(child: Text('Home')),
                 ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(Routes.LANGUAGE);
+                    Get.toNamed(Routes.LOGIN);
+                    AppTheme.next();
                   },
                   child: const Text('login'),
                 ),
@@ -44,35 +47,31 @@ class HomeView extends GetView<HomeController> {
           ),
         ],
       ),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          // sets the background color of the `BottomNavigationBar`
-          canvasColor: const Color(0xFF00354f),
-        ), //
-        child: GetBuilder<HomeController>(
-          builder: (c) {
-            return BottomNavigationBar(
-              currentIndex: c.tabC.index,
-              onTap: c.onTapTab,
-              selectedItemColor: context.theme.colorScheme.secondary,
-              unselectedItemColor: Colors.white,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications),
-                  label: 'notifications',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
-                  label: 'settings',
-                ),
-              ],
-            );
-          },
-        ),
+      bottomNavigationBar: GetBuilder<HomeController>(
+        builder: (c) {
+          return BottomNavigationBar(
+            currentIndex: c.tabC.index,
+            onTap: c.onTapTab,
+            selectedItemColor: AppThemeConfig.getColorScheme(context).secondary,
+            unselectedItemColor:
+                AppThemeConfig.getColorScheme(context).onBackground,
+            backgroundColor: AppThemeConfig.getColorScheme(context).background,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.notifications),
+                label: 'notifications',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'settings',
+              ),
+            ],
+          );
+        },
       ),
     );
   }
