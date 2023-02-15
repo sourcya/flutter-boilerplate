@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../config/theme.dart';
 import '../resources/colors.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -68,15 +69,15 @@ class CustomTextField extends StatelessWidget {
           keyboardType: type,
           onChanged: onChanged,
           autofocus: autofocus,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
-            color: Colors.white,
+            color: AppThemeConfig.getColorScheme(context).onBackground,
           ),
           decoration: InputDecoration(
             fillColor: fillColor,
             filled: fillColor != null,
-            labelStyle: const TextStyle(
-              color: AppColors.pinkDark,
+            labelStyle: TextStyle(
+              color: AppThemeConfig.getColorScheme(context).secondary,
               fontSize: 14,
             ),
             hintText: hint,
@@ -87,8 +88,9 @@ class CustomTextField extends StatelessWidget {
             icon: icon,
             suffixIcon: suffix,
             hintStyle: const TextStyle(color: AppColors.grey),
-            floatingLabelStyle:
-                const TextStyle(color: AppColors.pink, fontSize: 18),
+            floatingLabelStyle: TextStyle(
+                color: AppThemeConfig.getColorScheme(context).secondary,
+                fontSize: 18),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: const BorderSide(
@@ -96,8 +98,8 @@ class CustomTextField extends StatelessWidget {
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: AppColors.yellow,
+              borderSide: BorderSide(
+                color: AppThemeConfig.getColorScheme(context).secondary,
                 // color: Colors.grey.withOpacity(0.5),
                 width: 2,
               ),
