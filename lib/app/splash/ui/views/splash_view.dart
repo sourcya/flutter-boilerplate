@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/config/theme.dart';
+import 'package:flutter_boilerplate/core/widgets/app_version.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:playx/playx.dart';
@@ -32,19 +33,16 @@ class SplashView extends GetView<SplashController> {
             const Spacer(
               flex: 4,
             ),
-            Obx(
-              () => Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 30,
-                  horizontal: 10,
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  controller.versionName.value,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: AppThemeConfig.getColorScheme(context).secondary,
-                  ),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 30,
+                horizontal: 10,
+              ),
+              alignment: Alignment.center,
+              child: AppVersion(
+                textStyle: TextStyle(
+                  fontSize: 13,
+                  color: AppThemeConfig.getColorScheme(context).secondary,
                 ),
               ),
             ),
