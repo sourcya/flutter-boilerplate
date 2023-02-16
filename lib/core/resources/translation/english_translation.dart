@@ -68,6 +68,8 @@ class EnglishTranslation extends BaseTranslation {
 
         AppTrans.privacyPolicyText: "Privacy Policy.",
 
-        AppTrans.noDataMessage: "There is no data available."
+        AppTrans.noDataMessage: "There is no data available.",
+        AppTrans.noInternetMessage: "Network is not available.",
+        AppTrans.retryText: "Retry"
       };
 }

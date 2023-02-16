@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/utils/alert.dart';
 import 'package:flutter_boilerplate/core/widgets/no_data_widget.dart';
+import 'package:flutter_boilerplate/core/widgets/no_internet_widget.dart';
 import 'package:get/get.dart';
 import 'package:playx/exports.dart';
 
@@ -42,9 +44,13 @@ class HomeView extends GetView<HomeController> {
             color: AppThemeConfig.getColorScheme(context).background,
             child: NoDataAnimation(),
           ),
-          const ColoredBox(
-            color: Colors.amber,
-            child: Center(child: Text('settings')),
+          ColoredBox(
+            color: AppThemeConfig.getColorScheme(context).background,
+            child: NoInternetAnimation(
+              onRetryClicked: () {
+                Alert.error(message: "Netowrk");
+              },
+            ),
           ),
         ],
       ),
