@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/widgets/no_data_widget.dart';
 import 'package:get/get.dart';
 import 'package:playx/exports.dart';
 
@@ -37,9 +38,9 @@ class HomeView extends GetView<HomeController> {
               ],
             ),
           ),
-          const ColoredBox(
-            color: Colors.red,
-            child: Center(child: Text('notifications')),
+          ColoredBox(
+            color: AppThemeConfig.getColorScheme(context).background,
+            child: NoDataAnimation(),
           ),
           const ColoredBox(
             color: Colors.amber,

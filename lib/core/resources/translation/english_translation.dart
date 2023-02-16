@@ -67,5 +67,7 @@ class EnglishTranslation extends BaseTranslation {
         AppTrans.andText: " and ",
 
         AppTrans.privacyPolicyText: "Privacy Policy.",
+
+        AppTrans.noDataMessage: "There is no data available."
       };
 }
