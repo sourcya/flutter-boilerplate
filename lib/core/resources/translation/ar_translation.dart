@@ -72,6 +72,8 @@ class ArabicTranslations extends BaseTranslation {
         AppTrans.andText: " و ",
 
         AppTrans.privacyPolicyText: "سياسة الخصوصية.",
-        AppTrans.noDataMessage: "لا توجد بيانات متاحة."
+        AppTrans.noDataMessage: "لا توجد بيانات متاحة.",
+        AppTrans.noInternetMessage: "لا يوجد إنترنت.",
+        AppTrans.retryText: "أعد المحاولة"
       };
 }

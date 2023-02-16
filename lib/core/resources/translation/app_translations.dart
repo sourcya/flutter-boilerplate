@@ -79,4 +79,6 @@ abstract class AppTrans {
       "player_no_internet_main_error";
 
   static const String noDataMessage = "no_data_message";
+  static const String noInternetMessage = "no_internet_message";
+  static const String retryText = "retry_text";
 }
