@@ -77,4 +77,6 @@ abstract class AppTrans {
   static const String playerDefaultError = "player_default_error";
   static const String playerNoInternetMainError =
       "player_no_internet_main_error";
+
+  static const String noDataMessage = "no_data_message";
 }
