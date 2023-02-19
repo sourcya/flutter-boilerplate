@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_boilerplate/app/config/app.dart';
-import 'package:flutter_boilerplate/app/config/dependencies.dart';
-import 'package:flutter_boilerplate/app/config/lang.dart';
-import 'package:flutter_boilerplate/app/config/theme.dart';
-import 'package:flutter_boilerplate/app/routes/app_pages.dart';
 import 'package:playx/playx.dart';
+
+import 'core/config/app.dart';
+import 'core/config/dependencies.dart';
+import 'core/config/theme.dart';
+import 'core/navigation/app_pages.dart';
+import 'core/preferences/preference_manger.dart';
+import 'core/resources/translation/app_locale.dart';
 
 void main() async {
   final appConfig = AppConfig();
@@ -14,25 +16,27 @@ void main() async {
     themeConfig: AppThemeConfig(),
     appConfig: appConfig,
   );
-  await Playx.runPlayX(
-    appConfig: appConfig,
-    app: PlayXThemeBuilder(
+
+  runApp(
+    PlayXThemeBuilder(
       builder: (xTheme) {
-        final selectedLang = Prefs.getString('lang') ?? 'en';
+        final selectedLang =
+            MyPreferenceManger.instance.getAppSelectedLanguage();
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
         ]);
         return GetMaterialApp(
+          useInheritedMediaQuery: true,
           debugShowCheckedModeBanner: false,
-          title: "Application",
-          initialRoute: AppPages.INITIAL,
+          initialRoute: AppPages.initial,
           getPages: AppPages.routes,
           theme: xTheme.theme,
           locale: Get.locale ?? Locale(selectedLang),
-          translations: AppTrans(),
+          fallbackLocale: const Locale(AppLocale.englishLanguage),
+          translations: AppLocale(),
+          title: appConfig.appTitle,
         );
       },
     ),
   );
-  // await Prefs.clear();
 }
