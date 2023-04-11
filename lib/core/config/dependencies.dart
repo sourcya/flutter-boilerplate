@@ -21,12 +21,9 @@ Future<void> boot() async {
     options.dsn = Keys.sentryKey;
   });
 
-  final preferenceManger = MyPreferenceManger();
-  Get.put<MyPreferenceManger>(preferenceManger);
-
+  final preferenceManger = Get.put<MyPreferenceManger>(MyPreferenceManger());
   final Dio dio = DioClient.createDioClient();
   final ApiClient client = ApiClient(dio, preferenceManger);
   Get.put<ApiClient>(client);
-
   Get.put<AppNavigation>(AppNavigation());
 }
