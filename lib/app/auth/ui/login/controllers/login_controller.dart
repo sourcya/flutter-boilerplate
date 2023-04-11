@@ -43,9 +43,9 @@ class LoginController extends GetxController {
         isLoading.value = false;
         appNavigation.navigateFromLoginToHome();
       },
-      error: (NetworkExceptions exception) {
+      error: (NetworkException exception) {
         isLoading.value = false;
-        Alert.error(message: NetworkExceptions.getErrorMessage(exception));
+        Alert.error(message: exception.getMessage());
       },
     );
   }

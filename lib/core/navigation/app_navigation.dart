@@ -28,4 +28,8 @@ class AppNavigation {
   void navigateFromRegisterToHome() {
     Get.offAllNamed(Routes.HOME);
   }
+
+  void navigateToSplash() {
+    Get.offAllNamed(Routes.SPLASH);
+  }
 }

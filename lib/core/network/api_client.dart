@@ -1,84 +1,75 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_boilerplate/core/network/api_handler.dart';
 import 'package:playx/playx.dart' hide Response;
 
-import '../preferences/preference_manger.dart';
-import 'models/network_exception.dart';
+import 'dio_client.dart';
 import 'models/network_result.dart';
+
+typedef JsonMapper<T> = T Function(Map<String, dynamic> json);
 
 /// wrapper around dio to handlers api calls
 class ApiClient {
-  final Dio dio;
-  final MyPreferenceManger preferenceManger;
-  ApiClient(this.dio, this.preferenceManger);
+  late DioClient dioClient;
 
-  NetworkResult<T> handleNetworkResult<T>(
-    Response response,
-    Function(Map<String, dynamic> json) fromJson,
-  ) {
-    final correctCodes = [
-      200,
-      201,
-    ];
-
-    if (response.statusCode == HttpStatus.badRequest ||
-        !correctCodes.contains(response.statusCode)) {
-      final NetworkExceptions exception =
-          NetworkExceptions.handleResponse(response);
-      return NetworkResult.error(exception);
-    } else {
-      if (response.isBlank ?? true) {
-        return const NetworkResult.error(NetworkExceptions.emptyResponse());
-      } else {
-        final json = response.data as Map<String, dynamic>?;
-        final data = json != null ? fromJson(json) : null;
-        if (data == null) {
-          return const NetworkResult.error(NetworkExceptions.emptyResponse());
-        } else {
-          if (data is T) {
-            return NetworkResult.success(data);
-          } else {
-            return const NetworkResult.error(NetworkExceptions.emptyResponse());
-          }
-        }
-      }
-    }
+  ApiClient(Dio dio) {
+    dioClient = DioClient(dio);
   }
 
   /// sends a [GET] request to the given [url]
+  /// and returns object of Type [T] not list
   Future<NetworkResult<T>> get<T>(
     String path, {
     Map<String, dynamic> headers = const {},
     Map<String, dynamic> query = const {},
     bool attachToken = true,
-    required Function(Map<String, dynamic> json) fromJson,
+    CancelToken? cancelToken,
+    required JsonMapper<T> fromJson,
   }) async {
     try {
-      final res = await dio.get(
+      final res = await dioClient.get(
         path,
-        queryParameters: query,
-        options: Options(
-          headers: {
-            // 'accept-lang': Lang.current.languageCode,
-
-            if (attachToken && preferenceManger.token != null)
-              'authorization': 'Bearer ${preferenceManger.token}',
-            ...headers,
-          },
-        ),
+        headers: headers,
+        query: query,
+        attachToken: attachToken,
+        cancelToken: cancelToken,
       );
-      return handleNetworkResult(res, fromJson);
-    } catch (e) {
-      if (kDebugMode) printError(info: e.toString());
-
-      return const NetworkResult.error(
-        NetworkExceptions.unexpectedError(),
-      );
+      return ApiHandler.handleNetworkResult(res, fromJson);
+      // ignore: avoid_catches_without_on_clauses
+    } catch (error) {
+      if (kDebugMode) printError(info: error.toString());
+      return ApiHandler.handleDioException(error);
     }
   }
 
+  /// sends a [GET] request to the given [url]
+  /// and returns List<object> of Type [T] not object
+  Future<NetworkResult<List<T>>> getList<T>(
+    String path, {
+    Map<String, dynamic> headers = const {},
+    Map<String, dynamic> query = const {},
+    bool attachToken = true,
+    CancelToken? cancelToken,
+    required JsonMapper<T> fromJson,
+  }) async {
+    try {
+      final res = await dioClient.get(
+        path,
+        headers: headers,
+        query: query,
+        attachToken: attachToken,
+        cancelToken: cancelToken,
+      );
+      return ApiHandler.handleNetworkResultForList(res, fromJson);
+      // ignore: avoid_catches_without_on_clauses
+    } catch (error) {
+      if (kDebugMode) printError(info: error.toString());
+      return ApiHandler.handleDioException(error);
+    }
+  }
+
+  /// sends a [POST] request to the given [url]
+  /// and returns object of Type [T] not list
   Future<NetworkResult<T>> post<T>(
     String path, {
     Object body = const {},
@@ -86,32 +77,59 @@ class ApiClient {
     Map<String, dynamic> query = const {},
     String? contentType,
     bool attachToken = true,
-    required Function(Map<String, dynamic> json) fromJson,
+    CancelToken? cancelToken,
+    required JsonMapper<T> fromJson,
   }) async {
     try {
-      final res = await dio.post(
+      final res = await dioClient.post(
         path,
-        data: body,
-        queryParameters: query,
-        options: Options(
-          headers: {
-            // 'accept-lang': Lang.current.languageCode,
-            if (attachToken && preferenceManger.token != null)
-              'authorization': 'Bearer ${preferenceManger.token}',
-            ...headers,
-          },
-          contentType: contentType,
-        ),
+        body: body,
+        headers: headers,
+        query: query,
+        contentType: contentType,
+        attachToken: attachToken,
+        cancelToken: cancelToken,
       );
-      return handleNetworkResult(res, fromJson);
-    } catch (e) {
-      if (kDebugMode) printError(info: e.toString());
-      return const NetworkResult.error(
-        NetworkExceptions.unexpectedError(),
-      );
+      return ApiHandler.handleNetworkResult(res, fromJson);
+      // ignore: avoid_catches_without_on_clauses
+    } catch (error) {
+      if (kDebugMode) printError(info: error.toString());
+      return ApiHandler.handleDioException(error);
     }
   }
 
+  /// sends a [POST] request to the given [url]
+  /// and returns List<object> of Type [T] not object
+  Future<NetworkResult<List<T>>> postList<T>(
+    String path, {
+    Object body = const {},
+    Map<String, dynamic> headers = const {},
+    Map<String, dynamic> query = const {},
+    String? contentType,
+    bool attachToken = true,
+    CancelToken? cancelToken,
+    required JsonMapper<T> fromJson,
+  }) async {
+    try {
+      final res = await dioClient.post(
+        path,
+        body: body,
+        headers: headers,
+        query: query,
+        contentType: contentType,
+        attachToken: attachToken,
+        cancelToken: cancelToken,
+      );
+      return ApiHandler.handleNetworkResultForList(res, fromJson);
+      // ignore: avoid_catches_without_on_clauses
+    } catch (error) {
+      if (kDebugMode) printError(info: error.toString());
+      return ApiHandler.handleDioException(error);
+    }
+  }
+
+  /// sends a [DELETE] request to the given [url]
+  /// and returns object of Type [T] not list
   Future<NetworkResult<T>> delete<T>(
     String path, {
     Object body = const {},
@@ -119,33 +137,59 @@ class ApiClient {
     Map<String, dynamic> query = const {},
     String? contentType,
     bool attachToken = true,
-    required Function(Map<String, dynamic> json) fromJson,
+    CancelToken? cancelToken,
+    required JsonMapper<T> fromJson,
   }) async {
     try {
-      final res = await dio.delete(
+      final res = await dioClient.delete(
         path,
-        data: body,
-        queryParameters: query,
-        options: Options(
-          headers: {
-            // 'accept-lang': Lang.current.languageCode,
-            if (attachToken && preferenceManger.token != null)
-              'authorization': 'Bearer ${preferenceManger.token}',
-            ...headers,
-          },
-          contentType: contentType,
-        ),
+        body: body,
+        headers: headers,
+        query: query,
+        contentType: contentType,
+        attachToken: attachToken,
+        cancelToken: cancelToken,
       );
-      return handleNetworkResult(res, fromJson);
-    } catch (e) {
-      if (kDebugMode) printError(info: e.toString());
-
-      return const NetworkResult.error(
-        NetworkExceptions.unexpectedError(),
-      );
+      return ApiHandler.handleNetworkResult(res, fromJson);
+      // ignore: avoid_catches_without_on_clauses
+    } catch (error) {
+      if (kDebugMode) printError(info: error.toString());
+      return ApiHandler.handleDioException(error);
     }
   }
 
+  /// sends a [DELETE] request to the given [url]
+  /// and returns List<object> of Type [T] not object
+  Future<NetworkResult<List<T>>> deleteList<T>(
+    String path, {
+    Object body = const {},
+    Map<String, dynamic> headers = const {},
+    Map<String, dynamic> query = const {},
+    String? contentType,
+    bool attachToken = true,
+    CancelToken? cancelToken,
+    required JsonMapper<T> fromJson,
+  }) async {
+    try {
+      final res = await dioClient.delete(
+        path,
+        body: body,
+        headers: headers,
+        query: query,
+        contentType: contentType,
+        attachToken: attachToken,
+        cancelToken: cancelToken,
+      );
+      return ApiHandler.handleNetworkResultForList(res, fromJson);
+      // ignore: avoid_catches_without_on_clauses
+    } catch (error) {
+      if (kDebugMode) printError(info: error.toString());
+      return ApiHandler.handleDioException(error);
+    }
+  }
+
+  /// sends a [PUT] request to the given [url]
+  /// and returns object of Type [T] not list
   Future<NetworkResult<T>> put<T>(
     String path, {
     Object body = const {},
@@ -153,29 +197,54 @@ class ApiClient {
     Map<String, dynamic> query = const {},
     String? contentType,
     bool attachToken = true,
-    required Function(Map<String, dynamic> json) fromJson,
+    CancelToken? cancelToken,
+    required JsonMapper<T> fromJson,
   }) async {
     try {
-      final res = await dio.put(
+      final res = await dioClient.put(
         path,
-        data: body,
-        queryParameters: query,
-        options: Options(
-          headers: {
-            // 'accept-lang': Lang.current.languageCode,
-            if (attachToken && preferenceManger.token != null)
-              'authorization': 'Bearer ${preferenceManger.token}',
-            ...headers,
-          },
-          contentType: contentType,
-        ),
+        body: body,
+        headers: headers,
+        query: query,
+        contentType: contentType,
+        attachToken: attachToken,
+        cancelToken: cancelToken,
       );
-      return handleNetworkResult(res, fromJson);
-    } catch (e) {
-      if (kDebugMode) printError(info: e.toString());
-      return const NetworkResult.error(
-        NetworkExceptions.unexpectedError(),
+      return ApiHandler.handleNetworkResult(res, fromJson);
+      // ignore: avoid_catches_without_on_clauses
+    } catch (error) {
+      if (kDebugMode) printError(info: error.toString());
+      return ApiHandler.handleDioException(error);
+    }
+  }
+
+  /// sends a [PUT] request to the given [url]
+  /// and returns List<object> of Type [T] not object
+  Future<NetworkResult<List<T>>> putList<T>(
+    String path, {
+    Object body = const {},
+    Map<String, dynamic> headers = const {},
+    Map<String, dynamic> query = const {},
+    String? contentType,
+    bool attachToken = true,
+    CancelToken? cancelToken,
+    required JsonMapper<T> fromJson,
+  }) async {
+    try {
+      final res = await dioClient.put(
+        path,
+        body: body,
+        headers: headers,
+        query: query,
+        contentType: contentType,
+        attachToken: attachToken,
+        cancelToken: cancelToken,
       );
+      return ApiHandler.handleNetworkResultForList(res, fromJson);
+      // ignore: avoid_catches_without_on_clauses
+    } catch (error) {
+      if (kDebugMode) printError(info: error.toString());
+      return ApiHandler.handleDioException(error);
     }
   }
 }
