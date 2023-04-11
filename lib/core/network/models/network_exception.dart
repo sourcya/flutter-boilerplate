@@ -104,7 +104,7 @@ class NetworkExceptions with _$NetworkExceptions {
     }
   }
 
-  static NetworkExceptions getDioException(error) {
+  static NetworkExceptions getDioException(dynamic error) {
     if (error is Exception) {
       try {
         NetworkExceptions networkExceptions =
