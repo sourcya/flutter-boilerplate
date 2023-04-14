@@ -30,6 +30,6 @@ class HomeController extends GetxController
 
   Future<void> signOut() async {
     await preferenceManger.signOut();
-    appNavigation.navigateFormSplashToLogin();
+    appNavigation.navigateFormSplashToHome();
   }
 }

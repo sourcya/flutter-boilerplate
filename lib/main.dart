@@ -10,8 +10,9 @@ import 'core/preferences/preference_manger.dart';
 import 'core/resources/translation/app_locale.dart';
 
 void main() async {
-  final appConfig = AppConfig();
   await boot();
+  final appConfig = AppConfig();
+
   await Playx.boot(
     themeConfig: AppThemeConfig(),
     appConfig: appConfig,
