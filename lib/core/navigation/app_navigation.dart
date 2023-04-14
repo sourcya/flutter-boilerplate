@@ -5,8 +5,8 @@ import 'app_routes.dart';
 class AppNavigation {
   static AppNavigation get instance => Get.find<AppNavigation>();
 
-  void navigateFormSplashToLogin() {
-    Get.offAllNamed(Routes.LOGIN);
+  void navigateFormSplashToHome() {
+    Get.offAllNamed(Routes.HOME);
   }
 
   void navigateFromSplashToHome() {
@@ -27,5 +27,9 @@ class AppNavigation {
 
   void navigateFromRegisterToHome() {
     Get.offAllNamed(Routes.HOME);
+  }
+
+  void navigateToSplash() {
+    Get.offAllNamed(Routes.SPLASH);
   }
 }

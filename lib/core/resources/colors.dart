@@ -11,7 +11,7 @@ class AppColors {
   static const Color appBarLight = blueMain;
 
   static const Color onPrimaryLight = white;
-  static const Color onSecondaryLight = black;
+  static const Color onSecondaryLight = white;
   static const Color onBackgroundLight = black;
   static const Color onSurfaceLight = black;
   static const Color onErrorLight = white;
@@ -58,6 +58,8 @@ class AppColors {
   static const Color pinkDark = Color(0xFF8F6A6A);
 
   static const Color grey = Color(0xFFA9A9A9);
+  static const Color greyLight = Color(0xFFA6A6A6);
+
   static const Color pinkLight = Color(0xFFFA2A70);
 
   static const Color orange = Color(0xFFd65a2e);

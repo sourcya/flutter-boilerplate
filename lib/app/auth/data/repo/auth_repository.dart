@@ -52,10 +52,10 @@ class AuthRepository {
             await preferenceManger.saveUser(user);
           }
         } else {
-          return const NetworkResult.error(NetworkExceptions.emptyResponse());
+          return NetworkResult.error(EmptyResponseException());
         }
       },
-      error: (NetworkExceptions exception) {},
+      error: (NetworkException exception) {},
     );
 
     return result;
