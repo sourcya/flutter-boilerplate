@@ -19,19 +19,19 @@ mixin _$NetworkResult<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(NetworkExceptions exception) error,
+    required TResult Function(NetworkException exception) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
-    TResult? Function(NetworkExceptions exception)? error,
+    TResult? Function(NetworkException exception)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(NetworkExceptions exception)? error,
+    TResult Function(NetworkException exception)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -140,7 +140,7 @@ class _$Success<T> implements Success<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(NetworkExceptions exception) error,
+    required TResult Function(NetworkException exception) error,
   }) {
     return success(data);
   }
@@ -149,7 +149,7 @@ class _$Success<T> implements Success<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
-    TResult? Function(NetworkExceptions exception)? error,
+    TResult? Function(NetworkException exception)? error,
   }) {
     return success?.call(data);
   }
@@ -158,7 +158,7 @@ class _$Success<T> implements Success<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(NetworkExceptions exception)? error,
+    TResult Function(NetworkException exception)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -213,9 +213,7 @@ abstract class _$$ErrorCopyWith<T, $Res> {
   factory _$$ErrorCopyWith(_$Error<T> value, $Res Function(_$Error<T>) then) =
       __$$ErrorCopyWithImpl<T, $Res>;
   @useResult
-  $Res call({NetworkExceptions exception});
-
-  $NetworkExceptionsCopyWith<$Res> get exception;
+  $Res call({NetworkException exception});
 }
 
 /// @nodoc
@@ -234,16 +232,8 @@ class __$$ErrorCopyWithImpl<T, $Res>
       null == exception
           ? _value.exception
           : exception // ignore: cast_nullable_to_non_nullable
-              as NetworkExceptions,
+              as NetworkException,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $NetworkExceptionsCopyWith<$Res> get exception {
-    return $NetworkExceptionsCopyWith<$Res>(_value.exception, (value) {
-      return _then(_value.copyWith(exception: value));
-    });
   }
 }
 
@@ -253,7 +243,7 @@ class _$Error<T> implements Error<T> {
   const _$Error(this.exception);
 
   @override
-  final NetworkExceptions exception;
+  final NetworkException exception;
 
   @override
   String toString() {
@@ -282,7 +272,7 @@ class _$Error<T> implements Error<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(NetworkExceptions exception) error,
+    required TResult Function(NetworkException exception) error,
   }) {
     return error(exception);
   }
@@ -291,7 +281,7 @@ class _$Error<T> implements Error<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
-    TResult? Function(NetworkExceptions exception)? error,
+    TResult? Function(NetworkException exception)? error,
   }) {
     return error?.call(exception);
   }
@@ -300,7 +290,7 @@ class _$Error<T> implements Error<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(NetworkExceptions exception)? error,
+    TResult Function(NetworkException exception)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -342,9 +332,9 @@ class _$Error<T> implements Error<T> {
 }
 
 abstract class Error<T> implements NetworkResult<T> {
-  const factory Error(final NetworkExceptions exception) = _$Error<T>;
+  const factory Error(final NetworkException exception) = _$Error<T>;
 
-  NetworkExceptions get exception;
+  NetworkException get exception;
   @JsonKey(ignore: true)
   _$$ErrorCopyWith<T, _$Error<T>> get copyWith =>
       throw _privateConstructorUsedError;

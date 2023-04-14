@@ -8,5 +8,5 @@ part 'network_result.freezed.dart';
 abstract class NetworkResult<T> with _$NetworkResult<T> {
   const factory NetworkResult.success(T data) = Success<T>;
 
-  const factory NetworkResult.error(NetworkExceptions exception) = Error<T>;
+  const factory NetworkResult.error(NetworkException exception) = Error<T>;
 }

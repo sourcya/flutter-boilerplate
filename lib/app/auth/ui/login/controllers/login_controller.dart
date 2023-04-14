@@ -11,27 +11,45 @@ import '../../../data/models/api_user.dart';
 import '../../../data/repo/auth_repository.dart';
 
 class LoginController extends GetxController {
-  final isLoading = false.obs;
-  final hidePassword = true.obs;
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
   final authRepository = AuthRepository();
   final AppNavigation appNavigation = AppNavigation.instance;
 
-  final formKey = GlobalKey<FormState>();
+  final isLoading = false.obs;
+  final hidePassword = true.obs;
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final isEmailValid = false.obs;
+  final isPasswordValid = false.obs;
+
+  final isFormValid = false.obs;
 
   @override
   void onInit() {
     if (kDebugMode) {
       emailController.text = 'bbbb@mail.com';
       passwordController.text = '123456';
+      isEmailValid.value = true;
+      isPasswordValid.value = true;
+      isFormValid.value = true;
     }
     super.onInit();
+    listenToValidationState();
+  }
+
+  void listenToValidationState() {
+    everAll([
+      isEmailValid,
+      isPasswordValid,
+    ], (callback) {
+      final isValid = isEmailValid.value && isPasswordValid.value;
+      isFormValid.value = isValid;
+    });
   }
 
   Future<void> login() async {
-    final formState = formKey.currentState;
-    if (formState == null || !formState.validate()) return;
+    if (!isFormValid()) return;
     isLoading.value = true;
 
     final result = await authRepository.login(
@@ -43,14 +61,20 @@ class LoginController extends GetxController {
         isLoading.value = false;
         appNavigation.navigateFromLoginToHome();
       },
-      error: (NetworkExceptions exception) {
+      error: (NetworkException exception) {
         isLoading.value = false;
-        Alert.error(message: NetworkExceptions.getErrorMessage(exception));
+        Alert.error(message: exception.getMessage());
       },
     );
   }
 
   void navigateToRegister() {
     appNavigation.navigateFromLoginToRegister();
+  }
+
+  @override
+  void onClose() {
+    emailController.dispose();
+    passwordController.dispose();
   }
 }
