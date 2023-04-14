@@ -11,7 +11,7 @@ class SplashController extends GetxController {
     twoSeconds().then((_) {
       isUserLoggedIn
           ? AppNavigation.instance.navigateFromSplashToHome()
-          : AppNavigation.instance.navigateFormSplashToLogin();
+          : AppNavigation.instance.navigateFormSplashToHome();
     });
     super.onInit();
   }
