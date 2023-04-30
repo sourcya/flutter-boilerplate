@@ -6,6 +6,9 @@ import 'package:get/get.dart';
 
 import '../resources/colors.dart';
 
+///This class provides custom alerts for the app
+///like green snackbar like for successful alerts
+///and red ones for errors.
 abstract class Alert {
   Alert._();
 

@@ -6,7 +6,7 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 import '../navigation/app_navigation.dart';
 import '../network/api_client.dart';
-import '../network/dio_client.dart';
+import '../network/dio/dio_client.dart';
 import '../preferences/preference_manger.dart';
 import 'keys.dart';
 

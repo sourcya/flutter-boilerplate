@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:playx/playx.dart';
 
-import 'core/config/app.dart';
+import 'core/config/app_config.dart';
 import 'core/config/dependencies.dart';
-import 'core/config/theme.dart';
 import 'core/navigation/app_pages.dart';
 import 'core/preferences/preference_manger.dart';
+import 'core/resources/theme/theme.dart';
 import 'core/resources/translation/app_locale.dart';
 
 void main() async {

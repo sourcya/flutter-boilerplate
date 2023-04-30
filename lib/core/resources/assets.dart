@@ -1,3 +1,4 @@
+///This class is responsible for providing asset's items paths.
 class AppAssets {
   AppAssets._();
 

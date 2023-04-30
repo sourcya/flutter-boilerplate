@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
 
-import '../../../../core/config/endpoints.dart';
 import '../../../../core/network/api_client.dart';
+import '../../../../core/network/endpoints/endpoints.dart';
 import '../../../../core/network/models/network_result.dart';
 import '../models/api_user.dart';
 
+///This class is responsible of retrieving data from the network.
 class RemoteAuthDataSource {
   static final RemoteAuthDataSource _instance =
       RemoteAuthDataSource._internal();

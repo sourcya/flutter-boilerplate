@@ -1,5 +1,3 @@
-import 'package:flutter_boilerplate/app/select_language/ui/bindings/select_language_binding.dart';
-import 'package:flutter_boilerplate/app/select_language/ui/views/select_language_view.dart';
 import 'package:get/get.dart';
 
 import '../../app/auth/ui/login/bindings/login_binding.dart';
@@ -8,10 +6,13 @@ import '../../app/auth/ui/register/bindings/register_binding.dart';
 import '../../app/auth/ui/register/views/register_view.dart';
 import '../../app/home/ui/bindings/home_binding.dart';
 import '../../app/home/ui/views/home_view.dart';
+import '../../app/select_language/ui/bindings/select_language_binding.dart';
+import '../../app/select_language/ui/views/select_language_view.dart';
 import '../../app/splash/ui/bindings/splash_binding.dart';
 import '../../app/splash/ui/views/splash_view.dart';
 import 'app_routes.dart';
 
+/// contains all possible routes for the application.
 class AppPages {
   AppPages._();
 

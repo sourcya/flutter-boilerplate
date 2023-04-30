@@ -1,6 +1,7 @@
 import 'package:queen_validators/queen_validators.dart';
 
-/// checks if the input is match other string
+/// Match Validator for text fields
+/// checks if the input matches other string
 class AreEqual extends TextValidationRule {
   final String Function() other;
   bool caseSensitive;

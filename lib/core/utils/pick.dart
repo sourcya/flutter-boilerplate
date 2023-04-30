@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-// handle picking process (date,time,image,location...etc)
 
+/// Handle picking process (date,time,image,location...etc)
 abstract class Pick {
   Future<DateTime?> date(
     BuildContext context, {
-
     /// if null will use `DateTime.now()`
     DateTime? initialDate,
 

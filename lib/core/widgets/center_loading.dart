@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+///Widget that displays a simple circle indicator like in ios
 class CenterLoading extends StatelessWidget {
   final Color? color;
   const CenterLoading({

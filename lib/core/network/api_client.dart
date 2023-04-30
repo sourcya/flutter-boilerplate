@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_boilerplate/core/network/api_handler.dart';
 import 'package:playx/playx.dart' hide Response;
 
-import 'dio_client.dart';
+import 'dio/dio_client.dart';
+import 'handler/api_handler.dart';
 import 'models/network_result.dart';
 
 typedef JsonMapper<T> = T Function(Map<String, dynamic> json);

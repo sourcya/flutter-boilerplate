@@ -3,20 +3,22 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../resources/colors.dart';
 
+/// Widget that shows an icon from icon data, svg, image or text.
 class IconViewer extends StatelessWidget {
-  IconData? icon;
-  String? svgIcon;
-  String? iconImage;
-  String? text;
-  Key? key;
-  bool isSelected;
-  Color? iconColor;
-  Color? iconBackgroundColor;
-  Color? selectedIconColor;
-  Color? selectedIconBackgroundColor;
-  BoxFit fit;
+  final IconData? icon;
+  final String? svgIcon;
+  final String? iconImage;
+  final String? text;
+  final bool isSelected;
+  final Color? iconColor;
+  final Color? iconBackgroundColor;
+  final Color? selectedIconColor;
+  final Color? selectedIconBackgroundColor;
+  final BoxFit fit;
+  final double width;
+  final double height;
 
-  IconViewer({
+  const IconViewer({
     this.icon,
     this.svgIcon,
     this.iconImage,
@@ -25,9 +27,11 @@ class IconViewer extends StatelessWidget {
     this.iconBackgroundColor = AppColors.secondaryLight,
     this.selectedIconColor,
     this.selectedIconBackgroundColor,
-    this.key,
+    super.key,
     this.isSelected = false,
     this.fit = BoxFit.scaleDown,
+    this.width = 40,
+    this.height = 40,
   });
 
   @override
@@ -35,8 +39,8 @@ class IconViewer extends StatelessWidget {
     if (icon != null) {
       return isSelected
           ? Container(
-              width: 40,
-              height: 40,
+              width: width,
+              height: height,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: selectedIconBackgroundColor,
@@ -49,8 +53,8 @@ class IconViewer extends StatelessWidget {
               ),
             )
           : Container(
-              width: 40,
-              height: 40,
+              width: width,
+              height: height,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: iconBackgroundColor,
@@ -64,8 +68,8 @@ class IconViewer extends StatelessWidget {
     } else if (svgIcon != null) {
       return isSelected
           ? Container(
-              width: fit == BoxFit.cover ? null : 40,
-              height: fit == BoxFit.cover ? null : 40,
+              width: fit == BoxFit.cover ? null : width,
+              height: fit == BoxFit.cover ? null : height,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: selectedIconBackgroundColor,
@@ -86,8 +90,8 @@ class IconViewer extends StatelessWidget {
               ),
             )
           : Container(
-              width: fit == BoxFit.cover ? null : 40,
-              height: fit == BoxFit.cover ? null : 40,
+              width: fit == BoxFit.cover ? null : width,
+              height: fit == BoxFit.cover ? null : height,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: iconBackgroundColor,
@@ -109,8 +113,8 @@ class IconViewer extends StatelessWidget {
     } else if (iconImage != null) {
       return isSelected
           ? Container(
-              width: 40,
-              height: 40,
+              width: width,
+              height: height,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: selectedIconBackgroundColor,
@@ -129,8 +133,8 @@ class IconViewer extends StatelessWidget {
     } else if (text != null) {
       return isSelected
           ? Container(
-              width: 40,
-              height: 40,
+              width: width,
+              height: height,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: selectedIconBackgroundColor,
@@ -146,8 +150,8 @@ class IconViewer extends StatelessWidget {
               ),
             )
           : Container(
-              width: 40,
-              height: 40,
+              width: width,
+              height: height,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: iconBackgroundColor,
