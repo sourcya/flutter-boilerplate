@@ -1,11 +1,11 @@
-import 'package:flutter_boilerplate/app/auth/data/data_sources/remote_auth_data_source.dart';
-import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
-
 import '../../../../core/network/models/network_exception.dart';
 import '../../../../core/network/models/network_result.dart';
+import '../../../../core/preferences/preference_manger.dart';
+import '../data_sources/remote_auth_data_source.dart';
 import '../models/api_user.dart';
 import '../models/user.dart';
 
+/// This is the repository where we should handle the data and return it to the controller.
 class AuthRepository {
   RemoteAuthDataSource remoteDataSource = RemoteAuthDataSource();
   MyPreferenceManger preferenceManger = MyPreferenceManger.instance;

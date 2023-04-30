@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/utils/alert.dart';
-import 'package:flutter_boilerplate/core/widgets/no_data_widget.dart';
-import 'package:flutter_boilerplate/core/widgets/no_internet_widget.dart';
-import 'package:get/get.dart';
 import 'package:playx/exports.dart';
 
-import '../../../../../core/config/theme.dart';
 import '../../../../core/navigation/app_routes.dart';
+import '../../../../core/utils/alert.dart';
+import '../../../../core/widgets/no_data_widget.dart';
+import '../../../../core/widgets/no_internet_widget.dart';
 import '../controllers/home_controller.dart';
 
+/// home screen widget.
 class HomeView extends GetView<HomeController> {
   const HomeView({
     super.key,
@@ -24,6 +23,7 @@ class HomeView extends GetView<HomeController> {
         physics: const NeverScrollableScrollPhysics(),
         controller: controller.tabC,
         children: [
+          //page1
           ColoredBox(
             color: Colors.green,
             child: Column(
@@ -40,12 +40,14 @@ class HomeView extends GetView<HomeController> {
               ],
             ),
           ),
+          //page2
           ColoredBox(
-            color: AppThemeConfig.getColorScheme(context).background,
-            child: NoDataAnimation(),
+            color: context.colorScheme.background,
+            child: const NoDataAnimation(),
           ),
+          //page3
           ColoredBox(
-            color: AppThemeConfig.getColorScheme(context).background,
+            color: context.colorScheme.background,
             child: NoInternetAnimation(
               onRetryClicked: () {
                 Alert.error(message: "Netowrk");
@@ -59,10 +61,9 @@ class HomeView extends GetView<HomeController> {
           return BottomNavigationBar(
             currentIndex: c.tabC.index,
             onTap: c.onTapTab,
-            selectedItemColor: AppThemeConfig.getColorScheme(context).secondary,
-            unselectedItemColor:
-                AppThemeConfig.getColorScheme(context).onBackground,
-            backgroundColor: AppThemeConfig.getColorScheme(context).background,
+            selectedItemColor: context.colorScheme.secondary,
+            unselectedItemColor: context.colorScheme.onBackground,
+            backgroundColor: context.colorScheme.background,
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),

@@ -3,6 +3,7 @@ import 'package:playx/playx.dart';
 
 import '../controllers/home_controller.dart';
 
+//drawer widget
 class HomeDrawer extends GetView<HomeController> {
   const HomeDrawer({super.key});
 

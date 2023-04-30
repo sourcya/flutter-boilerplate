@@ -1,5 +1,7 @@
 import 'message.dart';
 
+///api error model that can be received from network response.
+///can be updated based on the response.
 class ApiError {
   int? statusCode;
   String? error;

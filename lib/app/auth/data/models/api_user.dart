@@ -1,5 +1,6 @@
 import 'user.dart';
 
+/// Api user model.
 class ApiUser {
   String? jwt;
   User? user;

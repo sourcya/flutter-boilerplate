@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/config/theme.dart';
-import 'package:flutter_boilerplate/core/widgets/app_version.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../core/resources/translation/app_translations.dart';
+import '../../../../core/widgets/app_version.dart';
 import '../controllers/splash_controller.dart';
 
+//splash screen.
 class SplashView extends GetView<SplashController> {
   const SplashView({super.key});
 
@@ -26,7 +24,7 @@ class SplashView extends GetView<SplashController> {
                 AppTrans.appName.tr,
                 style: TextStyle(
                   fontSize: 30,
-                  color: AppThemeConfig.getColorScheme(context).onBackground,
+                  color: context.colorScheme.onBackground,
                 ),
               ),
             ),
@@ -42,7 +40,7 @@ class SplashView extends GetView<SplashController> {
               child: AppVersion(
                 textStyle: TextStyle(
                   fontSize: 13,
-                  color: AppThemeConfig.getColorScheme(context).secondary,
+                  color: context.colorScheme.secondary,
                 ),
               ),
             ),

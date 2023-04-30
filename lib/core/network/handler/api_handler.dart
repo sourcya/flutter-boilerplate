@@ -1,17 +1,19 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_boilerplate/core/network/models/network_exception.dart';
 import 'package:get/get_utils/get_utils.dart';
 
-import '../navigation/app_navigation.dart';
-import '../preferences/preference_manger.dart';
-import 'api_client.dart';
-import 'models/api_error.dart';
-import 'models/message.dart';
-import 'models/network_result.dart';
+import '../../navigation/app_navigation.dart';
+import '../../preferences/preference_manger.dart';
+import '../api_client.dart';
+import '../models/api_error.dart';
+import '../models/message.dart';
+import '../models/network_exception.dart';
+import '../models/network_result.dart';
 
 // ignore: avoid_classes_with_only_static_members
+/// This class is responsible for handling the network response and extract error from it.
+/// and return the result whether it was successful or not.
 abstract class ApiHandler {
   static Future<NetworkResult<T>> handleNetworkResult<T>(
     Response response,

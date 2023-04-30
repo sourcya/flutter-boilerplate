@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Wrapper for widgets to keep them alive and not destroy them.
 class KeepAliveWrapper extends StatefulWidget {
   final Widget child;
 

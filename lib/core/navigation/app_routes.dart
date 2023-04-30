@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+/// app routes names.
 abstract class Routes {
   static const SPLASH = '/';
   static const LOGIN = '/login';

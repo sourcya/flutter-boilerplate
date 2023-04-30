@@ -1,7 +1,7 @@
-import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../core/navigation/app_navigation.dart';
+import '../../../../core/preferences/preference_manger.dart';
 
 class SplashController extends GetxController {
   @override

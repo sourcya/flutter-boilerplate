@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import 'app_routes.dart';
 
+/// This class is responsible for handling the app navigation.
+/// for each navigation from screen to another add it here.
 class AppNavigation {
   static AppNavigation get instance => Get.find<AppNavigation>();
 

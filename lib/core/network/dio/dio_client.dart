@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../config/endpoints.dart';
-import '../preferences/preference_manger.dart';
+import '../../preferences/preference_manger.dart';
+import '../endpoints/endpoints.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class DioClient {

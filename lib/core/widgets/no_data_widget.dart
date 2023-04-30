@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_boilerplate/core/config/theme.dart';
-import 'package:flutter_boilerplate/core/resources/assets.dart';
 import 'package:lottie/lottie.dart';
 import 'package:playx/playx.dart';
 
+import '../resources/assets.dart';
 import '../resources/translation/app_translations.dart';
 
+//Widget for showing that there is no data.
 class NoDataAnimation extends StatelessWidget {
-  String? message;
-  TextStyle? textStyle;
+  final String? message;
+  final TextStyle? textStyle;
 
-  NoDataAnimation({this.message, this.textStyle});
+  const NoDataAnimation({this.message, this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class NoDataAnimation extends StatelessWidget {
           message ?? AppTrans.noDataMessage.tr,
           style: textStyle ??
               TextStyle(
-                color: AppThemeConfig.getColorScheme(context).onBackground,
+                color: context.colorScheme.onBackground,
                 fontSize: 18,
               ),
         )
