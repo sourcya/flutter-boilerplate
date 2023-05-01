@@ -11,10 +11,6 @@ class AppNavigation {
     Get.offAllNamed(Routes.HOME);
   }
 
-  void navigateFromSplashToHome() {
-    Get.offAllNamed(Routes.HOME);
-  }
-
   void navigateFromLoginToRegister() {
     Get.toNamed(Routes.REGISTER);
   }
