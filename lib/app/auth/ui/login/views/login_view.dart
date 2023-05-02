@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/config/theme.dart';
-import 'package:flutter_boilerplate/core/widgets/optimized_scroll_view.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:queen_validators/queen_validators.dart';
+import 'package:playx/exports.dart';
 
 import '../../../../../core/resources/assets.dart';
 import '../../../../../core/resources/translation/app_translations.dart';
-import '../../../../../core/widgets/center_loading.dart';
 import '../../../../../core/widgets/text_field.dart';
 import '../controllers/login_controller.dart';
 
+// login screen widget.
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
 
@@ -43,8 +40,7 @@ class LoginView extends GetView<LoginController> {
                     AppTrans.loginText.tr,
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(
-                        color:
-                            AppThemeConfig.getColorScheme(context).onBackground,
+                        color: context.colorScheme.onBackground,
                         fontSize: 40,
                       ),
                     ),
@@ -66,7 +62,7 @@ class LoginView extends GetView<LoginController> {
                     ]),
                     prefix: Icon(
                       Icons.email,
-                      color: AppThemeConfig.getColorScheme(context).secondary,
+                      color: context.colorScheme.secondary,
                     ),
                     shouldAutoValidate: true,
                     onValidationChanged: (isValid) {
@@ -96,7 +92,7 @@ class LoginView extends GetView<LoginController> {
                           controller.hidePassword.value =
                               !controller.hidePassword.value;
                         },
-                        color: AppThemeConfig.getColorScheme(context).secondary,
+                        color: context.colorScheme.secondary,
                       ),
                       validator: qValidator([
                         IsRequired(
@@ -106,7 +102,7 @@ class LoginView extends GetView<LoginController> {
                       ]),
                       prefix: Icon(
                         Icons.lock,
-                        color: AppThemeConfig.getColorScheme(context).secondary,
+                        color: context.colorScheme.secondary,
                       ),
                       shouldAutoValidate: true,
                       onValidationChanged: (isValid) {
@@ -127,7 +123,7 @@ class LoginView extends GetView<LoginController> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(
-                          AppThemeConfig.getColorScheme(context).secondary,
+                          context.colorScheme.secondary,
                         ),
                         shape: MaterialStatePropertyAll(
                           RoundedRectangleBorder(
@@ -146,16 +142,13 @@ class LoginView extends GetView<LoginController> {
                         height: context.height * 0.05,
                         child: controller.isLoading.value
                             ? CenterLoading(
-                                color: AppThemeConfig.getColorScheme(context)
-                                    .onSecondary,
+                                color: context.colorScheme.onSecondary,
                               )
                             : Center(
                                 child: Text(
                                   AppTrans.loginText.tr,
                                   style: TextStyle(
-                                    color:
-                                        AppThemeConfig.getColorScheme(context)
-                                            .onSecondary,
+                                    color: context.colorScheme.onSecondary,
                                     fontSize: 18,
                                   ),
                                 ),
@@ -174,15 +167,13 @@ class LoginView extends GetView<LoginController> {
                       text: TextSpan(
                         text: AppTrans.dontHaveAccountText.tr,
                         style: TextStyle(
-                          color: AppThemeConfig.getColorScheme(context)
-                              .onBackground,
+                          color: context.colorScheme.onBackground,
                         ),
                         children: <TextSpan>[
                           TextSpan(
                             text: AppTrans.registerNow.tr,
                             style: TextStyle(
-                              color: AppThemeConfig.getColorScheme(context)
-                                  .secondary,
+                              color: context.colorScheme.secondary,
                             ),
                           ),
                         ],

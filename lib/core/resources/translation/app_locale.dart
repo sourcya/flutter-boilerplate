@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'ar_translation.dart';
 import 'english_translation.dart';
 
+///This class is responsible for providing the translation for the app.
 class AppLocale extends Translations {
   static const String arabicLanguage = "ar";
   static const String englishLanguage = "en";

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/navigation/app_navigation.dart';
-import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/navigation/app_navigation.dart';
+import '../../../../core/preferences/preference_manger.dart';
 import '../../../auth/data/models/user.dart';
 
 class HomeController extends GetxController

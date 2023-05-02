@@ -1,10 +1,12 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:playx/exports.dart';
 
-import '../config/theme.dart';
 import '../resources/colors.dart';
 
+/// This is a custom text field to have same behavior on whole application.
+/// With ability to auto validate it's field and easily customize it.
 class CustomTextField extends StatefulWidget {
   final String? hint;
   final String? label;
@@ -129,15 +131,13 @@ class _CustomFieldState extends State<CustomTextField> {
             autofocus: widget.autofocus,
             style: TextStyle(
               fontSize: 14,
-              color: widget.textColor ??
-                  AppThemeConfig.getColorScheme(context).onBackground,
+              color: widget.textColor ?? context.colorScheme.onBackground,
             ),
             decoration: InputDecoration(
               fillColor: widget.fillColor,
               filled: widget.fillColor != null,
               labelStyle: TextStyle(
-                color: widget.labelColor ??
-                    AppThemeConfig.getColorScheme(context).secondary,
+                color: widget.labelColor ?? context.colorScheme.secondary,
                 fontSize: 14,
               ),
               hintText: widget.hint,
@@ -153,8 +153,7 @@ class _CustomFieldState extends State<CustomTextField> {
               suffixIcon: widget.suffix,
               hintStyle: TextStyle(color: widget.hintColor ?? AppColors.grey),
               floatingLabelStyle: TextStyle(
-                  color: widget.labelColor ??
-                      AppThemeConfig.getColorScheme(context).secondary,
+                  color: widget.labelColor ?? context.colorScheme.secondary,
                   fontSize: 18),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
@@ -165,7 +164,7 @@ class _CustomFieldState extends State<CustomTextField> {
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: widget.focusedBorderColor ??
-                      AppThemeConfig.getColorScheme(context).secondary,
+                      context.colorScheme.secondary,
                   // color: Colors.grey.withOpacity(0.5),
                   width: 2,
                 ),

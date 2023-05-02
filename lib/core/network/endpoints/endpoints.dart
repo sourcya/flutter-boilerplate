@@ -1,3 +1,4 @@
+/// contains network endpoints.
 abstract class Endpoints {
   static const baseUrl = "https://sourcya-connect.herokuapp.com";
 
