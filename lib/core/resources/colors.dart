@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+/// This class is responsible for providing colors for the app.
 class AppColors {
   AppColors._();
 

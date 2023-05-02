@@ -2,8 +2,10 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import '../../resources/translation/app_translations.dart';
 
+/// Whether or not it should show the error from the api response.
 const _shouldShowApiError = true;
 
+/// Base class for handling most api errors and provides suitable error messages.
 abstract class NetworkException {
   String getMessage();
 }

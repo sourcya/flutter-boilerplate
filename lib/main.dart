@@ -2,24 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:playx/playx.dart';
 
-import 'core/config/app.dart';
-import 'core/config/dependencies.dart';
-import 'core/config/theme.dart';
+import 'core/config/app_config.dart';
 import 'core/navigation/app_pages.dart';
 import 'core/preferences/preference_manger.dart';
+import 'core/resources/theme/theme.dart';
 import 'core/resources/translation/app_locale.dart';
+import 'core/resources/translation/app_translations.dart';
 
 void main() async {
-  await boot();
   final appConfig = AppConfig();
 
-  await Playx.boot(
-    themeConfig: AppThemeConfig(),
+  Playx.runPlayx(
     appConfig: appConfig,
+    themeConfig: AppThemeConfig(),
+    app: const MyApp(),
   );
+}
 
-  runApp(
-    PlayXThemeBuilder(
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return PlayXThemeBuilder(
       builder: (xTheme) {
         final selectedLang =
             MyPreferenceManger.instance.getAppSelectedLanguage();
@@ -35,9 +40,9 @@ void main() async {
           locale: Get.locale ?? Locale(selectedLang),
           fallbackLocale: const Locale(AppLocale.englishLanguage),
           translations: AppLocale(),
-          title: appConfig.appTitle,
+          title: AppTrans.appName.tr,
         );
       },
-    ),
-  );
+    );
+  }
 }

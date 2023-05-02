@@ -10,6 +10,7 @@ import '../../../../../core/utils/alert.dart';
 import '../../../data/models/api_user.dart';
 import '../../../data/repo/auth_repository.dart';
 
+///Login controller to setup data to the ui.
 class LoginController extends GetxController {
   final authRepository = AuthRepository();
   final AppNavigation appNavigation = AppNavigation.instance;

@@ -1,21 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/config/theme.dart';
-import 'package:flutter_boilerplate/core/resources/assets.dart';
 import 'package:lottie/lottie.dart';
 import 'package:playx/playx.dart';
 
+import '../resources/assets.dart';
 import '../resources/translation/app_translations.dart';
 
-// ignore: must_be_immutable
+/// Widget for showing there's no internet connection.
 class NoInternetAnimation extends StatelessWidget {
-  String? message;
-  TextStyle? textStyle;
-  TextStyle? retryTextStyle;
-  ButtonStyle? retryButtonStyle;
-  VoidCallback onRetryClicked;
+  final String? message;
+  final TextStyle? textStyle;
+  final TextStyle? retryTextStyle;
+  final ButtonStyle? retryButtonStyle;
+  final VoidCallback onRetryClicked;
 
-  NoInternetAnimation(
+  const NoInternetAnimation(
       {this.message,
       this.textStyle,
       this.retryTextStyle,
@@ -34,7 +32,7 @@ class NoInternetAnimation extends StatelessWidget {
           message ?? AppTrans.noInternetMessage.tr,
           style: textStyle ??
               TextStyle(
-                color: AppThemeConfig.getColorScheme(context).onBackground,
+                color: context.colorScheme.onBackground,
                 fontSize: 18,
               ),
         ),
@@ -48,7 +46,7 @@ class NoInternetAnimation extends StatelessWidget {
             AppTrans.retryText.tr,
             style: retryTextStyle ??
                 TextStyle(
-                  color: AppThemeConfig.getColorScheme(context).onPrimary,
+                  color: context.colorScheme.onPrimary,
                   fontSize: 14,
                 ),
           ),
