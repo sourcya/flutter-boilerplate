@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../core/resources/translation/app_translations.dart';
-import '../../../../core/widgets/app_version.dart';
 import '../controllers/splash_controller.dart';
 
 //splash screen.
