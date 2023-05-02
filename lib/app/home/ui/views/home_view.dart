@@ -37,6 +37,11 @@ class HomeView extends GetView<HomeController> {
                   },
                   child: const Text('login'),
                 ),
+                CachedNetworkImage(
+                  imageUrl:
+                      'https://avatars.githubusercontent.com/u/35397170?s=200&v=4',
+                  height: 100,
+                ),
               ],
             ),
           ),

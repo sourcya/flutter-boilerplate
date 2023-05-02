@@ -8,8 +8,6 @@ import '../../../../../core/resources/assets.dart';
 import '../../../../../core/resources/translation/app_translations.dart';
 import '../../../../../core/utils/app_utils.dart';
 import '../../../../../core/utils/are_equals_validation.dart';
-import '../../../../../core/widgets/center_loading.dart';
-import '../../../../../core/widgets/optimized_scroll_view.dart';
 import '../../../../../core/widgets/text_field.dart';
 import '../controllers/register_controller.dart';
 

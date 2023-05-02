@@ -5,8 +5,6 @@ import 'package:playx/exports.dart';
 
 import '../../../../../core/resources/assets.dart';
 import '../../../../../core/resources/translation/app_translations.dart';
-import '../../../../../core/widgets/center_loading.dart';
-import '../../../../../core/widgets/optimized_scroll_view.dart';
 import '../../../../../core/widgets/text_field.dart';
 import '../controllers/login_controller.dart';
 
