@@ -28,6 +28,21 @@ class EnglishTranslation extends BaseTranslation {
         AppTrans.emptyResponse:
             "Sorry, couldn't receive response from the server.",
 
+        //biometric auth
+        AppTrans.bioLocalizedReason: 'Please authenticate to login',
+        AppTrans.bioSignInTitle: 'Biometric authentication is required!',
+        AppTrans.bioCancelText: 'No thanks',
+        AppTrans.bioCanAuthenticate: "Can't authenticate with biometric",
+        AppTrans.bioNotAvailableError:
+            'Authentication using biometric is not available, Try setting lock screen password.',
+        AppTrans.bioNotEnrolledError:
+            'No biometrics has been enrolled on the device',
+        AppTrans.bioLockedOutError:
+            'Biometric authentication has been locked out due to too many attempts',
+        AppTrans.bioDefaultError: 'Sorry, Something went wrong',
+        AppTrans.bioPasscodeNotSetError:
+            "You haven't configured any password for the device yet pls configure it to use the app.",
+
         //app
         AppTrans.emailHint: "Enter your username or email address",
         AppTrans.passwordHint: "Enter your password",
