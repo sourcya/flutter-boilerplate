@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_boilerplate/app/auth/data/repo/biometric_auth_repository.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../../core/navigation/app_navigation.dart';
@@ -13,8 +14,9 @@ import '../../../data/repo/auth_repository.dart';
 ///Login controller to setup data to the ui.
 class LoginController extends GetxController {
   final authRepository = AuthRepository();
-  final AppNavigation appNavigation = AppNavigation.instance;
+  final biometricAuthRepo = BiometricAuthRepository();
 
+  final AppNavigation appNavigation = AppNavigation.instance;
   final isLoading = false.obs;
   final hidePassword = true.obs;
 
@@ -25,6 +27,8 @@ class LoginController extends GetxController {
   final isPasswordValid = false.obs;
 
   final isFormValid = false.obs;
+
+  final isBiometricAuthEnabled = true;
 
   @override
   void onInit() {
@@ -58,9 +62,27 @@ class LoginController extends GetxController {
       password: passwordController.text,
     );
     result.when(
-      success: (ApiUser user) {
+      success: (ApiUser user) async {
         isLoading.value = false;
-        appNavigation.navigateFromLoginToHome();
+        final isBiometricAvailable = await biometricAuthRepo.canAuthenticate();
+        if (isBiometricAuthEnabled && isBiometricAvailable) {
+          final bioAuthResult = await biometricAuthRepo.authenticate();
+
+          bioAuthResult.when(
+            success: (isAuthenticated) {
+              if (isAuthenticated) {
+                appNavigation.navigateFromLoginToHome();
+              } else {
+                Alert.message(message: 'couldn\'t authenticate');
+              }
+            },
+            error: (message) {
+              Alert.error(message: message);
+            },
+          );
+        } else {
+          appNavigation.navigateFromLoginToHome();
+        }
       },
       error: (NetworkException exception) {
         isLoading.value = false;

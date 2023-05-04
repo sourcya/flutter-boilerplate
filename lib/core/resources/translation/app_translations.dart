@@ -30,6 +30,17 @@ abstract class AppTrans {
   static const String unexpectedError = "UnexpectedError";
   static const String emptyResponse = "emptyResponse";
 
+  //biometric auth
+  static const String bioSignInTitle = "signInTitle";
+  static const String bioCancelText = "bioCancelText";
+  static const String bioCanAuthenticate = "bioCanAuthenticate";
+  static const String bioLocalizedReason = "bioLocalizedReason";
+  static const String bioNotAvailableError = "bioNotAvailableError";
+  static const String bioNotEnrolledError = "bioNotEnrolledError";
+  static const String bioLockedOutError = "bioLockedOutError";
+  static const String bioDefaultError = "bioDefaultError";
+  static const String bioPasscodeNotSetError = "bioPasscodeNotSetError";
+
   //app
   static const String emailHint = "email_hint";
   static const String passwordHint = "password_hint";

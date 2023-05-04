@@ -33,6 +33,21 @@ class ArabicTranslations extends BaseTranslation {
         AppTrans.emptyResponse:
             "عذراً، لم نستطع معالجة البيانات يرجي إعادة المحاولة لاحقاً.",
 
+        //biometric auth
+        AppTrans.bioLocalizedReason:
+            'من فضلك ، قم بإتمام المصادقة البيومترية لتسجيل الدخول.',
+        AppTrans.bioSignInTitle: 'المصادقة البيومترية مطلوبة!',
+        AppTrans.bioCancelText: 'شكراً',
+        AppTrans.bioCanAuthenticate: "لايمكن عمل مصادقة بيومترية",
+        AppTrans.bioNotAvailableError: 'المصادقة البيومترية غير متوفرة',
+        AppTrans.bioNotEnrolledError:
+            'لم يتم إضافة اي مصادقة بيومترية  على هذا الجهاز',
+        AppTrans.bioLockedOutError:
+            'تم وقف المصادقة البيومترية لكثرة المحاولات',
+        AppTrans.bioDefaultError: 'عذراً حدث خطأ ما',
+        AppTrans.bioPasscodeNotSetError:
+            "لم تقم باضافة باسورد لهاتفك بعد، قم بإضافة الباسورد لتستطيع استخدام التطبيق",
+
         //app
         AppTrans.emailHint: "أدخل الإيميل أو إسم المستخدم",
         AppTrans.passwordHint: "أدخل كلمة المرور",
