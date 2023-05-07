@@ -1,4 +1,4 @@
-package com.example.flutter_boilerplate
+package io.sourcya.boilerplate
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

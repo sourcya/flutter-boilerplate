@@ -42,6 +42,19 @@
 	<true/>
 	<key>NSFaceIDUsageDescription</key>
     <string>Why is my app authenticating using face id?</string>
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<!-- TODO Replace this value: -->
+			<string>743602006598-9theilas4ei4k02reesl8b01vksol5fu.apps.googleusercontent.com</string>
+		</array>
+	</dict>
+</array>
+
 
 </dict>
 </plist>

@@ -9,7 +9,7 @@ import '../../../../core/utils/alert.dart';
 class SplashController extends GetxController {
   final biometricAuthRepo = BiometricAuthRepository();
 
-  final isBiometricAuthEnabled = true;
+  final isBiometricAuthEnabled = false;
 
   @override
   void onInit() {
