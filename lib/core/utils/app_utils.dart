@@ -1,6 +1,7 @@
 //utils that will be used in the app
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_boilerplate/core/resources/theme/dark_theme.dart';
+import 'package:playx/exports.dart';
 
 /// Class for app utilities that will be used in the app.
 class AppUtils {
@@ -11,5 +12,9 @@ class AppUtils {
     final formState = key.currentState;
     final isValid = formState != null && formState.validate();
     validatorListener.value = isValid;
+  }
+
+  static bool isDarkMode() {
+    return AppTheme.id == DarkTheme.theme.id;
   }
 }

@@ -6,4 +6,5 @@ class AppAssets {
   static const String registerAnimation = "assets/animation/register.json";
   static const String noDataAnimation = 'assets/animation/no_data.json';
   static const String noInternetAnimation = 'assets/animation/no_internet.json';
+  static const String googleLogoImage = 'assets/images/google.svg';
 }
