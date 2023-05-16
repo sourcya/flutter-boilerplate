@@ -20,6 +20,7 @@ class CustomTextField extends StatefulWidget {
   final Widget? suffix;
   final Widget? icon;
   final FocusNode? focus;
+  final FocusNode? nextFocus;
   final bool read;
   final Function? edit;
   final int maxLines;
@@ -39,6 +40,7 @@ class CustomTextField extends StatefulWidget {
   final Color? borderColor;
   final Color? focusedBorderColor;
   final void Function(bool isValid)? onValidationChanged;
+  final TextInputAction textInputAction;
 
   const CustomTextField({
     this.hint,
@@ -51,6 +53,7 @@ class CustomTextField extends StatefulWidget {
     this.validator,
     this.controller,
     this.focus,
+    this.nextFocus,
     this.prefix,
     this.suffix,
     this.label,
@@ -72,6 +75,7 @@ class CustomTextField extends StatefulWidget {
     this.focusedBorderColor,
     this.formKey,
     this.onValidationChanged,
+    this.textInputAction = TextInputAction.done,
   });
 
   @override
@@ -129,6 +133,11 @@ class _CustomFieldState extends State<CustomTextField> {
               }
             },
             autofocus: widget.autofocus,
+            textInputAction: widget.textInputAction,
+            onFieldSubmitted: (v) {
+              if (widget.nextFocus != null)
+                FocusScope.of(context).requestFocus(widget.nextFocus);
+            },
             style: TextStyle(
               fontSize: 14,
               color: widget.textColor ?? context.colorScheme.onBackground,

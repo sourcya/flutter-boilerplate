@@ -95,6 +95,7 @@ class LoginView extends GetView<LoginController> {
         onValidationChanged: (isValid) {
           controller.isEmailValid.value = isValid;
         },
+        textInputAction: TextInputAction.next,
       ),
     );
   }

@@ -18,3 +18,11 @@ class AppUtils {
     return AppTheme.id == DarkTheme.theme.id;
   }
 }
+
+void focusNextTextField(BuildContext context) {
+  do {
+    final foundFocusNode = FocusScope.of(context).nextFocus();
+    if (!foundFocusNode) return;
+  } while (
+      FocusScope.of(context).focusedChild?.context?.widget is! EditableText);
+}

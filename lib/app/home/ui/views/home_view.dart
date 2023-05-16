@@ -5,6 +5,7 @@ import '../../../../core/navigation/app_routes.dart';
 import '../../../../core/utils/alert.dart';
 import '../../../../core/widgets/no_data_widget.dart';
 import '../../../../core/widgets/no_internet_widget.dart';
+import '../../../auth/data/repo/google_auth_repository.dart';
 import '../controllers/home_controller.dart';
 
 /// home screen widget.
@@ -32,8 +33,9 @@ class HomeView extends GetView<HomeController> {
                 const Center(child: Text('Home')),
                 ElevatedButton(
                   onPressed: () {
-                    Get.toNamed(Routes.LOGIN);
+                    GoogleAuthRepository().signOut();
                     AppTheme.next();
+                    Get.toNamed(Routes.LOGIN);
                   },
                   child: const Text('login'),
                 ),
