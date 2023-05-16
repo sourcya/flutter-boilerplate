@@ -71,6 +71,9 @@ class RegisterView extends GetView<RegisterController> {
                     onValidationChanged: (isValid) {
                       controller.isEmailValid.value = isValid;
                     },
+                    textInputAction: TextInputAction.next,
+                    focus: controller.emailFocus,
+                    nextFocus: controller.passwordFocus,
                   ),
                 ),
                 Obx(() {
@@ -120,6 +123,9 @@ class RegisterView extends GetView<RegisterController> {
                       onValidationChanged: (isValid) {
                         controller.isPasswordValid.value = isValid;
                       },
+                      textInputAction: TextInputAction.next,
+                      focus: controller.passwordFocus,
+                      nextFocus: controller.confirmPasswordFocus,
                     ),
                   );
                 }),
@@ -161,6 +167,7 @@ class RegisterView extends GetView<RegisterController> {
                       onValidationChanged: (isValid) {
                         controller.isConfirmPasswordValid.value = isValid;
                       },
+                      focus: controller.confirmPasswordFocus,
                     ),
                   );
                 }),

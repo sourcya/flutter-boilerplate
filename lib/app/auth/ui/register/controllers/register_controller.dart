@@ -19,6 +19,13 @@ class RegisterController extends GetxController {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  /// This needed for text field that has complex ui like hide password button
+  /// As using [TextInputAction.next] to move keyboard to next field won't work
+  /// as the button will take focus so we need to manually add text field current and next focus node
+  final emailFocus = FocusNode();
+  final passwordFocus = FocusNode();
+  final confirmPasswordFocus = FocusNode();
+
   final confirmPasswordFormKey = GlobalKey<FormState>();
 
   final isUsernameValid = false.obs;
