@@ -3,9 +3,8 @@ import 'package:playx/playx.dart';
 
 import '../../../../core/navigation/app_routes.dart';
 import '../../../../core/resources/colors/app_color_scheme.dart';
-import '../../../../core/utils/alert.dart';
 import '../../../../core/widgets/no_data_widget.dart';
-import '../../../../core/widgets/no_internet_widget.dart';
+import '../../../../core/widgets/rx_data_state_widget.dart';
 import '../../../auth/data/repo/google_auth_repository.dart';
 import '../controllers/home_controller.dart';
 
@@ -14,6 +13,7 @@ class HomeView extends GetView<HomeController> {
   const HomeView({
     super.key,
   });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,13 +54,21 @@ class HomeView extends GetView<HomeController> {
             child: const NoDataAnimation(),
           ),
           //page3
-          ColoredBox(
-            color: colorScheme.background,
-            child: NoInternetAnimation(
-              onRetryClicked: () {
-                Alert.error(message: "Netowrk");
-              },
+          RxDataStateWidget(
+            rxData: controller.userState,
+            onSuccess: (user) {
+              return Center(
+                child: Text(
+                  user.username ?? '',
+                  style: TextStyle(color: colorScheme.onBackground),
+                ),
+              );
+            },
+            onLoading: (data) => CenterLoading(
+              color: colorScheme.secondary,
             ),
+            onEmpty: (data) => Container(),
+            onNoInternetRetryClicked: () {},
           ),
         ],
       ),

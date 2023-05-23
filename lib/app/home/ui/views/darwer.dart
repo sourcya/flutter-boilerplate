@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/widgets/data_state_widget.dart';
 import 'package:playx/playx.dart';
 
 import '../controllers/home_controller.dart';
@@ -13,16 +14,29 @@ class HomeDrawer extends GetView<HomeController> {
       child: Column(
         children: [
           UserAccountsDrawerHeader(
-            accountName: Obx(() {
-              return Text(
-                controller.user.value?.username ?? '',
-              );
-            }),
-            accountEmail: Obx(() {
-              return Text(
-                controller.user.value?.email ?? '',
-              );
-            }),
+            accountName: DataStateWidget(
+              data: controller.userState.value,
+            ),
+            accountEmail: DataStateWidget(
+              data: controller.userState.value,
+              onSuccess: (user) {
+                return Text(
+                  user.username ?? '',
+                );
+              },
+              onLoading: (data) => Container(),
+              onEmpty: (e) => Container(),
+            ),
+            // accountName: Obx(() {
+            //   return Text(
+            //     controller.user.value?.username ?? '',
+            //   );
+            // }),
+            // accountEmail: Obx(() {
+            //   return Text(
+            //     controller.user.value?.email ?? '',
+            //   );
+            // }),
           ),
           DrawerItem(
             icon: Icons.dashboard,

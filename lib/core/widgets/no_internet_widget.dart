@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:playx/playx.dart';
 
 import '../resources/assets.dart';
@@ -11,7 +10,7 @@ class NoInternetAnimation extends StatelessWidget {
   final TextStyle? textStyle;
   final TextStyle? retryTextStyle;
   final ButtonStyle? retryButtonStyle;
-  final VoidCallback onRetryClicked;
+  final VoidCallback? onRetryClicked;
 
   const NoInternetAnimation(
       {this.message,
