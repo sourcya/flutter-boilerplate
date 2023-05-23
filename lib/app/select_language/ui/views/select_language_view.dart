@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
+import '../../../../core/resources/colors/app_color_scheme.dart';
 import '../controllers/select_language_controller.dart';
 
 class SelectLanguageView extends GetView<SelectLanguageController> {
@@ -13,7 +14,7 @@ class SelectLanguageView extends GetView<SelectLanguageController> {
           'Select Language',
           style: context.h6?.copyWith(
             fontSize: 18,
-            color: context.colorScheme.onPrimary,
+            color: colorScheme.onPrimary,
           ),
         ),
         centerTitle: true,
@@ -37,7 +38,7 @@ class SelectLanguageView extends GetView<SelectLanguageController> {
                     (e) => ListTile(
                       leading: Radio(
                         groupValue: controller.selectedLang.value,
-                        activeColor: context.colorScheme.secondary,
+                        activeColor: colorScheme.secondary,
                         value: e,
                         onChanged: (_) => controller.selectedLang.value = e,
                       ),
@@ -45,7 +46,7 @@ class SelectLanguageView extends GetView<SelectLanguageController> {
                       title: Text(
                         e,
                         style: context.bodyText1?.copyWith(
-                          color: context.colorScheme.onBackground,
+                          color: colorScheme.onBackground,
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                         ),

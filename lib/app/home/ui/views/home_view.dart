@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:playx/exports.dart';
+import 'package:playx/playx.dart';
 
 import '../../../../core/navigation/app_routes.dart';
+import '../../../../core/resources/colors/app_color_scheme.dart';
 import '../../../../core/utils/alert.dart';
 import '../../../../core/widgets/no_data_widget.dart';
 import '../../../../core/widgets/no_internet_widget.dart';
@@ -26,7 +27,7 @@ class HomeView extends GetView<HomeController> {
         children: [
           //page1
           ColoredBox(
-            color: Colors.green,
+            color: colorScheme.background,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -49,12 +50,12 @@ class HomeView extends GetView<HomeController> {
           ),
           //page2
           ColoredBox(
-            color: context.colorScheme.background,
+            color: colorScheme.background,
             child: const NoDataAnimation(),
           ),
           //page3
           ColoredBox(
-            color: context.colorScheme.background,
+            color: colorScheme.background,
             child: NoInternetAnimation(
               onRetryClicked: () {
                 Alert.error(message: "Netowrk");
@@ -68,9 +69,9 @@ class HomeView extends GetView<HomeController> {
           return BottomNavigationBar(
             currentIndex: c.tabC.index,
             onTap: c.onTapTab,
-            selectedItemColor: context.colorScheme.secondary,
-            unselectedItemColor: context.colorScheme.onBackground,
-            backgroundColor: context.colorScheme.background,
+            selectedItemColor: colorScheme.secondary,
+            unselectedItemColor: colorScheme.onBackground,
+            backgroundColor: colorScheme.background,
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),

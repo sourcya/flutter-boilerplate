@@ -1,4 +1,3 @@
-import 'package:fimber/fimber.dart';
 import 'package:flutter_boilerplate/app/auth/data/repo/biometric_auth_repository.dart';
 import 'package:playx/playx.dart';
 

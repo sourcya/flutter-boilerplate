@@ -1,4 +1,4 @@
-import 'package:playx/exports.dart';
+import 'package:playx/playx.dart';
 
 import 'dark_theme.dart';
 import 'light_theme.dart';
