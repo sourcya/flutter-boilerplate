@@ -3,7 +3,7 @@ import 'package:flutter_boilerplate/core/config/keys.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:playx/playx.dart' hide Result;
 
-import '../../../../core/utils/result.dart';
+import '../../../../core/utils/models/result.dart';
 
 class GoogleAuthDataSource {
   static final GoogleAuthDataSource _instance =

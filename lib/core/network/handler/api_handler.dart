@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:get/get_utils/get_utils.dart';
+import 'package:playx/playx.dart' hide Response;
 
 import '../../navigation/app_navigation.dart';
 import '../../preferences/preference_manger.dart';
 import '../api_client.dart';
-import '../models/api_error.dart';
-import '../models/message.dart';
-import '../models/network_exception.dart';
+import '../models/error/api_error.dart';
+import '../models/error/message.dart';
+import '../models/exceptions/network_exception.dart';
 import '../models/network_result.dart';
 
 // ignore: avoid_classes_with_only_static_members
@@ -35,12 +35,12 @@ abstract class ApiHandler {
         return NetworkResult.error(exception);
       } else {
         if (response.isBlank ?? true) {
-          return NetworkResult.error(EmptyResponseException());
+          return const NetworkResult.error(EmptyResponseException());
         } else {
           final data = response.data;
 
           if (data == null) {
-            return NetworkResult.error(EmptyResponseException());
+            return const NetworkResult.error(EmptyResponseException());
           }
 
           try {
@@ -49,7 +49,7 @@ abstract class ApiHandler {
             return NetworkResult.success(result);
             // ignore: avoid_catches_without_on_clauses
           } catch (e) {
-            return NetworkResult.error(
+            return const NetworkResult.error(
               UnableToProcessException(),
             );
           }
@@ -57,7 +57,7 @@ abstract class ApiHandler {
       }
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
-      return NetworkResult.error(UnexpectedErrorException());
+      return const NetworkResult.error(UnexpectedErrorException());
     }
   }
 
@@ -80,12 +80,12 @@ abstract class ApiHandler {
         return NetworkResult.error(exception);
       } else {
         if (response.isBlank ?? true) {
-          return NetworkResult.error(EmptyResponseException());
+          return const NetworkResult.error(EmptyResponseException());
         } else {
           final data = response.data;
 
           if (data == null) {
-            return NetworkResult.error(EmptyResponseException());
+            return const NetworkResult.error(EmptyResponseException());
           }
 
           try {
@@ -95,7 +95,7 @@ abstract class ApiHandler {
             return NetworkResult.success(result);
             // ignore: avoid_catches_without_on_clauses
           } catch (e) {
-            return NetworkResult.error(
+            return const NetworkResult.error(
               UnableToProcessException(),
             );
           }
@@ -103,7 +103,7 @@ abstract class ApiHandler {
       }
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
-      return NetworkResult.error(UnexpectedErrorException());
+      return const NetworkResult.error(UnexpectedErrorException());
     }
   }
 
@@ -154,59 +154,45 @@ abstract class ApiHandler {
           );
       }
     } else {
-      return EmptyResponseException();
+      return const EmptyResponseException();
     }
   }
 
   static NetworkException _getDioException(dynamic error) {
     if (error is Exception) {
       try {
-        NetworkException networkExceptions = UnexpectedErrorException();
+        NetworkException networkExceptions = const UnexpectedErrorException();
+
         if (error is DioError) {
-          switch (error.type) {
-            case DioErrorType.cancel:
-              networkExceptions = RequestCanceledException();
-              break;
-            case DioErrorType.connectionTimeout:
-              networkExceptions = RequestTimeoutException();
-              break;
-            case DioErrorType.unknown:
-              networkExceptions = UnexpectedErrorException();
-              break;
-            case DioErrorType.receiveTimeout:
-              networkExceptions = SendTimeoutException();
-              break;
-            case DioErrorType.badResponse:
-              networkExceptions = _handleResponse(error.response);
-              break;
-            case DioErrorType.sendTimeout:
-              networkExceptions = SendTimeoutException();
-              break;
-            case DioErrorType.badCertificate:
-              networkExceptions = UnexpectedErrorException();
-              break;
-            case DioErrorType.connectionError:
-              networkExceptions = NoInternetConnectionException();
-              break;
-            default:
-              networkExceptions = UnexpectedErrorException();
-          }
+          networkExceptions = switch (error.type) {
+            DioErrorType.cancel => const RequestCanceledException(),
+            DioErrorType.connectionTimeout => const RequestTimeoutException(),
+            DioErrorType.unknown => error.error is SocketException
+                ? const NoInternetConnectionException()
+                : const UnexpectedErrorException(),
+            DioErrorType.receiveTimeout => const SendTimeoutException(),
+            DioErrorType.badResponse => _handleResponse(error.response),
+            DioErrorType.sendTimeout => const SendTimeoutException(),
+            DioErrorType.badCertificate => const UnexpectedErrorException(),
+            DioErrorType.connectionError =>
+              const NoInternetConnectionException(),
+          };
         } else if (error is SocketException) {
-          networkExceptions = NoInternetConnectionException();
+          networkExceptions = const NoInternetConnectionException();
         } else {
-          networkExceptions = UnexpectedErrorException();
+          networkExceptions = const UnexpectedErrorException();
         }
         return networkExceptions;
       } on FormatException catch (_) {
-        return FormatException();
+        return const FormatException();
       } catch (_) {
-        return UnexpectedErrorException();
+        return const UnexpectedErrorException();
       }
     } else {
       if (error.toString().contains("is not a subtype of")) {
-        return UnableToProcessException();
+        return const UnableToProcessException();
       } else {
-        return UnexpectedErrorException();
+        return const UnexpectedErrorException();
       }
     }
   }
