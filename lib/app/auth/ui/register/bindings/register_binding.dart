@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:playx/playx.dart';
 
 import '../controllers/register_controller.dart';
 

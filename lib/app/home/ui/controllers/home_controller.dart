@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:playx/playx.dart';
 
 import '../../../../core/navigation/app_navigation.dart';
 import '../../../../core/preferences/preference_manger.dart';

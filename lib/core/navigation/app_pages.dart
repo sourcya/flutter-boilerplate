@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:playx/playx.dart';
 
 import '../../app/auth/ui/login/bindings/login_binding.dart';
 import '../../app/auth/ui/login/views/login_view.dart';
