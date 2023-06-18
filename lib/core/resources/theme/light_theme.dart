@@ -12,7 +12,7 @@ class LightTheme {
 
   static XTheme get theme => XTheme(
         id: lightThemeId,
-        nameBuilder: () => lightThemeName,
+        name: lightThemeName,
         colorScheme: colorScheme,
         theme: ThemeData.light().copyWith(
           appBarTheme: AppBarTheme(
