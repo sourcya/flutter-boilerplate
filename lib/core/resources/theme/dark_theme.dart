@@ -12,7 +12,7 @@ class DarkTheme {
 
   static XTheme get theme => XTheme(
         id: darkTheme,
-        nameBuilder: () => darkThemeName,
+        name: darkThemeName,
         colorScheme: DarkColorScheme(),
         theme: ThemeData.light().copyWith(
           appBarTheme: AppBarTheme(

@@ -124,7 +124,7 @@ abstract class ApiHandler {
       final int statusCode = response?.statusCode ?? 0;
       switch (statusCode) {
         case 400:
-		  return DefaultApiException(
+          return DefaultApiException(
             error: errMsg,
           );
         case 401:
@@ -169,18 +169,19 @@ abstract class ApiHandler {
       try {
         NetworkException networkExceptions = const UnexpectedErrorException();
 
-        if (error is DioError) {
+        if (error is DioException) {
           networkExceptions = switch (error.type) {
-            DioErrorType.cancel => const RequestCanceledException(),
-            DioErrorType.connectionTimeout => const RequestTimeoutException(),
-            DioErrorType.unknown => error.error is SocketException
+            DioExceptionType.cancel => const RequestCanceledException(),
+            DioExceptionType.connectionTimeout =>
+              const RequestTimeoutException(),
+            DioExceptionType.unknown => error.error is SocketException
                 ? const NoInternetConnectionException()
                 : const UnexpectedErrorException(),
-            DioErrorType.receiveTimeout => const SendTimeoutException(),
-            DioErrorType.badResponse => _handleResponse(error.response),
-            DioErrorType.sendTimeout => const SendTimeoutException(),
-            DioErrorType.badCertificate => const UnexpectedErrorException(),
-            DioErrorType.connectionError =>
+            DioExceptionType.receiveTimeout => const SendTimeoutException(),
+            DioExceptionType.badResponse => _handleResponse(error.response),
+            DioExceptionType.sendTimeout => const SendTimeoutException(),
+            DioExceptionType.badCertificate => const UnexpectedErrorException(),
+            DioExceptionType.connectionError =>
               const NoInternetConnectionException(),
           };
         } else if (error is SocketException) {
