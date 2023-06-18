@@ -95,4 +95,10 @@ abstract class AppTrans {
   static const String noDataMessage = "no_data_message";
   static const String noInternetMessage = "no_internet_message";
   static const String retryText = "retry_text";
+
+  static const String updateTitle = 'update_title';
+  static const String updateDescription = 'update_description';
+  static const String updateReleaseNotesTitle = 'update_release_notes_title';
+  static const String updateConfirmActionTitle = 'update_confirm_action_title';
+  static const String updateDismissActionTitle = 'update_dismiss_action_title';
 }

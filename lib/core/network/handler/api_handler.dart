@@ -92,6 +92,9 @@ abstract class ApiHandler {
             final List<T> result = (data as List)
                 .map((item) => fromJson(item as Map<String, dynamic>))
                 .toList();
+            if (result.isEmpty) {
+              return const NetworkResult.error(EmptyResponseException());
+            }
             return NetworkResult.success(result);
             // ignore: avoid_catches_without_on_clauses
           } catch (e) {
@@ -121,6 +124,9 @@ abstract class ApiHandler {
       final int statusCode = response?.statusCode ?? 0;
       switch (statusCode) {
         case 400:
+		  return DefaultApiException(
+            error: errMsg,
+          );
         case 401:
         case 403:
           return UnauthorizedRequestException(error: errMsg);

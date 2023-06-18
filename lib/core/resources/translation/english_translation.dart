@@ -85,6 +85,15 @@ class EnglishTranslation extends BaseTranslation {
 
         AppTrans.noDataMessage: "There is no data available.",
         AppTrans.noInternetMessage: "Network is not available.",
-        AppTrans.retryText: "Retry"
+        AppTrans.retryText: "Retry",
+
+        AppTrans.updateTitle: 'An update is available.',
+        AppTrans.updateDescription:
+            'A new version of the app is now available.\n\n'
+                'Update now to enjoy the latest features now.',
+
+        AppTrans.updateReleaseNotesTitle: 'Release notes:',
+        AppTrans.updateConfirmActionTitle: 'Update',
+        AppTrans.updateDismissActionTitle: 'Not Now',
       };
 }
