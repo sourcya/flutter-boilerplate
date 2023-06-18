@@ -1,36 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/colors/light_color_scheme.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:playx/exports.dart';
-
-import '../colors.dart';
+import 'package:playx/playx.dart';
 
 // ignore: avoid_classes_with_only_static_members
-abstract class LightTheme {
-  static String lightTheme = 'light';
+class LightTheme {
+  static String lightThemeId = 'light';
   static String lightThemeName = 'Light';
 
+  static LightColorScheme colorScheme = LightColorScheme();
+
   static XTheme get theme => XTheme(
-        id: lightTheme,
+        id: lightThemeId,
         nameBuilder: () => lightThemeName,
+        colorScheme: colorScheme,
         theme: ThemeData.light().copyWith(
-          appBarTheme: const AppBarTheme(
+          appBarTheme: AppBarTheme(
             centerTitle: true,
-            backgroundColor: AppColors.appBarLight,
+            backgroundColor: colorScheme.appBar,
           ),
-          primaryColor: AppColors.primaryLight,
-          colorScheme: const ColorScheme.light(
-            primary: AppColors.primaryLight,
-            secondary: AppColors.secondaryLight,
-            background: AppColors.backgroundLight,
-            surface: AppColors.surfaceLight,
-            error: AppColors.errorLight,
-            onPrimary: AppColors.onPrimaryLight,
-            onSecondary: AppColors.onSecondaryLight,
-            onBackground: AppColors.onBackgroundLight,
-            onSurface: AppColors.onSurfaceLight,
-            onError: AppColors.onErrorLight,
+          primaryColor: colorScheme.primary,
+          colorScheme: ColorScheme.light(
+            primary: colorScheme.primary,
+            secondary: colorScheme.secondary,
+            background: colorScheme.background,
+            surface: colorScheme.surface,
+            error: colorScheme.error,
+            onPrimary: colorScheme.onPrimary,
+            onSecondary: colorScheme.onSecondary,
+            onBackground: colorScheme.onBackground,
+            onSurface: colorScheme.onSurface,
+            onError: colorScheme.onError,
           ),
-          scaffoldBackgroundColor: AppColors.backgroundLight,
+          scaffoldBackgroundColor: colorScheme.background,
           textTheme: GoogleFonts.rubikTextTheme(),
           sliderTheme: const SliderThemeData(
             showValueIndicator: ShowValueIndicator.always,

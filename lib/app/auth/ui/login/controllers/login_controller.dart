@@ -6,7 +6,7 @@ import 'package:flutter_boilerplate/app/auth/data/repo/biometric_auth_repository
 import 'package:playx/playx.dart';
 
 import '../../../../../core/navigation/app_navigation.dart';
-import '../../../../../core/network/models/network_exception.dart';
+import '../../../../../core/network/models/exceptions/network_exception.dart';
 import '../../../../../core/utils/alert.dart';
 import '../../../data/models/api_user.dart';
 import '../../../data/repo/auth_repository.dart';
@@ -63,6 +63,7 @@ class LoginController extends GetxController {
       email: emailController.text,
       password: passwordController.text,
     );
+
     result.when(
       success: (ApiUser user) async {
         isLoading.value = false;
@@ -70,7 +71,7 @@ class LoginController extends GetxController {
       },
       error: (NetworkException exception) {
         isLoading.value = false;
-        Alert.error(message: exception.getMessage());
+        Alert.error(message: exception.message);
       },
     );
   }

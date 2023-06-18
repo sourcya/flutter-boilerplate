@@ -1,15 +1,50 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'exceptions/network_exception.dart';
 
-import 'network_exception.dart';
+class Success<T> extends NetworkResult<T> {
+  final T data;
 
-part 'network_result.freezed.dart';
+  const Success(this.data);
+}
+
+class Error<T> extends NetworkResult<T> {
+  final NetworkException error;
+
+  const Error(this.error);
+}
 
 /// Generic Wrapper class for the result of network response.
 /// when the network call is successful it returns success.
 /// else it returns error with [NetworkException].
-@freezed
-abstract class NetworkResult<T> with _$NetworkResult<T> {
-  const factory NetworkResult.success(T data) = Success<T>;
+sealed class NetworkResult<T> {
+  const NetworkResult();
 
-  const factory NetworkResult.error(NetworkException exception) = Error<T>;
+  const factory NetworkResult.success(T data) = Success;
+
+  const factory NetworkResult.error(NetworkException error) = Error;
+
+  void when({
+    required Function(T success) success,
+    required Function(NetworkException error) error,
+  }) {
+    switch (this) {
+      case Success _:
+        final data = (this as Success<T>).data;
+        success(data);
+      case Error _:
+        final exception = (this as Error<T>).error;
+        error(exception);
+    }
+  }
+
+  NetworkResult<S> map<S>({
+    required NetworkResult<S> Function(Success<T> data) success,
+    required NetworkResult<S> Function(Error<T> error) error,
+  }) {
+    switch (this) {
+      case Success _:
+        return success(this as Success<T>);
+      case Error _:
+        return error(this as Error<T>);
+    }
+  }
 }

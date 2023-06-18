@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:playx/playx.dart';
 
 class SelectLanguageController extends GetxController {
   final selectedLang = 'English'.obs;

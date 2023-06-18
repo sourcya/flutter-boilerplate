@@ -1,9 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:playx/exports.dart';
-
-import '../resources/colors.dart';
+import 'package:playx/playx.dart';
 
 /// This is a custom text field to have same behavior on whole application.
 /// With ability to auto validate it's field and easily customize it.
@@ -135,8 +133,9 @@ class _CustomFieldState extends State<CustomTextField> {
             autofocus: widget.autofocus,
             textInputAction: widget.textInputAction,
             onFieldSubmitted: (v) {
-              if (widget.nextFocus != null)
+              if (widget.nextFocus != null) {
                 FocusScope.of(context).requestFocus(widget.nextFocus);
+              }
             },
             style: TextStyle(
               fontSize: 14,
@@ -160,14 +159,15 @@ class _CustomFieldState extends State<CustomTextField> {
               ),
               icon: widget.icon,
               suffixIcon: widget.suffix,
-              hintStyle: TextStyle(color: widget.hintColor ?? AppColors.grey),
+              hintStyle:
+                  TextStyle(color: widget.hintColor ?? XColorScheme.grey),
               floatingLabelStyle: TextStyle(
                   color: widget.labelColor ?? context.colorScheme.secondary,
                   fontSize: 18),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(24),
                 borderSide: BorderSide(
-                  color: widget.borderColor ?? AppColors.grey,
+                  color: widget.borderColor ?? XColorScheme.grey,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
@@ -181,7 +181,7 @@ class _CustomFieldState extends State<CustomTextField> {
               ),
               border: OutlineInputBorder(
                 borderSide:
-                    BorderSide(color: widget.borderColor ?? AppColors.grey),
+                    BorderSide(color: widget.borderColor ?? XColorScheme.grey),
                 borderRadius: BorderRadius.circular(24),
               ),
               errorMaxLines: widget.errorMaxLines,
