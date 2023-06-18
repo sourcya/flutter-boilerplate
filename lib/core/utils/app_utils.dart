@@ -1,7 +1,7 @@
 //utils that will be used in the app
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/resources/theme/dark_theme.dart';
-import 'package:playx/exports.dart';
+import 'package:playx/playx.dart';
 
 /// Class for app utilities that will be used in the app.
 class AppUtils {
@@ -17,12 +17,4 @@ class AppUtils {
   static bool isDarkMode() {
     return AppTheme.id == DarkTheme.theme.id;
   }
-}
-
-void focusNextTextField(BuildContext context) {
-  do {
-    final foundFocusNode = FocusScope.of(context).nextFocus();
-    if (!foundFocusNode) return;
-  } while (
-      FocusScope.of(context).focusedChild?.context?.widget is! EditableText);
 }

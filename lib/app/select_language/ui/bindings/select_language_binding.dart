@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:playx/playx.dart';
 
 import '../controllers/select_language_controller.dart';
 

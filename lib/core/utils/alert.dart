@@ -2,9 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import '../resources/colors.dart';
+import 'package:playx/playx.dart';
 
 ///This class provides custom alerts for the app
 ///like green snackbar like for successful alerts
@@ -40,7 +38,7 @@ abstract class Alert {
   }) {
     showSnackBar(
       message: message,
-      color: AppColors.red,
+      color: XColorScheme.red,
       duration: duration,
     );
   }

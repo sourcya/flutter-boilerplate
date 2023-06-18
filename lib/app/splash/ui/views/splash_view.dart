@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
+import '../../../../core/resources/colors/app_color_scheme.dart';
 import '../../../../core/resources/translation/app_translations.dart';
 import '../controllers/splash_controller.dart';
 
@@ -23,7 +24,7 @@ class SplashView extends GetView<SplashController> {
                 AppTrans.appName.tr,
                 style: TextStyle(
                   fontSize: 30,
-                  color: context.colorScheme.onBackground,
+                  color: colorScheme.onBackground,
                 ),
               ),
             ),
@@ -39,7 +40,7 @@ class SplashView extends GetView<SplashController> {
               child: AppVersion(
                 textStyle: TextStyle(
                   fontSize: 13,
-                  color: context.colorScheme.secondary,
+                  color: colorScheme.secondary,
                 ),
               ),
             ),

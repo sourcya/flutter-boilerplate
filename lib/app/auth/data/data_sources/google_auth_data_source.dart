@@ -1,8 +1,9 @@
-import 'package:fimber/fimber.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_boilerplate/core/config/keys.dart';
-import 'package:flutter_boilerplate/core/utils/result.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:playx/playx.dart' hide Result;
+
+import '../../../../core/utils/models/result.dart';
 
 class GoogleAuthDataSource {
   static final GoogleAuthDataSource _instance =
@@ -27,7 +28,6 @@ class GoogleAuthDataSource {
       Fimber.d(
           'Google Sign In : ${user.email} : ${user.displayName} , ${user.photoUrl} :'
           'id : ${userAuth.idToken} access : ${userAuth.accessToken} ');
-
       return Result.success(user);
     } on PlatformException catch (error) {
       Fimber.e('Google Sign In Error : $error');

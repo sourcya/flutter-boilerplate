@@ -1,5 +1,5 @@
 import 'package:flutter_boilerplate/app/auth/data/data_sources/google_auth_data_source.dart';
-import 'package:flutter_boilerplate/core/utils/result.dart';
+import 'package:flutter_boilerplate/core/utils/models/result.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleAuthRepository {

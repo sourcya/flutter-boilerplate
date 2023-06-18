@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/resources/assets.dart';
-import 'package:playx/exports.dart';
+import 'package:playx/playx.dart';
 
 import 'stub.dart';
 

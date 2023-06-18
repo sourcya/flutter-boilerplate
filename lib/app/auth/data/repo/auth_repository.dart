@@ -1,4 +1,4 @@
-import '../../../../core/network/models/network_exception.dart';
+import '../../../../core/network/models/exceptions/network_exception.dart';
 import '../../../../core/network/models/network_result.dart';
 import '../../../../core/preferences/preference_manger.dart';
 import '../data_sources/remote_auth_data_source.dart';
@@ -52,7 +52,7 @@ class AuthRepository {
             await preferenceManger.saveUser(user);
           }
         } else {
-          return NetworkResult.error(EmptyResponseException());
+          return const NetworkResult.error(EmptyResponseException());
         }
       },
       error: (NetworkException exception) {},

@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:playx/playx.dart';
 
 import '../../../../core/network/api_client.dart';
 import '../../../../core/network/endpoints/endpoints.dart';
