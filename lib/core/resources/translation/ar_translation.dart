@@ -89,6 +89,13 @@ class ArabicTranslations extends BaseTranslation {
         AppTrans.privacyPolicyText: "سياسة الخصوصية.",
         AppTrans.noDataMessage: "لا توجد بيانات متاحة.",
         AppTrans.noInternetMessage: "لا يوجد إنترنت.",
-        AppTrans.retryText: "أعد المحاولة"
+        AppTrans.retryText: "أعد المحاولة",
+        AppTrans.updateTitle: 'هناك تحديث جديد متوفر.',
+        AppTrans.updateDescription: 'هنالك نسخة جديدة من التطبيق متوفرة الان\n'
+            'حدث التطبيق لتستمتع بأخر المميزات الجديدة الان',
+
+        AppTrans.updateReleaseNotesTitle: 'أخر التحديثات :',
+        AppTrans.updateConfirmActionTitle: 'تحديث',
+        AppTrans.updateDismissActionTitle: 'لاحقاً',
       };
 }

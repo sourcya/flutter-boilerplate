@@ -16,6 +16,7 @@ dependencies:
   google_fonts: ^4.0.4
   playx: ^0.1.0
   local_auth: ^2.1.6
+  playx_version_update: ^0.0.2
 
 dev_dependencies:
   flutter_test:

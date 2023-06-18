@@ -37,6 +37,7 @@ class DarkTheme {
           sliderTheme: const SliderThemeData(
             showValueIndicator: ShowValueIndicator.always,
           ),
+          applyElevationOverlayColor: true,
         ),
       );
 }
