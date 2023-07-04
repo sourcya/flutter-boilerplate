@@ -63,7 +63,6 @@ class LoginController extends GetxController {
       email: emailController.text,
       password: passwordController.text,
     );
-
     result.when(
       success: (ApiUser user) async {
         isLoading.value = false;
