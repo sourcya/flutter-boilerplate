@@ -23,7 +23,7 @@ sealed class NetworkResult<T> {
   const factory NetworkResult.error(NetworkException error) = Error;
 
   void when({
-    required Function(T success) success,
+    required Function(T data) success,
     required Function(NetworkException error) error,
   }) {
     switch (this) {
