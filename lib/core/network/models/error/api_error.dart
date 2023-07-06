@@ -5,7 +5,7 @@ import 'message.dart';
 class ApiError {
   int? statusCode;
   String? error;
-  List<ApiMessage>? message;
+  String? message;
 
   ApiError({
     this.statusCode,
@@ -16,11 +16,17 @@ class ApiError {
   ApiError.fromJson(dynamic json) {
     statusCode = json['statusCode'] as int?;
     error = json['error'] as String?;
-    if (json['message'] != null) {
-      message = [];
-      json['message'].forEach((v) {
-        message?.add(ApiMessage.fromJson(v));
-      });
+    try {
+      message = json['message'] as String?;
+      // ignore: avoid_catches_without_on_clauses
+    } catch (_) {
+      try {
+        final apiMessage =
+        ApiMessage.fromJson((json['message'] as List).firstOrNull);
+        message = apiMessage.messages?.firstOrNull?.message;
+        // ignore: avoid_catches_without_on_clauses
+      } catch (_) {}
     }
   }
 }
+

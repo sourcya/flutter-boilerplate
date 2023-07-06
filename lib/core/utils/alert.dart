@@ -58,7 +58,7 @@ abstract class Alert {
       {required String message,
       required Color color,
       String? buttonText,
-      List<Widget> actions = const []}) {
+      List<Widget> actions = const [SizedBox.shrink()],}) {
     final context = Get.context;
     if (context != null) {
       final banner = MaterialBanner(
