@@ -7,7 +7,6 @@ import '../../navigation/app_navigation.dart';
 import '../../preferences/preference_manger.dart';
 import '../api_client.dart';
 import '../models/error/api_error.dart';
-import '../models/error/message.dart';
 import '../models/exceptions/network_exception.dart';
 import '../models/network_result.dart';
 
@@ -35,7 +34,7 @@ abstract class ApiHandler {
         return NetworkResult.error(exception);
       } else {
         if (response.isBlank ?? true) {
-          return const NetworkResult.error(EmptyResponseException());
+          return const NetworkResult.error(UnexpectedErrorException());
         } else {
           final data = response.data;
 
@@ -80,7 +79,7 @@ abstract class ApiHandler {
         return NetworkResult.error(exception);
       } else {
         if (response.isBlank ?? true) {
-          return const NetworkResult.error(EmptyResponseException());
+          return const NetworkResult.error(UnexpectedErrorException());
         } else {
           final data = response.data;
 
@@ -160,7 +159,7 @@ abstract class ApiHandler {
           );
       }
     } else {
-      return const EmptyResponseException();
+      return const UnexpectedErrorException();
     }
   }
 
@@ -206,17 +205,7 @@ abstract class ApiHandler {
 
   static String? _getErrorMessageFromResponse(Map<String, dynamic>? json) {
     final ApiError? error = json != null ? ApiError.fromJson(json) : null;
-    final List<ApiMessage>? apiMessages = error?.message;
-    if (apiMessages == null || apiMessages.isEmpty) {
-      return null;
-    } else {
-      final ApiMessage apiMessage = apiMessages.first;
-      final List<Messages>? messages = apiMessage.messages;
-
-      return (messages == null || messages.isEmpty)
-          ? null
-          : messages.first.message;
-    }
+    return error?.message;
   }
 
   static Future<void> _signOut() async {
