@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../core/resources/colors/app_color_scheme.dart';
@@ -13,7 +14,7 @@ class SelectLanguageView extends GetView<SelectLanguageController> {
         title: Text(
           'Select Language',
           style: context.h6?.copyWith(
-            fontSize: 18,
+            fontSize: 18.sp,
             color: colorScheme.onPrimary,
           ),
         ),
@@ -24,8 +25,8 @@ class SelectLanguageView extends GetView<SelectLanguageController> {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(
-                height: 25,
+               SizedBox(
+                height: 20.h,
               ),
               ...[
                 'English',
@@ -48,7 +49,7 @@ class SelectLanguageView extends GetView<SelectLanguageController> {
                         style: context.bodyText1?.copyWith(
                           color: colorScheme.onBackground,
                           fontWeight: FontWeight.w400,
-                          fontSize: 16,
+                          fontSize: 16.sp,
                         ),
                       ),
                     ),

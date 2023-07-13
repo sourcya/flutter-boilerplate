@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../core/navigation/app_routes.dart';
@@ -43,7 +44,7 @@ class HomeView extends GetView<HomeController> {
                 CachedNetworkImage(
                   imageUrl:
                       'https://avatars.githubusercontent.com/u/35397170?s=200&v=4',
-                  height: 100,
+                  height: 100.h,
                 ),
               ],
             ),

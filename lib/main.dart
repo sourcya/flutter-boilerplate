@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:playx/playx.dart';
 
 import 'core/config/app_config.dart';
@@ -31,16 +32,22 @@ class MyApp extends StatelessWidget {
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.portraitUp,
         ]);
-        return GetMaterialApp(
-          useInheritedMediaQuery: true,
-          debugShowCheckedModeBanner: false,
-          initialRoute: AppPages.initial,
-          getPages: AppPages.routes,
-          theme: xTheme.theme,
-          locale: Get.locale ?? Locale(selectedLang),
-          fallbackLocale: const Locale(AppLocale.englishLanguage),
-          translations: AppLocale(),
-          title: AppTrans.appName.tr,
+        return ScreenUtilInit(
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (context , child) {
+            return GetMaterialApp(
+              useInheritedMediaQuery: true,
+              debugShowCheckedModeBanner: false,
+              initialRoute: AppPages.initial,
+              getPages: AppPages.routes,
+              theme: xTheme.theme,
+              locale: Get.locale ?? Locale(selectedLang),
+              fallbackLocale: const Locale(AppLocale.englishLanguage),
+              translations: AppLocale(),
+              title: AppTrans.appName.tr,
+            );
+          },
         );
       },
     );

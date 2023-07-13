@@ -58,6 +58,7 @@ class LoginController extends GetxController {
   Future<void> login() async {
     if (!isFormValid()) return;
     isLoading.value = true;
+    appNavigation.navigateFromLoginToHome();
 
     final result = await authRepository.login(
       email: emailController.text,
