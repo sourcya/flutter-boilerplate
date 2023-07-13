@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:playx/playx.dart';
 
 import '../resources/assets.dart';
@@ -32,11 +33,11 @@ class NoInternetAnimation extends StatelessWidget {
           style: textStyle ??
               TextStyle(
                 color: context.colorScheme.onBackground,
-                fontSize: 18,
+                fontSize: 18.sp,
               ),
         ),
-        const SizedBox(
-          height: 20,
+         SizedBox(
+          height: 20.h,
         ),
         ElevatedButton(
           style: retryButtonStyle ?? const ButtonStyle(),
@@ -46,7 +47,7 @@ class NoInternetAnimation extends StatelessWidget {
             style: retryTextStyle ??
                 TextStyle(
                   color: context.colorScheme.onPrimary,
-                  fontSize: 14,
+                  fontSize: 14.sp,
                 ),
           ),
         )

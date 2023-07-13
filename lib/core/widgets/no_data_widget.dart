@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:playx/playx.dart';
 
@@ -24,7 +25,7 @@ class NoDataAnimation extends StatelessWidget {
           style: textStyle ??
               TextStyle(
                 color: context.colorScheme.onBackground,
-                fontSize: 18,
+                fontSize: 18.sp,
               ),
         )
       ],

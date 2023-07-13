@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:playx/playx.dart';
 
 /// This is a custom text field to have same behavior on whole application.
@@ -95,6 +96,44 @@ class _CustomFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
+    // return OptimizedTextField(
+    // hint: widget.hint,
+    // maxLines: widget.maxLines,
+    // minLines: widget.minLines,
+    // onChanged : widget.onChanged,
+    // onTap : widget.onTap,
+    // icon:widget.icon,
+    // type:widget.type,
+    // validator : widget.validator,
+    // controller:widget.controller,
+    // focus:widget.focus,
+    // nextFocus: widget.nextFocus,
+    // prefix:widget.prefix,
+    // suffix:widget.suffix,
+    // label:widget.label,
+    // read:widget.read,
+    // obscureText:widget.obscureText,
+    // enabled:widget.enabled,
+    // eIcon :widget.eIcon,
+    // edit:widget.edit,
+    // fillColor:widget.fillColor,
+    // autofocus:widget.autofocus,
+    // shouldAutoValidate:widget.shouldAutoValidate,
+    // padding:widget.padding,
+    // margin :widget.margin,
+    // errorMaxLines :widget.errorMaxLines,
+    // textColor:widget.textColor,
+    // hintColor:widget.hintColor,
+    // labelColor:widget.labelColor,
+    // borderColor:widget.borderColor,
+    // focusedBorderColor:widget.focusedBorderColor,
+    // formKey:widget.formKey,
+    // onValidationChanged:widget.onValidationChanged,
+    // textInputAction:widget.textInputAction,
+    //
+    // );
+    //
+
     return Container(
       padding: widget.padding,
       margin: widget.margin,
@@ -138,7 +177,7 @@ class _CustomFieldState extends State<CustomTextField> {
               }
             },
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 16.sp,
               color: widget.textColor ?? context.colorScheme.onBackground,
             ),
             decoration: InputDecoration(
@@ -146,16 +185,16 @@ class _CustomFieldState extends State<CustomTextField> {
               filled: widget.fillColor != null,
               labelStyle: TextStyle(
                 color: widget.labelColor ?? context.colorScheme.secondary,
-                fontSize: 14,
+                fontSize: 16.sp,
               ),
               hintText: widget.hint,
               prefixIcon: widget.prefix,
               labelText: widget.label,
-              contentPadding: const EdgeInsets.only(
-                top: 15.0,
-                bottom: 15.0,
-                right: 5.0,
-                left: 15.0,
+              contentPadding:  EdgeInsets.only(
+                top: 15.0.h,
+                bottom: 15.0.h,
+                right: 15.0.w,
+                left: 15.0.w,
               ),
               icon: widget.icon,
               suffixIcon: widget.suffix,
@@ -163,9 +202,9 @@ class _CustomFieldState extends State<CustomTextField> {
                   TextStyle(color: widget.hintColor ?? XColorScheme.grey),
               floatingLabelStyle: TextStyle(
                   color: widget.labelColor ?? context.colorScheme.secondary,
-                  fontSize: 18),
+                  fontSize: 18.sp),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(24.r),
                 borderSide: BorderSide(
                   color: widget.borderColor ?? XColorScheme.grey,
                 ),
@@ -177,12 +216,12 @@ class _CustomFieldState extends State<CustomTextField> {
                   // color: Colors.grey.withOpacity(0.5),
                   width: 2,
                 ),
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(24.r),
               ),
               border: OutlineInputBorder(
                 borderSide:
                     BorderSide(color: widget.borderColor ?? XColorScheme.grey),
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(24.r),
               ),
               errorMaxLines: widget.errorMaxLines,
             ),
