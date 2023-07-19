@@ -1,37 +1,34 @@
 import 'app_translations.dart';
 
 class ArabicTranslations extends BaseTranslation {
+
+
+
   @override
   Map<String, String> get translations => {
         AppTrans.appName: "تطبيق",
 
         //Network Errors
-        AppTrans.requestCancelled: "تم إلغاء الطلب",
-        AppTrans.unauthorizedRequest: "طلب غير مسموح به",
-        AppTrans.badRequest: "طلب خطأ",
-        AppTrans.notFound: "طلب غير موجود",
-        AppTrans.methodNotAllowed: "طلب غير مسموح به",
-        AppTrans.notAcceptable: "طلب غير مسموح به",
-        AppTrans.requestTimeout:
-            "عذراً ، تم قطع الإتصال يرجي إعادة المحاولة لاحقاً",
-        AppTrans.sendTimeout:
-            "عذراً ، تم قطع الإتصال يرجي إعادة المحاولة لاحقاً",
-        AppTrans.unProcessableEntity: "عذراً، لم نستطع معالجة البيانات",
-        AppTrans.conflict: "عذراً، حدث خطأ ما",
+        AppTrans.requestCancelled:"عذرا ، تم إلغاء الطلب.",
+        AppTrans.unauthorizedRequest: "عذرا ، الطلب غير مصرح به.",
+        AppTrans.badRequest: "عذرًا ، الطلب غير صالح أو تم صياغته بشكل غير صحيح.",
+        AppTrans.notFound: "عذرًا ، تعذر العثور على المورد المطلوب.",
+        AppTrans.notAcceptable:"عذرا ، الطلب غير مقبول.",
+        AppTrans.requestTimeout:  "عذرا ، لقد انقضت مهلة الطلب.",
+        AppTrans.sendTimeout: "عذرا ، لقد انقضت مهلة الطلب.",
+        AppTrans.unProcessableEntity: "عذراً، لم نستطع معالجة البيانات.",
+        AppTrans.conflict: "عذرًا ، لم يكتمل الطلب بسبب وجود تعارض.",
         AppTrans.internalServerError:
-            " عذراً، حدث خطأ ما يرجي إعادة المحاولة لاحقاً",
-        AppTrans.notImplemented: "عذراً، حدث خطأ ما",
+            "عذرا ، هناك مشكلة في الخادم.",
         AppTrans.serviceUnavailable:
-            "عذراً، حدث خطأ ما يرجي إعادة المحاولة لاحقاً",
+            "عذراً، الخدمة غير متوفرة حالياً",
         AppTrans.noInternetConnection:
-            "عذراً ، لايوجد إنترنت يرجي إعادة المحاولة لاحقاًز",
-        AppTrans.formatException: "عذراً، لم نستطع معالجة البيانات",
-        AppTrans.unableToProcess: "عذراً، لم نستطع معالجة البيانات",
-        AppTrans.defaultError: "عذراً، حدث خطأ ما يرجي إعادة المحاولة لاحقاً.",
-        AppTrans.unexpectedError:
-            "عذراً، حدث خطأ ما يرجي إعادة المحاولة لاحقاً.",
-        AppTrans.emptyResponse:
-            "عذراً، لم نستطع معالجة البيانات يرجي إعادة المحاولة لاحقاً.",
+            ".عذراً ، لايوجد إتصال بالإنترنت، يرجي إعادة المحاولة لاحقاً",
+        AppTrans.formatException: "عذرًا ، الطلب لم يتم تنسيقه بشكل صحيح.",
+        AppTrans.unableToProcess:  "عذرا ، لا يمكن معالجة البيانات.",
+        AppTrans.defaultError: "عذراً، لقد حدث خطأ ما .",
+        AppTrans.unexpectedError: "عذرا، لقد حدث خطأ ما.",
+        AppTrans.emptyResponse: "عذرا ،لم نتكن من تلقي استجابة من الخادم.",
 
         //biometric auth
         AppTrans.bioLocalizedReason:
