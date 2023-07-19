@@ -1,8 +1,6 @@
 import 'package:playx/playx.dart';
 
-import '../../../../core/network/api_client.dart';
 import '../../../../core/network/endpoints/endpoints.dart';
-import '../../../../core/network/models/network_result.dart';
 import '../models/api_user.dart';
 
 ///This class is responsible of retrieving data from the network.
@@ -16,7 +14,7 @@ class RemoteAuthDataSource {
 
   RemoteAuthDataSource._internal();
 
-  final ApiClient client = Get.find<ApiClient>();
+  final PlayxNetworkClient client = Get.find<PlayxNetworkClient>();
 
   Future<NetworkResult<ApiUser>> login({
     required String email,
@@ -24,7 +22,7 @@ class RemoteAuthDataSource {
   }) async {
     final res = await client.post<ApiUser>(
       Endpoints.login,
-      attachToken: false,
+      attachCustomHeaders: false,
       body: {
         'identifier': email,
         'password': password,
@@ -40,7 +38,7 @@ class RemoteAuthDataSource {
   }) async {
     final res = await client.post<ApiUser>(
       Endpoints.register,
-      attachToken: false,
+      attachCustomHeaders: false,
       body: {
         'username': email,
         'email': email,

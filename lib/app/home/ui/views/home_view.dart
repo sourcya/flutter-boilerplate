@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../core/navigation/app_routes.dart';
@@ -60,15 +59,16 @@ class HomeView extends GetView<HomeController> {
             onSuccess: (user) {
               return Center(
                 child: Text(
-                  user.username ?? '',
-                  style: TextStyle(color: colorScheme.onBackground),
+                  user.username ?? 'not found',
+                  style: TextStyle(color: colorScheme.onBackground, fontSize: 14.sp),
                 ),
               );
             },
             onLoading: (data) => CenterLoading(
               color: colorScheme.secondary,
             ),
-            onEmpty: (data) => Container(),
+            onEmpty: (e) => Center(child: Text(e, style: const TextStyle(color: Colors.red))),
+            onError: (e)=> Center(child: Text(e, style: const TextStyle(color: Colors.red))),
             onNoInternetRetryClicked: () {},
           ),
         ],
