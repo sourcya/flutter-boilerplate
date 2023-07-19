@@ -14,14 +14,12 @@ abstract class AppTrans {
   static const String unauthorizedRequest = "UnauthorizedRequest";
   static const String badRequest = "badRequest";
   static const String notFound = "notFound";
-  static const String methodNotAllowed = "methodNotAllowed";
   static const String notAcceptable = "notAcceptable";
   static const String requestTimeout = "RequestTimeout";
   static const String sendTimeout = "sendTimeout";
   static const String unProcessableEntity = "unProcessableEntity";
   static const String conflict = "conflict";
   static const String internalServerError = "internalServerError";
-  static const String notImplemented = "NotImplemented";
   static const String serviceUnavailable = "ServiceUnavailable";
   static const String noInternetConnection = "NoInternetConnection";
   static const String formatException = "FormatException";
