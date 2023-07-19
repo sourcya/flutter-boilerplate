@@ -43,7 +43,7 @@ class HomeView extends GetView<HomeController> {
                 CachedNetworkImage(
                   imageUrl:
                       'https://avatars.githubusercontent.com/u/35397170?s=200&v=4',
-                  height: 100,
+                  height: 100.h,
                 ),
               ],
             ),
@@ -59,15 +59,16 @@ class HomeView extends GetView<HomeController> {
             onSuccess: (user) {
               return Center(
                 child: Text(
-                  user.username ?? '',
-                  style: TextStyle(color: colorScheme.onBackground),
+                  user.username ?? 'not found',
+                  style: TextStyle(color: colorScheme.onBackground, fontSize: 14.sp),
                 ),
               );
             },
             onLoading: (data) => CenterLoading(
               color: colorScheme.secondary,
             ),
-            onEmpty: (data) => Container(),
+            onEmpty: (e) => Center(child: Text(e, style: const TextStyle(color: Colors.red))),
+            onError: (e)=> Center(child: Text(e, style: const TextStyle(color: Colors.red))),
             onNoInternetRetryClicked: () {},
           ),
         ],

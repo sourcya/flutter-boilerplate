@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../../core/navigation/app_navigation.dart';
-import '../../../../../core/network/models/exceptions/network_exception.dart';
 import '../../../../../core/utils/alert.dart';
 import '../../../data/models/api_user.dart';
 import '../../../data/repo/auth_repository.dart';

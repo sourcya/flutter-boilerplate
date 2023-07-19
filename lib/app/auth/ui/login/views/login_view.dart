@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/app/auth/ui/login/views/widgets/google_sign_in_button/google_sign_in_button.dart';
 import 'package:flutter_boilerplate/core/resources/colors/app_color_scheme.dart';
 import 'package:flutter_boilerplate/core/utils/app_utils.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:playx/playx.dart';
 
@@ -54,8 +55,10 @@ class LoginView extends GetView<LoginController> {
 
   Widget _buildLoginText(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
+      padding:  EdgeInsets.only(
+        right: 10.w,
+        left: 10.w,
+        bottom: 10.h
       ),
       alignment: Alignment.centerLeft,
       child: Text(
@@ -63,7 +66,7 @@ class LoginView extends GetView<LoginController> {
         style: GoogleFonts.poppins(
           textStyle: TextStyle(
             color: colorScheme.onBackground,
-            fontSize: 40,
+            fontSize: 40.sp,
           ),
         ),
         textAlign: TextAlign.start,
@@ -75,9 +78,9 @@ class LoginView extends GetView<LoginController> {
     BuildContext context,
   ) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 5,
+      padding:  EdgeInsets.symmetric(
+        horizontal: 10.w,
+        vertical: 5.h,
       ),
       child: CustomTextField(
         label: AppTrans.emailOrUsernameLabel.tr,
@@ -87,9 +90,13 @@ class LoginView extends GetView<LoginController> {
         validator: qValidator([
           IsRequired(AppTrans.emailRequired.tr),
         ]),
-        prefix: Icon(
-          Icons.email,
-          color: colorScheme.secondary,
+        prefix: Padding(
+          padding:  EdgeInsets.symmetric(horizontal: 8.0.w),
+          child: Icon(
+            Icons.email,
+            color: colorScheme.secondary,
+            size: 20.r,
+          ),
         ),
         shouldAutoValidate: true,
         onValidationChanged: (isValid) {
@@ -105,9 +112,9 @@ class LoginView extends GetView<LoginController> {
   ) {
     return Obx(() {
       return Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 5,
+        padding:  EdgeInsets.symmetric(
+          horizontal: 10.w,
+          vertical: 5.h,
         ),
         child: CustomTextField(
           label: AppTrans.passwordLabel.tr,
@@ -115,16 +122,20 @@ class LoginView extends GetView<LoginController> {
           controller: controller.passwordController,
           obscureText: controller.hidePassword.value,
           type: TextInputType.visiblePassword,
-          suffix: IconButton(
-            icon: Icon(
-              controller.hidePassword.value
-                  ? Icons.visibility_off
-                  : Icons.visibility,
+          suffix: Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 8.0.w),
+            child: IconButton(
+              icon: Icon(
+                controller.hidePassword.value
+                    ? Icons.visibility_off
+                    : Icons.visibility,
+                size: 20.r,
+              ),
+              onPressed: () {
+                controller.hidePassword.value = !controller.hidePassword.value;
+              },
+              color: colorScheme.secondary,
             ),
-            onPressed: () {
-              controller.hidePassword.value = !controller.hidePassword.value;
-            },
-            color: colorScheme.secondary,
           ),
           validator: qValidator([
             IsRequired(
@@ -132,9 +143,13 @@ class LoginView extends GetView<LoginController> {
             ),
             MinLength(6, AppTrans.passwordMinLengthError.tr)
           ]),
-          prefix: Icon(
-            Icons.lock,
-            color: colorScheme.secondary,
+          prefix: Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 8.0.w),
+            child: Icon(
+              Icons.lock,
+              color: colorScheme.secondary,
+              size: 20.r,
+            ),
           ),
           shouldAutoValidate: true,
           onValidationChanged: (isValid) {
@@ -148,12 +163,12 @@ class LoginView extends GetView<LoginController> {
   Widget _buildLoginButton(BuildContext context) {
     return Obx(() {
       return Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 5,
+        padding:  EdgeInsets.symmetric(
+          horizontal: 10.w,
+          vertical: 5.h,
         ),
-        margin: const EdgeInsets.symmetric(
-          vertical: 10,
+        margin:  EdgeInsets.symmetric(
+          vertical: 10.h,
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -163,7 +178,7 @@ class LoginView extends GetView<LoginController> {
                 12,
               ),
             ),
-            padding: const EdgeInsets.all(8),
+            padding:  const EdgeInsets.all(8),
           ),
           onPressed: controller.login,
           child: SizedBox(
@@ -178,7 +193,7 @@ class LoginView extends GetView<LoginController> {
                       AppTrans.loginText.tr,
                       style: TextStyle(
                         color: colorScheme.onSecondary,
-                        fontSize: 18,
+                        fontSize: 20.sp,
                       ),
                     ),
                   ),
@@ -190,8 +205,8 @@ class LoginView extends GetView<LoginController> {
 
   Widget _buildRegisterNowWidget(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
+      padding:  EdgeInsets.symmetric(
+        vertical: 10.h,
       ),
       child: InkWell(
         onTap: controller.navigateToRegister,
@@ -200,13 +215,16 @@ class LoginView extends GetView<LoginController> {
             text: AppTrans.dontHaveAccountText.tr,
             style: TextStyle(
               color: colorScheme.onBackground,
+                fontSize: 14.sp
             ),
             children: <TextSpan>[
               TextSpan(
                 text: AppTrans.registerNow.tr,
                 style: TextStyle(
                   color: colorScheme.secondary,
+                  fontSize: 14.sp
                 ),
+
               ),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/resources/colors/app_color_scheme.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:playx/playx.dart';
 
@@ -20,9 +21,9 @@ class RegisterView extends GetView<RegisterController> {
       body: OptimizedScrollView(
         child: SafeArea(
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 10,
+            padding:  EdgeInsets.symmetric(
+              vertical: 10.h,
+              horizontal: 10.w,
             ),
             alignment: Alignment.center,
             child: Column(
@@ -34,8 +35,8 @@ class RegisterView extends GetView<RegisterController> {
                   height: context.height * .28,
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
+                  padding:  EdgeInsets.symmetric(
+                    horizontal: 10.w,
                   ),
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -43,16 +44,16 @@ class RegisterView extends GetView<RegisterController> {
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(
                         color: colorScheme.onBackground,
-                        fontSize: 40,
+                        fontSize: 40.sp,
                       ),
                     ),
                     textAlign: TextAlign.start,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
+                  padding:  EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 5.h,
                   ),
                   child: CustomTextField(
                     label: AppTrans.emailLabel.tr,
@@ -78,9 +79,9 @@ class RegisterView extends GetView<RegisterController> {
                 ),
                 Obx(() {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 5,
+                    padding:  EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 5.h,
                     ),
                     child: CustomTextField(
                       label: AppTrans.passwordLabel.tr,
@@ -131,9 +132,9 @@ class RegisterView extends GetView<RegisterController> {
                 }),
                 Obx(() {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 5,
+                    padding:  EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 5.h,
                     ),
                     child: CustomTextField(
                       label: AppTrans.confirmPasswordLabel.tr,
@@ -173,12 +174,12 @@ class RegisterView extends GetView<RegisterController> {
                 }),
                 Obx(() {
                   return Container(
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 10,
+                    margin:  EdgeInsets.symmetric(
+                      vertical: 5.h,
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 10,
+                    padding:  EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 10.h,
                     ),
                     child: ElevatedButton(
                       style: ButtonStyle(
@@ -188,12 +189,12 @@ class RegisterView extends GetView<RegisterController> {
                         shape: MaterialStatePropertyAll(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
-                              12,
+                              12.r,
                             ), // <-- Radius
                           ),
                         ),
-                        padding: const MaterialStatePropertyAll(
-                          EdgeInsets.all(8),
+                        padding:  MaterialStatePropertyAll(
+                          EdgeInsets.all(8.r),
                         ),
                       ),
                       onPressed: controller.register,
@@ -209,7 +210,7 @@ class RegisterView extends GetView<RegisterController> {
                                   AppTrans.registerText.tr,
                                   style: TextStyle(
                                     color: colorScheme.onSecondary,
-                                    fontSize: 18,
+                                    fontSize: 18.sp,
                                   ),
                                 ),
                               ),
@@ -218,8 +219,8 @@ class RegisterView extends GetView<RegisterController> {
                   );
                 }),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
+                  padding:  EdgeInsets.symmetric(
+                    vertical: 5.h,
                   ),
                   child: InkWell(
                     onTap: controller.navigateToLogin,
@@ -228,12 +229,15 @@ class RegisterView extends GetView<RegisterController> {
                         text: AppTrans.haveAccountText.tr,
                         style: TextStyle(
                           color: colorScheme.onBackground,
+                          fontSize: 14.sp,
                         ),
                         children: <TextSpan>[
                           TextSpan(
                             text: AppTrans.loginNow.tr,
                             style: TextStyle(
                               color: colorScheme.secondary,
+                              fontSize: 14.sp,
+
                             ),
                           ),
                         ],
@@ -242,22 +246,23 @@ class RegisterView extends GetView<RegisterController> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 15,
-                    horizontal: 10,
+                  padding:  EdgeInsets.symmetric(
+                    vertical: 15.h,
+                    horizontal: 10.w,
                   ),
                   child: RichText(
                     text: TextSpan(
                       text: AppTrans.termsAndPrivacyInitialText.tr,
                       style: TextStyle(
                         color: colorScheme.onBackground,
-                        fontSize: 12,
+                        fontSize: 12.sp,
                       ),
                       children: <TextSpan>[
                         TextSpan(
                           text: AppTrans.terms.tr,
                           style: TextStyle(
                             color: colorScheme.secondary,
+                            fontSize: 12.sp,
                           ),
                           recognizer: TapGestureRecognizer()..onTap = () {},
                         ),
@@ -265,13 +270,14 @@ class RegisterView extends GetView<RegisterController> {
                           text: AppTrans.andText.tr,
                           style: TextStyle(
                             color: colorScheme.onBackground,
-                            fontSize: 12,
+                            fontSize: 12.sp,
                           ),
                         ),
                         TextSpan(
                           text: AppTrans.privacyPolicyText.tr,
                           style: TextStyle(
                             color: colorScheme.secondary,
+                            fontSize: 12.sp,
                           ),
                           recognizer: TapGestureRecognizer()..onTap = () {},
                         ),
