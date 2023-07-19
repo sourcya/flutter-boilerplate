@@ -106,13 +106,13 @@ packages:
     source: hosted
     version: "1.0.5"
   dio:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: dio
-      sha256: a9d76e72985d7087eb7c5e7903224ae52b337131518d127c554b9405936752b8
+      sha256: "3866d67f93523161b643187af65f5ac08bc991a5bcdaf41a2d587fe4ccb49993"
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.1+1"
+    version: "5.3.0"
   email_validator:
     dependency: transitive
     description:
@@ -425,10 +425,10 @@ packages:
     dependency: transitive
     description:
       name: lottie
-      sha256: f461105d3a35887b27089abf9c292334478dd292f7b47ecdccb6ae5c37a22c80
+      sha256: "0793a5866062e5cc8a8b24892fa94c3095953ea914a7fdf790f550dd7537fe60"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.0"
+    version: "2.5.0"
   matcher:
     dependency: transitive
     description:
@@ -561,26 +561,34 @@ packages:
     dependency: "direct main"
     description:
       name: playx
-      sha256: "95dbf500b0b0e272512df107cf74c9cf4d806ef661efba224bcc9ea822e77e01"
+      sha256: e1d1ed3c13a258e9e4557fb6e552d0696b45b75e21a3e4346ca95e598d382d7a
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.3"
+    version: "0.2.0"
   playx_core:
     dependency: transitive
     description:
       name: playx_core
-      sha256: d5b92c6ad2738257e4e0ac29759a37f6b70535410444ff401262966d252cd910
+      sha256: "876863066779da8e89040469745cd13b97bcc97900b6fc818e148fda5194c3f9"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.9"
+    version: "0.1.1"
+  playx_network:
+    dependency: transitive
+    description:
+      name: playx_network
+      sha256: "4c9c1dc61b72ab58b104e5c40086c6fc9e06004e549a1ec8971878c8eb31a071"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   playx_theme:
     dependency: transitive
     description:
       name: playx_theme
-      sha256: "06aada042065394c14bdb11ef7c2a4718bcb3aaec56952454f6112f5da14a09f"
+      sha256: "71eed0ca067166979382563eaed67cacf40a17c64cac5a4c3489c39be0cfcdf5"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.7"
+    version: "0.0.9"
   playx_version_update:
     dependency: "direct main"
     description:
@@ -593,10 +601,10 @@ packages:
     dependency: transitive
     description:
       name: playx_widget
-      sha256: "6bfbaba0507bbe34714ec2d9b35ab87fdb90d85fef0c87ff040a163ab7c1c808"
+      sha256: ca2526761ea7b6dabfafe4b6c50fbc65d691cac5712c2cc3734cdf6554b4cd7a
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.5"
+    version: "0.0.6"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -613,6 +621,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.7.3"
+  pretty_dio_logger:
+    dependency: transitive
+    description:
+      name: pretty_dio_logger
+      sha256: "00b80053063935cf9a6190da344c5373b9d0e92da4c944c878ff2fbef0ef6dc2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.1"
   process:
     dependency: transitive
     description:
