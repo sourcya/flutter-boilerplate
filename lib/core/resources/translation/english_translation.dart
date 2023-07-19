@@ -1,32 +1,39 @@
 import 'app_translations.dart';
 
+
+
 class EnglishTranslation extends BaseTranslation {
-  @override
+      @override
+      String get badRequest =>  "Sorry, The API request is invalid or improperly formed.";
+
+
+
+
+
+      @override
   Map<String, String> get translations => {
         AppTrans.appName: "Sourcya App",
 
         //Network Errors
-        AppTrans.requestCancelled: "The request has been canceled",
-        AppTrans.unauthorizedRequest: "Unauthorized Request",
-        AppTrans.badRequest: "bad Request",
-        AppTrans.notFound: "not found",
-        AppTrans.methodNotAllowed: "Method Not Allowed",
-        AppTrans.notAcceptable: "The request is not acceptable",
-        AppTrans.requestTimeout: "Sorry, connection timed out.",
-        AppTrans.sendTimeout: "Send timeout in connection with API server",
+        AppTrans.requestCancelled: "Sorry, The request has been canceled.",
+        AppTrans.unauthorizedRequest: "Sorry, The request is unauthorized.",
+        AppTrans.badRequest: "Sorry, The API request is invalid or improperly formed.",
+        AppTrans.notFound: "Sorry, The resource requested couldn't be found.",
+        AppTrans.notAcceptable: "Sorry, The request is not acceptable.",
+        AppTrans.requestTimeout: "Sorry, The request has timed out.",
+        AppTrans.sendTimeout: "Sorry, The request has send timeout in connection with API server.",
         AppTrans.unProcessableEntity: "Unable to process the data",
-        AppTrans.conflict: "Error due to a conflict",
-        AppTrans.internalServerError: "internal server error",
-        AppTrans.notImplemented: "not implemented",
-        AppTrans.serviceUnavailable: "service unavailable",
+        AppTrans.conflict: "Sorry, The request wasn't completed due to a conflict.",
+        AppTrans.internalServerError: "Sorry, There is an internal server error.",
+        AppTrans.serviceUnavailable: "Sorry, The service is unavailable.",
         AppTrans.noInternetConnection:
             "Sorry, There is no internet connection.",
-        AppTrans.formatException: "format exception",
-        AppTrans.unableToProcess: "Unable to process the data",
+        AppTrans.formatException: "Sorry, The request wasn't formatted correctly.",
+        AppTrans.unableToProcess: "Sorry, Couldn't process the data.",
         AppTrans.defaultError: "Sorry, Something went wrong.",
         AppTrans.unexpectedError: "Sorry, Something went wrong.",
         AppTrans.emptyResponse:
-            "Sorry, couldn't receive response from the server.",
+            "Sorry, Couldn't receive response from the server.",
 
         //biometric auth
         AppTrans.bioLocalizedReason: 'Please authenticate to login',
@@ -85,6 +92,15 @@ class EnglishTranslation extends BaseTranslation {
 
         AppTrans.noDataMessage: "There is no data available.",
         AppTrans.noInternetMessage: "Network is not available.",
-        AppTrans.retryText: "Retry"
+        AppTrans.retryText: "Retry",
+
+        AppTrans.updateTitle: 'An update is available.',
+        AppTrans.updateDescription:
+            'A new version of the app is now available.\n\n'
+                'Update now to enjoy the latest features now.',
+
+        AppTrans.updateReleaseNotesTitle: 'Release notes:',
+        AppTrans.updateConfirmActionTitle: 'Update',
+        AppTrans.updateDismissActionTitle: 'Not Now',
       };
 }

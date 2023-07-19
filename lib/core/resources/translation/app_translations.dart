@@ -14,14 +14,12 @@ abstract class AppTrans {
   static const String unauthorizedRequest = "UnauthorizedRequest";
   static const String badRequest = "badRequest";
   static const String notFound = "notFound";
-  static const String methodNotAllowed = "methodNotAllowed";
   static const String notAcceptable = "notAcceptable";
   static const String requestTimeout = "RequestTimeout";
   static const String sendTimeout = "sendTimeout";
   static const String unProcessableEntity = "unProcessableEntity";
   static const String conflict = "conflict";
   static const String internalServerError = "internalServerError";
-  static const String notImplemented = "NotImplemented";
   static const String serviceUnavailable = "ServiceUnavailable";
   static const String noInternetConnection = "NoInternetConnection";
   static const String formatException = "FormatException";
@@ -95,4 +93,10 @@ abstract class AppTrans {
   static const String noDataMessage = "no_data_message";
   static const String noInternetMessage = "no_internet_message";
   static const String retryText = "retry_text";
+
+  static const String updateTitle = 'update_title';
+  static const String updateDescription = 'update_description';
+  static const String updateReleaseNotesTitle = 'update_release_notes_title';
+  static const String updateConfirmActionTitle = 'update_confirm_action_title';
+  static const String updateDismissActionTitle = 'update_dismiss_action_title';
 }

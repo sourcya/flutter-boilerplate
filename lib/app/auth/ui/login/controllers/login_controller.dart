@@ -6,7 +6,6 @@ import 'package:flutter_boilerplate/app/auth/data/repo/biometric_auth_repository
 import 'package:playx/playx.dart';
 
 import '../../../../../core/navigation/app_navigation.dart';
-import '../../../../../core/network/models/exceptions/network_exception.dart';
 import '../../../../../core/utils/alert.dart';
 import '../../../data/models/api_user.dart';
 import '../../../data/repo/auth_repository.dart';
@@ -58,12 +57,12 @@ class LoginController extends GetxController {
   Future<void> login() async {
     if (!isFormValid()) return;
     isLoading.value = true;
+    appNavigation.navigateFromLoginToHome();
 
     final result = await authRepository.login(
       email: emailController.text,
       password: passwordController.text,
     );
-
     result.when(
       success: (ApiUser user) async {
         isLoading.value = false;
