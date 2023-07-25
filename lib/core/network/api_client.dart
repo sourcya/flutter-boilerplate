@@ -1,14 +1,16 @@
-import 'package:flutter_boilerplate/core/navigation/app_navigation.dart';
-import 'package:flutter_boilerplate/core/network/endpoints/endpoints.dart';
-import 'package:flutter_boilerplate/core/network/exception/custom_exception_message.dart';
-import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
 import 'package:playx/playx.dart';
+
+import '../navigation/app_navigation.dart';
+import '../preferences/preference_manger.dart';
+import 'endpoints/endpoints.dart';
+import 'exception/custom_exception_message.dart';
 
 abstract class ApiClient {
   ApiClient._();
 
+ static String? get token => MyPreferenceManger.instance.token;
+
   static Future<PlayxNetworkClient> createApiClient() async {
-    final token = MyPreferenceManger.instance.token;
     return PlayxNetworkClient(
       dio: Dio(
         BaseOptions(
@@ -20,7 +22,7 @@ abstract class ApiClient {
           contentType: Headers.jsonContentType,
         ),
       ),
-      customHeaders: {
+      customHeaders: token == null ? null: () async =>{
         'authorization': 'Bearer $token',
       },
       exceptionMessages: const CustomExceptionMessage(),
