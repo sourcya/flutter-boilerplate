@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../core/resources/colors/app_color_scheme.dart';
