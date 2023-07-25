@@ -59,7 +59,7 @@ class LoginView extends GetView<LoginController> {
         left: 10.w,
         bottom: 10.h,
       ),
-      alignment: Alignment.centerLeft,
+      width: double.infinity,
       child: Text(
         AppTrans.loginText.tr,
         style: GoogleFonts.poppins(
@@ -68,7 +68,6 @@ class LoginView extends GetView<LoginController> {
             fontSize: 40.sp,
           ),
         ),
-        textAlign: TextAlign.start,
       ),
     );
   }
