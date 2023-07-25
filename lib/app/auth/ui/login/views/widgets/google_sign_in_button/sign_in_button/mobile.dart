@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/resources/assets.dart';
 import 'package:playx/playx.dart';
 
+import '../../../../../../../../core/resources/assets.dart';
 import 'stub.dart';
 
 /// Renders a SIGN IN button that calls `handleSignIn` onclick.

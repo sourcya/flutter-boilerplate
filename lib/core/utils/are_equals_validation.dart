@@ -1,4 +1,5 @@
-import 'package:queen_validators/queen_validators.dart';
+
+import 'package:playx/playx.dart';
 
 /// Match Validator for text fields
 /// checks if the input matches other string

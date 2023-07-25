@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
-import '../utils/models/data_error.dart';
-import '../utils/models/data_state.dart';
-import 'no_data_widget.dart';
-import 'no_internet_widget.dart';
+import '../../widgets/no_data_widget.dart';
+import '../../widgets/no_internet_widget.dart';
+import '../models/data_error.dart';
+import '../models/data_state.dart';
 
 typedef DataCallback<T> = Widget Function(T? data);
 typedef SuccessDataCallback<T> = Widget Function(T data);

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/app/auth/ui/login/views/widgets/google_sign_in_button/google_sign_in_button.dart';
-import 'package:flutter_boilerplate/core/resources/colors/app_color_scheme.dart';
-import 'package:flutter_boilerplate/core/utils/app_utils.dart';
+import 'package:flutter_boilerplate/app/auth/ui/login/views/widgets/google_sign_in_button/sign_in_button/stub.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../../core/resources/assets.dart';
+import '../../../../../core/resources/colors/app_color_scheme.dart';
 import '../../../../../core/resources/translation/app_translations.dart';
+import '../../../../../core/utils/app_utils.dart';
 import '../../../../../core/widgets/text_field.dart';
 import '../controllers/login_controller.dart';
 
@@ -57,7 +57,7 @@ class LoginView extends GetView<LoginController> {
       padding:  EdgeInsets.only(
         right: 10.w,
         left: 10.w,
-        bottom: 10.h
+        bottom: 10.h,
       ),
       alignment: Alignment.centerLeft,
       child: Text(
@@ -214,14 +214,14 @@ class LoginView extends GetView<LoginController> {
             text: AppTrans.dontHaveAccountText.tr,
             style: TextStyle(
               color: colorScheme.onBackground,
-                fontSize: 14.sp
+                fontSize: 14.sp,
             ),
             children: <TextSpan>[
               TextSpan(
                 text: AppTrans.registerNow.tr,
                 style: TextStyle(
                   color: colorScheme.secondary,
-                  fontSize: 14.sp
+                  fontSize: 14.sp,
                 ),
 
               ),
@@ -237,7 +237,7 @@ class LoginView extends GetView<LoginController> {
       width: context.width * 0.55,
       height: context.height * 0.06,
       child: buildGoogleSignInButton(
-          onPressed: controller.loginWithGoogle, isDark: AppUtils.isDarkMode()),
+          onPressed: controller.loginWithGoogle, isDark: AppUtils.isDarkMode(),),
     );
   }
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
-import '../utils/models/data_state.dart';
+import '../models/data_state.dart';
 import 'data_state_widget.dart';
+
 
 typedef DataCallback<T> = Widget Function(T? data);
 typedef SuccessDataCallback<T> = Widget Function(T data);

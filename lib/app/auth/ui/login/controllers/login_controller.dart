@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_boilerplate/app/auth/data/repo/biometric_auth_repository.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../../core/navigation/app_navigation.dart';
 import '../../../../../core/utils/alert.dart';
 import '../../../data/models/api_user.dart';
 import '../../../data/repo/auth_repository.dart';
+import '../../../data/repo/biometric_auth_repository.dart';
 import '../../../data/repo/google_auth_repository.dart';
 
 ///Login controller to setup data to the ui.
@@ -85,7 +85,7 @@ class LoginController extends GetxController {
           if (isAuthenticated) {
             appNavigation.navigateFromLoginToHome();
           } else {
-            Alert.message(message: 'couldn\'t authenticate');
+            Alert.message(message: "couldn't authenticate");
           }
         },
         error: (message) {
@@ -103,7 +103,7 @@ class LoginController extends GetxController {
       success: (user) {
         appNavigation.navigateFromLoginToHome();
         Alert.success(
-            message: 'Logged in successfully using Google with ${user.email}');
+            message: 'Logged in successfully using Google with ${user.email}',);
       },
       error: (message) {
         Alert.error(message: message);
