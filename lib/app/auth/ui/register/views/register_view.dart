@@ -37,7 +37,7 @@ class RegisterView extends GetView<RegisterController> {
                   padding:  EdgeInsets.symmetric(
                     horizontal: 10.w,
                   ),
-                  alignment: Alignment.centerLeft,
+                  width: double.infinity,
                   child: Text(
                     AppTrans.registerText.tr,
                     style: GoogleFonts.poppins(

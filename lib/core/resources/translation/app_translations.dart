@@ -65,4 +65,15 @@ abstract class AppTrans {
   static const updateReleaseNotesTitle = 'updateReleaseNotesTitle';
   static const updateConfirmActionTitle = 'updateConfirmActionTitle';
   static const updateDismissActionTitle = 'updateDismissActionTitle';
+
+  static const settings='settings';
+
+  static const language ='language';
+
+  static const theme='theme';
+
+  static const home ='home';
+
+  static const notifications ='notifications';
+
 }
