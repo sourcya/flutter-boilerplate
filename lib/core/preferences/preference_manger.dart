@@ -3,19 +3,14 @@ import 'dart:convert';
 import 'package:playx/playx.dart';
 
 import '../../app/auth/data/models/user.dart';
-import '../resources/translation/app_locale.dart';
 
 /// This class is responsible for saving key/value pairs in shared preferences.
 class MyPreferenceManger {
   static final MyPreferenceManger instance = Get.find<MyPreferenceManger>();
 
-  final String selectedLanguageKey = "selected_language";
   final String tokenKey = 'token';
   final String userKey = 'logged_in_user';
 
-  String getAppSelectedLanguage() {
-    return Prefs.getString(selectedLanguageKey) ?? AppLocale.englishLanguage;
-  }
 
   bool get isLoggedIn => (Prefs.getString(tokenKey) ?? '').isNotEmpty;
 

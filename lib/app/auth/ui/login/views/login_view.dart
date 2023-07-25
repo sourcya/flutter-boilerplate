@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/app/auth/ui/login/views/widgets/google_sign_in_button/google_sign_in_button.dart';
 import 'package:flutter_boilerplate/core/resources/colors/app_color_scheme.dart';
 import 'package:flutter_boilerplate/core/utils/app_utils.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:playx/playx.dart';
 

@@ -8,15 +8,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
   cupertino_icons: ^1.0.5
   google_sign_in: ^6.1.4
   google_fonts: ^5.1.0
-  playx: ^0.2.0
+  playx: ^0.2.3
   local_auth: ^2.1.6
   playx_version_update: ^0.0.3
   flutter_screenutil: ^5.8.4
+  easy_localization: ^3.0.2
 
 dev_dependencies:
   flutter_test:
@@ -30,3 +29,4 @@ flutter:
     - assets/
     - assets/animation/
     - assets/images/
+    - assets/translations/

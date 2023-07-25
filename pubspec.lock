@@ -113,6 +113,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.3.0"
+  easy_localization:
+    dependency: "direct main"
+    description:
+      name: easy_localization
+      sha256: "30ebf25448ffe169e0bd9bc4b5da94faa8398967a2ad2ca09f438be8b6953645"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.2"
+  easy_logger:
+    dependency: transitive
+    description:
+      name: easy_logger
+      sha256: c764a6e024846f33405a2342caf91c62e357c24b02c04dbc712ef232bf30ffb7
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   email_validator:
     dependency: transitive
     description:
@@ -183,7 +199,7 @@ packages:
     source: hosted
     version: "3.3.1"
   flutter_localizations:
-    dependency: "direct main"
+    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -561,26 +577,34 @@ packages:
     dependency: "direct main"
     description:
       name: playx
-      sha256: e1d1ed3c13a258e9e4557fb6e552d0696b45b75e21a3e4346ca95e598d382d7a
+      sha256: "9008e0f554d5b3da59c89fcabfa3919d6cbc63360fce56c2ef62790132241842"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0"
+    version: "0.2.3"
   playx_core:
     dependency: transitive
     description:
       name: playx_core
-      sha256: "876863066779da8e89040469745cd13b97bcc97900b6fc818e148fda5194c3f9"
+      sha256: "5efc223295d273cf415349134a8793081c98abd0f50032489aa6face5e3cb955"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.1"
+    version: "0.1.2"
+  playx_localization:
+    dependency: transitive
+    description:
+      name: playx_localization
+      sha256: f28d83d9f02a2a754b25768f7088170b2f3226805262812bc51812532d2896a8
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   playx_network:
     dependency: transitive
     description:
       name: playx_network
-      sha256: "4c9c1dc61b72ab58b104e5c40086c6fc9e06004e549a1ec8971878c8eb31a071"
+      sha256: f7da78527805876dd433b9ba821d32e28788e82a8f76293655beef0260831d0f
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1"
+    version: "0.0.5"
   playx_theme:
     dependency: transitive
     description:

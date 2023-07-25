@@ -1,0 +1,88 @@
+{
+
+  "appName": "Sourcya App",
+  "requestCancelled": "Sorry, The request has been canceled.",
+  "unauthorizedRequest": "Sorry, The request is unauthorized.",
+  "badRequest": "Sorry, The API request is invalid or improperly formed.",
+  "notFound": "Sorry, The resource requested couldn't be found.",
+  "notAcceptable": "Sorry, The request is not acceptable.",
+  "requestTimeout": "Sorry, The request has timed out.",
+  "sendTimeout": "Sorry, The request has send timeout in connection with API server.",
+  "unProcessableEntity": "Unable to process the data",
+  "conflict": "Sorry, The request wasn't completed due to a conflict.",
+  "internalServerError": "Sorry, There is an internal server error.",
+  "serviceUnavailable": "Sorry, The service is unavailable.",
+  "noInternetConnection":
+  "Sorry, There is no internet connection.",
+  "formatException": "Sorry, The request wasn't formatted correctly.",
+  "unableToProcess": "Sorry, Couldn't process the data.",
+  "defaultError": "Sorry, Something went wrong.",
+  "unexpectedError": "Sorry, Something went wrong.",
+  "emptyResponse":
+  "Sorry, Couldn't receive response from the server.",
+
+  "bioLocalizedReason": "Please authenticate to login",
+  "bioSignInTitle": "Biometric authentication is required!",
+  "bioCancelText": "No thanks",
+  "bioCanAuthenticate": "Can't authenticate with biometric",
+  "bioNotAvailableError":
+  "Authentication using biometric is not available, Try setting lock screen password.",
+  "bioNotEnrolledError":
+  "No biometrics has been enrolled on the device",
+  "bioLockedOutError":
+  "Biometric authentication has been locked out due to too many attempts",
+  "bioDefaultError": "Sorry, Something went wrong",
+  "bioPasscodeNotSetError":
+  "You haven't configured any password for the device yet pls configure it to use the app.",
+
+  "emailHint": "Enter your username or email address",
+  "passwordHint": "Enter your password",
+  "usernameHint": "Enter your Username",
+
+  "loginText": "Login",
+  "registerText": "Register",
+
+  "emailRequired": "Email address is required",
+  "passwordRequired": "Password is required",
+  "usernameRequired": "Username is required",
+
+  "emailOrUsernameLabel": "Email or username",
+  "emailLabel": "Email",
+  "usernameLabel": "Username",
+  "passwordLabel": "Password",
+
+  "dontHaveAccountText": "Don't have an account?",
+  "registerNow": " Register Now!",
+
+  "haveAccountText": "Already have an account?",
+  "loginNow": " Login Now!",
+
+  "notEmailError": "Please enter a valid email address.",
+
+  "confirmPasswordLabel": "Confirm password",
+  "confirmPasswordHint": "Enter your password again.",
+
+  "passwordMinLengthError":
+  "Password must be at least 6 characters long.",
+  "confirmPasswordRequiredError": "Confirm password is required.",
+  "confirmPasswordMatchError": "Passwords do not match.",
+
+  "termsAndPrivacyInitialText":
+  "By registering, you agree to our ",
+  "terms": "Terms & Conditions",
+  "andText": " and ",
+
+  "privacyPolicyText": "Privacy Policy.",
+
+  "noDataMessage": "There is no data available.",
+  "noInternetMessage": "Network is not available.",
+  "retryText": "Retry",
+
+  "updateTitle": "An update is available.",
+  "updateDescription":
+  "A new version of the app is now available.\n\nUpdate now to enjoy the latest features now.",
+
+  "updateReleaseNotesTitle": "Release notes\":",
+  "updateConfirmActionTitle": "Update",
+  "updateDismissActionTitle": "Not Now"
+}
