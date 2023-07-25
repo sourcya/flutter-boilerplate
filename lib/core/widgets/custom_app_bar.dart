@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:playx/playx.dart';
+
+import '../resources/dimens/dimens.dart';
 
 AppBar buildAppBar({required String title}) {
   return AppBar(
-    toolbarHeight: 56.h,
-    title: Text(title, style: TextStyle(fontSize: 14.sp)),
+    toolbarHeight: dimens.appBarHeight,
+    title: Text(title, style: TextStyle(fontSize: dimens.appBarTextSize)),
     centerTitle: true,
   );
 }
