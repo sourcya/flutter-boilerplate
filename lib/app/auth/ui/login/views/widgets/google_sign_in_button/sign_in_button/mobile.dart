@@ -7,6 +7,8 @@ import 'stub.dart';
 /// Renders a SIGN IN button that calls `handleSignIn` onclick.
 Widget buildGoogleSignInButton(
     {HandleSignInFn? onPressed, bool isIcon = false, bool isDark = false}) {
+  print('building google sign in for mobile');
+
   return isIcon
       ? IconButton(
           onPressed: onPressed,
