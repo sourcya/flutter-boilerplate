@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:playx/playx.dart';
 
+import '../../../../../core/config/keys.dart';
 import '../../../../../core/navigation/app_navigation.dart';
 import '../../../../../core/utils/alert.dart';
 import '../../../data/models/api_user.dart';
@@ -29,7 +30,6 @@ class LoginController extends GetxController {
 
   final isFormValid = false.obs;
 
-  final isBiometricAuthEnabled = true;
 
   @override
   void onInit() {
@@ -58,7 +58,6 @@ class LoginController extends GetxController {
     if (!isFormValid()) return;
     isLoading.value = true;
     appNavigation.navigateFromLoginToHome();
-
     final result = await authRepository.login(
       email: emailController.text,
       password: passwordController.text,
@@ -77,7 +76,7 @@ class LoginController extends GetxController {
 
   Future<void> authenticateWithBiometric() async {
     final isBiometricAvailable = await biometricAuthRepo.canAuthenticate();
-    if (isBiometricAuthEnabled && isBiometricAvailable) {
+    if (Keys.shouldUseBiometricAuth && isBiometricAvailable) {
       final bioAuthResult = await biometricAuthRepo.authenticate();
 
       bioAuthResult.when(
