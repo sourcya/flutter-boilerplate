@@ -8,27 +8,30 @@ import '../../app/auth/data/models/user.dart';
 class MyPreferenceManger {
   static final MyPreferenceManger instance = Get.find<MyPreferenceManger>();
 
-  final String tokenKey = 'token';
-  final String userKey = 'logged_in_user';
+  final String _tokenKey = 'token';
+  final String _userKey = 'logged_in_user';
+  final String _onBoardingKey = 'onboarding_key';
 
 
-  bool get isLoggedIn => (Prefs.getString(tokenKey) ?? '').isNotEmpty;
+  bool get isLoggedIn => (Prefs.getString(_tokenKey) ?? '').isNotEmpty;
 
   bool get isLoggedOut => !isLoggedIn;
 
-  String? get token => Prefs.getString(tokenKey);
+  String? get token => Prefs.getString(_tokenKey);
 
   Future<void> saveToken(String jwt) async {
-    await Prefs.setString(tokenKey, jwt);
+    await Prefs.setString(_tokenKey, jwt);
   }
 
   Future<void> saveUser(User user) async {
     final String userString = jsonEncode(user);
-    await Prefs.setString(userKey, userString);
+    await Prefs.setString(_userKey, userString);
   }
 
+
+
   Future<User?> getSavedUser() async {
-    final String? jsonString = Prefs.getString(userKey);
+    final String? jsonString = Prefs.getString(_userKey);
     if (jsonString == null || jsonString.isEmpty) {
       return null;
     } else {
@@ -39,7 +42,15 @@ class MyPreferenceManger {
   }
 
   Future<void> signOut() async {
-    await Prefs.remove(userKey);
-    await Prefs.remove(tokenKey);
+    await Prefs.remove(_userKey);
+    return Prefs.remove(_tokenKey);
   }
+
+
+  Future<bool> get isOnBoardingShown async => Prefs.getBool(_onBoardingKey);
+
+  Future<void> saveOnBoardingShown() async {
+    return Prefs.setBool(_onBoardingKey, true);
+  }
+
 }

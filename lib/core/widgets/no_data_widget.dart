@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:playx/playx.dart';
 
-import '../resources/assets.dart';
+import '../resources/assets/assets.dart';
 import '../resources/translation/app_translations.dart';
 
 //Widget for showing that there is no data.
@@ -17,7 +17,7 @@ class NoDataAnimation extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Lottie.asset(AppAssets.noDataAnimation),
+        Lottie.asset(Assets.animations.noDataAnimation),
         Text(
           message ?? AppTrans.noDataMessage.tr,
           style: textStyle ??

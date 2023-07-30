@@ -34,4 +34,12 @@ class AppNavigation {
   void navigateToSplash() {
     Get.offAllNamed(Routes.SPLASH);
   }
+
+  void navigateFromSplashToOnBoarding() {
+    Get.offAllNamed(Routes.ONBOARDING);
+  }
+
+  void navigateFromOnBoardingToLogin() {
+    Get.offAllNamed(Routes.LOGIN);
+  }
 }
