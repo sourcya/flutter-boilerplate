@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
-import '../../../../../../../../core/resources/assets.dart';
+import '../../../../../../../../core/resources/assets/assets.dart';
 import 'stub.dart';
 
 /// Renders a SIGN IN button that calls `handleSignIn` onclick.
@@ -19,7 +19,7 @@ Widget buildGoogleSignInButton(
             ),
             padding: const EdgeInsets.all(4),
             child: ImageViewer.svgAsset(
-              AppAssets.googleLogoImage,
+              Assets.images.googleLogoImage,
               width: 36,
               height: 36,
             ),
@@ -48,7 +48,7 @@ Widget buildGoogleSignInButton(
               ),
               const SizedBox(width: 12),
               ImageViewer.svgAsset(
-                AppAssets.googleLogoImage,
+                Assets.images.googleLogoImage,
                 width: 36,
                 height: 36,
               )

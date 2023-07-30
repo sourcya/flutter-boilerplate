@@ -76,4 +76,16 @@ abstract class AppTrans {
 
   static const notifications ='notifications';
 
+
+  //onBoarding
+  static const firstBoardingTitle = 'firstBoardingTitle';
+  static const firstBoardingSubTitle = 'firstBoardingSubTitle';
+  static const secondBoardingTitle = 'secondBoardingTitle';
+  static const secondBoardingSubTitle = 'secondBoardingSubTitle';
+  static const thirdBoardingTitle = 'thirdBoardingTitle';
+  static const thirdBoardingSubTitle = 'thirdBoardingSubTitle';
+
+  static const skip ='skip';
+  static const next = 'next';
+
 }

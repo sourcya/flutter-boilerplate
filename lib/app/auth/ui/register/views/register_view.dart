@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:playx/playx.dart';
 
-import '../../../../../core/resources/assets.dart';
+import '../../../../../core/resources/assets/assets.dart';
 import '../../../../../core/resources/colors/app_color_scheme.dart';
 import '../../../../../core/resources/translation/app_translations.dart';
 import '../../../../../core/utils/app_utils.dart';
@@ -29,7 +29,7 @@ class RegisterView extends GetView<RegisterController> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Lottie.asset(
-                  AppAssets.registerAnimation,
+                  Assets.animations.registerAnimation,
                   width: double.infinity,
                   height: context.height * .28,
                 ),

@@ -16,6 +16,7 @@ dependencies:
   playx_version_update: ^0.0.3
   flutter_screenutil: ^5.8.4
   easy_localization: ^3.0.2
+  dots_indicator: ^3.0.0
 
 dev_dependencies:
   flutter_test:

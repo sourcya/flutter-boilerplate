@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../../core/config/keys.dart';
-import '../../../../../core/resources/assets.dart';
+import '../../../../../core/resources/assets/assets.dart';
 import '../../../../../core/resources/colors/app_color_scheme.dart';
 import '../../../../../core/resources/translation/app_translations.dart';
 import '../../../../../core/utils/app_utils.dart';
@@ -48,7 +48,7 @@ class LoginView extends GetView<LoginController> {
 
   Widget _buildLottieAnimation(BuildContext context) {
     return Lottie.asset(
-      AppAssets.loginAnimation,
+      Assets.animations.loginAnimation,
       width: double.infinity,
       height: context.height * .4,
     );
