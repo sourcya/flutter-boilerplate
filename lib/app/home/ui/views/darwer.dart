@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/widgets/data_state_widget.dart';
 import 'package:playx/playx.dart';
 
+import '../../../../core/data_state/widgets/data_state_widget.dart';
 import '../controllers/home_controller.dart';
 
 //drawer widget

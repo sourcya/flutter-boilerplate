@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
 import 'app_color_scheme.dart';
@@ -40,4 +41,9 @@ class LightColorScheme extends AppColors {
 
   @override
   Color get appBar => XColorScheme.blueMain;
+
+
+  @override
+  Color? get subtitleTextColor => Colors.grey[600];
+
 }

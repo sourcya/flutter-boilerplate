@@ -12,13 +12,17 @@ import 'package:playx/playx.dart';
 ///  ```
 ///  Now you can access each theme color.
 abstract class AppColors extends XColorScheme {
+
   ///Colors that needs to implemented for each theme.
   Color get containerBackgroundColor;
 
   Color get appBar;
 
+  Color? get subtitleTextColor;
+
   ///Colors that needs to is used for each theme.
   static const Color blue = Colors.blue;
+
 }
 
 AppColors get colorScheme => AppTheme.colorScheme as AppColors;

@@ -1,11 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/resources/colors/app_color_scheme.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:playx/playx.dart';
 
-import '../../../../../core/resources/assets.dart';
+import '../../../../../core/resources/assets/assets.dart';
+import '../../../../../core/resources/colors/app_color_scheme.dart';
 import '../../../../../core/resources/translation/app_translations.dart';
 import '../../../../../core/utils/app_utils.dart';
 import '../../../../../core/utils/are_equals_validation.dart';
@@ -30,7 +29,7 @@ class RegisterView extends GetView<RegisterController> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Lottie.asset(
-                  AppAssets.registerAnimation,
+                  Assets.animations.registerAnimation,
                   width: double.infinity,
                   height: context.height * .28,
                 ),
@@ -38,7 +37,7 @@ class RegisterView extends GetView<RegisterController> {
                   padding:  EdgeInsets.symmetric(
                     horizontal: 10.w,
                   ),
-                  alignment: Alignment.centerLeft,
+                  width: double.infinity,
                   child: Text(
                     AppTrans.registerText.tr,
                     style: GoogleFonts.poppins(

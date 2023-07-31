@@ -86,7 +86,7 @@ abstract class Alert {
   static void showSnackBar(
       {required String message,
       required Color color,
-      Duration duration = const Duration(seconds: 3)}) {
+      Duration duration = const Duration(seconds: 3),}) {
     if (Platform.isAndroid) {
       final context = Get.context;
 

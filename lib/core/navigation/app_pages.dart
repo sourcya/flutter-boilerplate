@@ -6,8 +6,10 @@ import '../../app/auth/ui/register/bindings/register_binding.dart';
 import '../../app/auth/ui/register/views/register_view.dart';
 import '../../app/home/ui/bindings/home_binding.dart';
 import '../../app/home/ui/views/home_view.dart';
-import '../../app/select_language/ui/bindings/select_language_binding.dart';
-import '../../app/select_language/ui/views/select_language_view.dart';
+import '../../app/onboarding/ui/binding/onboarding_binding.dart';
+import '../../app/onboarding/ui/view/onboarding_view.dart';
+import '../../app/settings/ui/binding/settings_binding.dart';
+import '../../app/settings/ui/view/settings_view.dart';
 import '../../app/splash/ui/bindings/splash_binding.dart';
 import '../../app/splash/ui/views/splash_view.dart';
 import 'app_routes.dart';
@@ -40,9 +42,15 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: Routes.LANGUAGE,
-      page: () => const SelectLanguageView(),
-      binding: SelectLanguageBinding(),
+      name: Routes.Settings,
+      page: () => const SettingsView(),
+      binding: SettingsBinding(),
     ),
+    GetPage(
+      name: Routes.ONBOARDING,
+      page: () =>  OnBoardingView(),
+      binding: OnBoardingBinding(),
+    ),
+
   ];
 }
