@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_boilerplate/core/config/keys.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:playx/playx.dart' hide Result;
 
-import '../../../../core/utils/models/result.dart';
+import '../../../../core/config/keys.dart';
+import '../../../../core/utils/result.dart';
 
 class GoogleAuthDataSource {
   static final GoogleAuthDataSource _instance =
@@ -17,7 +17,7 @@ class GoogleAuthDataSource {
 
   final _googleSignIn = GoogleSignIn(
       clientId: Keys.googleSignInClientId,
-      serverClientId: Keys.googleSignInServerId);
+      serverClientId: Keys.googleSignInServerId,);
 
   Future<Result<GoogleSignInAccount>> signIn() async {
     try {
@@ -32,7 +32,7 @@ class GoogleAuthDataSource {
     } on PlatformException catch (error) {
       Fimber.e('Google Sign In Error : $error');
       return Result.error(
-          error.message ?? 'Could not sign in with Google account');
+          error.message ?? 'Could not sign in with Google account',);
     } catch (error) {
       Fimber.e('Google Sign In Error : $error');
 
@@ -47,7 +47,7 @@ class GoogleAuthDataSource {
       return Result.success(user);
     } on PlatformException catch (error) {
       return Result.error(
-          error.message ?? 'Could not sign out with Google account');
+          error.message ?? 'Could not sign out with Google account',);
     } catch (error) {
       return const Result.error('Could not sign out with Google account');
     }

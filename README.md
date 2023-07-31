@@ -1,21 +1,23 @@
+
 # Sourcya Flutter Boilerplate
 This is the base code for creating cross-platform application using Flutter.
 
-## Getting Started
+# Getting Started
 To use this template to create new flutter application,
-
 Follow these steps to start creating your own app:
 1. click use this template to create a new repository with this code.
 2. Clone the new repo to your local machine.
 3. go to ``pubspec.yaml`` and update name, description and version for the new app.
-4. Rename app name, package name  using [Rename package](https://pub.dev/packages/rename) and update app launcher icons.
 
-you can install Rename package globally using
+## Rename App name and package name
+to rename app name, package name, We use [Rename package](https://pub.dev/packages/rename) to update them.
+
+you can install Rename package globally using:
  ```Shell
  flutter pub global activate rename  
  ```
 
-then if you dont pass **-t or --target** parameter it will try to rename all available platform project folders inside flutter project.
+then if you don't pass **-t or --target** parameter it will try to rename all available platform project folders inside flutter project.
 
 _**Run this command inside your flutter project root.**_
   ```Shell
@@ -27,6 +29,77 @@ _**Run this command inside your flutter project root.**_
         flutter pub global run rename --appname YourAppName --target macOS  
         flutter pub global run rename --appname YourAppName --target windows  
 ```  
+
+## Update App Launcher Icon :
+We use [Flutter launcher icon](https://pub.dev/packages/flutter_launcher_icons) package to update app launcher icons.
+### 1. Setup the config file[](https://pub.dev/packages/flutter_launcher_icons#1-setup-the-config-file)
+
+Add your Flutter Launcher Icons configuration to your  `pubspec.yaml`  or create a new config file called  `flutter_launcher_icons.yaml`. An example is shown below. More complex examples  [can be found in the example projects](https://github.com/fluttercommunity/flutter_launcher_icons/tree/master/example).
+
+```yaml
+dev_dependencies:
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "path/to/image.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "path/to/image.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "path/to/image.png"
+```
+
+If you name your configuration file something other than  `flutter_launcher_icons.yaml`  or  `pubspec.yaml`  you will need to specify the name of the file when running the package.
+
+```shell
+flutter pub get
+flutter pub run flutter_launcher_icons -f <your config file name here>
+```
+
+Note: If you are not using the existing  `pubspec.yaml`  ensure that your config file is located in the same directory as it.
+
+### 2. Run the package[](https://pub.dev/packages/flutter_launcher_icons#2-run-the-package)
+
+After setting up the configuration, all that is left to do is run the package.
+
+```shell
+flutter pub get
+flutter pub run flutter_launcher_icons
+```
+
+In the above configuration, the package is setup to replace the existing launcher icons in both the Android and iOS project with the icon located in the image path specified above and given the name "launcher_icon" in the Android project and "Example-Icon" in the iOS project.
+
+## App Signing
+Any android app need to be signed to use google sign in and to be ready for publishing to Google play.
+
+To use features like google play sign in the app needs to be signed in debug and release mode.
+1. Create a  keystore file and put it in the ``android`` directory of your project.
+2.  Create a file named  `keystore.properties`  in the ``android`` directory of your project that contains your signing information, as follows:
+```shell
+    storePassword=myStorePassword
+    keyPassword=mykeyPassword
+    keyAlias=myKeyAlias
+    storeFile=myStoreFileLocation (../key.jks) it should be like this if keystore in android directory
+```
+ **Make sure don't push this file to the repo as it should be secret.**
+
+### Release Using Codemagic :
+
+For release version,  The app need to be signed on code magic using a keystore file.
+For more info check :
+https://docs.codemagic.io/flutter-code-signing/android-code-signing/
+https://docs.codemagic.io/yaml-code-signing/signing-android/
+
 
 ## Google Sign In
 To setup Google sign in  in our flutter project, There is some configuration that needs to be done:
@@ -57,7 +130,13 @@ keytool -list -v -keystore "sourcya_key.jks" -alias sourcya_key -storepass sourc
 To use Google sign in in our app, The backend should create a client for ios using ios app bundle id.
 Then a client id should be generated and put in ``core/keys.dart``.
 
-Then update the  `CFBundleURLTypes`  attributes below into the  `[my_project]/ios/Runner/Info.plist`  file.
+1.  [First register your application](https://firebase.google.com/docs/ios/setup).
+2.  Make sure the file you download in step 1 is named  `GoogleService-Info.plist`.
+3.  Move or copy  `GoogleService-Info.plist`  into the  `[my_project]/ios/Runner`  directory.
+4.  Open Xcode, then right-click on  `Runner`  directory and select  `Add Files to "Runner"`.
+5.  Select  `GoogleService-Info.plist`  from the file manager.
+6.  A dialog will show up and ask you to select the targets, select the  `Runner`  target.
+7. Update the  `CFBundleURLTypes`  attributes below into the  `[my_project]/ios/Runner/Info.plist`  file.
 
 ```xml
 <!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
@@ -114,31 +193,8 @@ add :  ``--web-port 5000``
 now our web app run on the right configuration.
 
 
-## App Signing
-Any android app need to be signed to use google sign in and to be ready for publishing to Google play.
-So we need to sign our app for debug and release version
-#### Debug :
-We need to put the generate keystore file in the ``android`` directory of your project.
-We need to create named  `keystore.properties`  in the ``android`` directory of your project. This file should contain your signing information, as follows:
 
-    storePassword=myStorePassword
-    keyPassword=mykeyPassword
-    keyAlias=myKeyAlias
-    storeFile=myStoreFileLocation (../key.jks) it should be like this if keystore in android directory
-
-Make sure don't push this file to the repo as it should be secret.
-
-#### Release :
-
-For release version,  The app need to be signed on code magic using a keystore file.
-For more info check :
-https://docs.codemagic.io/flutter-code-signing/android-code-signing/
-https://docs.codemagic.io/yaml-code-signing/signing-android/
-
-
-now we are ready to start developing our new app.
-
-## Architecture
+# Architecture
 An app architecture defines the boundaries between parts of the app and the responsibilities each part should have. In order to meet the needs mentioned above, you should design your app architecture to follow a few specific principles.
 
 ### Separation of concerns
@@ -316,7 +372,7 @@ This component contains app configuration like playx configuration, keys and con
 Handles saving value/pair keys in shared preferences in one place.
 
 #### Utils:
-Provides different utilities for whole app like alrets, pickers, app utils and more.
+Provides different utilities for whole app like alerts, pickers, app utils and more.
 
 #### Widgets:
 Provides different Widgets that are shared between the app.
@@ -335,35 +391,62 @@ if you want to navigate from splash to home screen navigate using this.
      }  
 ```  
 #### Network:
-This provides us with an api client that can do different REST calls.  
-The client make it easy to perform GET, POST, PUT, DELETE requests for the api.
+This provides us with an api client that can do different REST calls and perform GET, POST, PUT, DELETE requests for the api with better error handling.
 
-Currently we are using [Dio](https://pub.dev/packages/dio) which is a powerful HTTP package for Dart/Flutter, which supports Global settings, Interceptors, FormData, Aborting and canceling a request, Files uploading and downloading, Requests timeout, Custom adapters, etc.
+We are using our [playx_network](https://pub.dev/packages/playx_network) package which is a wrapper around  [`Dio`](https://pub.dev/packages/dio)  that can perform API requests with better error handling and easily get the result of any API request.
 
-Here is an example for getting movie details using ``GET`` request :
-```dart  
-Future<NetworkResult<Movie>> getMovieDetails(    
-  String id,    
-) async {    
-   return client.get<Movie>(    
-        Endpoints.movieDetails,    
-        query: {    
-          'id': id,    
-             },    
-       fromJson: Movie.fromMap,    
-  );    
-}  
-```  
+To use it we need to :
+
+-   Setup  `PlayxNetworkClient`  an configure it based on your needs. You should create only one instance of this network client to be used for the app depending on your use case.
+    
+    ```dart
+    final PlayxNetworkClient _client = PlayxNetworkClient(
+       //you can customize your dio options like base URL, connection time out.
+       dio: Dio(
+         BaseOptions(
+           baseUrl: _baseUrl,
+           connectTimeout: const Duration(seconds: 20),
+           senTimeout: const Duration(seconds: 20),
+         ),
+       ),
+       //If you want to attach a token to the client or add any custom headers to all requests.
+       customHeaders: () async => {
+         'authorization': 'Bearer token'
+       },
+       //Function that converts json error response from api to error message.
+       // You should specify how to extract error message from the response.
+       // defaults to as below:
+       errorMapper: (json) {
+         if (json.containsKey('message')) {
+           return json['message'] as String? ;
+         }
+         return null;
+       },
+     );
+    
+    ```
+
+- Now we can use the client to perform any GET, POST, PUT, and DELETE HTTP method.
+   ```dart  
+    Future<NetworkResult<Movie>> getMovieDetails(    
+         String id,    
+     ) async {    
+         return client.get<Movie>(    
+             Endpoints.movieDetails,    
+              query: {    
+              'id': id,    
+                 },    
+          fromJson: Movie.fromMap,    
+      );    
+   }  
+  ```  
 We use the suitable methods of our api client like get and pass the model that will be returned.  
 It takes request endpoint and query and It needs from json function that converts the response to the right model.  
 The previous example returns ``NetworkResult<Movie>`` where movie is the model returned from reponse.  
 and NetworkResult is wrapper for the data which return the result of the request if it's successful it returns the data and if it's error it return ``NetworkException`` .
 
 ``NetworkException`` is a base class for handling most api errors and provides suitable error messages for each exception.  
-You can customize these error messages and what errors should appear.  
-Take alook at ``ApiHandler`` and ``NetworkException`` class for customization based on you needs.
-
-You can also customise ``ApiError`` class to be the same as api error response based on your backend.
+You can customize these error messages and what errors should appear by creating a class that extends `ExceptionMessage` and overrides all messages with your own messages and pass it to the api client.
 
 #### Resources:
 Here we are handling app resources like themes, color, translations and assets.
@@ -417,21 +500,118 @@ abstract class LightTheme {
             showValueIndicator: ShowValueIndicator.always,  
           ),  
         ),  
-      );  
+          colorScheme: LightColorScheme());
 }  
 ```  
-##### App Colors:
-This class is responsible for providing colors for the app.  
-To avoid boilerplate code and make it easier to change colors for the app.
 
+#### Customize theme's color scheme[](https://pub.dev/packages/playx_theme#customize-themes-color-scheme)
+
+We can create custom color scheme for each theme. Each theme can have its own color scheme that is configured in  `XThemeConfig`  As we each  `XTheme`  have it's own color scheme. To create custom color scheme, We can create for each theme a class that extends  `XColorScheme`  and define it's color values like  `primary`  and  `secondary`. For example :
+
+```dart
+class LightColorScheme extends XColorScheme{
+  @override
+  Color get background => XColorScheme.white;
+
+  @override
+  Color get error => XColorScheme.red;
+
+  @override
+  Color get onBackground => XColorScheme.black;
+  }
+
+```
+
+If you want to extend the colors that are defined in  `XColorScheme`  You can define another base class that extends  `XColorScheme`  and adds more colors to it.  
+For example:
+
+```dart
+abstract class BaseColorScheme extends XColorScheme {
+  ///Colors that needs to implemented for each theme.
+  Color get containerBackgroundColor;
+
+  ///Colors that needs to is used for each theme.
+  static const Color blue = Colors.blue;
+}
+
+```
+
+Then, We can make each theme color scheme class to extend  `BaseColorScheme`.  
+For example:
+
+```dart
+class LightColorScheme extends BaseColorScheme {
+  @override
+  Color get containerBackgroundColor => XColorScheme.white;
+
+  @override
+  Color get background => XColorScheme.white;
+
+  @override
+  Color get error => XColorScheme.red;
+
+  @override
+  Color get onBackground => XColorScheme.black;
+}
+
+```
+
+Now we can have access to colors that defined in both  `XColorScheme`  and  `BaseColorScheme`  in each theme color scheme.
+
+Then, We can access each theme color scheme like this:
+
+```dart
+ final colorScheme = AppTheme.colorScheme as BaseColorScheme;  
+ final primary = colorScheme.primary;  
+
+```
+
+and use it in widget like this :
+
+```dart
+@override
+Widget build(BuildContext context) {
+  return ColoredBox(color: colorScheme.primary);
+}
+
+```
 ##### App Assets:
 This class is responsible for providing asset's items paths.  
 You can use it or use class that is auto generated from assets plugin in Android studio.
 
 #### Translation:
-We are using Getx To handle translation for our app.
+We are using our [playx_localization](https://pub.dev/packages/playx_localization) package to handle translation for our apps.
 
-1. Create App Trans class :  
+- Translations files are added like this, If you want to add another locale, Add it to translations folder .
+
+
+   ```markdown
+    assets
+    └── translations
+        ├── en.json
+        └── ar.json 
+   ```
+
+
+
+### ⚠️ Note on  **iOS**[](https://pub.dev/packages/playx_localization#-note-on--ios)
+
+If you need to add another locale on  **iOS**  you need to add supported locales to  `ios/Runner/Info.plist`  as described  [here](https://flutter.dev/docs/development/accessibility-and-localization/internationalization#specifying-supportedlocales).
+
+Example:
+
+```xml
+<key>CFBundleLocalizations</key>
+<array>
+	<string>en</string>
+	<string>ar</string>
+</array>
+
+
+```
+
+
+### Create App Trans class :  
    This class contains all keys for each word that need to be translated in the app.
 ```dart  
 abstract class AppTrans {  
@@ -440,40 +620,69 @@ abstract class AppTrans {
   static const String unauthorizedRequest = "UnauthorizedRequest";  
 }  
 ```  
-2. Create Translation file for each locale for the app with keys from AppTrans class.
-```dart  
-class EnglishTranslation extends BaseTranslation {  
-  @override  
-  Map<String, String> get translations => {  
-        AppTrans.appName: "Sourcya App",  
-        AppTrans.requestCancelled: "The request has been canceled",  
-        AppTrans.unauthorizedRequest: "Unauthorized Request",  
-       };  
-}  
-```  
-3. Then we create our app locale class that handles translations.
-```dart  
-class AppLocale extends Translations {  
-  static const String arabicLanguage = "ar";  
-  static const String englishLanguage = "en";  
-  
-  ArabicTranslations arabicTranslations = ArabicTranslations();  
-  EnglishTranslation englishTranslation = EnglishTranslation();  
-  
-  @override  
-  Map<String, Map<String, String>> get keys => {  
-        arabicLanguage: arabicTranslations.translations,  
-        englishLanguage: englishTranslation.translations  
-      };  
-}  
-```  
-Now using AppTrans class for saving keys for each word we can easily use it for translations.  
-For example when we need appName translate we use it like this ``AppTrans.appName.tr``
+###  Customize Locale configuration.[](https://pub.dev/packages/playx_localization#--create-locale-configuration) 
+you can customize locale configuration with settings like supported locales, start locale, path to translations and more by editing `AppLocaleConfig ` file.
 
-This will make it easier to avoid conflicts in naming instead of using ``'app_name'.tr`` .  
-It will makes us avoid boilerplate code.  
-It will make it easier to replace our translation tool in the future.
+```dart
+class AppLocaleConfig extends XLocaleConfig{
 
+  AppLocaleConfig() : super(path: 'assets/translations',);
+
+  @override
+  List<XLocale> get supportedLocales => [
+    //Make sure your passing language code and country code same as in your translation folder as described above.
+    const XLocale(id: 'en', name: 'English', languageCode: 'en', countryCode: 'US'),
+    const XLocale(id: 'ar', name: 'العربية', languageCode: 'ar'),
+  ];
+
+  @override
+  XLocale? get startLocale => supportedLocales[0];
+
+  @override
+  XLocale? get fallbackLocale => supportedLocales[0];
+
+}
+
+```
+
+### 🔥 Update App Locale[](https://pub.dev/packages/playx_localization#-update-app-locale)
+
+#### Use  `PlayxLocalization`  facade to switch between locales.
+
+With  `PlayxLocalization`  you will have access to current app locale, it's index, name and id. You can change current app locale to the next Locale, by id, by index, by device locale and more.
+
+```dart
+   FloatingActionButton.extended(
+        onPressed: () {
+        //updates locale by index
+          PlayxLocalization.updateByIndex(
+              PlayxLocalization.isCurrentLocaleArabic() ? 0 : 1);
+        },
+        //label text changes after updating locale.
+        label: Text(AppTrans.changeLanguage.tr),
+        icon: const Icon(Icons.update),
+      )
+
+```
+
+### 🔥 Translate  `tr()`[](https://pub.dev/packages/playx_localization#-translate-tr)
+
+#### The package uses  [`Easy Localization`](https://pub.dev/packages/easy_localization)  under the hood to manage translations and Plurals as below.
+
+Main function for translate your language keys
+
+You can use extension methods of [String] or [Text] widget, you can also use  `tr()`  as a static function.
+
+```dart
+Text('title').tr() //Text widget
+
+print('title'.tr)); //String
+
+var title = tr('title') //Static function
+
+Text(context.tr('title')) //Extension on BuildContext
+
+```
 
 ## References :
 

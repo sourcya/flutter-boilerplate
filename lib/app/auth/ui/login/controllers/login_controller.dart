@@ -2,13 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_boilerplate/app/auth/data/repo/biometric_auth_repository.dart';
 import 'package:playx/playx.dart';
 
+import '../../../../../core/config/keys.dart';
 import '../../../../../core/navigation/app_navigation.dart';
 import '../../../../../core/utils/alert.dart';
 import '../../../data/models/api_user.dart';
 import '../../../data/repo/auth_repository.dart';
+import '../../../data/repo/biometric_auth_repository.dart';
 import '../../../data/repo/google_auth_repository.dart';
 
 ///Login controller to setup data to the ui.
@@ -29,7 +30,6 @@ class LoginController extends GetxController {
 
   final isFormValid = false.obs;
 
-  final isBiometricAuthEnabled = true;
 
   @override
   void onInit() {
@@ -58,7 +58,6 @@ class LoginController extends GetxController {
     if (!isFormValid()) return;
     isLoading.value = true;
     appNavigation.navigateFromLoginToHome();
-
     final result = await authRepository.login(
       email: emailController.text,
       password: passwordController.text,
@@ -77,7 +76,7 @@ class LoginController extends GetxController {
 
   Future<void> authenticateWithBiometric() async {
     final isBiometricAvailable = await biometricAuthRepo.canAuthenticate();
-    if (isBiometricAuthEnabled && isBiometricAvailable) {
+    if (Keys.shouldUseBiometricAuth && isBiometricAvailable) {
       final bioAuthResult = await biometricAuthRepo.authenticate();
 
       bioAuthResult.when(
@@ -85,7 +84,7 @@ class LoginController extends GetxController {
           if (isAuthenticated) {
             appNavigation.navigateFromLoginToHome();
           } else {
-            Alert.message(message: 'couldn\'t authenticate');
+            Alert.message(message: "couldn't authenticate");
           }
         },
         error: (message) {
@@ -103,7 +102,7 @@ class LoginController extends GetxController {
       success: (user) {
         appNavigation.navigateFromLoginToHome();
         Alert.success(
-            message: 'Logged in successfully using Google with ${user.email}');
+            message: 'Logged in successfully using Google with ${user.email}',);
       },
       error: (message) {
         Alert.error(message: message);

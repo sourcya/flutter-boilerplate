@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/resources/colors/dark_color_scheme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:playx/playx.dart';
+
+import '../colors/dark_color_scheme.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class DarkTheme {
