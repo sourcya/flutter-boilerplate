@@ -10,9 +10,10 @@ class ApiUser {
     this.user,
   });
 
-  ApiUser.fromJson(Map<String, dynamic> json) {
-    jwt = json['jwt'] as String?;
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
+  ApiUser.fromJson(dynamic json) {
+    final map = json as Map<String, dynamic>;
+    jwt = map['jwt'] as String?;
+    user = map['user'] != null ? User.fromJson(map['user']) : null;
   }
 
   Map<String, dynamic> toJson() {

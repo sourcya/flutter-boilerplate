@@ -1,7 +1,8 @@
 //utils that will be used in the app
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/resources/theme/dark_theme.dart';
 import 'package:playx/playx.dart';
+
+import '../resources/theme/dark_theme.dart';
 
 /// Class for app utilities that will be used in the app.
 class AppUtils {

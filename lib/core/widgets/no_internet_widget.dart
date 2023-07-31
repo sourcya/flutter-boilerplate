@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:playx/playx.dart';
 
-import '../resources/assets.dart';
+import '../resources/assets/assets.dart';
 import '../resources/translation/app_translations.dart';
 
 /// Widget for showing there's no internet connection.
@@ -18,7 +17,7 @@ class NoInternetAnimation extends StatelessWidget {
       this.textStyle,
       this.retryTextStyle,
       this.retryButtonStyle,
-      required this.onRetryClicked});
+      required this.onRetryClicked,});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +25,8 @@ class NoInternetAnimation extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Lottie.asset(AppAssets.noInternetAnimation,
-            height: context.height * .5),
+        Lottie.asset(Assets.animations.noInternetAnimation,
+            height: context.height * .5,),
         Text(
           message ?? AppTrans.noInternetMessage.tr,
           style: textStyle ??

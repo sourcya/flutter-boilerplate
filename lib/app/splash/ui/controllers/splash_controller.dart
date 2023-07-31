@@ -17,6 +17,7 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
   final isBiometricAuthEnabled = false;
   final Completer<bool> shouldUpdateApp = Completer();
 
+  final _navigation = AppNavigation.instance;
   @override
   void onInit() {
     handleAppUpdate();
@@ -65,6 +66,13 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
       final doesAppNeedUpdate = await shouldUpdateApp.future;
       if (doesAppNeedUpdate) return;
     }
+
+    if (!(await MyPreferenceManger.instance.isOnBoardingShown)) {
+      _navigation.navigateFromSplashToOnBoarding();
+      return;
+    }
+
+
     final bool isUserLoggedIn = MyPreferenceManger().isLoggedIn;
     if (isUserLoggedIn) {
       Fimber.d("Biometric isUserLoggedIn :$isUserLoggedIn");
@@ -77,22 +85,22 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
           success: (isAuthenticated) {
             if (isAuthenticated) {
               biometricAuthRepo.stopBiometricAuthentication();
-              AppNavigation.instance.navigateFormSplashToHome();
+              _navigation.navigateFormSplashToHome();
             } else {
               Alert.message(message: "couldn't authenticate");
-              AppNavigation.instance.navigateFormSplashToLogin();
+              _navigation.navigateFormSplashToLogin();
             }
           },
           error: (message) {
             Alert.error(message: message);
-            AppNavigation.instance.navigateFormSplashToLogin();
+            _navigation.navigateFormSplashToLogin();
           },
         );
       } else {
-        AppNavigation.instance.navigateFormSplashToHome();
+        _navigation.navigateFormSplashToHome();
       }
     } else {
-      AppNavigation.instance.navigateFormSplashToLogin();
+      _navigation.navigateFormSplashToLogin();
     }
   }
 

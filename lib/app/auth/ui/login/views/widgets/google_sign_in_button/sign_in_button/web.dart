@@ -7,6 +7,7 @@ import 'stub.dart';
 /// Renders a web-only SIGN IN button.
 Widget buildGoogleSignInButton(
     {HandleSignInFn? onPressed, bool isIcon = false, bool isDark = false}) {
+  print('building google sign in for web');
   return (GoogleSignInPlatform.instance as web.GoogleSignInPlugin).renderButton(
     configuration: web.GSIButtonConfiguration(
       type: isIcon ? web.GSIButtonType.icon : web.GSIButtonType.standard,
