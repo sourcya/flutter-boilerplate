@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:playx/playx.dart';
 
 /// This is a custom text field to have same behavior on whole application.
@@ -84,150 +83,88 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomFieldState extends State<CustomTextField> {
-  GlobalKey<FormState>? formKey;
-  bool? _isFieldValid;
 
   @override
   void initState() {
-    formKey = widget.formKey ??
-        (widget.shouldAutoValidate ? GlobalKey<FormState>() : null);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // return OptimizedTextField(
-    // hint: widget.hint,
-    // maxLines: widget.maxLines,
-    // minLines: widget.minLines,
-    // onChanged : widget.onChanged,
-    // onTap : widget.onTap,
-    // icon:widget.icon,
-    // type:widget.type,
-    // validator : widget.validator,
-    // controller:widget.controller,
-    // focus:widget.focus,
-    // nextFocus: widget.nextFocus,
-    // prefix:widget.prefix,
-    // suffix:widget.suffix,
-    // label:widget.label,
-    // read:widget.read,
-    // obscureText:widget.obscureText,
-    // enabled:widget.enabled,
-    // eIcon :widget.eIcon,
-    // edit:widget.edit,
-    // fillColor:widget.fillColor,
-    // autofocus:widget.autofocus,
-    // shouldAutoValidate:widget.shouldAutoValidate,
-    // padding:widget.padding,
-    // margin :widget.margin,
-    // errorMaxLines :widget.errorMaxLines,
-    // textColor:widget.textColor,
-    // hintColor:widget.hintColor,
-    // labelColor:widget.labelColor,
-    // borderColor:widget.borderColor,
-    // focusedBorderColor:widget.focusedBorderColor,
-    // formKey:widget.formKey,
-    // onValidationChanged:widget.onValidationChanged,
-    // textInputAction:widget.textInputAction,
-    //
-    // );
-    //
-
-    return Container(
-      padding: widget.padding,
-      margin: widget.margin,
-      child: Material(
-        type: MaterialType.transparency,
-        child: Form(
-          key: formKey,
-          child: TextFormField(
-            enabled: widget.enabled,
-            onTap: widget.onTap,
-            validator: widget.validator,
-            controller: widget.controller,
-            focusNode: widget.focus,
-            readOnly: widget.read,
-            maxLines: widget.maxLines,
-            minLines: widget.minLines,
-            obscureText: widget.obscureText,
-            keyboardType: widget.type,
-            onChanged: (String input) {
-              // ignore: prefer_null_aware_method_calls
-              if (widget.onChanged != null) widget.onChanged!(input);
-
-              if (widget.shouldAutoValidate) {
-                if (formKey != null) {
-                  final formState = formKey!.currentState;
-                  final isValid = formState != null && formState.validate();
-                  if (widget.onValidationChanged != null) {
-                    if (_isFieldValid != isValid) {
-                      widget.onValidationChanged!(isValid);
-                      _isFieldValid = isValid;
-                    }
-                  }
-                }
-              }
-            },
-            autofocus: widget.autofocus,
-            textInputAction: widget.textInputAction,
-            onFieldSubmitted: (v) {
-              if (widget.nextFocus != null) {
-                FocusScope.of(context).requestFocus(widget.nextFocus);
-              }
-            },
-            style: TextStyle(
-              fontSize: 16.sp,
-              color: widget.textColor ?? context.colorScheme.onBackground,
-            ),
-            decoration: InputDecoration(
-              fillColor: widget.fillColor,
-              filled: widget.fillColor != null,
-              labelStyle: TextStyle(
-                color: widget.labelColor ?? context.colorScheme.secondary,
-                fontSize: 16.sp,
-              ),
-              hintText: widget.hint,
-              prefixIcon: widget.prefix,
-              labelText: widget.label,
-              contentPadding:  EdgeInsets.only(
-                top: 15.0.h,
-                bottom: 15.0.h,
-                right: 15.0.w,
-                left: 15.0.w,
-              ),
-              icon: widget.icon,
-              suffixIcon: widget.suffix,
-              hintStyle:
-                  TextStyle(color: widget.hintColor ?? XColorScheme.grey),
-              floatingLabelStyle: TextStyle(
-                  color: widget.labelColor ?? context.colorScheme.secondary,
-                  fontSize: 18.sp),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(24.r),
-                borderSide: BorderSide(
-                  color: widget.borderColor ?? XColorScheme.grey,
-                ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: widget.focusedBorderColor ??
-                      context.colorScheme.secondary,
-                  // color: Colors.grey.withOpacity(0.5),
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(24.r),
-              ),
-              border: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: widget.borderColor ?? XColorScheme.grey),
-                borderRadius: BorderRadius.circular(24.r),
-              ),
-              errorMaxLines: widget.errorMaxLines,
-            ),
-          ),
+    return OptimizedTextField(
+        hint: widget.hint,
+        maxLines: widget.maxLines,
+        minLines: widget.minLines,
+        onChanged: widget.onChanged,
+        onTap: widget.onTap,
+        icon: widget.icon,
+        type: widget.type,
+        validator: widget.validator,
+        controller: widget.controller,
+        focus: widget.focus,
+        nextFocus: widget.nextFocus,
+        prefix: widget.prefix,
+        suffix: widget.suffix,
+        label: widget.label,
+        read: widget.read,
+        obscureText: widget.obscureText,
+        enabled: widget.enabled,
+        eIcon: widget.eIcon,
+        edit: widget.edit,
+        fillColor: widget.fillColor,
+        autofocus: widget.autofocus,
+        shouldAutoValidate: widget.shouldAutoValidate,
+        padding: widget.padding,
+        margin: widget.margin,
+        errorMaxLines: widget.errorMaxLines,
+        textColor: widget.textColor,
+        labelColor: widget.labelColor ?? context.colorScheme.secondary,
+        borderColor: widget.borderColor,
+        focusedBorderColor: widget.focusedBorderColor,
+        formKey: widget.formKey,
+        onValidationChanged: widget.onValidationChanged,
+        textInputAction: widget.textInputAction,
+        style: TextStyle(
+          fontSize: 16.sp,
+          color: widget.textColor ?? context.colorScheme.onBackground,
         ),
+      labelStyle: TextStyle(
+        color: widget.labelColor ?? context.colorScheme.secondary,
+        fontSize: 16.sp,
       ),
+      contentPadding: EdgeInsets.only(
+        top: 15.0.h,
+        bottom: 15.0.h,
+        right: 15.0.w,
+        left: 15.0.w,
+      ),
+      hintColor:widget.hintColor ?? XColorScheme.grey,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24.r),
+          borderSide: BorderSide(
+            color: widget.borderColor ?? XColorScheme.grey,
+          ),),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: widget.focusedBorderColor ??
+              context.colorScheme.secondary,
+          // color: Colors.grey.withOpacity(0.5),
+          width: 2,
+        ),
+        borderRadius: BorderRadius.circular(24.r),
+      ),
+      border: OutlineInputBorder(
+        borderSide:
+        BorderSide(color: widget.borderColor ?? XColorScheme.grey),
+        borderRadius: BorderRadius.circular(24.r),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderSide:
+        const BorderSide(color: Colors.red),
+        borderRadius: BorderRadius.circular(24.r),
+      ),
+
     );
+
   }
 }

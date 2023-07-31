@@ -41,5 +41,10 @@ abstract class Keys {
           : '';
 
   static const String storeCountry = 'sa';
-  static String storeLanguage = Get.locale?.languageCode ?? 'en';
+  static String storeLanguage = PlayxLocalization.currentLocale.languageCode ;
+
+  static const bool shouldUseGoogleSignIn = true;
+
+  static const bool shouldUseBiometricAuth = true;
+
 }
