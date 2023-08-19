@@ -1,16 +1,7 @@
-import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:playx/playx.dart';
+part of '../imports/login_imports.dart';
 
-import '../../../../../core/config/keys.dart';
-import '../../../../../core/navigation/app_navigation.dart';
-import '../../../../../core/utils/alert.dart';
-import '../../../data/models/api_user.dart';
-import '../../../data/repo/auth_repository.dart';
-import '../../../data/repo/biometric_auth_repository.dart';
-import '../../../data/repo/google_auth_repository.dart';
+
 
 ///Login controller to setup data to the ui.
 class LoginController extends GetxController {
