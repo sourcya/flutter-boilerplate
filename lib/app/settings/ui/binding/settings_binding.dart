@@ -1,6 +1,4 @@
-import 'package:get/get.dart';
-import '../controller/settings_controller.dart';
-
+part of '../imports/settings_imports.dart';
 
 class SettingsBinding extends Bindings {
   @override

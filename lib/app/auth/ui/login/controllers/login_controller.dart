@@ -20,6 +20,7 @@ class LoginController extends GetxController {
   final isPasswordValid = false.obs;
 
   final isFormValid = false.obs;
+  Worker? _validationWorker;
 
 
   @override
@@ -36,7 +37,7 @@ class LoginController extends GetxController {
   }
 
   void listenToValidationState() {
-    everAll([
+    _validationWorker=  everAll([
       isEmailValid,
       isPasswordValid,
     ], (callback) {
@@ -107,7 +108,10 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
+    super.onClose();
     emailController.dispose();
     passwordController.dispose();
+    _validationWorker?.dispose();
+
   }
 }

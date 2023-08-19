@@ -6,10 +6,8 @@ import '../../app/home/ui/bindings/home_binding.dart';
 import '../../app/home/ui/views/home_view.dart';
 import '../../app/onboarding/ui/binding/onboarding_binding.dart';
 import '../../app/onboarding/ui/view/onboarding_view.dart';
-import '../../app/settings/ui/binding/settings_binding.dart';
-import '../../app/settings/ui/view/settings_view.dart';
-import '../../app/splash/ui/bindings/splash_binding.dart';
-import '../../app/splash/ui/views/splash_view.dart';
+import '../../app/settings/ui/imports/settings_imports.dart';
+import '../../app/splash/ui/imports/splash_imports.dart';
 import 'app_routes.dart';
 
 /// contains all possible routes for the application.

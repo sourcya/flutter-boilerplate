@@ -1,6 +1,4 @@
-import 'package:playx/playx.dart';
-
-import '../controllers/splash_controller.dart';
+part of '../imports/splash_imports.dart';
 
 class SplashBinding extends Bindings {
   @override
