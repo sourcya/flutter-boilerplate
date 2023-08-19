@@ -30,6 +30,7 @@ class RegisterController extends GetxController {
   final authRepository = AuthRepository();
   final AppNavigation appNavigation = AppNavigation.instance;
 
+   Worker? _validationWorker;
   @override
   void onInit() {
     super.onInit();
@@ -37,7 +38,7 @@ class RegisterController extends GetxController {
   }
 
   void listenToValidationState() {
-    everAll([
+    _validationWorker=  everAll([
       isUsernameValid,
       isEmailValid,
       isPasswordValid,
@@ -83,4 +84,18 @@ class RegisterController extends GetxController {
   void navigateToLogin() {
     appNavigation.navigateFromRegisterToLogin();
   }
+
+
+  @override
+  void onClose() {
+    super.onClose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    usernameController.dispose();
+    _validationWorker?.dispose();
+    _validationWorker = null;
+
+  }
+
 }
