@@ -1,11 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:playx/playx.dart';
-
-import '../../../../core/data_state/models/data_error.dart';
-import '../../../../core/data_state/models/data_state.dart';
-import '../../../../core/navigation/app_navigation.dart';
-import '../../../../core/preferences/preference_manger.dart';
-import '../../../auth/data/models/user.dart';
+part of '../imports/home_imports.dart';
 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {

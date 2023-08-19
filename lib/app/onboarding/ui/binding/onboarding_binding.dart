@@ -1,6 +1,4 @@
-import 'package:playx/playx.dart';
-
-import '../controller/onboarding_controller.dart';
+part of '../imports/onboarding_imports.dart';
 
 class OnBoardingBinding extends Bindings {
   @override

@@ -1,5 +1,5 @@
 
-import 'package:playx/playx.dart';
+part of '../imports/settings_imports.dart';
 
 class SettingsController extends GetxController {
   Rxn<XLocale> currentLocale= Rxn(PlayxLocalization.currentXLocale);

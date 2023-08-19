@@ -1,6 +1,4 @@
-import 'package:playx/playx.dart';
-
-import '../controllers/register_controller.dart';
+part of '../imports/register_imports.dart';
 
 class RegisterBinding extends Bindings {
   @override
