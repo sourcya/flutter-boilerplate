@@ -7,5 +7,6 @@ AppBar buildAppBar({required String title}) {
     toolbarHeight: dimens.appBarHeight,
     title: Text(title, style: TextStyle(fontSize: dimens.appBarTextSize)),
     centerTitle: true,
+
   );
 }

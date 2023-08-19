@@ -1,11 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:playx/playx.dart';
-
-import '../../../../core/navigation/app_navigation.dart';
-import '../../../../core/preferences/preference_manger.dart';
-import '../../../../core/resources/assets/assets.dart';
-import '../../../../core/resources/translation/app_translations.dart';
-import '../../data/model/onboarding.dart';
+part of '../imports/onboarding_imports.dart';
 
 class OnBoardingController extends GetxController {
   final pageController = PageController();
