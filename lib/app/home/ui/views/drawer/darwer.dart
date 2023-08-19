@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
-import '../../../../core/data_state/widgets/data_state_widget.dart';
-import '../controllers/home_controller.dart';
+import '../../../../../core/data_state/widgets/data_state_widget.dart';
+import '../../imports/home_imports.dart';
 
 //drawer widget
 class HomeDrawer extends GetView<HomeController> {
@@ -27,16 +27,6 @@ class HomeDrawer extends GetView<HomeController> {
               onLoading: (data) => Container(),
               onEmpty: (e) => Container(),
             ),
-            // accountName: Obx(() {
-            //   return Text(
-            //     controller.user.value?.username ?? '',
-            //   );
-            // }),
-            // accountEmail: Obx(() {
-            //   return Text(
-            //     controller.user.value?.email ?? '',
-            //   );
-            // }),
           ),
           DrawerItem(
             icon: Icons.dashboard,
