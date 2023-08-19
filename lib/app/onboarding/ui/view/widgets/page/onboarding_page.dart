@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:playx/playx.dart';
-
-import '../../../../../core/resources/colors/app_color_scheme.dart';
-import '../../../data/model/onboarding.dart';
+part of '../../../imports/onboarding_imports.dart';
 
 class OnBoardingPage extends StatelessWidget {
   final OnBoarding onboarding;

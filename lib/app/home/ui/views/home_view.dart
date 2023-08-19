@@ -1,13 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:playx/playx.dart';
-
-import '../../../../core/data_state/widgets/rx_data_state_widget.dart';
-import '../../../../core/navigation/app_routes.dart';
-import '../../../../core/resources/colors/app_color_scheme.dart';
-import '../../../../core/resources/translation/app_translations.dart';
-import '../../../../core/widgets/no_data_widget.dart';
-import '../../../auth/data/repo/google_auth_repository.dart';
-import '../controllers/home_controller.dart';
+part of '../imports/home_imports.dart';
 
 /// home screen widget.
 class HomeView extends GetView<HomeController> {
@@ -18,10 +9,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:  Text(AppTrans.home.tr),
-        centerTitle: true,
-      ),
+      appBar: buildAppBar(title: AppTrans.home.tr),
       body: TabBarView(
         physics: const NeverScrollableScrollPhysics(),
         controller: controller.tabC,
@@ -83,31 +71,7 @@ class HomeView extends GetView<HomeController> {
           ),
         ],
       ),
-      bottomNavigationBar: GetBuilder<HomeController>(
-        builder: (c) {
-          return BottomNavigationBar(
-            currentIndex: c.tabC.index,
-            onTap: c.onTapTab,
-            selectedItemColor: colorScheme.secondary,
-            unselectedItemColor: colorScheme.onBackground,
-            backgroundColor: colorScheme.background,
-            items:  [
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.home),
-                label: AppTrans.home.tr,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.notifications),
-                label: AppTrans.notifications.tr,
-              ),
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.settings),
-                label: AppTrans.settings.tr,
-              ),
-            ],
-          );
-        },
-      ),
+      bottomNavigationBar: const BuildBottomNavigationBar(),
     );
   }
 }

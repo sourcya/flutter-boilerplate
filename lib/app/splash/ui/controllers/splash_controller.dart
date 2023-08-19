@@ -1,15 +1,4 @@
-import 'dart:async';
-import 'dart:io';
-
-import 'package:playx/playx.dart';
-import 'package:playx_version_update/playx_version_update.dart';
-
-import '../../../../core/config/keys.dart';
-import '../../../../core/navigation/app_navigation.dart';
-import '../../../../core/preferences/preference_manger.dart';
-import '../../../../core/resources/translation/app_translations.dart';
-import '../../../../core/utils/alert.dart';
-import '../../../auth/data/repo/biometric_auth_repository.dart';
+part of '../imports/splash_imports.dart';
 
 class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
   final biometricAuthRepo = BiometricAuthRepository();
