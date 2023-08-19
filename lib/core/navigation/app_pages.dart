@@ -1,9 +1,7 @@
 import 'package:playx/playx.dart';
 
-import '../../app/auth/ui/login/bindings/login_binding.dart';
-import '../../app/auth/ui/login/views/login_view.dart';
-import '../../app/auth/ui/register/bindings/register_binding.dart';
-import '../../app/auth/ui/register/views/register_view.dart';
+import '../../app/auth/ui/login/imports/login_imports.dart';
+import '../../app/auth/ui/register/imports/register_imports.dart';
 import '../../app/home/ui/bindings/home_binding.dart';
 import '../../app/home/ui/views/home_view.dart';
 import '../../app/onboarding/ui/binding/onboarding_binding.dart';

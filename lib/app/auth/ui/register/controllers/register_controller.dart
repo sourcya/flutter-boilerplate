@@ -1,12 +1,5 @@
-import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:playx/playx.dart';
-
-import '../../../../../core/navigation/app_navigation.dart';
-import '../../../../../core/utils/alert.dart';
-import '../../../data/models/api_user.dart';
-import '../../../data/repo/auth_repository.dart';
+part of '../imports/register_imports.dart';
 
 class RegisterController extends GetxController {
   final isLoading = false.obs;

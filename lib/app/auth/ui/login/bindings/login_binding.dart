@@ -1,6 +1,4 @@
-import 'package:playx/playx.dart';
-
-import '../controllers/login_controller.dart';
+part of '../imports/login_imports.dart';
 
 ///Getx binding to initialize login controller.
 class LoginBinding extends Bindings {
