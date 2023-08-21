@@ -19,5 +19,6 @@
   final String firstBoardingAnimation = "assets/animation/first_boarding.json";
   final String secondBoardingAnimation = "assets/animation/second_boarding.json";
   final String thirdBoardingAnimation = "assets/animation/third_boarding.json";
+  final String otpAnimation = 'assets/animation/otp-verification.json';
 
 }

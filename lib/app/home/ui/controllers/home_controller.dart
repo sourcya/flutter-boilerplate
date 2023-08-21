@@ -2,42 +2,49 @@ part of '../imports/home_imports.dart';
 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  late TabController tabC;
-  AppNavigation appNavigation = AppNavigation.instance;
 
-  MyPreferenceManger preferenceManger = MyPreferenceManger.instance;
-  //example for data state;
-  Rx<DataState<User>> userState = Rx(const DataState.initial());
+  late TabController  pageController;
+  final currentIndex = 0.obs;
+  final AppNavigation _navigation = AppNavigation.instance;
+
 
   @override
   Future<void> onInit() async {
-    tabC = TabController(length: 3, vsync: this);
+    pageController = TabController(length: 3, vsync: this);
     super.onInit();
-    getCachedUser();
   }
 
-  void onTapTab(int value) {
-    tabC.animateTo(value);
-    update();
+  Future<void> updatePage(int value) {
+    pageController.animateTo(value, duration: 250.milliseconds, curve: Curves.linear);
+    currentIndex.value = value;
+    return Future.delayed(100.milliseconds);
   }
 
-  Future<void> getCachedUser() async {
-    userState.value = const DataState.loading();
-    await 5.delay();
-    final user = await preferenceManger.getSavedUser();
-    if (user == null) {
-      userState.value = const DataState.error(EmptyDataError());
-    } else {
-      userState.value = const DataState.error(DataError.noInternetError());
 
-      await 3.delay();
 
-      userState.value = DataState.success(user);
+
+  Future<bool> handleWillPop() async {
+    bool isPopped = false;
+    switch(currentIndex.value) {
+      case 0 :
+        isPopped = await _navigation.popFirstTab();
+      case 1 :
+        isPopped = await _navigation.popSecondTab();
+      case 2 :
+        isPopped = await _navigation.popThirdTab();
     }
+    if(isPopped) return false;
+
+    if(currentIndex.value != 0){
+      pageController.animateTo(0, duration: 200.milliseconds, curve: Curves.linear);
+      currentIndex.value = 0;
+      return false;
+    }
+    return true;
   }
 
-  Future<void> signOut() async {
-    await preferenceManger.signOut();
-    appNavigation.navigateFormSplashToHome();
+  void resetNavigation() {
+    pageController.animateTo(0, duration: Duration.zero, curve: Curves.linear);
+    currentIndex.value = 0;
   }
 }

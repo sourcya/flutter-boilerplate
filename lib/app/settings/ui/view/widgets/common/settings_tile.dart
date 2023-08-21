@@ -1,15 +1,17 @@
-part of '../../imports/settings_imports.dart';
+part of '../../../imports/settings_imports.dart';
 
-class SettingsTile extends StatelessWidget {
+class BuildSettingsTile extends StatelessWidget {
   final String title;
   final String? subtitle;
   final IconData? icon;
   final String? svgIcon;
-  final VoidCallback onTap;
+  final void Function() onTap;
   final bool? isSelected;
-  final Function(bool?)? onSelectionChanged;
+  final void Function(bool?)? onSelectionChanged;
+  final EdgeInsetsGeometry? padding;
+  final double? size;
 
-  const SettingsTile(
+  const BuildSettingsTile(
       {super.key,
       required this.title,
       this.subtitle,
@@ -17,7 +19,9 @@ class SettingsTile extends StatelessWidget {
       this.svgIcon,
       required this.onTap,
       this.isSelected,
-      this.onSelectionChanged,});
+      this.onSelectionChanged,
+      this.padding,
+      this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +39,21 @@ class SettingsTile extends StatelessWidget {
         ),
         color: colorScheme.surface,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 12.0.h),
+          padding: padding ??
+              EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 12.0.h),
           child: Row(
             children: [
-              IconViewer(
-                icon: icon,
-                svgIcon: svgIcon,
-                iconColor: colorScheme.primary,
-                iconSize: 20.r,
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 4.h),
+                child: IconViewer(
+                  icon: icon,
+                  svgIcon: svgIcon,
+                  iconColor: colorScheme.onBackground,
+                  width: size ?? 24.w,
+                  height: size ?? 24.w,
+                ),
               ),
-              SizedBox(width: 10.w),
+              SizedBox(width: 12.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -31,19 +31,40 @@ class LightColorScheme extends AppColors {
   Color get onSurface => XColorScheme.black;
 
   @override
-  Color get primary => XColorScheme.blueMain;
+  Color get primary => Colors.black;
 
   @override
-  Color get secondary => XColorScheme.purpleMain;
+  Color get secondary => XColorScheme.black;
 
   @override
   Color get surface => XColorScheme.white;
 
   @override
-  Color get appBar => XColorScheme.blueMain;
+  Color get appBar => XColorScheme.white;
 
+  @override
+  Color? get chipBackgroundColor => Colors.grey;
 
   @override
   Color? get subtitleTextColor => Colors.grey[600];
+
+  @override
+  Color? get buttonBackgroundColor => primary;
+  @override
+  Color? get onButtonColor => XColorScheme.white;
+
+  @override
+  Color? get bottomBarUnselectedColor => const Color(0XFFAFAFAF);
+
+  @override
+  Color? get bottomBarShadowColor => Colors.grey[300];
+
+  @override
+  Color get onAppBar => XColorScheme.black;
+
+
+  @override
+  Color? get onChipBackgroundColor => Colors.white;
+
 
 }

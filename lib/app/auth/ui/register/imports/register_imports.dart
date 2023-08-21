@@ -11,7 +11,7 @@ import '../../../../../../core/resources/colors/app_color_scheme.dart';
 import '../../../../../../core/resources/translation/app_translations.dart';
 import '../../../../../../core/utils/app_utils.dart';
 import '../../../../../../core/utils/are_equals_validation.dart';
-import '../../../../../../core/widgets/text_field.dart';
+import '../../../../../core/widgets/components/text_field.dart';
 import '../../../../../core/navigation/app_navigation.dart';
 import '../../../../../core/utils/alert.dart';
 import '../../../data/models/api_user.dart';
