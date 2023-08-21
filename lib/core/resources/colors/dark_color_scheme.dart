@@ -61,4 +61,7 @@ class DarkColorScheme extends AppColors {
 
   @override
   Color get onAppBar => XColorScheme.white;
+
+  @override
+  Color? get onChipBackgroundColor => Colors.white;
 }

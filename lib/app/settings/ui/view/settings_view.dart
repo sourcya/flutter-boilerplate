@@ -5,21 +5,16 @@ class SettingsView extends GetView<SettingsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return CustomScaffold(
+      padding: EdgeInsets.only(right: 2.w,left: 2.w, top: 4.h, bottom:4.h),
       appBar: buildAppBar(title : AppTrans.settings.tr ),
-      body: Container(
-        padding: EdgeInsets.only(right: 2.w,left: 2.w, top: 4.h, bottom:4.h),
-        child:  const OptimizedScrollView(
-          child: Column(
-            children: [
+            children: const [
               BuildSettingsLanguageWidget(),
               BuildSettingsThemeWidget(),
               BuildSettingsLogOutWidget(),
               KeyboardVisibilityPadding(),
             ],
-          ),
-        ),
-      ),
+
     );
   }
 }

@@ -23,6 +23,7 @@ abstract class AppColors extends XColorScheme {
   Color? get subtitleTextColor;
 
   Color? get chipBackgroundColor;
+  Color? get onChipBackgroundColor;
 
   Color? get buttonBackgroundColor;
 

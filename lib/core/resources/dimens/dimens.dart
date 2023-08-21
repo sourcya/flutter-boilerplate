@@ -28,6 +28,8 @@ abstract class Dimens {
 
   static const bottomNavBarHeight =56.0;
 
+  static double fieldTextSize = 16.sp;
+
 }
 
 Dimens get dimens {

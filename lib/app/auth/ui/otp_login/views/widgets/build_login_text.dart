@@ -1,7 +1,6 @@
 part of '../../imports/login_view_imports.dart';
 
 class BuildLoginText extends StatelessWidget {
-
   const BuildLoginText();
 
   @override
@@ -14,14 +13,11 @@ class BuildLoginText extends StatelessWidget {
         top: 10.h,
       ),
       width: double.infinity,
-      child: Text(
+      child: CustomText(
         AppTrans.loginText.tr,
-        style:TextStyle(
-          color: colorScheme.onBackground,
-          fontSize: 40.sp,
-        ),
+        color: colorScheme.onBackground,
+        fontSize: 40.sp,
       ),
     );
   }
-
 }

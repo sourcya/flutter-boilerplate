@@ -8,17 +8,16 @@ class BuildLoginSubtitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
+        top: 10.h,
         right: 10.w,
         left: 10.w,
         bottom: 10.h,
       ),
       width: double.infinity,
-      child: Text(
+      child: CustomText(
         AppTrans.loginSubtitle.tr,
-        style:TextStyle(
-          color: colorScheme.subtitleTextColor,
-          fontSize: 15.sp,
-        ),
+        color: colorScheme.subtitleTextColor,
+        fontSize: 15.sp,
       ),
     );
   }
