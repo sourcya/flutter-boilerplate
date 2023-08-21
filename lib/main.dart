@@ -13,8 +13,8 @@ void main() async {
   Playx.runPlayx(
     appConfig: appConfig,
     themeConfig: AppThemeConfig(),
-    app: const MyApp(),
     localeConfig: AppLocaleConfig(),
+    app: const MyApp(),
   );
 }
 

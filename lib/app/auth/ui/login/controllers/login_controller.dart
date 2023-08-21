@@ -1,16 +1,7 @@
-import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:playx/playx.dart';
+part of '../imports/login_imports.dart';
 
-import '../../../../../core/config/keys.dart';
-import '../../../../../core/navigation/app_navigation.dart';
-import '../../../../../core/utils/alert.dart';
-import '../../../data/models/api_user.dart';
-import '../../../data/repo/auth_repository.dart';
-import '../../../data/repo/biometric_auth_repository.dart';
-import '../../../data/repo/google_auth_repository.dart';
+
 
 ///Login controller to setup data to the ui.
 class LoginController extends GetxController {
@@ -29,6 +20,7 @@ class LoginController extends GetxController {
   final isPasswordValid = false.obs;
 
   final isFormValid = false.obs;
+  Worker? _validationWorker;
 
 
   @override
@@ -45,7 +37,7 @@ class LoginController extends GetxController {
   }
 
   void listenToValidationState() {
-    everAll([
+    _validationWorker=  everAll([
       isEmailValid,
       isPasswordValid,
     ], (callback) {
@@ -116,7 +108,10 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
+    super.onClose();
     emailController.dispose();
     passwordController.dispose();
+    _validationWorker?.dispose();
+
   }
 }

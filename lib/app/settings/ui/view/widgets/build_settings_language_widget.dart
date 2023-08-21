@@ -1,29 +1,28 @@
-import 'package:flutter/material.dart';
-import 'package:playx/playx.dart';
+part of '../../imports/settings_imports.dart';
 
-import '../../../../../core/resources/translation/app_translations.dart';
-import '../../controller/settings_controller.dart';
-import 'settings_dialog.dart';
-import 'settings_tile.dart';
+class BuildSettingsLanguageWidget extends GetView<SettingsController> {
+  const BuildSettingsLanguageWidget({super.key});
 
-Widget buildSettingsLanguageWidget(BuildContext context,
-    SettingsController controller,) {
-  return Obx(() {
-    return buildSettingsTile(
-      title: AppTrans.language.tr,
-      subtitle: controller.currentLocale.value?.name ?? '',
-      icon: Icons.language,
-      onTap: () {
-        Get.dialog(
-          buildSettingsDialog(
-            title: AppTrans.language.tr,
-            items: controller.supportedLocales,
-            onItemSelected: (lang) => controller.handleLanguageSelection(lang),
-            itemName: (lang) => lang.name,
-            itemIcon: null,
-            isItemSelected: (lang) => controller.currentLocale.value == lang,
-          ),
-        );
-      },);
-  });
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      return BuildSettingsTile(
+        title: AppTrans.language.tr,
+        subtitle: controller.currentLocale.value?.name ?? '',
+        icon: Icons.language,
+        onTap: () {
+          Get.dialog(
+            BuildSettingsDialog(
+              title: AppTrans.language.tr,
+              items: controller.supportedLocales,
+              onItemSelected: (lang) =>
+                  controller.handleLanguageSelection(lang),
+              itemName: (lang) => lang.name,
+              isItemSelected: (lang) => controller.currentLocale.value == lang,
+            ),
+          );
+        },
+      );
+    });
+  }
 }

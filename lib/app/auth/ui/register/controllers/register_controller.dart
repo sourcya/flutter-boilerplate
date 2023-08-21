@@ -1,12 +1,5 @@
-import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:playx/playx.dart';
-
-import '../../../../../core/navigation/app_navigation.dart';
-import '../../../../../core/utils/alert.dart';
-import '../../../data/models/api_user.dart';
-import '../../../data/repo/auth_repository.dart';
+part of '../imports/register_imports.dart';
 
 class RegisterController extends GetxController {
   final isLoading = false.obs;
@@ -37,6 +30,7 @@ class RegisterController extends GetxController {
   final authRepository = AuthRepository();
   final AppNavigation appNavigation = AppNavigation.instance;
 
+   Worker? _validationWorker;
   @override
   void onInit() {
     super.onInit();
@@ -44,7 +38,7 @@ class RegisterController extends GetxController {
   }
 
   void listenToValidationState() {
-    everAll([
+    _validationWorker=  everAll([
       isUsernameValid,
       isEmailValid,
       isPasswordValid,
@@ -90,4 +84,18 @@ class RegisterController extends GetxController {
   void navigateToLogin() {
     appNavigation.navigateFromRegisterToLogin();
   }
+
+
+  @override
+  void onClose() {
+    super.onClose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    usernameController.dispose();
+    _validationWorker?.dispose();
+    _validationWorker = null;
+
+  }
+
 }

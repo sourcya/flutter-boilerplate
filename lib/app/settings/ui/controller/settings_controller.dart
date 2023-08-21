@@ -1,9 +1,9 @@
 
-import 'package:playx/playx.dart';
+part of '../imports/settings_imports.dart';
 
 class SettingsController extends GetxController {
   Rxn<XLocale> currentLocale= Rxn(PlayxLocalization.currentXLocale);
-  Rx<XTheme> currentTheme = Rx(AppTheme.xTheme);
+  Rx<XTheme> currentTheme = Rx(PlayxTheme.xTheme);
 
   List<XLocale> get supportedLocales => PlayxLocalization.supportedXLocales;
 
@@ -20,11 +20,22 @@ class SettingsController extends GetxController {
   }
 
   void handleThemeSelection(XTheme theme) {
-    AppTheme.updateTo(theme);
+    PlayxTheme.updateTo(theme);
     currentTheme.value = theme;
     Get.back();
   }
 
 
+
+  Future<void> handleLogOutTap() async {
+    if(Get.isRegistered<HomeController>()){
+      Get.find<HomeController>().resetNavigation();
+    }
+    final preferenceManger = MyPreferenceManger.instance;
+    await preferenceManger.signOut();
+    AppNavigation.instance.navigateFromSettingsToLogin();
   }
+
+
+}
 
