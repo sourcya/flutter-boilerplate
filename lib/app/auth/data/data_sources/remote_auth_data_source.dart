@@ -48,4 +48,32 @@ class RemoteAuthDataSource {
     );
     return res;
   }
+
+
+  Future<NetworkResult<ApiUser>> otpLogin({
+    required String phoneNumber,
+  }) async {
+    final res = await client.post<ApiUser>(
+      Endpoints.login,
+      attachCustomHeaders: false,
+      body: {
+        'identifier': phoneNumber,
+      },
+      fromJson: ApiUser.fromJson,
+    );
+    return res;
+  }
+
+  Future<NetworkResult<ApiUser>> verifyOtpCode({required String pin}) {
+    return client.post<ApiUser>(
+      Endpoints.register,
+      attachCustomHeaders: false,
+      body: {
+        'pin': pin,
+      },
+      fromJson: ApiUser.fromJson,
+    );
+
+  }
+
 }

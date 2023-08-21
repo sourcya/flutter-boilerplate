@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../../../core/utils/app_utils.dart';
-import '../../../../../../core/widgets/text_field.dart';
+import '../../../../../core/widgets/components/text_field.dart';
 import '../../../../../core/config/keys.dart';
 import '../../../../../core/navigation/app_navigation.dart';
 import '../../../../../core/resources/assets/assets.dart';

@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_secure_storage_windows
   local_auth_windows
   sentry_flutter
+  smart_auth
   url_launcher_windows
 )
 
