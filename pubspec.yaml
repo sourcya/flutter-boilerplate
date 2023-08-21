@@ -14,8 +14,6 @@ dependencies:
   playx: ^0.2.4
   local_auth: ^2.1.6
   playx_version_update: ^0.0.3
-  flutter_screenutil: ^5.8.4
-  easy_localization: ^3.0.2
   dots_indicator: ^3.0.0
   pinput: ^3.0.0
   flutter_keyboard_visibility: ^5.4.1

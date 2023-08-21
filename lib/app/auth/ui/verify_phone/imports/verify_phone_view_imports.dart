@@ -3,6 +3,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_elevated_button.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_scaffold.dart';
 import 'package:pinput/pinput.dart';
 import 'package:playx/playx.dart';
 

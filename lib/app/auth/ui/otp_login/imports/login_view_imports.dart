@@ -1,26 +1,25 @@
 
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/utils/alert.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_elevated_button.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../../../core/resources/assets/assets.dart';
 import '../../../../../../core/resources/colors/app_color_scheme.dart';
 import '../../../../../../core/resources/translation/app_translations.dart';
-import '../../../../../../core/widgets/text_field.dart';
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter_boilerplate/core/utils/alert.dart';
-import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
-
 import '../../../../../core/navigation/app_navigation.dart';
+import '../../../../../core/widgets/components/custom_scaffold.dart';
+import '../../../../../core/widgets/components/custom_text.dart';
+import '../../../../../core/widgets/components/text_field.dart';
 import '../../../data/models/api_user.dart';
 import '../../../data/repo/auth_repository.dart';
 
-part '../views/otp_login_view.dart';
-part '../controllers/otp_login_controller.dart';
 part '../bindings/otp_login_binding.dart';
-
+part '../controllers/otp_login_controller.dart';
+part '../views/otp_login_view.dart';
 part '../views/widgets/build_login_button.dart';
 part '../views/widgets/build_login_lottie_animation.dart';
 part '../views/widgets/build_login_mobile_text_field.dart';
