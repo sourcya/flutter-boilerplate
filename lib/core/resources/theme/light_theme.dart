@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:playx/playx.dart';
 
 import '../colors/light_color_scheme.dart';
+import '../translation/app_locale_config.dart';
+import '../translation/app_translations.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class LightTheme {
   static String lightThemeId = 'light';
-  static String lightThemeName = 'Light';
+  static String lightThemeName = AppTrans.lightTheme.tr;
 
   static LightColorScheme colorScheme = LightColorScheme();
 
@@ -15,7 +16,8 @@ class LightTheme {
         id: lightThemeId,
         name: lightThemeName,
         colorScheme: colorScheme,
-        theme: ThemeData.light().copyWith(
+        theme: (locale) => ThemeData(
+          brightness: Brightness.light,
           appBarTheme: AppBarTheme(
             centerTitle: true,
             backgroundColor: colorScheme.appBar,
@@ -34,10 +36,11 @@ class LightTheme {
             onError: colorScheme.onError,
           ),
           scaffoldBackgroundColor: colorScheme.background,
-          textTheme: GoogleFonts.rubikTextTheme(),
           sliderTheme: const SliderThemeData(
             showValueIndicator: ShowValueIndicator.always,
           ),
+          fontFamily: fontFamily,
+          textTheme: const TextTheme().apply(fontFamily: fontFamily),
         ),
       );
 }

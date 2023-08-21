@@ -88,4 +88,36 @@ abstract class AppTrans {
   static const skip ='skip';
   static const next = 'next';
 
+
+  static const logout ='logout';
+
+  static const phoneNumberLabel = 'phoneNumberLabel';
+
+  static const phoneNumberHint = 'phoneNumberHint';
+
+  static const validNumberErrMsg= 'validNumberErrMsg';
+
+  static const loginSubtitle = 'loginSubtitle';
+
+  static const verifyPhoneTitle ='verifyPhoneTitle';
+
+  static const verifyPhoneValidOtpError ='verifyPhoneValidOtpError';
+
+  static const verifyPhoneBtnText = 'verifyPhoneBtnText';
+
+  static const verifyPhoneSubtitle ='verifyPhoneSubtitle';
+
+  static const verifyPhoneCodeNotReceived ='verifyPhoneCodeNotRecived';
+
+  static const resendCode='resendCode';
+
+  static const lightTheme ='lightTheme';
+  static const darkTheme ='darkTheme';
+
+  static const mobileNumberRequiredErrMsg ='mobileNumberRequiredErrMsg';
+
+  static const dashboard ='dashboard';
+  static const wishlist ='wishlist';
+
+
 }
