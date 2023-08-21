@@ -140,7 +140,7 @@ class _CustomFieldState extends State<CustomTextField> {
       ),
       hintColor:widget.hintColor ?? XColorScheme.grey,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24.r),
+          borderRadius: BorderRadius.circular(8.r),
           borderSide: BorderSide(
             color: widget.borderColor ?? XColorScheme.grey,
           ),),
@@ -151,20 +151,18 @@ class _CustomFieldState extends State<CustomTextField> {
           // color: Colors.grey.withOpacity(0.5),
           width: 2,
         ),
-        borderRadius: BorderRadius.circular(24.r),
+        borderRadius: BorderRadius.circular(8.r),
       ),
       border: OutlineInputBorder(
         borderSide:
         BorderSide(color: widget.borderColor ?? XColorScheme.grey),
-        borderRadius: BorderRadius.circular(24.r),
+        borderRadius: BorderRadius.circular(8.r),
       ),
       errorBorder: OutlineInputBorder(
         borderSide:
         const BorderSide(color: Colors.red),
-        borderRadius: BorderRadius.circular(24.r),
+        borderRadius: BorderRadius.circular(8.r),
       ),
-
     );
-
   }
 }

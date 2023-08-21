@@ -16,6 +16,6 @@ class AppUtils {
   }
 
   static bool isDarkMode() {
-    return AppTheme.id == DarkTheme.theme.id;
+    return PlayxTheme.id == DarkTheme.theme.id;
   }
 }
