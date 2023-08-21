@@ -1,4 +1,3 @@
-
 part of '../../imports/settings_imports.dart';
 
 class BuildSettingsLanguageWidget extends GetView<SettingsController> {
@@ -7,23 +6,23 @@ class BuildSettingsLanguageWidget extends GetView<SettingsController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return SettingsTile(
+      return BuildSettingsTile(
         title: AppTrans.language.tr,
         subtitle: controller.currentLocale.value?.name ?? '',
         icon: Icons.language,
         onTap: () {
           Get.dialog(
-            SettingsDialog(
+            BuildSettingsDialog(
               title: AppTrans.language.tr,
               items: controller.supportedLocales,
-              onItemSelected: (lang) => controller.handleLanguageSelection(lang),
+              onItemSelected: (lang) =>
+                  controller.handleLanguageSelection(lang),
               itemName: (lang) => lang.name,
               isItemSelected: (lang) => controller.currentLocale.value == lang,
             ),
           );
-        },);
+        },
+      );
     });
   }
 }
-
-
