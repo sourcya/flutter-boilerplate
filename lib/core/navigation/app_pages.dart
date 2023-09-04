@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_boilerplate/app/auth/ui/otp_login/imports/login_view_imports.dart';
-import 'package:flutter_boilerplate/app/auth/ui/verify_phone/imports/verify_phone_view_imports.dart';
-import 'package:flutter_boilerplate/app/wishlist/ui/imports/wishlist_imports.dart';
 import 'package:playx/playx.dart';
 
+import '../../app/base/auth/ui/otp_login/imports/login_view_imports.dart';
+import '../../app/base/auth/ui/verify_phone/imports/verify_phone_view_imports.dart';
+import '../../app/base/home/ui/imports/home_imports.dart';
+import '../../app/base/onboarding/ui/imports/onboarding_imports.dart';
+import '../../app/base/splash/ui/imports/splash_imports.dart';
 import '../../app/dashboard/ui/imports/dashboard_imports.dart';
-import '../../app/home/ui/imports/home_imports.dart';
-import '../../app/onboarding/ui/imports/onboarding_imports.dart';
 import '../../app/settings/ui/imports/settings_imports.dart';
-import '../../app/splash/ui/imports/splash_imports.dart';
+import '../../app/wishlist/ui/imports/wishlist_imports.dart';
 import 'app_routes.dart';
 
 /// contains all possible routes for the application.

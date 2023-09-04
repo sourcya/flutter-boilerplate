@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/resources/colors/app_color_scheme.dart';
 import 'package:playx/playx.dart';
 
+import '../resources/colors/app_color_scheme.dart';
 import '../resources/dimens/dimens.dart';
 
 class CustomLoading extends StatelessWidget {
