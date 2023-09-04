@@ -45,6 +45,9 @@ class CustomTextField extends StatefulWidget {
   final TextInputAction textInputAction;
   final IconData? prefixIcon;
   final IconData? suffixIcon;
+  final EdgeInsets? scrollPadding;
+
+  final Iterable<String>? autoFillHints;
 
   const CustomTextField({
     this.hint,
@@ -81,7 +84,7 @@ class CustomTextField extends StatefulWidget {
     this.onValidationChanged,
     this.textInputAction = TextInputAction.done,
     this.prefixIcon,
-    this.suffixIcon,
+    this.suffixIcon, this.scrollPadding, this.autoFillHints,
   });
 
   @override
@@ -110,6 +113,8 @@ class _CustomFieldState extends State<CustomTextField> {
       controller: widget.controller,
       focus: widget.focus,
       nextFocus: widget.nextFocus,
+      scrollPadding: widget.scrollPadding,
+      autoFillHints: widget.autoFillHints,
       prefix: widget.prefixIcon != null
           ? Padding(
               padding: EdgeInsets.symmetric(

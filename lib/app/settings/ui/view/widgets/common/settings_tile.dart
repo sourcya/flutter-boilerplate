@@ -21,7 +21,7 @@ class BuildSettingsTile extends StatelessWidget {
       this.isSelected,
       this.onSelectionChanged,
       this.padding,
-      this.size});
+      this.size,});
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +45,19 @@ class BuildSettingsTile extends StatelessWidget {
             children: [
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 4.h),
-                child: IconViewer(
-                  icon: icon,
-                  svgIcon: svgIcon,
-                  iconColor: colorScheme.onBackground,
-                  width: size ?? 24.w,
-                  height: size ?? 24.w,
-                ),
+                child: icon != null
+                    ? IconViewer(
+                        icon: icon!,
+                        iconColor: colorScheme.onBackground,
+                        width: size ?? 24.w,
+                        height: size ?? 24.w,
+                      )
+                    : IconViewer.svg(
+                        svgIcon: svgIcon ?? '',
+                        iconColor: colorScheme.onBackground,
+                        width: size ?? 24.w,
+                        height: size ?? 24.w,
+                      ),
               ),
               SizedBox(width: 12.w),
               Expanded(

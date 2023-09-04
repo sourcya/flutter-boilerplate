@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/resources/theme/theme.dart';
-import 'package:flutter_boilerplate/core/widgets/components/custom_dialog.dart';
-import 'package:flutter_boilerplate/core/widgets/components/custom_scaffold.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../core/navigation/app_navigation.dart';
@@ -9,9 +7,11 @@ import '../../../../core/preferences/preference_manger.dart';
 import '../../../../core/resources/colors/app_color_scheme.dart';
 import '../../../../core/resources/translation/app_translations.dart';
 import '../../../../core/utils/app_utils.dart';
+import '../../../../core/widgets/components/custom_dialog.dart';
+import '../../../../core/widgets/components/custom_scaffold.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/widgets/keyboard_visibility_padding.dart';
-import '../../../home/ui/imports/home_imports.dart';
+import '../../../base/home/ui/imports/home_imports.dart';
 
 part  '../binding/settings_binding.dart';
 part  '../controller/settings_controller.dart';
