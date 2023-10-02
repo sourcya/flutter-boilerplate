@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
-import '../../resources/colors/app_color_scheme.dart';
+import '../../resources/colors/app_colors.dart';
 import 'custom_text.dart';
 
 class CustomElevatedButton extends StatelessWidget {
@@ -19,7 +19,8 @@ class CustomElevatedButton extends StatelessWidget {
     this.isLoading = false,
     this.padding,
     this.fontSize,
-    required this.label, this.disabledBackground,
+    required this.label,
+    this.disabledBackground,
   });
 
   @override
@@ -33,16 +34,33 @@ class CustomElevatedButton extends StatelessWidget {
             bottom: 12.h,
           ),
       width: double.infinity,
-      child: ElevatedButton(
+      child: PlatformElevatedButton(
         onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
+        padding: padding ??
+            EdgeInsets.symmetric(
+              horizontal: 8.w,
+              vertical: 18.h,
+            ),
+        color: colorScheme.buttonBackgroundColor,
+        material: (ctx, _) => MaterialElevatedButtonData(
+          style: ElevatedButton.styleFrom(
+            disabledBackgroundColor: disabledBackground,
+            padding: padding ??
+                EdgeInsets.symmetric(
+                  horizontal: 8.w,
+                  vertical: 18.h,
+                ),
+            backgroundColor: colorScheme.buttonBackgroundColor,
+          ),
+        ),
+        cupertino: (ctx, _) => CupertinoElevatedButtonData(
+          disabledColor: disabledBackground,
           padding: padding ??
               EdgeInsets.symmetric(
                 horizontal: 8.w,
                 vertical: 18.h,
               ),
-          backgroundColor: colorScheme.buttonBackgroundColor,
-          disabledBackgroundColor: disabledBackground,
+          color: colorScheme.buttonBackgroundColor,
         ),
         child: isLoading
             ? CenterLoading(
@@ -51,7 +69,7 @@ class CustomElevatedButton extends StatelessWidget {
             : CustomText(
                 label,
                 color: colorScheme.onButtonColor,
-                fontSize: fontSize ,
+                fontSize: fontSize,
               ),
       ),
     );

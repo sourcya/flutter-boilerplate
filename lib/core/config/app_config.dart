@@ -6,9 +6,6 @@ import '../preferences/preference_manger.dart';
 
 /// This class contains app configuration like playx configuration.
 class AppConfig extends PlayXAppConfig {
-  @override
-  String get appTitle => "Sourcya App";
-
   // setup and boot your dependencies here
   @override
   Future<void> boot() async {
@@ -18,5 +15,10 @@ class AppConfig extends PlayXAppConfig {
     final PlayxNetworkClient client = await ApiClient.createApiClient();
     Get.put<PlayxNetworkClient>(client);
     Get.put<AppNavigation>(AppNavigation());
+  }
+
+  @override
+  Future<void> asyncBoot() async {
+   return Future.delayed(10.seconds);
   }
 }

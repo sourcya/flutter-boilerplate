@@ -38,7 +38,7 @@ abstract class Alert {
   }) {
     showSnackBar(
       message: message,
-      color: XColorScheme.red,
+      color: XColors.red,
       duration: duration,
     );
   }
