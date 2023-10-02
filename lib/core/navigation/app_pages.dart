@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:playx/playx.dart';
 
-import '../../app/base/auth/ui/otp_login/imports/login_view_imports.dart';
-import '../../app/base/auth/ui/verify_phone/imports/verify_phone_view_imports.dart';
-import '../../app/base/home/ui/imports/home_imports.dart';
-import '../../app/base/onboarding/ui/imports/onboarding_imports.dart';
-import '../../app/base/splash/ui/imports/splash_imports.dart';
+import '../../app/app_launch/auth/ui/otp_login/imports/login_view_imports.dart';
+import '../../app/app_launch/auth/ui/verify_phone/imports/verify_phone_view_imports.dart';
+import '../../app/app_launch/home/ui/imports/home_imports.dart';
+import '../../app/app_launch/onboarding/ui/imports/onboarding_imports.dart';
+import '../../app/app_launch/splash/ui/imports/splash_imports.dart';
 import '../../app/dashboard/ui/imports/dashboard_imports.dart';
 import '../../app/settings/ui/imports/settings_imports.dart';
 import '../../app/wishlist/ui/imports/wishlist_imports.dart';

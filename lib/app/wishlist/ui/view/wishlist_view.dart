@@ -6,9 +6,9 @@ class WishlistView extends GetView<WishlistController> {
     return CustomScaffold(
       appBar: buildAppBar(title: AppTrans.wishlist.tr),
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(AppTrans.wishlist.tr),
-          ],
+      child: const Center(
+        child: CustomText('Wishlist', style: CustomTextStyle.displayMedium,),
+      ),
     );
   }
 }

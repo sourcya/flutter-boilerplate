@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
-
-import '../resources/colors/app_color_scheme.dart';
+import '../resources/colors/app_colors.dart';
 import '../resources/dimens/dimens.dart';
 
 class CustomLoading extends StatelessWidget {
@@ -12,7 +11,9 @@ class CustomLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  CenterLoading(color: colorScheme.onPrimary,);
+    return  CenterLoading.adaptive(
+      color: colorScheme.primary,
+    );
     // return  Center(
     //   child: Container(
     //       height: context.height *.3,
