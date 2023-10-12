@@ -9,26 +9,58 @@ class CustomCard extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final Color? color;
+  final ShapeBorder? shape;
+  final double? elevation;
+  final EdgeInsetsGeometry? innerCardShadowMargin;
+  final double? width;
+  final double? height;
+  final BorderRadius? shadowBorderRadius;
+  final bool? shouldShowCustomShadow;
+  final VoidCallback? onPressed;
+  final BorderRadius? borderRadius;
 
-  const CustomCard({this.padding, required this.child, this.margin, this.color});
+  const CustomCard({
+    this.padding,
+    required this.child,
+    this.margin,
+    this.color,
+    this.shape,
+    this.elevation,
+    this.innerCardShadowMargin,
+    this.width,
+    this.height,
+    this.shadowBorderRadius,
+    this.shouldShowCustomShadow,
+    this.onPressed,
+    this.borderRadius,
+  });
 
   @override
   Widget build(BuildContext context) {
+
     return OptimizedCard(
+      width: width,
+      height: height,
       margin: margin ??
           (AppUtils.isDarkMode()
               ? EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h)
-              : EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.h)),
-      // padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
-      shouldShowCustomShadow: !AppUtils.isDarkMode() ,
-      elevation: AppUtils.isDarkMode() && isMaterial(context) ? 4:0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.r),
-      ),
+              : EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h)),
+      shouldShowCustomShadow:
+      shouldShowCustomShadow ?? !AppUtils.isDarkMode(),
+      elevation:
+      elevation ?? (AppUtils.isDarkMode() ? 4 : 0),
       color: color ?? colorScheme.surface,
+      innerCardShadowMargin: innerCardShadowMargin,
+      shadowBorderRadius: shadowBorderRadius,
+      shape: shape ??
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.r),
+          ),
+      borderRadius: borderRadius ?? BorderRadius.circular(8.r),
+      onPressed: onPressed,
       child: Padding(
-        padding:
-            padding ?? EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8.0.h),
+        padding: padding ??
+            EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8.0.h),
         child: child,
       ),
     );

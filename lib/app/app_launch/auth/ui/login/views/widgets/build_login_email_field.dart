@@ -24,7 +24,7 @@ class BuildLoginEmailFieldWidget extends GetView<LoginController> {
                     padding: EdgeInsets.symmetric(horizontal: 8.0.w),
                     child: Icon(
                         Icons.email,
-                        // color: colorScheme.secondary,
+                        color: colorScheme.primary,
                         size: 20.r,
                     ),
                 ),
