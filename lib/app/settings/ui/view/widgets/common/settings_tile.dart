@@ -11,48 +11,43 @@ class BuildSettingsTile extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final double? size;
 
-  const BuildSettingsTile(
-      {super.key,
-      required this.title,
-      this.subtitle,
-      this.icon,
-      this.svgIcon,
-      required this.onTap,
-      this.isSelected,
-      this.onSelectionChanged,
-      this.padding,
-      this.size});
+  const BuildSettingsTile({
+    super.key,
+    required this.title,
+    this.subtitle,
+    this.icon,
+    this.svgIcon,
+    required this.onTap,
+    this.isSelected,
+    this.onSelectionChanged,
+    this.padding,
+    this.size,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      splashColor: colorScheme.primary,
-      child: OptimizedCard(
+      child: CustomCard(
         margin: AppUtils.isDarkMode()
             ? EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h)
-            : EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.h),
+            : EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
         padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
-        shouldShowCustomShadow: !AppUtils.isDarkMode(),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.r),
-        ),
-        color: colorScheme.surface,
         child: Padding(
           padding: padding ??
               EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 12.0.h),
           child: Row(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 4.h),
-                child: IconViewer(
-                  icon: icon,
-                  svgIcon: svgIcon,
-                  iconColor: colorScheme.onBackground,
-                  width: size ?? 24.w,
-                  height: size ?? 24.w,
-                ),
-              ),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 4.h),
+                  child: IconViewer(
+                    icon: icon,
+                    svgIcon: svgIcon ?? '',
+                    iconColor: colorScheme.onBackground,
+                    width: size ?? 24.w,
+                    height: size ?? 24.w,
+                  ),),
               SizedBox(width: 12.w),
               Expanded(
                 child: Column(
@@ -69,7 +64,7 @@ class BuildSettingsTile extends StatelessWidget {
                       child: Text(
                         title,
                         style: TextStyle(
-                          color: colorScheme.onBackground,
+                          color: colorScheme.onSurfaceVariant,
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w400,
                         ),

@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/resources/colors/app_color_scheme.dart';
+import 'package:playx/playx.dart';
 
-import '../resources/dimens/dimens.dart';
+import '../resources/colors/app_colors.dart';
 
-AppBar buildAppBar({required String title}) {
-  return AppBar(
-    toolbarHeight: dimens.appBarHeight,
-    title: Text(title, style: TextStyle(fontSize: dimens.appBarTextSize, color: colorScheme.onAppBar)),
-    centerTitle: true,
+
+PlatformAppBar buildAppBar({required String title}) {
+  return PlatformAppBar(
+    // toolbarHeight: dimens.appBarHeight,
+    title: Text(title, style: TextStyle(color: colorScheme.onBackground),),
+    material: (ctx, _) => MaterialAppBarData(
+      centerTitle: true,
+    ),
+    cupertino: (_, __) => CupertinoNavigationBarData(
+      // Issue with cupertino where a bar with no transparency
+      // will push the list down. Adding some alpha value fixes it (in a hacky way)
+      backgroundColor: colorScheme.background.withAlpha(254),
+    ),
   );
 }

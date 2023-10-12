@@ -23,11 +23,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlayxMaterialApp(
-              useInheritedMediaQuery: true,
-              initialRoute: AppPages.initial,
-              getPages: AppPages.routes,
-              title: AppTrans.appName.tr,
+    return PlayxPlatformApp(
+      title: AppTrans.appName.tr,
+      navigationSettings: PlayxNavigationSettings(
+        initialRoute: AppPages.initial,
+        getPages: AppPages.routes,
+      ),
     );
   }
 }

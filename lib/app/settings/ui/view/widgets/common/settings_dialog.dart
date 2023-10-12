@@ -32,7 +32,7 @@ class BuildSettingsDialog<T> extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w500,
-                color: colorScheme.onBackground,
+                color: colorScheme.onSurface,
               ),
             ),
           ),
@@ -40,19 +40,14 @@ class BuildSettingsDialog<T> extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: items
                 .map(
-                  (item) => OptimizedCard(
-                    color: colorScheme.surface,
-                    elevation: 4,
+                  (item) => CustomCard(
                     margin:
                         EdgeInsets.symmetric(horizontal: 3.w, vertical: 4.h),
                     padding: EdgeInsets.symmetric(
                       horizontal: 2.w,
                       vertical: 2.h,
                     ),
-                    shouldShowCustomShadow: !AppUtils.isDarkMode(),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
+                    color: colorScheme.surfaceVariant,
                     child: Obx(() {
                       return ListTile(
                         contentPadding: EdgeInsets.symmetric(
@@ -62,7 +57,7 @@ class BuildSettingsDialog<T> extends StatelessWidget {
                         trailing: isItemSelected(item)
                             ? Icon(
                                 Icons.check,
-                                color: colorScheme.primary,
+                                // color: colorScheme.primary,
                                 size: 20.r,
                               )
                             : null,
@@ -96,7 +91,7 @@ class BuildSettingsDialog<T> extends StatelessWidget {
                           child: Text(
                             itemName(item),
                             style: TextStyle(
-                              color: colorScheme.onBackground,
+                              // color: colorScheme.onBackground,
                               fontSize: 14.sp,
                             ),
                           ),
