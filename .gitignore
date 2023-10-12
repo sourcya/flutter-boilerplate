@@ -60,6 +60,8 @@ linked_*.ds
 unlinked.ds
 unlinked_spec.ds
 
+
+**/assets/env/keys.env
 # Android related
 **/android/**/gradle-wrapper.jar
 .gradle/
