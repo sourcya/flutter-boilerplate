@@ -18,6 +18,7 @@ class OnBoardingView extends GetView<OnBoardingController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         BuildOnboardingPageIndicatorsWidget(),
+                        Spacer(),
                         BuildOnboardingPageSkipWidget(),
                       ],
                     ),

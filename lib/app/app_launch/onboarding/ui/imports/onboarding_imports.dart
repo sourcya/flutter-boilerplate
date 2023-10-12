@@ -1,6 +1,9 @@
 
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_elevated_button.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_text.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../../core/navigation/app_navigation.dart';

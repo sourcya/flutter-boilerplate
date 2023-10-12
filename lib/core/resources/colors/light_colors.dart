@@ -31,38 +31,7 @@ class LightColors extends AppColors {
 
   LightColors() : super(colorScheme: scheme);
 
-  @override
-  Color get containerBackgroundColor => XColors.white;
 
-  @override
-  Color get background => XColors.white;
-
-  @override
-  Color get error => XColors.red;
-
-  @override
-  Color get onBackground => XColors.black;
-
-  @override
-  Color get onError => XColors.white;
-
-  @override
-  Color get onPrimary => XColors.white;
-
-  @override
-  Color get onSecondary => XColors.white;
-
-  @override
-  Color get onSurface => XColors.black;
-
-  @override
-  Color get primary => Colors.black;
-
-  @override
-  Color get secondary => XColors.black;
-
-  @override
-  Color get surface => XColors.white;
 
   @override
   Color get appBar => XColors.white;
@@ -90,4 +59,8 @@ class LightColors extends AppColors {
 
   @override
   Color? get onChipBackgroundColor => Colors.white;
+
+  @override
+  Color? get disabledButtonBackgroundColor => Colors.grey[300];
+
 }

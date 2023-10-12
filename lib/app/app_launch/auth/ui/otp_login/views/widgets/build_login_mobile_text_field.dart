@@ -40,8 +40,11 @@ class BuildMobileLoginTextField extends GetView<OtpLoginController> {
               ],
               validator: qValidator([
                 IsRequired(AppTrans.mobileNumberRequiredErrMsg.tr),
-                IsEgyptianPhone(AppTrans.validNumberErrMsg.tr),
+                IsNumber(AppTrans.validNumberErrMsg.tr),
+                MinLength(10, AppTrans.validNumberMinLength.tr),
+
               ]),
+              errorMaxLines: 2,
               prefixIcon:Icons.phone,
               shouldAutoValidate: true,
               onValidationChanged: (isValid) {

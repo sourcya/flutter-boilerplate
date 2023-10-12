@@ -25,6 +25,15 @@ class DarkTheme {
     sliderTheme: const SliderThemeData(
       showValueIndicator: ShowValueIndicator.always,
     ),
+    cupertinoOverrideTheme:  CupertinoThemeData(
+      barBackgroundColor: const Color(0xF0090909),
+      primaryColor: colors.primary,
+      primaryContrastingColor: colors.primaryContainer,
+      scaffoldBackgroundColor: colors.background,
+      brightness: Brightness.dark,
+      textTheme:  CupertinoTextThemeData(primaryColor: colors.primary),
+    ),
+
     applyElevationOverlayColor: true,
     fontFamily: fontFamily,
     textTheme: const TextTheme().apply(

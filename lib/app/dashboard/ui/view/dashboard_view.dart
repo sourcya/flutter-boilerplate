@@ -4,6 +4,7 @@ class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      hasScrollBody: true,
       appBar: buildAppBar(title: AppTrans.dashboard.tr),
       child: ListView.builder(
           itemCount: 20,

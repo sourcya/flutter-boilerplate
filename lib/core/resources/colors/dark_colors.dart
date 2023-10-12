@@ -29,9 +29,6 @@ class DarkColors extends AppColors {
   DarkColors() : super(colorScheme: scheme);
 
   @override
-  Color get containerBackgroundColor => XColors.black;
-
-  @override
   Color get appBar => XColors.black;
 
   @override
@@ -57,4 +54,9 @@ class DarkColors extends AppColors {
 
   @override
   Color? get onChipBackgroundColor => Colors.white;
+
+
+  @override
+  Color? get disabledButtonBackgroundColor => Colors.grey[600];
+
 }

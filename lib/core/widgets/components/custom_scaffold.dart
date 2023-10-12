@@ -14,7 +14,7 @@ class CustomScaffold extends StatelessWidget {
   final MainAxisSize mainAxisSize;
 
   const CustomScaffold({
-     this.children ,
+    this.children ,
     this.child,
     this.hasScrollBody =false,
     this.mainAxisAlignment = MainAxisAlignment.start,
@@ -26,21 +26,26 @@ class CustomScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final scaffoldChild = Container(
+      padding: padding ??
+          EdgeInsets.symmetric(
+            // vertical: 8.h,
+            horizontal: 8.w,
+          ),
+      alignment: Alignment.center,
+      child: child ?? Column(
+        mainAxisSize: mainAxisSize,
+        mainAxisAlignment: mainAxisAlignment,
+        children: children??[],
+      ),
+    );
+
     return PlatformScaffold(
       appBar: appBar,
       body: SafeArea(
-        child: Container(
-          padding: padding ??
-              EdgeInsets.symmetric(
-                // vertical: 8.h,
-                horizontal: 8.w,
-              ),
-          alignment: Alignment.center,
-          child: child ?? Column(
-            mainAxisSize: mainAxisSize,
-            mainAxisAlignment: mainAxisAlignment,
-            children: children??[],
-          ),
+        child: hasScrollBody ? scaffoldChild :OptimizedScrollView(
+          child: scaffoldChild,
         ),
       ),
       material: (ctx,_) => MaterialScaffoldData(
