@@ -14,6 +14,9 @@ void main() async {
     appConfig: appConfig,
     themeConfig: AppThemeConfig(),
     localeConfig: AppLocaleConfig(),
+    envSettings: const PlayxEnvSettings(
+      fileName: 'assets/env/keys.env',
+    ),
     app: const MyApp(),
   );
 }

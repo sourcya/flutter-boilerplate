@@ -84,6 +84,8 @@ abstract class AppTrans {
   static const secondBoardingSubTitle = 'secondBoardingSubTitle';
   static const thirdBoardingTitle = 'thirdBoardingTitle';
   static const thirdBoardingSubTitle = 'thirdBoardingSubTitle';
+  static const loremIpsum = 'loremIpsum';
+
 
   static const skip ='skip';
   static const next = 'next';
@@ -118,6 +120,8 @@ abstract class AppTrans {
 
   static const dashboard ='dashboard';
   static const wishlist ='wishlist';
+
+  static const validNumberMinLength ='validNumberMinLength';
 
 
 }

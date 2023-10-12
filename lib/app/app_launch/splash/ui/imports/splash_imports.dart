@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:playx/playx.dart';
+import 'package:playx/playx.dart' hide NumDurationExtensions;
 import 'package:playx_version_update/playx_version_update.dart';
 
-import '../../../../../core/config/keys.dart';
+import '../../../../../core/config/constant.dart';
 import '../../../../../core/navigation/app_navigation.dart';
 import '../../../../../core/preferences/preference_manger.dart';
 import '../../../../../core/resources/translation/app_translations.dart';
