@@ -1,4 +1,4 @@
-import 'package:playx/playx.dart';
+import 'package:playx/playx.dart' hide NumDurationExtensions;
 
 import '../models/api_user.dart';
 import '../models/user.dart';

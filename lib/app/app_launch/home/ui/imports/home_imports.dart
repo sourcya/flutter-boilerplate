@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:playx/playx.dart';
+import 'package:playx/playx.dart' hide NumDurationExtensions;
 
 import '../../../../../core/navigation/app_navigation.dart';
 import '../../../../../core/navigation/app_pages.dart';
