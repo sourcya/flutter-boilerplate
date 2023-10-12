@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:playx/playx.dart';
 
-import '../../../../../../core/config/keys.dart';
+import '../../../../../../core/config/constant.dart';
 import '../../../../../../core/navigation/app_navigation.dart';
 import '../../../../../../core/resources/assets/assets.dart';
 import '../../../../../../core/resources/translation/app_translations.dart';

@@ -68,7 +68,7 @@ class LoginController extends GetxController {
 
   Future<void> authenticateWithBiometric() async {
     final isBiometricAvailable = await biometricAuthRepo.canAuthenticate();
-    if (Keys.shouldUseBiometricAuth && isBiometricAvailable) {
+    if (Constants.shouldUseBiometricAuth && isBiometricAvailable) {
       final bioAuthResult = await biometricAuthRepo.authenticate();
 
       bioAuthResult.when(
