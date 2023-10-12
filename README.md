@@ -1,6 +1,55 @@
-
 # Sourcya Flutter Boilerplate
 This is the base code for creating cross-platform application using Flutter.
+
+- [Sourcya Flutter Boilerplate](#sourcya-flutter-boilerplate)
+- [Getting Started](#getting-started)
+    - [Rename App name and package name](#rename-app-name-and-package-name)
+    - [Update App Launcher Icon :](#update-app-launcher-icon-)
+        - [1. Setup the config file](#1-setup-the-config-file)
+        - [2. Run the package](#2-run-the-package)
+    - [Environment Variables](#environment-variables)
+        - [Usage](#usage)
+        - [Code Magic Setup](#code-magic-setup)
+            - [Adding environment variables](#adding-environment-variables)
+            - [Creating .env file with Codemagic](#creating-env-file-with-codemagic)
+    - [App Signing](#app-signing)
+        - [Release Using Codemagic :](#release-using-codemagic-)
+    - [Google Sign In](#google-sign-in)
+        - [Android](#android)
+            - [Generating a keystore](#generating-a-keystore)
+            - [Generate SHA-1](#generate-sha-1)
+            - [Ios](#ios)
+            - [Web :](#web-)
+                - [Starting flutter in  http://localhost:5000](#starting-flutter-in--httplocalhost5000)
+- [Architecture](#architecture)
+    - [Separation of concerns](#separation-of-concerns)
+    - [Drive UI from data models](#drive-ui-from-data-models)
+    - [Single source of truth](#single-source-of-truth)
+    - [Unidirectional Data Flow](#unidirectional-data-flow)
+    - [MVVM Architecture Pattern:](#mvvm-architecture-pattern)
+        - [Model:](#model)
+        - [View Model:](#view-model)
+        - [View:](#view)
+    - [App Architecture](#app-architecture)
+        - [UI layer](#ui-layer)
+        - [Data layer](#data-layer)
+    - [Package by Feature](#package-by-feature)
+    - [App Components](#app-components)
+        - [App:](#app)
+        - [Core Component :](#core-component-)
+            - [Config :](#config-)
+            - [Preferences:](#preferences)
+            - [Utils:](#utils)
+            - [Widgets:](#widgets)
+            - [Navigation:](#navigation)
+            - [Network:](#network)
+            - [Resources:](#resources)
+                - [Themes :](#themes-)
+                - [Customize theme's color scheme](#customize-themes-color-scheme)
+                - [App Assets:](#app-assets)
+                - [Translation:](#translation)
+    - [References :](#references-)
+
 
 # Getting Started
 To use this template to create new flutter application,
@@ -31,7 +80,7 @@ _**Run this command inside your flutter project root.**_
 ```  
 
 ## Update App Launcher Icon :
-We use [Flutter launcher icon](https://pub.dev/packages/flutter_launcher_icons) package to update app launcher icons.
+Use [Flutter launcher icon](https://pub.dev/packages/flutter_launcher_icons) package to update app launcher icons.
 ### 1. Setup the config file[](https://pub.dev/packages/flutter_launcher_icons#1-setup-the-config-file)
 
 Add your Flutter Launcher Icons configuration to your  `pubspec.yaml`  or create a new config file called  `flutter_launcher_icons.yaml`. An example is shown below. More complex examples  [can be found in the example projects](https://github.com/fluttercommunity/flutter_launcher_icons/tree/master/example).
@@ -79,6 +128,103 @@ flutter pub run flutter_launcher_icons
 
 In the above configuration, the package is setup to replace the existing launcher icons in both the Android and iOS project with the icon located in the image path specified above and given the name "launcher_icon" in the Android project and "Example-Icon" in the iOS project.
 
+## Environment Variables
+Environment variables are useful for making  the credentials, configuration files or API keys that are required for successful building or integration with external services while not publishing them to external repos.
+
+We can load configuration at runtime from a  `.env`  file which can be used throughout the application.
+
+>  Env vars are easy to change between deploys without changing any code... they are a language- and OS-agnostic standard.
+
+### Usage
+
+1.  Create a  `.env`  file in the root of your project with the example content:
+
+```sh
+FOO=foo
+BAR=true
+FOOBAR=$FOO$BAR
+ESCAPED_DOLLAR_SIGN='$1000'
+# This is a comment
+
+```
+
+
+2.  Add the  `.env`  file to your assets bundle in  `pubspec.yaml`.  **Ensure that the path corresponds to the location of the .env file!**
+
+```yml
+assets:
+  - assets/env/
+```
+
+3.  Remember to add the  `.env`  file as an entry in your  `.gitignore`  if it isn't already unless you want it included in your version control.
+
+```txt
+*.env
+```
+
+4.  Load the  `.env`  file in  `main.dart` using `Playx.runPlayx` or `Playx.boot` methods.
+```dart
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+Future main() async {
+  Playx.runPlayx(
+    appConfig: appConfig,
+    themeConfig: AppThemeConfig(),
+    localeConfig: AppLocaleConfig(),
+    envSettings: const PlayxEnvSettings(
+      fileName: 'assets/env/keys.env', //path of the .env file
+    ),
+    app: const MyApp(),
+  );
+}
+```
+
+You can then access variables from  `.env`  throughout the application using `PlayxEnv`
+
+```dart
+Future<String> get apiKey=> PlayxEnv.getString('apiKey');
+
+Future<int?> get number=> PlayxEnv.maybeGetInt('number_key');
+
+```
+
+### Code Magic Setup
+We can setup codemagic to use enviroment variables that were configured form the app.
+This is helpful for conifguring the app with environment variables like api key without publishing them to Github, conifguring the app with different variables for each workflow and track.
+
+For more information about the use of environment variables and a list of Codemagic read-only environment variables, refer  [here](https://docs.codemagic.io/yaml-basic-configuration/environment-variables).
+
+#### Adding environment variables
+
+You can add environment variables to your Flutter projects in  **App settings > Environment variables**.
+
+1.  Enter the name  of the variable for example `keys_env`.
+2. Copy the content of the `.env` file into the variable value field.
+3.  Check  **Secure**  if you wish to hide the value both in the UI and in build logs and disable editing of the variable. Such variables can be accessed only by the build machines during the build.
+4. If we want to encrypt the variables, they first need to be  **_base64 encoded_**  locally. To use the vars, you will have to decode them during the build.
+5.  Click  **Add**.
+
+####  Creating .env file with Codemagic
+
+In order to use the enivroment variable stored in `keys_env`, We need to add a post clone script that copy the content of the `keys_env` env into  `.env` file in app assets.
+
+You can add the script variables to your Flutter projects in  **App settings > Post-clone script** which is located after `Dependency caching`.
+
+then add this command :
+
+```shell
+
+# Create directory if it doesn't exist, Make sure the assets folder path is correct.
+mkdir -p $CM_BUILD_DIR/assets/env
+
+# Write out the environment variable file using the environment variable key from codemagic
+# Make sure the assets file path is correct same as configured in the app.
+echo $keys_env >> $CM_BUILD_DIR/assets/env/keys.env
+
+```
+
+
+
 ## App Signing
 Any android app need to be signed to use google sign in and to be ready for publishing to Google play.
 
@@ -91,7 +237,7 @@ To use features like google play sign in the app needs to be signed in debug and
     keyAlias=myKeyAlias
     storeFile=myStoreFileLocation (../key.jks) it should be like this if keystore in android directory
 ```
- **Make sure don't push this file to the repo as it should be secret.**
+**Make sure don't push this file to the repo as it should be secret.**
 
 ### Release Using Codemagic :
 
@@ -143,17 +289,17 @@ Then a client id should be generated and put in ``core/keys.dart``.
 <!-- Google Sign-in Section -->
 <key>CFBundleURLTypes</key>
 <array>
-	<dict>
-		<key>CFBundleTypeRole</key>
-		<string>Editor</string>
-		<key>CFBundleURLSchemes</key>
-		<array>
-			<!-- TODO Replace this value: -->
-			<string>com.googleusercontent.apps.861823949799-vc35cprkp249096uujjn0vvnmcvjppkn</string>
-		</array>
-	</dict>
+<dict>
+    <key>CFBundleTypeRole</key>
+    <string>Editor</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+        <!-- TODO Replace this value: -->
+        <string>com.googleusercontent.apps.861823949799-vc35cprkp249096uujjn0vvnmcvjppkn</string>
+    </array>
+</dict>
 </array>
-<!-- End of the Google Sign-in Section -->
+    <!-- End of the Google Sign-in Section -->
 
 ```
 
@@ -398,7 +544,7 @@ We are using our [playx_network](https://pub.dev/packages/playx_network) package
 To use it we need to :
 
 -   Setup  `PlayxNetworkClient`  an configure it based on your needs. You should create only one instance of this network client to be used for the app depending on your use case.
-    
+
     ```dart
     final PlayxNetworkClient _client = PlayxNetworkClient(
        //you can customize your dio options like base URL, connection time out.
@@ -456,12 +602,12 @@ Here we put our app theme.
 We are using Playx Theme to handle app theme change and theme coloring.
 
 ```dart  
-class AppThemeConfig extends XThemeConfig {    
-  @override    
-  List<XTheme> get themes => [    
-       LightTheme.theme,    
-       DarkTheme.theme,    
-  ];    
+class AppThemeConfig extends XThemeConfig {
+  @override
+  List<XTheme> get themes => [
+    LightTheme.theme,
+    DarkTheme.theme,
+  ];
 }  
 ```  
 
@@ -469,38 +615,38 @@ For each theme of our app we create a file with different theme data and color s
 
 Here is an example of light theme :
 ```dart  
-abstract class LightTheme {  
-  static String lightTheme = 'light';  
-  static String lightThemeName = 'Light';  
-  
-  static XTheme get theme => XTheme(  
-        id: lightTheme,  
-        nameBuilder: () => lightThemeName,  
-        theme: ThemeData.light().copyWith(  
-          appBarTheme: const AppBarTheme(  
-            centerTitle: true,  
-            backgroundColor: AppColors.appBarLight,  
-          ),  
-          primaryColor: AppColors.primaryLight,  
-          colorScheme: const ColorScheme.light(  
-            primary: AppColors.primaryLight,  
-            secondary: AppColors.secondaryLight,  
-            background: AppColors.backgroundLight,  
-            surface: AppColors.surfaceLight,  
-            error: AppColors.errorLight,  
-            onPrimary: AppColors.onPrimaryLight,  
-            onSecondary: AppColors.onSecondaryLight,  
-            onBackground: AppColors.onBackgroundLight,  
-            onSurface: AppColors.onSurfaceLight,  
-            onError: AppColors.onErrorLight,  
-          ),  
-          scaffoldBackgroundColor: AppColors.backgroundLight,  
-          textTheme: GoogleFonts.rubikTextTheme(),  
-          sliderTheme: const SliderThemeData(  
-            showValueIndicator: ShowValueIndicator.always,  
-          ),  
-        ),  
-          colorScheme: LightColorScheme());
+abstract class LightTheme {
+  static String lightTheme = 'light';
+  static String lightThemeName = 'Light';
+
+  static XTheme get theme => XTheme(
+      id: lightTheme,
+      nameBuilder: () => lightThemeName,
+      theme: ThemeData.light().copyWith(
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          backgroundColor: AppColors.appBarLight,
+        ),
+        primaryColor: AppColors.primaryLight,
+        colorScheme: const ColorScheme.light(
+          primary: AppColors.primaryLight,
+          secondary: AppColors.secondaryLight,
+          background: AppColors.backgroundLight,
+          surface: AppColors.surfaceLight,
+          error: AppColors.errorLight,
+          onPrimary: AppColors.onPrimaryLight,
+          onSecondary: AppColors.onSecondaryLight,
+          onBackground: AppColors.onBackgroundLight,
+          onSurface: AppColors.onSurfaceLight,
+          onError: AppColors.onErrorLight,
+        ),
+        scaffoldBackgroundColor: AppColors.backgroundLight,
+        textTheme: GoogleFonts.rubikTextTheme(),
+        sliderTheme: const SliderThemeData(
+          showValueIndicator: ShowValueIndicator.always,
+        ),
+      ),
+      colorScheme: LightColorScheme());
 }  
 ```  
 
@@ -518,7 +664,7 @@ class LightColorScheme extends XColorScheme{
 
   @override
   Color get onBackground => XColorScheme.black;
-  }
+}
 
 ```
 
@@ -561,8 +707,8 @@ Now we can have access to colors that defined in both  `XColorScheme`  and  `Bas
 Then, We can access each theme color scheme like this:
 
 ```dart
- final colorScheme = AppTheme.colorScheme as BaseColorScheme;  
- final primary = colorScheme.primary;  
+ final colorScheme = AppTheme.colorScheme as BaseColorScheme;
+final primary = colorScheme.primary;
 
 ```
 
@@ -603,24 +749,24 @@ Example:
 ```xml
 <key>CFBundleLocalizations</key>
 <array>
-	<string>en</string>
-	<string>ar</string>
+<string>en</string>
+<string>ar</string>
 </array>
 
 
 ```
 
 
-### Create App Trans class :  
-   This class contains all keys for each word that need to be translated in the app.
+### Create App Trans class :
+This class contains all keys for each word that need to be translated in the app.
 ```dart  
-abstract class AppTrans {  
-  static const String appName = "app_name";  
-  static const String requestCancelled = "requestCancelled";  
-  static const String unauthorizedRequest = "UnauthorizedRequest";  
+abstract class AppTrans {
+  static const String appName = "app_name";
+  static const String requestCancelled = "requestCancelled";
+  static const String unauthorizedRequest = "UnauthorizedRequest";
 }  
 ```  
-###  Customize Locale configuration.[](https://pub.dev/packages/playx_localization#--create-locale-configuration) 
+###  Customize Locale configuration.[](https://pub.dev/packages/playx_localization#--create-locale-configuration)
 you can customize locale configuration with settings like supported locales, start locale, path to translations and more by editing `AppLocaleConfig ` file.
 
 ```dart
@@ -653,15 +799,15 @@ With  `PlayxLocalization`  you will have access to current app locale, it's inde
 
 ```dart
    FloatingActionButton.extended(
-        onPressed: () {
-        //updates locale by index
-          PlayxLocalization.updateByIndex(
-              PlayxLocalization.isCurrentLocaleArabic() ? 0 : 1);
-        },
-        //label text changes after updating locale.
-        label: Text(AppTrans.changeLanguage.tr),
-        icon: const Icon(Icons.update),
-      )
+onPressed: () {
+//updates locale by index
+PlayxLocalization.updateByIndex(
+PlayxLocalization.isCurrentLocaleArabic() ? 0 : 1);
+},
+//label text changes after updating locale.
+label: Text(AppTrans.changeLanguage.tr),
+icon: const Icon(Icons.update),
+)
 
 ```
 
