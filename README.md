@@ -198,7 +198,7 @@ For more information about the use of environment variables and a list of Codema
 
 You can add environment variables to your Flutter projects in  **App settings > Environment variables**.
 
-1.  Enter the name  of the variable for example `keys_env`.
+1.  Enter the name  of the variable for example `ENVIROMENT_KEY`.
 2. Copy the content of the `.env` file into the variable value field.
 3.  Check  **Secure**  if you wish to hide the value both in the UI and in build logs and disable editing of the variable. Such variables can be accessed only by the build machines during the build.
 4. If we want to encrypt the variables, they first need to be  **_base64 encoded_**  locally. To use the vars, you will have to decode them during the build.
@@ -214,13 +214,11 @@ then add this command :
 
 ```shell
 
-# Create directory if it doesn't exist, Make sure the assets folder path is correct.
+# Create directory if it doesn't exist
 mkdir -p $CM_BUILD_DIR/assets/env
 
-# Write out the environment variable file using the environment variable key from codemagic
-# Make sure the assets file path is correct same as configured in the app.
-echo $keys_env >> $CM_BUILD_DIR/assets/env/keys.env
-
+# Write out the environment variable file
+echo "$ENVIROMENT_KEY" >> $CM_BUILD_DIR/assets/env/keys.env
 ```
 
 
