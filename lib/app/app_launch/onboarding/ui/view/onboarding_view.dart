@@ -4,7 +4,7 @@ part of '../imports/onboarding_imports.dart';
 class OnBoardingView extends GetView<OnBoardingController> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PlatformScaffold(
       body: SafeArea(
         child: OptimizedScrollView(
           child: Column(
@@ -18,6 +18,7 @@ class OnBoardingView extends GetView<OnBoardingController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         BuildOnboardingPageIndicatorsWidget(),
+                        Spacer(),
                         BuildOnboardingPageSkipWidget(),
                       ],
                     ),

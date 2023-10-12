@@ -18,10 +18,10 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
     final result = await PlayxVersionUpdate.showUpdateDialog(
       context: Get.context!,
       forceUpdate: false,
-      googlePlayId: Keys.playStoreId,
-      appStoreId: Keys.appleId,
-      country: Keys.storeCountry,
-      language: Keys.storeLanguage,
+      googlePlayId: Constants.playStoreId,
+      appStoreId: Constants.appleId,
+      country: Constants.storeCountry,
+      language: Constants.storeLanguage,
       onCancel: (info) {
         if (info.forceUpdate) {
           exit(0);
@@ -30,7 +30,7 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
         }
       },
       onUpdate: (info, mode) {
-        PlayxVersionUpdate.openStore(storeUrl: Keys.storeUrl, launchMode: mode);
+        PlayxVersionUpdate.openStore(storeUrl: Constants.storeUrl, launchMode: mode);
         checkAppVersionAndNavigateToNextPage(shouldCheckVersion: false);
       },
       title: (info) => AppTrans.updateTitle.tr,
@@ -106,5 +106,10 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
   @override
   void onResumed() {
     checkAppVersionAndNavigateToNextPage();
+  }
+
+  @override
+  void onHidden() {
+    // TODO: implement onHidden
   }
 }

@@ -23,7 +23,7 @@ class LoginView extends GetView<LoginController> {
                 BuildLoginEmailFieldWidget(),
                 BuildLoginPasswordFieldWidget(),
                 BuildLoginButtonWidget(),
-                if (Keys.shouldUseGoogleSignIn)
+                if (Constants.shouldUseGoogleSignIn)
                   BuildLoginGoogleLoginButtonWidget(),
                 BuildLoginRegisterNowWidget(),
                 Spacer()

@@ -19,7 +19,6 @@ abstract class AppColors extends XColors {
   }) : super.fromColorScheme(scheme: colorScheme);
 
   ///Colors that needs to implemented for each theme.
-  Color get containerBackgroundColor;
 
   Color get appBar;
 
@@ -38,6 +37,8 @@ abstract class AppColors extends XColors {
   Color? get bottomBarUnselectedColor;
 
   Color? get bottomBarShadowColor;
+
+  Color? get disabledButtonBackgroundColor;
 
   static const Color blueGrey = Color(0xFF728295);
 

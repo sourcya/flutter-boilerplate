@@ -14,17 +14,14 @@ class OnBoardingPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(right: 8.w, left: 8.w, top: 8.h),
             height: context.height * .48,
-            child: Lottie.asset(onboarding.lottieAsset),
+            child: Lottie.asset(onboarding.lottieAsset, errorBuilder: (ctx,e,_)=>  const SizedBox.shrink()),
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 4.w),
+            padding: EdgeInsets.symmetric(vertical: 16.0.h, horizontal: 4.w),
             width: double.infinity,
-            child: Text(
+            child: CustomText(
               onboarding.title,
-              style: TextStyle(
-                  fontSize: PlayxLocalization.isCurrentLocaleArabic() ? 24.sp : 22.sp,
-                  // color: colorScheme.primary,
-              ),
+              style: CustomTextStyle.titleMedium,
               textAlign: TextAlign.center,
             ),
           ),
@@ -32,12 +29,8 @@ class OnBoardingPage extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(8.0.r),
               width: double.infinity,
-              child: Text(
+              child: CustomText(
                 onboarding.subtitle!,
-                style:
-                    TextStyle(fontSize: 16.sp,
-                      // color: colorScheme.onBackground,
-                    ),
                 textAlign: TextAlign.center,
               ),
             ),

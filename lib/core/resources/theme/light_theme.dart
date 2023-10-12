@@ -18,10 +18,14 @@ class LightTheme {
     appBarTheme: const AppBarTheme(
       centerTitle: true,
     ),
-    cupertinoOverrideTheme: const CupertinoThemeData(
-        barBackgroundColor: Color(0xF0F9F9F9),
-        brightness: Brightness.light,
-        textTheme: CupertinoTextThemeData(primaryColor: CupertinoColors.label)),
+    cupertinoOverrideTheme:  CupertinoThemeData(
+      barBackgroundColor: const Color(0xF0F9F9F9),
+      primaryColor: colors.primary,
+      primaryContrastingColor: colors.primaryContainer,
+      scaffoldBackgroundColor: colors.background,
+      brightness: Brightness.light,
+      textTheme: const CupertinoTextThemeData(primaryColor: CupertinoColors.label),
+    ),
     useMaterial3: true,
     colorScheme: colors.colorScheme,
     sliderTheme: const SliderThemeData(
@@ -30,6 +34,8 @@ class LightTheme {
     fontFamily: fontFamily,
     textTheme: const TextTheme().apply(fontFamily: fontFamily),
   );
+
+
 
   static XTheme get theme => XTheme(
         id: lightThemeId,

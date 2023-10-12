@@ -84,7 +84,9 @@ class CustomTextField extends StatefulWidget {
     this.onValidationChanged,
     this.textInputAction = TextInputAction.done,
     this.prefixIcon,
-    this.suffixIcon, this.scrollPadding, this.autoFillHints,
+    this.suffixIcon,
+    this.scrollPadding,
+    this.autoFillHints,
   });
 
   @override
@@ -152,7 +154,7 @@ class _CustomFieldState extends State<CustomTextField> {
       margin: widget.margin,
       errorMaxLines: widget.errorMaxLines,
       textColor: widget.textColor,
-      labelColor: widget.labelColor ?? colorScheme.secondary,
+      labelColor: widget.labelColor ?? colorScheme.onBackground,
       borderColor: widget.borderColor,
       focusedBorderColor: widget.focusedBorderColor,
       formKey: widget.formKey,
@@ -163,7 +165,7 @@ class _CustomFieldState extends State<CustomTextField> {
         color: widget.textColor ?? colorScheme.onBackground,
       ),
       labelStyle: TextStyle(
-        color: widget.labelColor ?? colorScheme.secondary,
+        color: widget.labelColor ?? colorScheme.onBackground,
         fontSize: Dimens.fieldTextSize,
       ),
       contentPadding: EdgeInsets.only(
@@ -181,7 +183,7 @@ class _CustomFieldState extends State<CustomTextField> {
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: widget.focusedBorderColor ?? colorScheme.secondary,
+          color: widget.focusedBorderColor ?? XColors.grey,
           width: .5,
         ),
         borderRadius: Style.fieldBorderRadius,
@@ -201,7 +203,6 @@ class _CustomFieldState extends State<CustomTextField> {
           width: .5,
         ),
       ),
-      
     );
   }
 }
