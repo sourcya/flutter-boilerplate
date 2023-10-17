@@ -21,13 +21,9 @@ then if you don't pass **-t or --target** parameter it will try to rename all av
 
 _**Run this command inside your flutter project root.**_
   ```Shell
-        flutter pub global run rename --bundleId io.sourcya.newApp 
-        flutter pub global run rename --appname "Sourcya app"
-        flutter pub global run rename --appname YourAppName --target ios  
-        flutter pub global run rename --appname YourAppName --target android  
-        flutter pub global run rename --appname YourAppName --target web  
-        flutter pub global run rename --appname YourAppName --target macOS  
-        flutter pub global run rename --appname YourAppName --target windows  
+        flutter pub global run rename setBundleId --value "Sourcya app"
+        flutter pub global run rename setAppName --value "Sourcya app"
+        flutter pub global run rename setAppName --targets ios,android --value "Sourcya app"
 ```  
 
 ## Update App Launcher Icon :
