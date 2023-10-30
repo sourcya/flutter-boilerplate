@@ -11,7 +11,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   google_sign_in: ^6.1.5
   google_fonts: ^6.1.0
-  playx: ^1.0.0-beta.1
+  playx: ^1.0.1-beta.1
   local_auth: ^2.1.7
   playx_version_update: ^0.0.3
   dots_indicator: ^3.0.0

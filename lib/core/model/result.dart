@@ -1,3 +1,6 @@
+import 'package:flutter_boilerplate/core/model/result_error.dart';
+import 'package:playx/playx.dart';
+
 class Success<T> extends Result<T> {
   final T data;
 
@@ -5,7 +8,7 @@ class Success<T> extends Result<T> {
 }
 
 class Error<T> extends Result<T> {
-  final String error;
+  final ResultError error;
 
   const Error(this.error);
 }
@@ -16,11 +19,19 @@ sealed class Result<T> {
 
   const factory Result.success(T data) = Success;
 
-  const factory Result.error(String error) = Error;
+  const factory Result.error(ResultError error) = Error;
+
+  factory Result.networkResult(NetworkResult<T> result) {
+    return result.map(success: (success) {
+      return Result.success(success.data);
+    }, error: (error) {
+      return Result.error(ResultError.fromNetworkError(error.error));
+    },);
+  }
 
   void when({
     required Function(T success) success,
-    required Function(String error) error,
+    required Function(ResultError error) error,
   }) {
     switch (this) {
       case Success _:
@@ -32,9 +43,9 @@ sealed class Result<T> {
     }
   }
 
-  Result<S> map<S>({
-    required Result<S> Function(Success<T> data) success,
-    required Result<S> Function(Error<T> error) error,
+  S map<S>({
+    required S Function(Success<T> data) success,
+    required S Function(Error<T> error) error,
   }) {
     switch (this) {
       case Success _:

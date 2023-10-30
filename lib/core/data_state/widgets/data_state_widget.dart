@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:playx/playx.dart';
 
+import '../../widgets/custom_loading.dart';
 import '../../widgets/no_data_widget.dart';
 import '../../widgets/no_internet_widget.dart';
 import '../models/data_error.dart';
@@ -40,7 +40,7 @@ class DataStateWidget<T> extends StatelessWidget {
         widget = onInitial?.call(data) ?? const SizedBox.shrink();
       },
       loading: (data) {
-        widget = onLoading?.call(data) ?? const CenterLoading();
+        widget = onLoading?.call(data) ?? const CustomLoading();
       },
       success: (data) {
         widget = onSuccess?.call(data) ?? const SizedBox.shrink();

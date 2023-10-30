@@ -1,6 +1,6 @@
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../../../../core/utils/result.dart';
+import '../../../../../core/model/result.dart';
 import '../data_sources/google_auth_data_source.dart';
 
 class GoogleAuthRepository {

@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:playx/playx.dart';
 

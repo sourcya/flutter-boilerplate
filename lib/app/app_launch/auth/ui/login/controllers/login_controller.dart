@@ -48,6 +48,7 @@ class LoginController extends GetxController {
 
   Future<void> login() async {
     if (!isFormValid()) return;
+    FocusManager.instance.primaryFocus?.unfocus();
     isLoading.value = true;
     appNavigation.navigateFromLoginToHome();
     final result = await authRepository.login(
@@ -79,8 +80,8 @@ class LoginController extends GetxController {
             Alert.message(message: "couldn't authenticate");
           }
         },
-        error: (message) {
-          Alert.error(message: message);
+        error: (error) {
+          Alert.error(message: error.message);
         },
       );
     } else {
@@ -96,8 +97,8 @@ class LoginController extends GetxController {
         Alert.success(
             message: 'Logged in successfully using Google with ${user.email}',);
       },
-      error: (message) {
-        Alert.error(message: message);
+      error: (error) {
+        Alert.error(message: error.message,);
       },
     );
   }

@@ -32,6 +32,10 @@ class MyApp extends StatelessWidget {
         initialRoute: AppPages.initial,
         getPages: AppPages.routes,
       ),
+      screenSettings: const PlayxScreenSettings(
+        fontSizeResolver: FontSizeResolvers.radius,
+      ),
+      scrollBehavior: DefaultAppScrollBehavior(),
     );
   }
 }

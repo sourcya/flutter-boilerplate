@@ -58,6 +58,7 @@ abstract class Alert {
       {required String message,
       required Color color,
       String? buttonText,
+        TextAlign textAlign = TextAlign.start,
       List<Widget> actions = const [SizedBox.shrink()],}) {
     final context = Get.context;
     if (context != null) {
@@ -65,6 +66,7 @@ abstract class Alert {
         content: Text(
           message,
           style: const TextStyle(color: Colors.white),
+            textAlign:textAlign,
         ),
         backgroundColor: color,
         actions: actions,

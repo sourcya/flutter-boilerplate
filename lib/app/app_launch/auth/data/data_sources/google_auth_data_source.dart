@@ -1,10 +1,11 @@
 import 'package:flutter/services.dart';
+import 'package:flutter_boilerplate/core/model/result_error.dart';
 import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../../core/config/constant.dart';
-import '../../../../../core/utils/result.dart';
+import '../../../../../core/model/result.dart';
 
 class GoogleAuthDataSource {
   static final GoogleAuthDataSource _instance =
@@ -24,18 +25,18 @@ class GoogleAuthDataSource {
         serverClientId: Constants.googleSignInServerId,);
 
       final user = await googleSignIn.signIn();
-      if (user == null) return const Result.error("Couldn't retrieve user");
+      if (user == null) return const Result.error(ResultError.error("Couldn't retrieve user"));
 
       final userAuth = await user.authentication;
       return Result.success(user);
     } on PlatformException catch (error) {
       Fimber.e('Google Sign In Error : $error');
-      return Result.error(
-          error.message ?? 'Could not sign in with Google account',);
+      return Result.error(ResultError.error(
+          error.message ?? 'Could not sign in with Google account',));
     } catch (error) {
       Fimber.e('Google Sign In Error : $error');
 
-      return const Result.error('Could not sign in with Google account');
+      return const Result.error(ResultError.error('Could not sign in with Google account'));
     }
   }
 
@@ -46,13 +47,13 @@ class GoogleAuthDataSource {
         serverClientId: Constants.googleSignInServerId,);
 
       final user = await googleSignIn.disconnect();
-      if (user == null) return const Result.error("Couldn't retrieve user");
+      if (user == null) return const Result.error(ResultError.error("Couldn't retrieve user"));
       return Result.success(user);
     } on PlatformException catch (error) {
-      return Result.error(
-          error.message ?? 'Could not sign out with Google account',);
+      return Result.error(ResultError.error(
+          error.message ?? 'Could not sign out with Google account',));
     } catch (error) {
-      return const Result.error('Could not sign out with Google account');
+      return const Result.error(ResultError.error('Could not sign out with Google account'));
     }
   }
 
