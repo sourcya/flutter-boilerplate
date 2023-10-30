@@ -9,7 +9,7 @@ import '../translation/app_translations.dart';
 // ignore: avoid_classes_with_only_static_members
 class LightTheme {
   static String lightThemeId = 'light';
-  static String lightThemeName = AppTrans.lightTheme.tr;
+  static String lightThemeNameKey = AppTrans.lightTheme;
 
   static LightColors colors = LightColors();
 
@@ -39,7 +39,7 @@ class LightTheme {
 
   static XTheme get theme => XTheme(
         id: lightThemeId,
-        name: lightThemeName,
+        name: lightThemeNameKey,
         colors: colors,
         theme: (locale) => themeData,
         cupertinoTheme: (locale) => MaterialBasedCupertinoThemeData(

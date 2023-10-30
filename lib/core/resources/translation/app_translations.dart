@@ -90,6 +90,8 @@ abstract class AppTrans {
   static const skip ='skip';
   static const next = 'next';
 
+  static const lightTheme ='lightTheme';
+  static const darkTheme ='darkTheme';
 
   static const logout ='logout';
 
@@ -113,15 +115,17 @@ abstract class AppTrans {
 
   static const resendCode='resendCode';
 
-  static const lightTheme ='lightTheme';
-  static const darkTheme ='darkTheme';
 
   static const mobileNumberRequiredErrMsg ='mobileNumberRequiredErrMsg';
 
   static const dashboard ='dashboard';
   static const wishlist ='wishlist';
-
   static const validNumberMinLength ='validNumberMinLength';
+
+  static const noInternetConnectionBannerMsg = 'noInternetConnectionBannerMsg';
+  static const internetConnectionRestoredBannerMsg = 'internetConnectionRestoredBannerMsg';
+  static const noInternetConnectionDismissBannerMsg = 'noInternetConnectionDismissBannerMsg';
+  static const refresh = 'refresh';
 
 
 }

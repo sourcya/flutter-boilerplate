@@ -39,7 +39,7 @@ class BuildRegisterPasswordFieldWidget extends GetView<RegisterController> {
                     ]),
                     prefix: Icon(
                         Icons.lock,
-                        // color: colorScheme.secondary,
+                        color: colorScheme.primary,
                     ),
                     onChanged: (text) {
                         if (controller

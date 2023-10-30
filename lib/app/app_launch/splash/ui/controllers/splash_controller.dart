@@ -81,8 +81,8 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
               _navigation.navigateFormSplashToLogin();
             }
           },
-          error: (message) {
-            Alert.error(message: message);
+          error: (error) {
+            Alert.error(message: error.message);
             _navigation.navigateFormSplashToLogin();
           },
         );

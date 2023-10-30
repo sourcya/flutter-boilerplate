@@ -5,8 +5,9 @@ import 'package:local_auth_android/local_auth_android.dart';
 import 'package:local_auth_ios/local_auth_ios.dart';
 import 'package:playx/playx.dart';
 
+import '../../../../../core/model/result.dart';
+import '../../../../../core/model/result_error.dart';
 import '../../../../../core/resources/translation/app_translations.dart';
-import '../../../../../core/utils/result.dart';
 
 
 class BiometricAuthRepository {
@@ -64,7 +65,7 @@ class BiometricAuthRepository {
       final canAuthenticateWithBiometric = await canAuthenticate();
 
       if (!canAuthenticateWithBiometric) {
-        return Result.error(AppTrans.bioCanAuthenticate.tr);
+        return Result.error(ResultError.error(AppTrans.bioCanAuthenticate.tr));
       }
 
       // final List<BiometricType> availableBiometrics =
@@ -86,16 +87,16 @@ class BiometricAuthRepository {
       e.printError();
       switch (e.code) {
         case auth_error.passcodeNotSet:
-          return Result.error(AppTrans.bioPasscodeNotSetError.tr);
+          return Result.error(ResultError.error(AppTrans.bioPasscodeNotSetError.tr));
         case auth_error.notAvailable:
-          return Result.error(AppTrans.bioNotAvailableError.tr);
+          return Result.error(ResultError.error(AppTrans.bioNotAvailableError.tr));
         case auth_error.notEnrolled:
-          return Result.error(AppTrans.bioNotEnrolledError.tr);
+          return Result.error(ResultError.error(AppTrans.bioNotEnrolledError.tr));
         case auth_error.lockedOut:
         case auth_error.permanentlyLockedOut:
-          return Result.error(AppTrans.bioLockedOutError.tr);
+          return Result.error(ResultError.error(AppTrans.bioLockedOutError.tr));
         default:
-          return Result.error(AppTrans.bioDefaultError.tr);
+          return Result.error(ResultError.error(AppTrans.bioDefaultError.tr));
       }
     }
   }

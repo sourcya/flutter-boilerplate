@@ -9,10 +9,9 @@ import '../translation/app_translations.dart';
 // ignore: avoid_classes_with_only_static_members
 class DarkTheme {
   static String darkThemeId = 'dark';
-  static String darkThemeName = AppTrans.darkTheme.tr;
+  static String darkThemeName = AppTrans.darkTheme;
 
   static DarkColors colors = DarkColors();
-
 
   static final themeData = ThemeData(
     brightness: Brightness.dark,
@@ -25,22 +24,20 @@ class DarkTheme {
     sliderTheme: const SliderThemeData(
       showValueIndicator: ShowValueIndicator.always,
     ),
-    cupertinoOverrideTheme:  CupertinoThemeData(
+    cupertinoOverrideTheme: CupertinoThemeData(
       barBackgroundColor: const Color(0xF0090909),
       primaryColor: colors.primary,
       primaryContrastingColor: colors.primaryContainer,
       scaffoldBackgroundColor: colors.background,
       brightness: Brightness.dark,
-      textTheme:  CupertinoTextThemeData(primaryColor: colors.primary),
+      textTheme: CupertinoTextThemeData(primaryColor: colors.primary),
     ),
-
     applyElevationOverlayColor: true,
     fontFamily: fontFamily,
     textTheme: const TextTheme().apply(
       fontFamily: fontFamily,
     ),
   );
-
 
   static XTheme get theme => XTheme(
         id: darkThemeId,
@@ -49,5 +46,6 @@ class DarkTheme {
         theme: (locale) => themeData,
         cupertinoTheme: (locale) =>
             MaterialBasedCupertinoThemeData(materialTheme: themeData),
+        isDark: true,
       );
 }
