@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
-import '../../resources/colors/app_color_scheme.dart';
+import '../../resources/colors/app_colors.dart';
 import '../../resources/style/style.dart';
 
 class CustomDialog extends StatelessWidget {
@@ -13,7 +13,7 @@ class CustomDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Card(
-        elevation: 2,
+        elevation: 3,
         clipBehavior: Clip.hardEdge,
         shape: Style.dialogRoundedRectangleBorder,
         color: colorScheme.surface,

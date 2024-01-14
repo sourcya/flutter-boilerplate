@@ -9,6 +9,7 @@
 .buildlog/
 .history
 .svn/
+*.env
 
 # IntelliJ related
 *.iml
@@ -59,6 +60,8 @@ linked_*.ds
 unlinked.ds
 unlinked_spec.ds
 
+
+**/assets/env/keys.env
 # Android related
 **/android/**/gradle-wrapper.jar
 .gradle/
@@ -130,4 +133,4 @@ app.*.symbols
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
-!.vscode/settings.json
+!.vscode/settings.json!/assets/env/keys.env

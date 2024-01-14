@@ -1,49 +1,51 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
-import '../colors/dark_color_scheme.dart';
+import '../colors/dark_colors.dart';
 import '../translation/app_locale_config.dart';
 import '../translation/app_translations.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class DarkTheme {
   static String darkThemeId = 'dark';
-  static String darkThemeName = AppTrans.darkTheme.tr;
+  static String darkThemeName = AppTrans.darkTheme;
 
-  static DarkColorScheme colorScheme = DarkColorScheme();
+  static DarkColors colors = DarkColors();
 
-  static XTheme get theme => XTheme(
-    id: darkThemeId,
-    name: darkThemeName,
-    colorScheme: DarkColorScheme(),
-    theme: (locale)=> ThemeData(
-        brightness: Brightness.dark,
-        appBarTheme: AppBarTheme(
-          centerTitle: true,
-          backgroundColor: colorScheme.appBar,
-        ),
-        primaryColor: colorScheme.primary,
-        colorScheme: ColorScheme.dark(
-          primary: colorScheme.primary,
-          secondary: colorScheme.secondary,
-          background: colorScheme.background,
-          surface: colorScheme.surface,
-          error: colorScheme.error,
-          onPrimary: colorScheme.onPrimary,
-          onSecondary: colorScheme.onSecondary,
-          onBackground: colorScheme.onBackground,
-          onSurface: colorScheme.onSurface,
-          onError: colorScheme.onError,
-        ),
-        scaffoldBackgroundColor: colorScheme.background,
-        sliderTheme: const SliderThemeData(
-          showValueIndicator: ShowValueIndicator.always,
-        ),
-        applyElevationOverlayColor: true,
-        fontFamily:fontFamily,
-        textTheme: const TextTheme().apply(
-            fontFamily: fontFamily
-        ,),
+  static final themeData = ThemeData(
+    brightness: Brightness.dark,
+    appBarTheme: const AppBarTheme(
+      centerTitle: true,
+      // backgroundColor: colors.appBar,
+    ),
+    useMaterial3: true,
+    colorScheme: colors.colorScheme,
+    sliderTheme: const SliderThemeData(
+      showValueIndicator: ShowValueIndicator.always,
+    ),
+    cupertinoOverrideTheme: CupertinoThemeData(
+      barBackgroundColor: const Color(0xF0090909),
+      primaryColor: colors.primary,
+      primaryContrastingColor: colors.primaryContainer,
+      scaffoldBackgroundColor: colors.background,
+      brightness: Brightness.dark,
+      textTheme: CupertinoTextThemeData(primaryColor: colors.primary),
+    ),
+    applyElevationOverlayColor: true,
+    fontFamily: fontFamily,
+    textTheme: const TextTheme().apply(
+      fontFamily: fontFamily,
     ),
   );
+
+  static XTheme get theme => XTheme(
+        id: darkThemeId,
+        name: darkThemeName,
+        colors: DarkColors(),
+        theme: (locale) => themeData,
+        cupertinoTheme: (locale) =>
+            MaterialBasedCupertinoThemeData(materialTheme: themeData),
+        isDark: true,
+      );
 }

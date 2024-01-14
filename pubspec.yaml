@@ -1,21 +1,21 @@
 name: flutter_boilerplate
 version: 0.0.1+1
 publish_to: none
-description: A new sourcya Flutter project.
+description: A new Sourcya Flutter project.
 environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.5
-  google_sign_in: ^6.1.4
-  google_fonts: ^5.1.0
-  playx: ^0.2.4
-  local_auth: ^2.1.6
+  cupertino_icons: ^1.0.6
+  google_sign_in: ^6.1.5
+  google_fonts: ^6.1.0
+  playx: ^1.0.1-beta.1
+  local_auth: ^2.1.7
   playx_version_update: ^0.0.3
   dots_indicator: ^3.0.0
-  pinput: ^3.0.0
+  pinput: ^3.0.1
   flutter_keyboard_visibility: ^5.4.1
 
 
@@ -27,9 +27,31 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-Regular.ttf
+        - asset: assets/fonts/Cairo-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Cairo-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Cairo-Medium.ttf
+          weight: 500
+
   assets:
     - assets/
     - assets/animation/
     - assets/images/
     - assets/translations/
     - assets/fonts/
+    - assets/env/

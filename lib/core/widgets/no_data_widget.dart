@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:playx/playx.dart';
 
 import '../resources/assets/assets.dart';
+import '../resources/colors/app_colors.dart';
 import '../resources/translation/app_translations.dart';
 
 //Widget for showing that there is no data.
@@ -22,7 +23,7 @@ class NoDataAnimation extends StatelessWidget {
           message ?? AppTrans.noDataMessage.tr,
           style: textStyle ??
               TextStyle(
-                color: context.colorScheme.onBackground,
+                color: colorScheme.onBackground,
                 fontSize: 18.sp,
               ),
         )
