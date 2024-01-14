@@ -74,4 +74,8 @@ class AppNavigation {
     Get.offAllNamed(Routes.LOGIN);
   }
 
+  void navigateToLogin  () {
+    Get.offAllNamed(Routes.LOGIN);
+  }
+
 }

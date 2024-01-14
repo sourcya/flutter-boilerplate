@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
+import '../../../app/app_launch/home/ui/views/widgets/custom_navigation_drawer.dart';
+
 class CustomScaffold extends StatelessWidget {
-  final List<Widget> children;
+  final List<Widget>? children;
+  final Widget? child;
+  final bool hasScrollBody;
   final MainAxisAlignment mainAxisAlignment;
   final EdgeInsetsGeometry? padding;
-  final AppBar? appBar;
+  final PlatformAppBar? appBar;
   final Widget? floatingActionButton;
   final MainAxisSize mainAxisSize;
 
   const CustomScaffold({
-    required this.children,
+    this.children ,
+    this.child,
+    this.hasScrollBody =false,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.padding,
     this.appBar,
@@ -20,26 +26,32 @@ class CustomScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar,
-      body: OptimizedScrollView(
-        child: SafeArea(
-          child: Container(
-            padding: padding ??
-                EdgeInsets.symmetric(
-                  vertical: 8.h,
-                  horizontal: 16.w,
-                ),
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisSize: mainAxisSize,
-              mainAxisAlignment: mainAxisAlignment,
-              children: children,
-            ),
+
+    final scaffoldChild = Container(
+      padding: padding ??
+          EdgeInsets.symmetric(
+            // vertical: 8.h,
+            horizontal: 8.w,
           ),
+      alignment: Alignment.center,
+      child: child ?? Column(
+        mainAxisSize: mainAxisSize,
+        mainAxisAlignment: mainAxisAlignment,
+        children: children??[],
+      ),
+    );
+
+    return PlatformScaffold(
+      appBar: appBar,
+      body: SafeArea(
+        child: hasScrollBody ? scaffoldChild :OptimizedScrollView(
+          child: scaffoldChild,
         ),
       ),
-      floatingActionButton: floatingActionButton,
+      material: (ctx,_) => MaterialScaffoldData(
+        drawer: CustomNavigationDrawer(),
+        floatingActionButton: floatingActionButton,
+      ),
     );
   }
 }

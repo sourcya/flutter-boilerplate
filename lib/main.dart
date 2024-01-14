@@ -14,6 +14,9 @@ void main() async {
     appConfig: appConfig,
     themeConfig: AppThemeConfig(),
     localeConfig: AppLocaleConfig(),
+    envSettings: const PlayxEnvSettings(
+      fileName: 'assets/env/keys.env',
+    ),
     app: const MyApp(),
   );
 }
@@ -23,11 +26,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlayxMaterialApp(
-              useInheritedMediaQuery: true,
-              initialRoute: AppPages.initial,
-              getPages: AppPages.routes,
-              title: AppTrans.appName.tr,
+    return PlayxPlatformApp(
+      title: AppTrans.appName.tr,
+      navigationSettings: PlayxNavigationSettings(
+        initialRoute: AppPages.initial,
+        getPages: AppPages.routes,
+      ),
+      screenSettings: const PlayxScreenSettings(
+        fontSizeResolver: FontSizeResolvers.radius,
+      ),
+      scrollBehavior: DefaultAppScrollBehavior(),
     );
   }
 }

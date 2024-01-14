@@ -1,5 +1,6 @@
 import 'package:playx/playx.dart';
 
+import '../../model/result_error.dart';
 import '../../resources/translation/app_translations.dart';
 
 /// This is base class for handling different types of error.
@@ -12,6 +13,29 @@ sealed class DataError {
   const factory DataError.noInternetError() = NoInternetError;
   const factory DataError.empty() = EmptyDataError;
   const factory DataError.error(String error) = DefaultDataError;
+
+
+  factory DataError.fromNetworkError(NetworkException error) {
+    switch (error) {
+      case EmptyResponseException _:
+        return const DataError.empty();
+      case NoInternetConnectionException _:
+        return const DataError.noInternetError();
+      default:
+        return  DataError.error(error.message);
+    }
+  }
+
+  factory DataError.fromResultError(ResultError error) {
+    switch (error) {
+      case EmptyResultError _:
+        return const DataError.empty();
+      case NoInternetResultError _:
+        return const DataError.noInternetError();
+      default:
+        return  DataError.error(error.message);
+    }
+  }
 }
 
 class NoInternetError extends DataError {

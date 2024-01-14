@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
 import '../resources/assets/assets.dart';
+import '../resources/colors/app_colors.dart';
 import '../resources/translation/app_translations.dart';
 
 /// Widget for showing there's no internet connection.
@@ -31,7 +32,7 @@ class NoInternetAnimation extends StatelessWidget {
           message ?? AppTrans.noInternetMessage.tr,
           style: textStyle ??
               TextStyle(
-                color: context.colorScheme.onBackground,
+                color: colorScheme.onBackground,
                 fontSize: 18.sp,
               ),
         ),
@@ -45,7 +46,7 @@ class NoInternetAnimation extends StatelessWidget {
             AppTrans.retryText.tr,
             style: retryTextStyle ??
                 TextStyle(
-                  color: context.colorScheme.onPrimary,
+                  color: colorScheme.onPrimary,
                   fontSize: 14.sp,
                 ),
           ),

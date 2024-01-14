@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
-import '../../resources/colors/app_color_scheme.dart';
+import '../../resources/colors/app_colors.dart';
 import '../../resources/dimens/dimens.dart';
 import '../../resources/style/style.dart';
 
@@ -45,6 +45,9 @@ class CustomTextField extends StatefulWidget {
   final TextInputAction textInputAction;
   final IconData? prefixIcon;
   final IconData? suffixIcon;
+  final EdgeInsets? scrollPadding;
+
+  final Iterable<String>? autoFillHints;
 
   const CustomTextField({
     this.hint,
@@ -82,6 +85,8 @@ class CustomTextField extends StatefulWidget {
     this.textInputAction = TextInputAction.done,
     this.prefixIcon,
     this.suffixIcon,
+    this.scrollPadding,
+    this.autoFillHints,
   });
 
   @override
@@ -98,7 +103,7 @@ class _CustomFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return OptimizedTextField(
+    return OptimizedTextField.adaptive(
       hint: widget.hint,
       maxLines: widget.maxLines,
       minLines: widget.minLines,
@@ -110,6 +115,8 @@ class _CustomFieldState extends State<CustomTextField> {
       controller: widget.controller,
       focus: widget.focus,
       nextFocus: widget.nextFocus,
+      scrollPadding: widget.scrollPadding,
+      autoFillHints: widget.autoFillHints,
       prefix: widget.prefixIcon != null
           ? Padding(
               padding: EdgeInsets.symmetric(
@@ -117,7 +124,7 @@ class _CustomFieldState extends State<CustomTextField> {
               ),
               child: Icon(
                 widget.prefixIcon,
-                color: colorScheme.secondary,
+                // color: colorScheme.secondary,
                 size: 20.r,
               ),
             )
@@ -129,7 +136,7 @@ class _CustomFieldState extends State<CustomTextField> {
               ),
               child: Icon(
                 widget.suffixIcon,
-                color: colorScheme.secondary,
+                // color: colorScheme.secondary,
                 size: 20.r,
               ),
             )
@@ -147,7 +154,7 @@ class _CustomFieldState extends State<CustomTextField> {
       margin: widget.margin,
       errorMaxLines: widget.errorMaxLines,
       textColor: widget.textColor,
-      labelColor: widget.labelColor ?? context.colorScheme.secondary,
+      labelColor: widget.labelColor ?? colorScheme.onBackground,
       borderColor: widget.borderColor,
       focusedBorderColor: widget.focusedBorderColor,
       formKey: widget.formKey,
@@ -155,10 +162,10 @@ class _CustomFieldState extends State<CustomTextField> {
       textInputAction: widget.textInputAction,
       style: TextStyle(
         fontSize: Dimens.fieldTextSize,
-        color: widget.textColor ?? context.colorScheme.onBackground,
+        color: widget.textColor ?? colorScheme.onBackground,
       ),
       labelStyle: TextStyle(
-        color: widget.labelColor ?? context.colorScheme.secondary,
+        color: widget.labelColor ?? colorScheme.onBackground,
         fontSize: Dimens.fieldTextSize,
       ),
       contentPadding: EdgeInsets.only(
@@ -167,27 +174,34 @@ class _CustomFieldState extends State<CustomTextField> {
         right: 15.0.w,
         left: 15.0.w,
       ),
-      hintColor: widget.hintColor ?? XColorScheme.grey,
+      hintColor: widget.hintColor ?? XColors.grey,
       enabledBorder: OutlineInputBorder(
         borderRadius: Style.fieldBorderRadius,
         borderSide: BorderSide(
-          color: widget.borderColor ?? XColorScheme.grey,
+          color: widget.borderColor ?? XColors.grey,
         ),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: widget.focusedBorderColor ?? context.colorScheme.secondary,
+          color: widget.focusedBorderColor ?? XColors.grey,
           width: .5,
         ),
         borderRadius: Style.fieldBorderRadius,
       ),
       border: OutlineInputBorder(
-        borderSide: BorderSide(color: widget.borderColor ?? XColorScheme.grey),
+        borderSide: BorderSide(color: widget.borderColor ?? XColors.grey),
         borderRadius: Style.fieldBorderRadius,
       ),
       errorBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: Colors.red),
         borderRadius: Style.fieldBorderRadius,
+      ),
+      boxDecoration: BoxDecoration(
+        borderRadius: Style.fieldBorderRadius,
+        border: Border.all(
+          color: widget.borderColor ?? XColors.grey,
+          width: .5,
+        ),
       ),
     );
   }

@@ -8,7 +8,7 @@ class BuildSettingsThemeWidget extends GetView<SettingsController> {
     return Obx(() {
       return BuildSettingsTile(
         title: AppTrans.theme.tr,
-        subtitle: controller.currentTheme.value.displayName,
+        subtitle: controller.currentTheme.value.name.tr,
         icon: Icons.dark_mode_rounded,
         onTap: () {
           Get.dialog(
@@ -16,7 +16,7 @@ class BuildSettingsThemeWidget extends GetView<SettingsController> {
               title: AppTrans.theme.tr,
               items: PlayxTheme.supportedThemes,
               onItemSelected: (theme) => controller.handleThemeSelection(theme),
-              itemName: (theme) => theme.displayName,
+              itemName: (theme) => theme.name.tr,
               isItemSelected: (theme) =>
               controller.currentTheme.value.id == theme.id,
             ),
