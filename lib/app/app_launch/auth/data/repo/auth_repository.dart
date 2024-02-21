@@ -70,7 +70,10 @@ class AuthRepository {
           }
         } else {
           return NetworkResult.error(
-            EmptyResponseException(errorMessage: AppTrans.emptyResponse.tr),
+            EmptyResponseException(
+              errorMessage: AppTrans.emptyResponse.tr,
+              statusCode: 400,
+            ),
           );
         }
       },

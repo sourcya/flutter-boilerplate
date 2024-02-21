@@ -9,20 +9,21 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
-  google_sign_in: ^6.1.5
+  google_sign_in: ^6.2.1
   google_fonts: ^6.1.0
-  playx: ^1.0.1-beta.1
-  local_auth: ^2.1.7
-  playx_version_update: ^0.0.3
+  playx: ^1.0.4
+  local_auth: ^2.1.8
+  playx_version_update: ^0.0.4
   dots_indicator: ^3.0.0
-  pinput: ^3.0.1
-  flutter_keyboard_visibility: ^5.4.1
+  pinput: ^4.0.0
+  flutter_keyboard_visibility: ^6.0.0
+  awesome_drawer_bar: ^1.2.0
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  lint: ^2.1.2
+  lint: ^2.3.0
 
 
 flutter:
