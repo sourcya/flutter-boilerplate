@@ -1,15 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
+import 'app/app_launch/app/view/app_view.dart';
 import 'core/config/app_config.dart';
-import 'core/navigation/app_pages.dart';
 import 'core/resources/theme/theme.dart';
 import 'core/resources/translation/app_locale_config.dart';
-import 'core/resources/translation/app_translations.dart';
 
 void main() async {
   final appConfig = AppConfig();
-
   Playx.runPlayx(
     appConfig: appConfig,
     themeConfig: AppThemeConfig(),
@@ -19,23 +16,4 @@ void main() async {
     ),
     app: const MyApp(),
   );
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return PlayxPlatformApp(
-      title: AppTrans.appName.tr,
-      navigationSettings: PlayxNavigationSettings(
-        initialRoute: AppPages.initial,
-        getPages: AppPages.routes,
-      ),
-      screenSettings: const PlayxScreenSettings(
-        fontSizeResolver: FontSizeResolvers.radius,
-      ),
-      scrollBehavior: DefaultAppScrollBehavior(),
-    );
-  }
 }
