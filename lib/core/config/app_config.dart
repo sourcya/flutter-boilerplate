@@ -1,5 +1,5 @@
 import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
-import 'package:playx/playx.dart' hide NumDurationExtensions;
+import 'package:playx/playx.dart';
 
 import '../navigation/app_navigation.dart';
 import '../network/api_client.dart';

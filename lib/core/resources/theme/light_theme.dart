@@ -35,8 +35,6 @@ class LightTheme {
     textTheme: const TextTheme().apply(fontFamily: fontFamily),
   );
 
-
-
   static XTheme get theme => XTheme(
         id: lightThemeId,
         name: lightThemeNameKey,
