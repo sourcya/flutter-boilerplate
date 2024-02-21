@@ -30,7 +30,8 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
         }
       },
       onUpdate: (info, mode) {
-        PlayxVersionUpdate.openStore(storeUrl: Constants.storeUrl, launchMode: mode);
+        PlayxVersionUpdate.openStore(
+            storeUrl: Constants.storeUrl, launchMode: mode);
         checkAppVersionAndNavigateToNextPage(shouldCheckVersion: false);
       },
       title: (info) => AppTrans.updateTitle.tr,
@@ -61,7 +62,6 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
       _navigation.navigateFromSplashToOnBoarding();
       return;
     }
-
 
     final bool isUserLoggedIn = MyPreferenceManger().isLoggedIn;
     if (isUserLoggedIn) {
