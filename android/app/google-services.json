@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "743602006598",
+    "project_id": "hip-light-385710",
+    "storage_bucket": "hip-light-385710.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743602006598:android:e1399cfc03da5b17f97847",
+        "android_client_info": {
+          "package_name": "io.sourcya.boilerplate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743602006598-5hjqlo332apgcf6pien9mgnv3bg860s6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb9E9n_dRc9z6EnN28yI0YbzrT2dyRnVw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "743602006598-5hjqlo332apgcf6pien9mgnv3bg860s6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "743602006598-9theilas4ei4k02reesl8b01vksol5fu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.sourcya.boilerplate"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743602006598:android:be6762aff9c4b8e0f97847",
+        "android_client_info": {
+          "package_name": "ssa.sda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743602006598-5hjqlo332apgcf6pien9mgnv3bg860s6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb9E9n_dRc9z6EnN28yI0YbzrT2dyRnVw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "743602006598-5hjqlo332apgcf6pien9mgnv3bg860s6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "743602006598-9theilas4ei4k02reesl8b01vksol5fu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.sourcya.boilerplate"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

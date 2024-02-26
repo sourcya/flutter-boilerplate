@@ -6,9 +6,31 @@
 	<string>743602006598-9theilas4ei4k02reesl8b01vksol5fu.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.743602006598-9theilas4ei4k02reesl8b01vksol5fu</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>743602006598-qdhlhs7h7p1bvkq4f0o1136im4ijqiha.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBDepHy_FpbYZOMfrT08ESna_5-fVoo6YE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>743602006598</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>io.sourcya.boilerplate</string>
+	<key>PROJECT_ID</key>
+	<string>hip-light-385710</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hip-light-385710.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:743602006598:ios:91ff77e91b363099f97847</string>
 </dict>
 </plist>
