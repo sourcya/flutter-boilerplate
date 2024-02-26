@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/app/app_launch/app/controller/app_controller.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../core/navigation/app_pages.dart';
 import '../../../../core/resources/translation/app_translations.dart';
 
-class MyApp extends GetView<AppController> {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
