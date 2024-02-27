@@ -12,7 +12,6 @@ dependencies:
   google_sign_in: ^6.2.1
   google_fonts: ^6.1.0
   playx: ^1.0.4
-  local_auth: ^2.1.8
   playx_version_update: ^0.0.4
   dots_indicator: ^3.0.0
   pinput: ^4.0.0

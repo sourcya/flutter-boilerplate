@@ -1,8 +1,6 @@
 part of '../imports/splash_imports.dart';
 
 class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
-  final biometricAuthRepo = BiometricAuthRepository();
-
   final isBiometricAuthEnabled = false;
   final Completer<bool> shouldUpdateApp = Completer();
 
@@ -30,7 +28,8 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
         }
       },
       onUpdate: (info, mode) {
-        PlayxVersionUpdate.openStore(storeUrl: Constants.storeUrl, launchMode: mode);
+        PlayxVersionUpdate.openStore(
+            storeUrl: Constants.storeUrl, launchMode: mode);
         checkAppVersionAndNavigateToNextPage(shouldCheckVersion: false);
       },
       title: (info) => AppTrans.updateTitle.tr,
@@ -62,33 +61,9 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
       return;
     }
 
-
     final bool isUserLoggedIn = MyPreferenceManger().isLoggedIn;
     if (isUserLoggedIn) {
-      Fimber.d("Biometric isUserLoggedIn :$isUserLoggedIn");
-
-      final isBiometricAvailable = await biometricAuthRepo.canAuthenticate();
-      if (isBiometricAuthEnabled && isBiometricAvailable) {
-        final bioAuthResult = await biometricAuthRepo.authenticate();
-
-        bioAuthResult.when(
-          success: (isAuthenticated) {
-            if (isAuthenticated) {
-              biometricAuthRepo.stopBiometricAuthentication();
-              _navigation.navigateFormSplashToHome();
-            } else {
-              Alert.message(message: "couldn't authenticate");
-              _navigation.navigateFormSplashToLogin();
-            }
-          },
-          error: (error) {
-            Alert.error(message: error.message);
-            _navigation.navigateFormSplashToLogin();
-          },
-        );
-      } else {
-        _navigation.navigateFormSplashToHome();
-      }
+      _navigation.navigateFormSplashToHome();
     } else {
       _navigation.navigateFormSplashToLogin();
     }
@@ -109,7 +84,5 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
   }
 
   @override
-  void onHidden() {
-    // TODO: implement onHidden
-  }
+  void onHidden() {}
 }

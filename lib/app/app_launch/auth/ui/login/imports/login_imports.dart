@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
@@ -14,12 +13,11 @@ import '../../../../../../core/utils/app_utils.dart';
 import '../../../../../../core/widgets/components/text_field.dart';
 import '../../../data/models/api_user.dart';
 import '../../../data/repo/auth_repository.dart';
-import '../../../data/repo/biometric_auth_repository.dart';
 import '../../../data/repo/google_auth_repository.dart';
 import '../views/widgets/google_sign_in_button/google_sign_in_button.dart';
 
-part  '../bindings/login_binding.dart';
-part  '../controllers/login_controller.dart';
+part '../bindings/login_binding.dart';
+part '../controllers/login_controller.dart';
 part '../views/login_view.dart';
 part '../views/widgets/build_login_button.dart';
 part '../views/widgets/build_login_email_field.dart';
