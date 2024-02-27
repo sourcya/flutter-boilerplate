@@ -1,7 +1,5 @@
 import 'package:playx/playx.dart';
 
-import '../../model/result.dart';
-import '../../model/result_error.dart';
 import 'data_error.dart';
 
 class Initial<T> extends DataState<T> {
@@ -36,14 +34,6 @@ class NetworkError<T> extends Failure<T> {
   NetworkError(this.exception) : super(DataError.fromNetworkError(exception));
 }
 
-
-class ResultStateError<T> extends Failure<T> {
-  final ResultError exception;
-
-  ResultStateError(this.exception) : super(DataError.fromResultError(exception));
-}
-
-
 /// Generic Wrapper class for the result of any type.
 sealed class DataState<T> {
   const DataState();
@@ -56,51 +46,27 @@ sealed class DataState<T> {
 
   const factory DataState.error(DataError error) = Failure;
 
-  factory DataState.fromNetworkError(NetworkException error) = NetworkError;
-
-  factory DataState.fromNetworkResult(NetworkResult<T> result) {
-    return result.map(
-      success: (success) {
-        return DataState.success(success.data);
-      },
-      error: (error) {
-        return DataState.error(DataError.fromNetworkError(error.error));
-      },
-    );
-  }
-  factory DataState.fromResultError(ResultError error) = ResultStateError;
-
-
-  factory DataState.fromResult(Result<T> result) {
-    return result.map(
-      success: (success) {
-        return DataState.success(success.data);
-      },
-      error: (error) {
-        return DataState.error(DataError.fromResultError(error.error));
-      },
-    );
-  }
+  factory DataState.networkError(NetworkException error) = NetworkError;
 
   void when({
-    required Function(T? data) initial,
-    required Function(T? data) loading,
-    required Function(T data) success,
-    required Function(DataError error) failure,
+    Function(T? data)? initial,
+    Function(T? data)? loading,
+    Function(T data)? success,
+    Function(DataError error)? failure,
   }) {
     switch (this) {
       case Initial _:
         final data = (this as Initial<T>).data;
-        initial(data);
+        initial?.call(data);
       case Loading _:
         final data = (this as Loading<T>).data;
-        loading(data);
+        loading?.call(data);
       case Success _:
         final data = (this as Success<T>).data;
-        success(data);
+        success?.call(data);
       case Failure _:
         final exception = (this as Failure<T>).error;
-        failure(exception);
+        failure?.call(exception);
     }
   }
 

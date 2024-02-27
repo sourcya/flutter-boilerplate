@@ -9,12 +9,15 @@ import 'components/custom_elevated_button.dart';
 import 'components/custom_text.dart';
 import 'orientation_widget.dart';
 
-/// Widget for showing there's no internet connection.
-class NoInternetWidget extends OrientationWidget {
-  final String error;
+class EmptyDataWidget extends OrientationWidget {
   final VoidCallback? onRetryClicked;
+  final String? error;
 
-  const NoInternetWidget({required this.error, this.onRetryClicked});
+  const EmptyDataWidget({
+    super.key,
+    this.onRetryClicked,
+    this.error,
+  });
 
   @override
   Widget buildLandscape(BuildContext context) {
@@ -26,7 +29,7 @@ class NoInternetWidget extends OrientationWidget {
           children: [
             Expanded(
               child: Lottie.asset(
-                Assets.animations.noInternetAnimation,
+                Assets.animations.noDataAnimation,
               ),
             ),
             SizedBox(
@@ -41,7 +44,7 @@ class NoInternetWidget extends OrientationWidget {
                     Padding(
                       padding: EdgeInsets.all(4.0.r),
                       child: CustomText(
-                        error,
+                        error ?? AppTrans.emptyResponse.tr,
                         textAlign: TextAlign.center,
                         fontWeight: FontWeight.w400,
                         fontSize: AppUtils.isMobile() ? 16.sp : 20.sp,
@@ -49,7 +52,7 @@ class NoInternetWidget extends OrientationWidget {
                     ),
                     if (onRetryClicked != null) ...[
                       SizedBox(
-                        height: AppUtils.isMobile() ? 8.r : 15.r,
+                        height: AppUtils.isMobile() ? 4.r : 15.r,
                       ),
                       CustomElevatedButton(
                         color: colorScheme.primary,
@@ -79,10 +82,8 @@ class NoInternetWidget extends OrientationWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
-                child: Lottie.asset(
-                  Assets.animations.noInternetAnimation,
-                ),
+              Lottie.asset(
+                Assets.animations.noDataAnimation,
               ),
               SizedBox(
                 height: 6.r,
@@ -90,7 +91,7 @@ class NoInternetWidget extends OrientationWidget {
               Padding(
                 padding: EdgeInsets.all(4.0.r),
                 child: CustomText(
-                  error,
+                  error ?? AppTrans.emptyResponse.tr,
                   textAlign: TextAlign.center,
                   fontWeight: FontWeight.w400,
                   fontSize: AppUtils.isMobile() ? 16.sp : 20.sp,
@@ -98,7 +99,7 @@ class NoInternetWidget extends OrientationWidget {
               ),
               if (onRetryClicked != null) ...[
                 SizedBox(
-                  height: AppUtils.isMobile() ? 8.r : 15.r,
+                  height: AppUtils.isMobile() ? 4.r : 15.r,
                 ),
                 CustomElevatedButton(
                   color: colorScheme.primary,

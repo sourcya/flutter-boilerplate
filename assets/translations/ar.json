@@ -95,5 +95,7 @@
   "verifyPhoneSubtitle": "أدخل الكود المكون من 4 أرقام الذي تم إرساله إلي هاتفك.",
   "verifyPhoneTitle": "تأكيد رقم الهاتف",
   "verifyPhoneValidOtpError": "الكود ليس رقم صحيح",
-  "wishlist": "قائمة الأمنيات"
+  "wishlist": "قائمة الأمنيات",
+  "confirm": "تأكيد"
+
 }

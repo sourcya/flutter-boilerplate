@@ -1,6 +1,5 @@
 import 'package:playx/playx.dart';
 
-import '../../model/result_error.dart';
 import '../../resources/translation/app_translations.dart';
 
 /// This is base class for handling different types of error.
@@ -11,9 +10,8 @@ sealed class DataError {
   const DataError();
 
   const factory DataError.noInternetError() = NoInternetError;
-  const factory DataError.empty() = EmptyDataError;
-  const factory DataError.error(String error) = DefaultDataError;
-
+  const factory DataError.empty({String? error}) = EmptyDataError;
+  const factory DataError.error({String? error}) = DefaultDataError;
 
   factory DataError.fromNetworkError(NetworkException error) {
     switch (error) {
@@ -22,18 +20,7 @@ sealed class DataError {
       case NoInternetConnectionException _:
         return const DataError.noInternetError();
       default:
-        return  DataError.error(error.message);
-    }
-  }
-
-  factory DataError.fromResultError(ResultError error) {
-    switch (error) {
-      case EmptyResultError _:
-        return const DataError.empty();
-      case NoInternetResultError _:
-        return const DataError.noInternetError();
-      default:
-        return  DataError.error(error.message);
+        return DataError.error(error: error.message);
     }
   }
 }
@@ -46,17 +33,19 @@ class NoInternetError extends DataError {
 }
 
 class EmptyDataError extends DataError {
-  const EmptyDataError();
+  final String? error;
+
+  const EmptyDataError({this.error});
 
   @override
-  String get message => AppTrans.noDataMessage.tr;
+  String get message => error ?? AppTrans.noDataMessage.tr;
 }
 
 class DefaultDataError extends DataError {
-  final String error;
+  final String? error;
 
-  const DefaultDataError(this.error);
+  const DefaultDataError({this.error});
 
   @override
-  String get message => AppTrans.defaultError.tr;
+  String get message => error ?? AppTrans.defaultError.tr;
 }

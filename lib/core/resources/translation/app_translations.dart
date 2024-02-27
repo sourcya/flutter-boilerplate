@@ -1,4 +1,3 @@
-
 /// App Translation keys for every word that need to be translated
 /// This key can be used to provide the right translation
 /// for example we can get app name by using AppTrans.appName.tr
@@ -66,16 +65,15 @@ abstract class AppTrans {
   static const updateConfirmActionTitle = 'updateConfirmActionTitle';
   static const updateDismissActionTitle = 'updateDismissActionTitle';
 
-  static const settings='settings';
+  static const settings = 'settings';
 
-  static const language ='language';
+  static const language = 'language';
 
-  static const theme='theme';
+  static const theme = 'theme';
 
-  static const home ='home';
+  static const home = 'home';
 
-  static const notifications ='notifications';
-
+  static const notifications = 'notifications';
 
   //onBoarding
   static const firstBoardingTitle = 'firstBoardingTitle';
@@ -86,46 +84,46 @@ abstract class AppTrans {
   static const thirdBoardingSubTitle = 'thirdBoardingSubTitle';
   static const loremIpsum = 'loremIpsum';
 
-
-  static const skip ='skip';
+  static const skip = 'skip';
   static const next = 'next';
 
-  static const lightTheme ='lightTheme';
-  static const darkTheme ='darkTheme';
+  static const lightTheme = 'lightTheme';
+  static const darkTheme = 'darkTheme';
 
-  static const logout ='logout';
+  static const logout = 'logout';
 
   static const phoneNumberLabel = 'phoneNumberLabel';
 
   static const phoneNumberHint = 'phoneNumberHint';
 
-  static const validNumberErrMsg= 'validNumberErrMsg';
+  static const validNumberErrMsg = 'validNumberErrMsg';
 
   static const loginSubtitle = 'loginSubtitle';
 
-  static const verifyPhoneTitle ='verifyPhoneTitle';
+  static const verifyPhoneTitle = 'verifyPhoneTitle';
 
-  static const verifyPhoneValidOtpError ='verifyPhoneValidOtpError';
+  static const verifyPhoneValidOtpError = 'verifyPhoneValidOtpError';
 
   static const verifyPhoneBtnText = 'verifyPhoneBtnText';
 
-  static const verifyPhoneSubtitle ='verifyPhoneSubtitle';
+  static const verifyPhoneSubtitle = 'verifyPhoneSubtitle';
 
-  static const verifyPhoneCodeNotReceived ='verifyPhoneCodeNotRecived';
+  static const verifyPhoneCodeNotReceived = 'verifyPhoneCodeNotRecived';
 
-  static const resendCode='resendCode';
+  static const resendCode = 'resendCode';
 
+  static const mobileNumberRequiredErrMsg = 'mobileNumberRequiredErrMsg';
 
-  static const mobileNumberRequiredErrMsg ='mobileNumberRequiredErrMsg';
-
-  static const dashboard ='dashboard';
-  static const wishlist ='wishlist';
-  static const validNumberMinLength ='validNumberMinLength';
+  static const dashboard = 'dashboard';
+  static const wishlist = 'wishlist';
+  static const validNumberMinLength = 'validNumberMinLength';
 
   static const noInternetConnectionBannerMsg = 'noInternetConnectionBannerMsg';
-  static const internetConnectionRestoredBannerMsg = 'internetConnectionRestoredBannerMsg';
-  static const noInternetConnectionDismissBannerMsg = 'noInternetConnectionDismissBannerMsg';
+  static const internetConnectionRestoredBannerMsg =
+      'internetConnectionRestoredBannerMsg';
+  static const noInternetConnectionDismissBannerMsg =
+      'noInternetConnectionDismissBannerMsg';
   static const refresh = 'refresh';
 
-
+  static const confirm = 'confirm';
 }

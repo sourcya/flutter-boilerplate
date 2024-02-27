@@ -1,8 +1,8 @@
-import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
 import 'package:playx/playx.dart';
 
 import '../navigation/app_navigation.dart';
 import '../network/api_client.dart';
+import '../preferences/env_manger.dart';
 import '../preferences/preference_manger.dart';
 
 /// This class contains app configuration like playx configuration.
@@ -21,6 +21,6 @@ class AppConfig extends PlayXAppConfig {
 
   @override
   Future<void> asyncBoot() async {
-   return Future.delayed(10.seconds);
+    return Future.delayed(10.seconds);
   }
 }
