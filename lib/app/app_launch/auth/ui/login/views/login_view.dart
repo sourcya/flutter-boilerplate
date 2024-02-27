@@ -23,8 +23,6 @@ class LoginView extends GetView<LoginController> {
                 BuildLoginEmailFieldWidget(),
                 BuildLoginPasswordFieldWidget(),
                 BuildLoginButtonWidget(),
-                if (Constants.shouldUseGoogleSignIn)
-                  BuildLoginGoogleLoginButtonWidget(),
                 BuildLoginRegisterNowWidget(),
                 Spacer()
               ],
@@ -34,6 +32,4 @@ class LoginView extends GetView<LoginController> {
       ),
     );
   }
-
-
 }

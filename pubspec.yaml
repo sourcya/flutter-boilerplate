@@ -9,7 +9,6 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
-  google_sign_in: ^6.2.1
   playx: ^1.0.4
   playx_version_update: ^0.0.4
   dots_indicator: ^3.0.0
