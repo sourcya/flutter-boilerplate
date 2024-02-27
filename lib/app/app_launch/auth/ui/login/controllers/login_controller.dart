@@ -3,7 +3,6 @@ part of '../imports/login_imports.dart';
 ///Login controller to setup data to the ui.
 class LoginController extends GetxController {
   final authRepository = AuthRepository();
-  final googleAuthRepo = GoogleAuthRepository();
 
   final AppNavigation appNavigation = AppNavigation.instance;
   final isLoading = false.obs;
@@ -57,23 +56,6 @@ class LoginController extends GetxController {
       error: (NetworkException exception) {
         isLoading.value = false;
         Alert.error(message: exception.message);
-      },
-    );
-  }
-
-  Future<void> loginWithGoogle() async {
-    final res = await googleAuthRepo.signIn();
-    res.when(
-      success: (user) {
-        appNavigation.navigateFromLoginToHome();
-        Alert.success(
-          message: 'Logged in successfully using Google with ${user.email}',
-        );
-      },
-      error: (error) {
-        Alert.error(
-          message: error.message,
-        );
       },
     );
   }
