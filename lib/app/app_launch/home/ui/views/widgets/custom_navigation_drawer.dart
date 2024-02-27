@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_text.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../../../core/resources/colors/app_colors.dart';
+import '../../../../../../core/resources/translation/app_locale_config.dart';
 import '../../../../../../core/resources/translation/app_translations.dart';
 import '../../imports/home_imports.dart';
 
@@ -16,29 +18,31 @@ class CustomNavigationDrawer extends GetView<HomeController> {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(28, 16, 16, 10),
-              child: Text(
+              child: CustomText(
                 'Sourcya',
-                style: Theme.of(context).textTheme.titleSmall,
+                font: fontFamily,
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w500,
               ),
             ),
             NavigationDrawerDestination(
               icon: const Icon(Icons.home),
-              label: Text(AppTrans.dashboard.tr),
+              label: CustomText(AppTrans.dashboard.tr),
             ),
             NavigationDrawerDestination(
               icon: const Icon(Icons.favorite_border),
-              label: Text(AppTrans.wishlist.tr),
+              label: CustomText(AppTrans.wishlist.tr),
             ),
             NavigationDrawerDestination(
               icon: const Icon(Icons.settings),
-              label: Text(AppTrans.settings.tr),
+              label: CustomText(AppTrans.settings.tr),
             ),
             Divider(
               color: colorScheme.onSurface.withOpacity(.3),
             ),
             NavigationDrawerDestination(
               icon: const Icon(Icons.logout),
-              label: Text(AppTrans.logout.tr),
+              label: CustomText(AppTrans.logout.tr),
             ),
           ],
         );
