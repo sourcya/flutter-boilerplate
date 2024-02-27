@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
 import 'package:playx/playx.dart';
 
+import '../../../../../../core/resources/colors/app_colors.dart';
 import '../../../../../../core/resources/translation/app_translations.dart';
 import '../../imports/home_imports.dart';
 
@@ -33,7 +33,9 @@ class CustomNavigationDrawer extends GetView<HomeController> {
               icon: const Icon(Icons.settings),
               label: Text(AppTrans.settings.tr),
             ),
-             Divider(color: colorScheme.onSurface.withOpacity(.3),),
+            Divider(
+              color: colorScheme.onSurface.withOpacity(.3),
+            ),
             NavigationDrawerDestination(
               icon: const Icon(Icons.logout),
               label: Text(AppTrans.logout.tr),

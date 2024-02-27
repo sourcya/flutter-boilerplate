@@ -6,16 +6,14 @@ class WishlistView extends GetView<WishlistController> {
     return CustomScaffold(
       appBar: buildAppBar(title: AppTrans.wishlist.tr),
       mainAxisAlignment: MainAxisAlignment.center,
+      hasScrollBody: true,
       child: Center(
-        child: FutureBuilder(
-          future: EnvManger.instance.testWishlistEnv,
-          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+        child: RxDataStateWidget(
+          rxData: controller.dataState,
+          onSuccess: (data) {
             return CustomText(
-              snapshot.hasData
-                  ? snapshot.data!
-                  : 'Wishlist',
+              data,
               style: CustomTextStyle.displayMedium,
-
             );
           },
         ),

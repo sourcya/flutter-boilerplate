@@ -9,12 +9,15 @@ import 'components/custom_elevated_button.dart';
 import 'components/custom_text.dart';
 import 'orientation_widget.dart';
 
-/// Widget for showing there's no internet connection.
-class NoInternetWidget extends OrientationWidget {
-  final String error;
+class ErrorDataWidget extends OrientationWidget {
   final VoidCallback? onRetryClicked;
+  final String error;
 
-  const NoInternetWidget({required this.error, this.onRetryClicked});
+  const ErrorDataWidget({
+    super.key,
+    this.onRetryClicked,
+    required this.error,
+  });
 
   @override
   Widget buildLandscape(BuildContext context) {
@@ -26,7 +29,7 @@ class NoInternetWidget extends OrientationWidget {
           children: [
             Expanded(
               child: Lottie.asset(
-                Assets.animations.noInternetAnimation,
+                Assets.animations.error,
               ),
             ),
             SizedBox(
@@ -79,10 +82,8 @@ class NoInternetWidget extends OrientationWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
-                child: Lottie.asset(
-                  Assets.animations.noInternetAnimation,
-                ),
+              Lottie.asset(
+                Assets.animations.error,
               ),
               SizedBox(
                 height: 6.r,

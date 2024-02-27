@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/resources/theme/theme.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../core/navigation/app_navigation.dart';
@@ -14,8 +13,8 @@ import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/widgets/keyboard_visibility_padding.dart';
 import '../../../app_launch/home/ui/imports/home_imports.dart';
 
-part  '../binding/settings_binding.dart';
-part  '../controller/settings_controller.dart';
+part '../binding/settings_binding.dart';
+part '../controller/settings_controller.dart';
 part '../view/settings_view.dart';
 part '../view/widgets/build_settings_language_widget.dart';
 part '../view/widgets/build_settings_logout_widget.dart';

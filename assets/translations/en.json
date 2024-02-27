@@ -95,5 +95,6 @@
   "verifyPhoneSubtitle": "Enter the 4 digits code sent to your phone number.",
   "verifyPhoneTitle": "Verify your mobile number",
   "verifyPhoneValidOtpError": "Pin is not a valid number",
-  "wishlist": "Wishlist"
+  "wishlist": "Wishlist",
+  "confirm": "Confirm"
 }

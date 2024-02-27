@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:playx/playx.dart';
 
 import 'core/config/app_config.dart';
@@ -26,8 +27,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlayxPlatformApp(
+    return PlayxMaterialApp(
       title: AppTrans.appName.tr,
+      preferredOrientations: const [
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.portraitUp,
+      ],
       navigationSettings: PlayxNavigationSettings(
         initialRoute: AppPages.initial,
         getPages: AppPages.routes,

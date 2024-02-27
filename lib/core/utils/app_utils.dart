@@ -1,4 +1,6 @@
 //utils that will be used in the app
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
@@ -17,5 +19,12 @@ class AppUtils {
 
   static bool isDarkMode() {
     return PlayxTheme.id == DarkTheme.theme.id;
+  }
+
+  static bool isMobile() {
+    final double width = ScreenUtil().screenWidth;
+    final double height = ScreenUtil().screenHeight;
+    final shortestSide = min(width.abs(), height.abs());
+    return shortestSide < 600;
   }
 }

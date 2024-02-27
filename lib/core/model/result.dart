@@ -1,5 +1,6 @@
-import 'package:flutter_boilerplate/core/model/result_error.dart';
 import 'package:playx/playx.dart';
+
+import 'result_error.dart';
 
 class Success<T> extends Result<T> {
   final T data;
@@ -22,11 +23,14 @@ sealed class Result<T> {
   const factory Result.error(ResultError error) = Error;
 
   factory Result.networkResult(NetworkResult<T> result) {
-    return result.map(success: (success) {
-      return Result.success(success.data);
-    }, error: (error) {
-      return Result.error(ResultError.fromNetworkError(error.error));
-    },);
+    return result.map(
+      success: (success) {
+        return Result.success(success.data);
+      },
+      error: (error) {
+        return Result.error(ResultError.fromNetworkError(error.error));
+      },
+    );
   }
 
   void when({
