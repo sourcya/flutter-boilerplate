@@ -15,6 +15,7 @@ dependencies:
   pinput: ^4.0.0
   flutter_keyboard_visibility: ^6.0.0
   awesome_drawer_bar: ^1.2.0
+  wolt_modal_sheet: ^0.4.1
 
 
 dev_dependencies:
