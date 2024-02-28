@@ -1,4 +1,3 @@
-
 part of '../imports/register_imports.dart';
 
 class RegisterController extends GetxController {
@@ -28,9 +27,8 @@ class RegisterController extends GetxController {
   final isFormValid = false.obs;
 
   final authRepository = AuthRepository();
-  final AppNavigation appNavigation = AppNavigation.instance;
 
-   Worker? _validationWorker;
+  Worker? _validationWorker;
   @override
   void onInit() {
     super.onInit();
@@ -38,7 +36,7 @@ class RegisterController extends GetxController {
   }
 
   void listenToValidationState() {
-    _validationWorker=  everAll([
+    _validationWorker = everAll([
       isUsernameValid,
       isEmailValid,
       isPasswordValid,
@@ -64,7 +62,7 @@ class RegisterController extends GetxController {
     );
     result.when(
       success: (ApiUser user) {
-        appNavigation.navigateFromRegisterToHome();
+        AppNavigation.navigateFromRegisterToHome();
       },
       error: (NetworkException exception) {
         Alert.error(message: exception.message);
@@ -82,9 +80,8 @@ class RegisterController extends GetxController {
   }
 
   void navigateToLogin() {
-    appNavigation.navigateFromRegisterToLogin();
+    AppNavigation.navigateFromRegisterToLogin();
   }
-
 
   @override
   void onClose() {
@@ -95,7 +92,5 @@ class RegisterController extends GetxController {
     usernameController.dispose();
     _validationWorker?.dispose();
     _validationWorker = null;
-
   }
-
 }

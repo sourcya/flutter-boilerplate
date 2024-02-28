@@ -6,8 +6,6 @@ class OnBoardingController extends GetxController {
   final currentIndex = 0.obs;
   final isCompleted = false.obs;
 
-  final _navigation = AppNavigation.instance;
-
   final pages = <OnBoarding>[
     OnBoarding(
       title: AppTrans.firstBoardingTitle.tr,
@@ -30,13 +28,12 @@ class OnBoardingController extends GetxController {
     if (isCompleted.value) {
       MyPreferenceManger.instance.saveOnBoardingShown();
 
-      _navigation.navigateFromOnBoardingToLogin();
+      AppNavigation.navigateFromOnBoardingToLogin();
     } else {
       pageController.animateToPage(currentIndex.value + 1,
           duration: const Duration(milliseconds: 350), curve: Curves.easeInOut);
     }
   }
-
 
   void onPageChanged(int value) {
     currentIndex.value = value;

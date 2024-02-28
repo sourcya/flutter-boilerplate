@@ -6,7 +6,7 @@ class LoginView extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PlatformScaffold(
       body: OptimizedScrollView(
         child: SafeArea(
           child: Container(

@@ -6,14 +6,22 @@ class OtpLoginView extends GetView<OtpLoginController> {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomScaffold(
-      children: [
-        BuildLoginLottieAnimation(),
-        BuildLoginText(),
-        BuildLoginSubtitleText(),
-        BuildMobileLoginTextField(),
-        BuildLoginButton(),
-      ],
+    return PlatformScaffold(
+      body: const SafeArea(
+        child: OptimizedScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BuildLoginLottieAnimation(),
+              BuildLoginText(),
+              BuildLoginSubtitleText(),
+              BuildMobileLoginTextField(),
+              BuildLoginButton(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
