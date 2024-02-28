@@ -48,6 +48,21 @@ sealed class DataState<T> {
 
   factory DataState.networkError(NetworkException error) = NetworkError;
 
+  factory DataState.emptyError({String? error}) =>
+      Failure(DataError.empty(error: error));
+
+  factory DataState.defaultError({String? error}) =>
+      Failure(DataError.error(error: error));
+
+  factory DataState.noInternetError({String? error}) =>
+      Failure(DataError.noInternetError(error: error));
+
+  bool get isSuccess => this is Success;
+
+  bool get isLoading => this is Loading;
+
+  bool hasError() => this is Failure;
+
   void when({
     Function(T? data)? initial,
     Function(T? data)? loading,
@@ -85,6 +100,60 @@ sealed class DataState<T> {
         return success(this as Success<T>);
       case Failure _:
         return error(this as Failure<T>);
+    }
+  }
+
+  Future<DataState<S>> asyncMap<S>({
+    required Future<DataState<S>> Function(Initial<T> initial) initial,
+    required Future<DataState<S>> Function(Loading<T> loading) loading,
+    required Future<DataState<S>> Function(Success<T> success) success,
+    required Future<DataState<S>> Function(Failure<T> error) error,
+  }) async {
+    switch (this) {
+      case Initial _:
+        return await initial(this as Initial<T>);
+      case Loading _:
+        return await loading(this as Loading<T>);
+      case Success _:
+        return await success(this as Success<T>);
+      case Failure _:
+        return await error(this as Failure<T>);
+    }
+  }
+
+  DataState<S> mapData<S>({
+    required S Function(T data) dataMapper,
+  }) {
+    switch (this) {
+      case Success _:
+        return Success(dataMapper((this as Success<T>).data));
+      case Failure _:
+        return Failure((this as Failure<T>).error);
+      case Loading _:
+        final data = (this as Loading<T>).data;
+        return Loading(data: data == null ? null : dataMapper(data));
+      case Initial _:
+        final data = (this as Initial<T>).data;
+        return Initial(data: data == null ? null : dataMapper(data));
+    }
+  }
+
+  Future<DataState<S>> asyncMapData<S>({
+    required Future<S> Function(T data) dataMapper,
+  }) async {
+    switch (this) {
+      case Success _:
+        return Success(await dataMapper((this as Success<T>).data));
+      case Failure _:
+        return Failure((this as Failure<T>).error);
+      case Loading _:
+        final oldData = (this as Loading<T>).data;
+        return Loading(
+            data: oldData == null ? null : await dataMapper(oldData));
+      case Initial _:
+        final oldData = (this as Initial<T>).data;
+        return Initial(
+            data: oldData == null ? null : await dataMapper(oldData));
     }
   }
 }

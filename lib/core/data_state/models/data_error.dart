@@ -9,7 +9,7 @@ sealed class DataError {
 
   const DataError();
 
-  const factory DataError.noInternetError() = NoInternetError;
+  const factory DataError.noInternetError({String? error}) = NoInternetError;
   const factory DataError.empty({String? error}) = EmptyDataError;
   const factory DataError.error({String? error}) = DefaultDataError;
 
@@ -26,10 +26,12 @@ sealed class DataError {
 }
 
 class NoInternetError extends DataError {
-  const NoInternetError();
+  final String? error;
+
+  const NoInternetError({this.error});
 
   @override
-  String get message => AppTrans.noInternetMessage.tr;
+  String get message => error ?? AppTrans.noInternetMessage.tr;
 }
 
 class EmptyDataError extends DataError {
