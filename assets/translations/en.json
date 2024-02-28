@@ -24,7 +24,7 @@
   "emailLabel": "Email",
   "emailOrUsernameLabel": "Email or username",
   "emailRequired": "Email address is required",
-  "emptyResponse": "Sorry, Couldn't receive response from the server.",
+  "emptyResponse": "No data available.",
   "firstBoardingSubTitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
   "firstBoardingTitle": "First Boarding",
   "formatException": "Sorry, The request wasn't formatted correctly.",

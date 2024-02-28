@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_boilerplate/app/wishlist/data/datasource/db/local_wishlist_data_source.dart';
 import 'package:playx/playx.dart';
 
+import '../database/app_database.dart';
 import '../navigation/app_navigation.dart';
 import '../network/api_client.dart';
 import '../preferences/env_manger.dart';
@@ -17,6 +20,17 @@ class AppConfig extends PlayXAppConfig {
     final PlayxNetworkClient client = await ApiClient.createApiClient();
     Get.put<PlayxNetworkClient>(client);
     Get.put<AppNavigation>(AppNavigation());
+
+    final database = await AppDatabase.create();
+
+    if (kDebugMode) {
+      database.runTestWebApp();
+    }
+
+    final localWishlistDataSource =
+        LocalWishlistDataSource(wishlistDao: database.wishlistDao);
+    Get.put<AppDatabase>(database);
+    Get.put<LocalWishlistDataSource>(localWishlistDataSource);
   }
 
   @override
