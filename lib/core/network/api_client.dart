@@ -8,7 +8,7 @@ import 'exception/custom_exception_message.dart';
 abstract class ApiClient {
   ApiClient._();
 
- static String? get token => MyPreferenceManger.instance.token;
+  static String? get token => MyPreferenceManger.instance.token;
 
   static Future<PlayxNetworkClient> createApiClient() async {
     return PlayxNetworkClient(
@@ -22,9 +22,11 @@ abstract class ApiClient {
           contentType: Headers.jsonContentType,
         ),
       ),
-      customHeaders: token == null ? null: () async =>{
-        'authorization': 'Bearer $token',
-      },
+      customHeaders: token == null
+          ? null
+          : () async => {
+                'authorization': 'Bearer $token',
+              },
       exceptionMessages: const CustomExceptionMessage(),
       onUnauthorizedRequestReceived: () => _signOut(),
     );
@@ -33,6 +35,6 @@ abstract class ApiClient {
   static Future<void> _signOut() async {
     final preferenceManger = MyPreferenceManger.instance;
     await preferenceManger.signOut();
-    AppNavigation.instance.navigateToSplash();
+    AppNavigation.navigateToSplash();
   }
 }

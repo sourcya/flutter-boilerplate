@@ -1,10 +1,17 @@
 part of '../imports/splash_imports.dart';
 
-class SplashBinding extends Bindings {
+class SplashBinding extends PlayxBinding {
   @override
-  void dependencies() {
-    Get.put<SplashController>(
-      SplashController(),
-    );
+  Future<void> onEnter(BuildContext context, GoRouterState state) async {
+    if (!Get.isRegistered<SplashController>()) {
+      Get.put(SplashController());
+    }
+  }
+
+  @override
+  Future<void> onExit(BuildContext context) async {
+    if (Get.isRegistered<SplashController>()) {
+      Get.delete<SplashController>();
+    }
   }
 }

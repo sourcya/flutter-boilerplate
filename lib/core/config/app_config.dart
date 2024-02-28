@@ -3,7 +3,6 @@ import 'package:flutter_boilerplate/app/wishlist/data/datasource/db/local_wishli
 import 'package:playx/playx.dart';
 
 import '../database/app_database.dart';
-import '../navigation/app_navigation.dart';
 import '../network/api_client.dart';
 import '../preferences/env_manger.dart';
 import '../preferences/preference_manger.dart';
@@ -19,7 +18,6 @@ class AppConfig extends PlayXAppConfig {
     Get.put<EnvManger>(EnvManger());
     final PlayxNetworkClient client = await ApiClient.createApiClient();
     Get.put<PlayxNetworkClient>(client);
-    Get.put<AppNavigation>(AppNavigation());
 
     final database = await AppDatabase.create();
 

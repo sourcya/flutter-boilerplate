@@ -4,7 +4,6 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
   final isBiometricAuthEnabled = false;
   final Completer<bool> shouldUpdateApp = Completer();
 
-  final _navigation = AppNavigation.instance;
   @override
   void onInit() {
     // handleAppUpdate();
@@ -57,15 +56,15 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
 
     await Future.delayed(2.seconds);
     if (!(await MyPreferenceManger.instance.isOnBoardingShown)) {
-      _navigation.navigateFromSplashToOnBoarding();
+      AppNavigation.navigateFromSplashToOnBoarding();
       return;
     }
 
     final bool isUserLoggedIn = MyPreferenceManger().isLoggedIn;
     if (isUserLoggedIn) {
-      _navigation.navigateFormSplashToHome();
+      AppNavigation.navigateFormSplashToHome();
     } else {
-      _navigation.navigateFormSplashToLogin();
+      AppNavigation.navigateFormSplashToLogin();
     }
   }
 

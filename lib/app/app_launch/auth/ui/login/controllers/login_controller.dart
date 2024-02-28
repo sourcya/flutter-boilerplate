@@ -4,7 +4,6 @@ part of '../imports/login_imports.dart';
 class LoginController extends GetxController {
   final authRepository = AuthRepository();
 
-  final AppNavigation appNavigation = AppNavigation.instance;
   final isLoading = false.obs;
   final hidePassword = true.obs;
 
@@ -51,7 +50,7 @@ class LoginController extends GetxController {
     result.when(
       success: (ApiUser user) async {
         isLoading.value = false;
-        appNavigation.navigateFromLoginToHome();
+        AppNavigation.navigateFromLoginToHome();
       },
       error: (NetworkException exception) {
         isLoading.value = false;
@@ -61,7 +60,7 @@ class LoginController extends GetxController {
   }
 
   void navigateToRegister() {
-    appNavigation.navigateFromLoginToRegister();
+    AppNavigation.navigateFromLoginToRegister();
   }
 
   @override

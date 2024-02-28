@@ -4,13 +4,10 @@ part of '../imports/login_view_imports.dart';
 class OtpLoginController extends GetxController {
   final authRepository = AuthRepository();
 
-  final AppNavigation _navigation = AppNavigation.instance;
   final isLoading = false.obs;
   final phoneController = TextEditingController();
 
   final isPhoneNumberValid = false.obs;
-
-
 
   @override
   void onInit() {
@@ -22,7 +19,6 @@ class OtpLoginController extends GetxController {
     super.onInit();
   }
 
-
   Future<void> login() async {
     if (!isPhoneNumberValid.value) return;
     WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
@@ -33,7 +29,7 @@ class OtpLoginController extends GetxController {
     result.when(
       success: (ApiUser user) async {
         isLoading.value = false;
-        _navigation.navigateFromLoginToVerifyPhone();
+        AppNavigation.navigateFromLoginToVerifyPhone();
       },
       error: (NetworkException exception) {
         isLoading.value = false;
@@ -43,12 +39,11 @@ class OtpLoginController extends GetxController {
   }
 
   void navigateToRegister() {
-    _navigation.navigateFromLoginToRegister();
+    AppNavigation.navigateFromLoginToRegister();
   }
 
   @override
   void onClose() {
     phoneController.dispose();
-
   }
 }

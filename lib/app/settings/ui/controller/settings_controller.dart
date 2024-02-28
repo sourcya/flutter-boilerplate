@@ -14,22 +14,20 @@ class SettingsController extends GetxController {
   void handleLanguageSelection(XLocale locale) {
     currentLocale.value = locale;
     PlayxLocalization.updateTo(locale);
-    Get.back();
+    AppRouter.pop();
   }
 
   void handleThemeSelection(XTheme theme) {
     PlayxTheme.updateTo(theme);
     currentTheme.value = theme;
-    Get.back();
+    AppRouter.pop();
   }
 
   Future<void> handleLogOutTap() async {
-    if (Get.isRegistered<HomeController>()) {
-      Get.find<HomeController>().resetNavigation();
-    }
     final preferenceManger = MyPreferenceManger.instance;
     await preferenceManger.signOut();
-    AppNavigation.instance.navigateFromSettingsToLogin();
+    AppNavigation.navigateFromSettingsToLogin();
+    AppRouter.pop();
   }
 
   Future<void> showSettingsModalSheet(
@@ -49,6 +47,6 @@ class SettingsController extends GetxController {
   }
 
   void closeSettingsModalSheet() {
-    Get.back();
+    AppRouter.pop();
   }
 }

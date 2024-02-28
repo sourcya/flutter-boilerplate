@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/navigation/go_router/app_router.dart';
+import 'package:flutter_boilerplate/core/navigation/go_router/playx_binding.dart';
+import 'package:go_router/go_router.dart';
 import 'package:playx/playx.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
@@ -11,11 +14,8 @@ import '../../../../core/utils/app_utils.dart';
 import '../../../../core/widgets/bottom_sheet/custom_modal.dart';
 import '../../../../core/widgets/components/custom_card.dart';
 import '../../../../core/widgets/components/custom_dialog.dart';
-import '../../../../core/widgets/components/custom_scaffold.dart';
 import '../../../../core/widgets/components/custom_text.dart';
-import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/widgets/keyboard_visibility_padding.dart';
-import '../../../app_launch/home/ui/imports/home_imports.dart';
 
 part '../binding/settings_binding.dart';
 part '../controller/settings_controller.dart';
