@@ -23,14 +23,13 @@ abstract class AppRouter {
   static void goToBranch({
     required int index,
     required StatefulNavigationShell navigationShell,
-    bool initialLocation = true,
   }) {
     // When navigating to a new branch, it's recommended to use the goBranch
     // method, as doing so makes sure the last navigation state of the
     // Navigator for the branch is restored.
     navigationShell.goBranch(
       index,
-      initialLocation: index == navigationShell.currentIndex && initialLocation,
+      initialLocation: index == navigationShell.currentIndex,
     );
   }
 

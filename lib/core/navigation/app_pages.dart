@@ -41,9 +41,12 @@ class AppPages {
           PlayxRoute(
             path: Paths.dashboard,
             name: Routes.dashboard,
-            pageBuilder: (context, state) => CupertinoPage(
-              child: DashboardView(),
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
+              child: DashboardView(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) =>
+                      FadeTransition(opacity: animation, child: child),
             ),
             binding: DashboardBinding(),
           ),
