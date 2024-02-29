@@ -4,54 +4,115 @@ import 'package:playx/playx.dart';
 import '../resources/assets/assets.dart';
 import '../resources/colors/app_colors.dart';
 import '../resources/translation/app_translations.dart';
+import '../utils/app_utils.dart';
+import 'components/custom_elevated_button.dart';
+import 'components/custom_text.dart';
+import 'orientation_widget.dart';
 
 /// Widget for showing there's no internet connection.
-class NoInternetAnimation extends StatelessWidget {
-  final String? message;
-  final TextStyle? textStyle;
-  final TextStyle? retryTextStyle;
-  final ButtonStyle? retryButtonStyle;
+class NoInternetWidget extends OrientationWidget {
+  final String error;
   final VoidCallback? onRetryClicked;
 
-  const NoInternetAnimation(
-      {this.message,
-      this.textStyle,
-      this.retryTextStyle,
-      this.retryButtonStyle,
-      required this.onRetryClicked,});
+  const NoInternetWidget({required this.error, this.onRetryClicked});
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Lottie.asset(Assets.animations.noInternetAnimation,
-            height: context.height * .5,),
-        Text(
-          message ?? AppTrans.noInternetMessage.tr,
-          style: textStyle ??
-              TextStyle(
-                color: colorScheme.onBackground,
-                fontSize: 18.sp,
+  Widget buildLandscape(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(4.0.r),
+      child: Center(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Expanded(
+              child: Lottie.asset(
+                Assets.animations.noInternetAnimation,
               ),
-        ),
-         SizedBox(
-          height: 20.h,
-        ),
-        ElevatedButton(
-          style: retryButtonStyle ?? const ButtonStyle(),
-          onPressed: onRetryClicked,
-          child: Text(
-            AppTrans.retryText.tr,
-            style: retryTextStyle ??
-                TextStyle(
-                  color: colorScheme.onPrimary,
-                  fontSize: 14.sp,
+            ),
+            SizedBox(
+              height: 6.r,
+            ),
+            Expanded(
+              child: OptimizedScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(4.0.r),
+                      child: CustomText(
+                        error,
+                        textAlign: TextAlign.center,
+                        fontWeight: FontWeight.w400,
+                        fontSize: AppUtils.isMobile() ? 16.sp : 20.sp,
+                      ),
+                    ),
+                    if (onRetryClicked != null) ...[
+                      SizedBox(
+                        height: AppUtils.isMobile() ? 8.r : 15.r,
+                      ),
+                      CustomElevatedButton(
+                        color: colorScheme.primary,
+                        onPressed: onRetryClicked,
+                        label: AppTrans.retryText.tr,
+                      ),
+                    ],
+                    SizedBox(
+                      height: AppUtils.isMobile() ? 4.r : 15.r,
+                    ),
+                  ],
                 ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget buildPortrait(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(4.0.r),
+      child: OptimizedScrollView(
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                child: Lottie.asset(
+                  Assets.animations.noInternetAnimation,
+                ),
+              ),
+              SizedBox(
+                height: 6.r,
+              ),
+              Padding(
+                padding: EdgeInsets.all(4.0.r),
+                child: CustomText(
+                  error,
+                  textAlign: TextAlign.center,
+                  fontWeight: FontWeight.w400,
+                  fontSize: AppUtils.isMobile() ? 16.sp : 20.sp,
+                ),
+              ),
+              if (onRetryClicked != null) ...[
+                SizedBox(
+                  height: AppUtils.isMobile() ? 8.r : 15.r,
+                ),
+                CustomElevatedButton(
+                  color: colorScheme.primary,
+                  onPressed: onRetryClicked,
+                  label: AppTrans.retryText.tr,
+                ),
+              ],
+              SizedBox(
+                height: AppUtils.isMobile() ? 4.r : 15.r,
+              ),
+            ],
           ),
-        )
-      ],
+        ),
+      ),
     );
   }
 }

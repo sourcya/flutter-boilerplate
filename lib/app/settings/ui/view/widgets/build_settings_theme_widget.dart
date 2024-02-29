@@ -11,17 +11,25 @@ class BuildSettingsThemeWidget extends GetView<SettingsController> {
         subtitle: controller.currentTheme.value.name.tr,
         icon: Icons.dark_mode_rounded,
         onTap: () {
-          Get.dialog(
-            BuildSettingsDialog(
-              title: AppTrans.theme.tr,
-              items: PlayxTheme.supportedThemes,
-              onItemSelected: (theme) => controller.handleThemeSelection(theme),
-              itemName: (theme) => theme.name.tr,
-              isItemSelected: (theme) =>
-              controller.currentTheme.value.id == theme.id,
-            ),
+          controller.showSettingsModalSheet(
+            context,
+            BuildSettingsThemeWidget.buildModalPage(controller),
           );
-        },);
+        },
+      );
     });
+  }
+
+  static SliverWoltModalSheetPage buildModalPage(
+    SettingsController controller,
+  ) {
+    return BuildSettingsPage.buildModalPage(
+      title: AppTrans.theme.tr,
+      items: PlayxTheme.supportedThemes,
+      onItemSelected: (theme) => controller.handleThemeSelection(theme),
+      itemName: (theme) => theme.name.tr,
+      isItemSelected: (theme) => controller.currentTheme.value.id == theme.id,
+      onCloseButtonPressed: controller.closeSettingsModalSheet,
+    );
   }
 }

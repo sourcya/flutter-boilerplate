@@ -6,25 +6,33 @@ class VerifyPhoneView extends GetView<VerifyPhoneController> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-              children: [
-                const BuildVerifyLottieAnimation(),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(height: 10.h),
-                      const BuildVerifyPhoneText(),
-                      const BuildVerifySubtitleText(),
-                      const BuildVerifyOtpField(),
-                      SizedBox(height: 14.h),
-                      const BuildVerifyCodeNotReceivedWidget(),
-                      const BuildVerifyButton(),
-                      SizedBox(height: 10.h),
-                    ],
-                  ),
+    return Scaffold(
+      body: SafeArea(
+        child: OptimizedScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const BuildVerifyLottieAnimation(),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(height: 10.h),
+                    const BuildVerifyPhoneText(),
+                    const BuildVerifySubtitleText(),
+                    const BuildVerifyOtpField(),
+                    SizedBox(height: 14.h),
+                    const BuildVerifyCodeNotReceivedWidget(),
+                    const BuildVerifyButton(),
+                    SizedBox(height: 10.h),
+                  ],
                 ),
-              ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,46 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
+import 'package:go_router/go_router.dart';
 import 'package:playx/playx.dart';
 
+import '../../../../../../core/navigation/go_router/app_router.dart';
+import '../../../../../../core/resources/colors/app_colors.dart';
+import '../../../../../../core/resources/translation/app_locale_config.dart';
 import '../../../../../../core/resources/translation/app_translations.dart';
-import '../../imports/home_imports.dart';
+import '../../../../../../core/widgets/components/custom_text.dart';
 
-class CustomNavigationDrawer extends GetView<HomeController> {
+class CustomNavigationDrawer extends StatelessWidget {
+  final StatefulNavigationShell navigationShell;
+
+  const CustomNavigationDrawer({required this.navigationShell, super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return NavigationDrawer(
-          selectedIndex: controller.currentIndex.value,
-          onDestinationSelected: controller.updatePage,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(28, 16, 16, 10),
-              child: Text(
-                'Sourcya',
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
+    return SafeArea(
+      child: NavigationDrawer(
+        selectedIndex: navigationShell.currentIndex,
+        onDestinationSelected: (index) {
+          AppRouter.goToBranch(index: index, navigationShell: navigationShell);
+        },
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(28, 16, 16, 10),
+            child: CustomText(
+              'Sourcya',
+              font: fontFamily,
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
             ),
-            NavigationDrawerDestination(
-              icon: const Icon(Icons.home),
-              label: Text(AppTrans.dashboard.tr),
-            ),
-            NavigationDrawerDestination(
-              icon: const Icon(Icons.favorite_border),
-              label: Text(AppTrans.wishlist.tr),
-            ),
-            NavigationDrawerDestination(
-              icon: const Icon(Icons.settings),
-              label: Text(AppTrans.settings.tr),
-            ),
-             Divider(color: colorScheme.onSurface.withOpacity(.3),),
-            NavigationDrawerDestination(
-              icon: const Icon(Icons.logout),
-              label: Text(AppTrans.logout.tr),
-            ),
-          ],
-        );
-      },
+          ),
+          NavigationDrawerDestination(
+            icon: const Icon(Icons.home),
+            label: CustomText(AppTrans.dashboard.tr),
+          ),
+          NavigationDrawerDestination(
+            icon: const Icon(Icons.favorite_border),
+            label: CustomText(AppTrans.wishlist.tr),
+          ),
+          NavigationDrawerDestination(
+            icon: const Icon(Icons.settings),
+            label: CustomText(AppTrans.settings.tr),
+          ),
+          Divider(
+            color: colorScheme.onSurface.withOpacity(.3),
+          ),
+          NavigationDrawerDestination(
+            icon: const Icon(Icons.logout),
+            label: CustomText(AppTrans.logout.tr),
+          ),
+        ],
+      ),
     );
   }
 }

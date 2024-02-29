@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
 import 'package:playx/playx.dart';
+
+import 'app_colors.dart';
 
 class LightColors extends AppColors {
   // static final ColorScheme scheme = SeedColorScheme.fromSeeds(
@@ -26,12 +27,9 @@ class LightColors extends AppColors {
     onBackground: Colors.black,
     surface: Colors.white,
     onSurface: Colors.black,
-
   );
 
   LightColors() : super(colorScheme: scheme);
-
-
 
   @override
   Color get appBar => XColors.white;
@@ -62,5 +60,4 @@ class LightColors extends AppColors {
 
   @override
   Color? get disabledButtonBackgroundColor => Colors.grey[300];
-
 }

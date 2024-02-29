@@ -1,57 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/widgets/custom_app_bar.dart';
+import 'package:go_router/go_router.dart';
 import 'package:playx/playx.dart';
 
+import '../../../app/app_launch/home/ui/imports/home_imports.dart';
 import '../../../app/app_launch/home/ui/views/widgets/custom_navigation_drawer.dart';
+import '../../resources/translation/app_translations.dart';
 
 class CustomScaffold extends StatelessWidget {
-  final List<Widget>? children;
-  final Widget? child;
-  final bool hasScrollBody;
-  final MainAxisAlignment mainAxisAlignment;
+  final StatefulNavigationShell navigationShell;
+  final String? title;
   final EdgeInsetsGeometry? padding;
-  final PlatformAppBar? appBar;
+  final AppBar? appBar;
   final Widget? floatingActionButton;
-  final MainAxisSize mainAxisSize;
 
   const CustomScaffold({
-    this.children ,
-    this.child,
-    this.hasScrollBody =false,
-    this.mainAxisAlignment = MainAxisAlignment.start,
+    required this.navigationShell,
+    this.title,
     this.padding,
     this.appBar,
     this.floatingActionButton,
-    this.mainAxisSize = MainAxisSize.max,
   });
 
   @override
   Widget build(BuildContext context) {
-
     final scaffoldChild = Container(
-      padding: padding ??
-          EdgeInsets.symmetric(
-            // vertical: 8.h,
-            horizontal: 8.w,
-          ),
+      padding: padding,
       alignment: Alignment.center,
-      child: child ?? Column(
-        mainAxisSize: mainAxisSize,
-        mainAxisAlignment: mainAxisAlignment,
-        children: children??[],
-      ),
+      child: navigationShell,
     );
 
     return PlatformScaffold(
-      appBar: appBar,
-      body: SafeArea(
-        child: hasScrollBody ? scaffoldChild :OptimizedScrollView(
-          child: scaffoldChild,
-        ),
-      ),
-      material: (ctx,_) => MaterialScaffoldData(
-        drawer: CustomNavigationDrawer(),
-        floatingActionButton: floatingActionButton,
-      ),
-    );
+        appBar: buildAppBar(title: title ?? AppTrans.appName.tr),
+        body: SafeArea(child: scaffoldChild),
+        material: (context, platform) => MaterialScaffoldData(
+              floatingActionButton: floatingActionButton,
+              drawer: CustomNavigationDrawer(
+                navigationShell: navigationShell,
+              ),
+              bottomNavBar:
+                  CustomNavigationBar(navigationShell: navigationShell),
+            ));
   }
 }

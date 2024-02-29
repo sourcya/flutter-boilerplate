@@ -4,7 +4,6 @@ part of '../imports/verify_phone_view_imports.dart';
 class VerifyPhoneController extends GetxController {
   final _authRepository = AuthRepository();
 
-  final AppNavigation _navigation = AppNavigation.instance;
   final isLoading = false.obs;
 
   final isOtpValid = false.obs;
@@ -13,7 +12,7 @@ class VerifyPhoneController extends GetxController {
   final showScrollPadding = true.obs;
 
   Future<void> verifyOtp() async {
-    showScrollPadding.value  = false;
+    showScrollPadding.value = false;
     WidgetsBinding.instance.focusManager.primaryFocus?.unfocus();
     if (!isOtpValid.value) return;
     isLoading.value = true;
@@ -25,18 +24,17 @@ class VerifyPhoneController extends GetxController {
     result.when(
       success: (ApiUser user) async {
         isLoading.value = false;
-        _navigation.navigateFromVerifyOtpToHome();
+        AppNavigation.navigateFromVerifyOtpToHome();
       },
       error: (NetworkException exception) {
         isLoading.value = false;
         Alert.error(message: exception.message);
-
       },
     );
   }
 
   void handleOtpPinChanged(String value) {
-    showScrollPadding.value  = true;
+    showScrollPadding.value = true;
 
     currentPin.value = value;
     isOtpValid.value = isOtpCodeValidNumber(value);
@@ -53,6 +51,5 @@ class VerifyPhoneController extends GetxController {
     return false;
   }
 
-  void resendCode() {
-  }
+  void resendCode() {}
 }
