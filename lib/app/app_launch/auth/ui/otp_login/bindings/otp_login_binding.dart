@@ -1,11 +1,17 @@
 part of '../imports/login_view_imports.dart';
 
-///Getx binding to initialize login controller.
-class OtpLoginBinding extends Bindings {
+class OtpLoginBinding extends PlayxBinding {
   @override
-  void dependencies() {
-    Get.lazyPut<OtpLoginController>(
-      () => OtpLoginController(),
-    );
+  Future<void> onEnter(BuildContext context, GoRouterState state) async {
+    if (!Get.isRegistered<OtpLoginController>()) {
+      Get.put(OtpLoginController());
+    }
+  }
+
+  @override
+  Future<void> onExit(BuildContext context) async {
+    if (Get.isRegistered<OtpLoginController>()) {
+      Get.delete<OtpLoginController>();
+    }
   }
 }

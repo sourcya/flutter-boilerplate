@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/custom_loading.dart';
-import '../../widgets/no_data_widget.dart';
+import '../../widgets/empty_data_widget.dart';
+import '../../widgets/error_widget.dart';
 import '../../widgets/no_internet_widget.dart';
 import '../models/data_error.dart';
 import '../models/data_state.dart';
@@ -20,6 +21,7 @@ class DataStateWidget<T> extends StatelessWidget {
   final ErrorCallback<T>? onError;
   final ErrorCallback<T>? noInternetConnection;
   final VoidCallback? onNoInternetRetryClicked;
+  final VoidCallback? onRetryClicked;
 
   const DataStateWidget({
     required this.data,
@@ -30,6 +32,7 @@ class DataStateWidget<T> extends StatelessWidget {
     this.noInternetConnection,
     this.onError,
     this.onNoInternetRetryClicked,
+    this.onRetryClicked,
   });
 
   @override
@@ -49,13 +52,20 @@ class DataStateWidget<T> extends StatelessWidget {
         final message = error.message;
         switch (error) {
           case EmptyDataError _:
-            widget = onEmpty?.call(message) ?? const NoDataAnimation();
+            widget = onEmpty?.call(message) ??
+                EmptyDataWidget(
+                  onRetryClicked: onRetryClicked,
+                );
           case NoInternetError _:
             widget = noInternetConnection?.call(message) ??
-                NoInternetAnimation(onRetryClicked: onNoInternetRetryClicked);
+                NoInternetWidget(
+                    error: message, onRetryClicked: onNoInternetRetryClicked);
           case DefaultDataError _:
-            widget =
-                noInternetConnection?.call(message) ?? const SizedBox.shrink();
+            widget = onError?.call(message) ??
+                ErrorDataWidget(
+                  error: message,
+                  onRetryClicked: onRetryClicked,
+                );
         }
       },
     );

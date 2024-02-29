@@ -1,81 +1,60 @@
-import 'package:get/get.dart';
-
 import 'app_routes.dart';
+import 'go_router/app_router.dart';
 
 /// This class is responsible for handling the app navigation.
 /// for each navigation from screen to another add it here.
-class AppNavigation {
-  static AppNavigation get instance => Get.find<AppNavigation>();
+abstract class AppNavigation {
+  AppNavigation._();
 
-  final firstTabNavigatorKey = Get.nestedKey(1);
-  final secondTabNavigatorKey = Get.nestedKey(2);
-  final thirdTabNavigatorKey = Get.nestedKey(3);
-
-  Future<bool> popFirstTab() async {
-    return await firstTabNavigatorKey?.currentState?.maybePop() ?? false;
+  static void navigateFormSplashToHome() {
+    AppRouter.offAllNamed(Routes.dashboard);
   }
 
-  Future<bool> popSecondTab() async {
-    return await secondTabNavigatorKey?.currentState?.maybePop() ?? false;
+  static void navigateFormSplashToLogin() {
+    AppRouter.offAllNamed(Routes.login);
   }
 
-  Future<bool> popThirdTab() async {
-    return await thirdTabNavigatorKey?.currentState?.maybePop() ?? false;
+  static void navigateFromLoginToRegister() {
+    AppRouter.toNamed(Routes.register);
   }
 
-
-
-
-  void navigateFormSplashToHome() {
-    Get.offAllNamed(Routes.HOME);
+  static void navigateFromLoginToHome() {
+    AppRouter.offAllNamed(Routes.dashboard);
   }
 
-  void navigateFormSplashToLogin() {
-    Get.offAllNamed(Routes.LOGIN);
+  static void navigateFromRegisterToLogin() {
+    AppRouter.offAllNamed(Routes.login);
   }
 
-  void navigateFromLoginToRegister() {
-    Get.toNamed(Routes.REGISTER);
+  static void navigateFromRegisterToHome() {
+    AppRouter.offAllNamed(Routes.dashboard);
   }
 
-  void navigateFromLoginToHome() {
-    Get.offAllNamed(Routes.HOME);
+  static void navigateToSplash() {
+    AppRouter.offAllNamed(Routes.splash);
   }
 
-  void navigateFromRegisterToLogin() {
-    Get.offAllNamed(Routes.LOGIN);
+  static void navigateFromSplashToOnBoarding() {
+    AppRouter.offAllNamed(Routes.onboarding);
   }
 
-  void navigateFromRegisterToHome() {
-    Get.offAllNamed(Routes.HOME);
+  static void navigateFromOnBoardingToLogin() {
+    AppRouter.offAllNamed(Routes.login);
   }
 
-  void navigateToSplash() {
-    Get.offAllNamed(Routes.SPLASH);
+  static void navigateFromVerifyOtpToHome() {
+    AppRouter.offAllNamed(Routes.dashboard);
   }
 
-  void navigateFromSplashToOnBoarding() {
-    Get.offAllNamed(Routes.ONBOARDING);
+  static void navigateFromLoginToVerifyPhone() {
+    AppRouter.toNamed(Routes.verifyPhone);
   }
 
-  void navigateFromOnBoardingToLogin() {
-    Get.offAllNamed(Routes.LOGIN);
+  static void navigateFromSettingsToLogin() {
+    AppRouter.offAllNamed(Routes.login);
   }
 
-  void navigateFromVerifyOtpToHome() {
-    Get.offAllNamed(Routes.HOME);
+  static void navigateToLogin() {
+    AppRouter.offAllNamed(Routes.login);
   }
-
-  void navigateFromLoginToVerifyPhone() {
-    Get.toNamed(Routes.VERIFY_PHONE);
-  }
-
-  void navigateFromSettingsToLogin () {
-    Get.offAllNamed(Routes.LOGIN);
-  }
-
-  void navigateToLogin  () {
-    Get.offAllNamed(Routes.LOGIN);
-  }
-
 }

@@ -1,3 +1,9 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -27,9 +33,6 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
 
@@ -41,6 +44,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -50,11 +54,18 @@ android {
     }
 
     defaultConfig {
-        applicationId "io.sourcya.boilerplate"
+        applicationId "io.sourcya.app"
         minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+    }
+    // Tell Gradle to exclude the objectbox-android dependency
+    // that is added by objectbox_flutter_libs for debug builds.
+    configurations {
+        debugImplementation {
+            exclude group: 'io.objectbox', module: 'objectbox-android'
+        }
     }
 
 
@@ -90,7 +101,7 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    namespace 'io.sourcya.boilerplate'
+    namespace 'io.sourcya.app'
 }
 
 flutter {
@@ -98,5 +109,12 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.10"
+    // Add objectbox-android-objectbrowser only for debug builds.
+    // Replace <version> with the included objectbox-android version,
+    // e.g. check https://github.com/objectbox/objectbox-dart/releases
+    // Warning: when ObjectBox for Dart updates check if <version>
+    // needs to be updated.
+    debugImplementation("io.objectbox:objectbox-android-objectbrowser:3.8.0")
+
 }

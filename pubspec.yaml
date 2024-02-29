@@ -9,20 +9,26 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
-  google_sign_in: ^6.1.5
-  google_fonts: ^6.1.0
-  playx: ^1.0.1-beta.1
-  local_auth: ^2.1.7
-  playx_version_update: ^0.0.3
+  playx: ^1.0.4
+  playx_version_update: ^0.0.4
   dots_indicator: ^3.0.0
-  pinput: ^3.0.1
-  flutter_keyboard_visibility: ^5.4.1
+  pinput: ^4.0.0
+  flutter_keyboard_visibility: ^6.0.0
+  awesome_drawer_bar: ^1.2.0
+  wolt_modal_sheet: ^0.4.1
+  objectbox: ^2.5.0
+  objectbox_flutter_libs: any
+  path_provider: ^2.1.2
+  path: ^1.8.3
+  go_router: ^13.2.0
 
 
 dev_dependencies:
+  build_runner: ^2.4.8
   flutter_test:
     sdk: flutter
-  lint: ^2.1.2
+  lint: ^2.3.0
+  objectbox_generator: any
 
 
 flutter:
@@ -30,23 +36,43 @@ flutter:
   fonts:
     - family: Poppins
       fonts:
-        - asset: assets/fonts/Poppins-Regular.ttf
-        - asset: assets/fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/poppins/Poppins-Black.ttf
+          weight: 900
+        - asset: assets/fonts/poppins/Poppins-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/poppins/Poppins-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/poppins/Poppins-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/poppins/Poppins-Medium.ttf
           weight: 500
+        - asset: assets/fonts/poppins/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/poppins/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/poppins/Poppins-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/poppins/Poppins-Thin.ttf
+          weight: 100
 
     - family: Cairo
       fonts:
-        - asset: assets/fonts/Cairo-Regular.ttf
-        - asset: assets/fonts/Cairo-Bold.ttf
+        - asset: assets/fonts/cairo/Cairo-Black.ttf
+          weight: 900
+        - asset: assets/fonts/cairo/Cairo-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/cairo/Cairo-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Cairo-SemiBold.ttf
+        - asset: assets/fonts/cairo/Cairo-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Cairo-Medium.ttf
+        - asset: assets/fonts/cairo/Cairo-Medium.ttf
           weight: 500
+        - asset: assets/fonts/cairo/Cairo-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/cairo/Cairo-Light.ttf
+          weight: 300
+        - asset: assets/fonts/cairo/Cairo-ExtraLight.ttf
+          weight: 200
 
   assets:
     - assets/

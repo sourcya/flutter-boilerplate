@@ -1,17 +1,17 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/navigation/go_router/playx_binding.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 import 'package:playx/playx.dart';
 
+import '../../../../../../core/navigation/app_navigation.dart';
 import '../../../../../../core/resources/assets/assets.dart';
 import '../../../../../../core/resources/colors/app_colors.dart';
-import '../../../../../../core/navigation/app_navigation.dart';
 import '../../../../../../core/resources/translation/app_translations.dart';
 import '../../../../../../core/utils/alert.dart';
 import '../../../../../../core/widgets/components/custom_elevated_button.dart';
-import '../../../../../../core/widgets/components/custom_scaffold.dart';
 import '../../../data/models/api_user.dart';
 import '../../../data/repo/auth_repository.dart';
 

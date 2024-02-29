@@ -6,7 +6,7 @@ class LoginView extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PlatformScaffold(
       body: OptimizedScrollView(
         child: SafeArea(
           child: Container(
@@ -23,8 +23,6 @@ class LoginView extends GetView<LoginController> {
                 BuildLoginEmailFieldWidget(),
                 BuildLoginPasswordFieldWidget(),
                 BuildLoginButtonWidget(),
-                if (Constants.shouldUseGoogleSignIn)
-                  BuildLoginGoogleLoginButtonWidget(),
                 BuildLoginRegisterNowWidget(),
                 Spacer()
               ],
@@ -34,6 +32,4 @@ class LoginView extends GetView<LoginController> {
       ),
     );
   }
-
-
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/resources/style/style.dart';
 import 'package:playx/playx.dart';
+
+import '../../resources/style/style.dart';
 
 class FeatureChip extends StatelessWidget {
   final String? label;
@@ -53,19 +54,19 @@ class FeatureChip extends StatelessWidget {
                           ? IconViewer.svg(svgIcon: svgIcon)
                           : imageUrl?.isNotEmpty == true
                               ? Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                      image: DecorationImage(
-                          image: CachedNetworkImageProvider(
-                            imageUrl!,
-                          ),
-                          fit: BoxFit.contain,
-                      ),
-                    ),
-                  )
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                    image: DecorationImage(
+                                      image: CachedNetworkImageProvider(
+                                        imageUrl!,
+                                      ),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                )
                               : const SizedBox.shrink(),
                 ),
                 SizedBox(

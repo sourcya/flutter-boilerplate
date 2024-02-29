@@ -2,19 +2,26 @@
 
 /// app routes names.
 abstract class Routes {
-  static const SPLASH = '/';
-  static const LOGIN = '/login';
-  static const VERIFY_PHONE = '/otp';
+  static const splash = 'splash';
+  static const login = 'login';
+  static const verifyPhone = 'verifyPhone';
+  static const register = 'register';
+  static const onboarding = 'onboarding';
+  static const home = 'home';
+  static const settings = 'settings';
+  static const dashboard = 'dashboard';
+  static const wishlist = 'wishlist';
+}
 
-  static const REGISTER = '/register';
-
-  static const ONBOARDING = '/onboarding';
-
-  static const HOME = '/home';
-  static const SETTINGS = '/settings';
-
-  static const DASHBOARD = '/dashboard';
-  static const WISHLIST = '/wishlist';
-
-
+/// app routes paths.
+abstract class Paths {
+  static const splash = '/';
+  static const login = '/login';
+  static const verifyPhone = '/otp';
+  static const register = '/register';
+  static const onboarding = '/onboarding';
+  static const home = '/app';
+  static const settings = '/settings';
+  static const dashboard = '/dashboard';
+  static const wishlist = '/wishlist';
 }

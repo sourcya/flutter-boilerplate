@@ -39,15 +39,15 @@ class BuildSettingsTile extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 4.h),
-                  child: IconViewer(
-                    icon: icon,
-                    svgIcon: svgIcon ?? '',
-                    iconColor: colorScheme.onBackground,
-                    width: size ?? 24.w,
-                    height: size ?? 24.w,
-                  ),),
+                padding: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 4.h),
+                child: IconViewer(
+                  icon: icon,
+                  svgIcon: svgIcon ?? '',
+                  iconColor: colorScheme.primary,
+                  width: size ?? 24.w,
+                  height: size ?? 24.w,
+                ),
+              ),
               SizedBox(width: 12.w),
               Expanded(
                 child: Column(
@@ -61,13 +61,8 @@ class BuildSettingsTile extends StatelessWidget {
                         top: 4.h,
                         bottom: 2.h,
                       ),
-                      child: Text(
+                      child: CustomText(
                         title,
-                        style: TextStyle(
-                          color: colorScheme.onSurfaceVariant,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
                       ),
                     ),
                     if (subtitle != null)
@@ -78,12 +73,10 @@ class BuildSettingsTile extends StatelessWidget {
                           top: 4.h,
                           bottom: 4.h,
                         ),
-                        child: Text(
+                        child: CustomText(
                           subtitle!,
-                          style: TextStyle(
-                            color: colorScheme.subtitleTextColor,
-                            fontSize: 14.sp,
-                          ),
+                          color: colorScheme.subtitleTextColor,
+                          fontSize: 14.sp,
                         ),
                       ),
                   ],

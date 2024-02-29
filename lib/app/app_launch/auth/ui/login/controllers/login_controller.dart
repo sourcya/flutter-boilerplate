@@ -1,15 +1,9 @@
-
 part of '../imports/login_imports.dart';
-
-
 
 ///Login controller to setup data to the ui.
 class LoginController extends GetxController {
   final authRepository = AuthRepository();
-  final biometricAuthRepo = BiometricAuthRepository();
-  final googleAuthRepo = GoogleAuthRepository();
 
-  final AppNavigation appNavigation = AppNavigation.instance;
   final isLoading = false.obs;
   final hidePassword = true.obs;
 
@@ -21,7 +15,6 @@ class LoginController extends GetxController {
 
   final isFormValid = false.obs;
   Worker? _validationWorker;
-
 
   @override
   void onInit() {
@@ -37,7 +30,7 @@ class LoginController extends GetxController {
   }
 
   void listenToValidationState() {
-    _validationWorker=  everAll([
+    _validationWorker = everAll([
       isEmailValid,
       isPasswordValid,
     ], (callback) {
@@ -50,7 +43,6 @@ class LoginController extends GetxController {
     if (!isFormValid()) return;
     FocusManager.instance.primaryFocus?.unfocus();
     isLoading.value = true;
-    appNavigation.navigateFromLoginToHome();
     final result = await authRepository.login(
       email: emailController.text,
       password: passwordController.text,
@@ -58,7 +50,7 @@ class LoginController extends GetxController {
     result.when(
       success: (ApiUser user) async {
         isLoading.value = false;
-        authenticateWithBiometric();
+        AppNavigation.navigateFromLoginToHome();
       },
       error: (NetworkException exception) {
         isLoading.value = false;
@@ -67,44 +59,8 @@ class LoginController extends GetxController {
     );
   }
 
-  Future<void> authenticateWithBiometric() async {
-    final isBiometricAvailable = await biometricAuthRepo.canAuthenticate();
-    if (Constants.shouldUseBiometricAuth && isBiometricAvailable) {
-      final bioAuthResult = await biometricAuthRepo.authenticate();
-
-      bioAuthResult.when(
-        success: (isAuthenticated) {
-          if (isAuthenticated) {
-            appNavigation.navigateFromLoginToHome();
-          } else {
-            Alert.message(message: "couldn't authenticate");
-          }
-        },
-        error: (error) {
-          Alert.error(message: error.message);
-        },
-      );
-    } else {
-      appNavigation.navigateFromLoginToHome();
-    }
-  }
-
-  Future<void> loginWithGoogle() async {
-    final res = await googleAuthRepo.signIn();
-    res.when(
-      success: (user) {
-        appNavigation.navigateFromLoginToHome();
-        Alert.success(
-            message: 'Logged in successfully using Google with ${user.email}',);
-      },
-      error: (error) {
-        Alert.error(message: error.message,);
-      },
-    );
-  }
-
   void navigateToRegister() {
-    appNavigation.navigateFromLoginToRegister();
+    AppNavigation.navigateFromLoginToRegister();
   }
 
   @override
@@ -113,6 +69,5 @@ class LoginController extends GetxController {
     emailController.dispose();
     passwordController.dispose();
     _validationWorker?.dispose();
-
   }
 }

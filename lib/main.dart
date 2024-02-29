@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:playx/playx.dart';
 
 import 'core/config/app_config.dart';
-import 'core/navigation/app_pages.dart';
+import 'core/navigation/go_router/app_router.dart';
 import 'core/resources/theme/theme.dart';
 import 'core/resources/translation/app_locale_config.dart';
 import 'core/resources/translation/app_translations.dart';
@@ -26,11 +27,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlayxPlatformApp(
+    return PlayxMaterialApp(
       title: AppTrans.appName.tr,
-      navigationSettings: PlayxNavigationSettings(
-        initialRoute: AppPages.initial,
-        getPages: AppPages.routes,
+      preferredOrientations: const [
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.portraitUp,
+      ],
+      navigationSettings: PlayxNavigationSettings.router(
+        routerDelegate: AppRouter.router.routerDelegate,
+        routeInformationProvider: AppRouter.router.routeInformationProvider,
+        routeInformationParser: AppRouter.router.routeInformationParser,
+        backButtonDispatcher: AppRouter.router.backButtonDispatcher,
       ),
       screenSettings: const PlayxScreenSettings(
         fontSizeResolver: FontSizeResolvers.radius,
