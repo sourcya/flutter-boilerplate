@@ -54,7 +54,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "io.sourcya.boilerplate"
+        applicationId "io.sourcya.app"
         minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
@@ -101,7 +101,7 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    namespace 'io.sourcya.boilerplate'
+    namespace 'io.sourcya.app'
 }
 
 flutter {
