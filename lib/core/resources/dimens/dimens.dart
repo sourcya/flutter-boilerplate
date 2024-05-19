@@ -7,7 +7,6 @@ import 'small_mobile_dimens.dart';
 import 'tablet_dimens.dart';
 
 abstract class Dimens {
-
   double get dashboardLogoSize;
 
   double get drawerItemHorizontalMargin;
@@ -26,10 +25,9 @@ abstract class Dimens {
 
   double get appBarTextSize;
 
-  static const bottomNavBarHeight =56.0;
+  static const bottomNavBarHeight = 56.0;
 
   static double fieldTextSize = 16.sp;
-
 }
 
 Dimens get dimens {
