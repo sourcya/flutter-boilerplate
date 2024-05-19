@@ -1,7 +1,6 @@
 part of '../../imports/verify_phone_view_imports.dart';
 
 class BuildVerifyPhoneText extends StatelessWidget {
-
   const BuildVerifyPhoneText();
 
   @override
@@ -13,14 +12,10 @@ class BuildVerifyPhoneText extends StatelessWidget {
         bottom: 10.h,
       ),
       width: double.infinity,
-      child: Text(
-        AppTrans.verifyPhoneTitle.tr,
-        style: TextStyle(
-          // color: colorScheme.onBackground,
-          fontSize: 30.sp,
-        ),
+      child: CustomText(
+        AppTrans.verifyPhoneTitle,
+        fontSize: 30.sp,
       ),
     );
   }
-
 }

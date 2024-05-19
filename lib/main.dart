@@ -9,12 +9,13 @@ import 'core/resources/translation/app_locale_config.dart';
 import 'core/resources/translation/app_translations.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final appConfig = AppConfig();
 
   Playx.runPlayx(
     appConfig: appConfig,
-    themeConfig: AppThemeConfig(),
-    localeConfig: AppLocaleConfig(),
+    themeConfig: createThemeConfig(),
+    localeConfig: createLocaleConfig(),
     envSettings: const PlayxEnvSettings(
       fileName: 'assets/env/keys.env',
     ),
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlayxMaterialApp(
-      title: AppTrans.appName.tr,
+      title: AppTrans.appName.tr(),
       preferredOrientations: const [
         DeviceOrientation.landscapeRight,
         DeviceOrientation.landscapeLeft,

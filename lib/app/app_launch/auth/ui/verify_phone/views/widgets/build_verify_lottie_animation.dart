@@ -1,7 +1,6 @@
 part of '../../imports/verify_phone_view_imports.dart';
 
 class BuildVerifyLottieAnimation extends StatelessWidget {
-
   const BuildVerifyLottieAnimation();
 
   @override
@@ -12,5 +11,4 @@ class BuildVerifyLottieAnimation extends StatelessWidget {
       height: context.height * .38,
     );
   }
-
 }

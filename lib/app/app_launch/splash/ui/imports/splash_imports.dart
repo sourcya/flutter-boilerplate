@@ -3,7 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/navigation/go_router/playx_binding.dart';
-import 'package:go_router/src/state.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_text.dart';
+import 'package:go_router/go_router.dart';
 import 'package:playx/playx.dart';
 import 'package:playx_version_update/playx_version_update.dart';
 

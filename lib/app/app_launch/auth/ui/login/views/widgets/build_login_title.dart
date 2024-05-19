@@ -13,7 +13,7 @@ class BuildLoginTitleWidget extends StatelessWidget {
       ),
       width: double.infinity,
       child: CustomText(
-        AppTrans.loginText.tr,
+        AppTrans.loginText.tr(context: context),
         fontSize: 40.sp,
       ),
     );

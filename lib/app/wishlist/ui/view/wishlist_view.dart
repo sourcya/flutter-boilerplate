@@ -24,7 +24,9 @@ class WishlistView extends GetView<WishlistController> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 12.0.w, vertical: 12.h),
+                      horizontal: 12.0.w,
+                      vertical: 12.h,
+                    ),
                     child: CustomText(
                       item.name ?? "Lorem ipsum",
                       style: CustomTextStyle.titleMedium,

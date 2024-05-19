@@ -24,10 +24,10 @@ class PlayxRoute extends GoRoute {
           },
           onExit: binding == null
               ? null
-              : (context) async {
+              : (context, state) async {
                   binding.onExit(context);
                   if (onExit != null) {
-                    return onExit(context);
+                    return onExit(context, state);
                   }
                   return true;
                 },

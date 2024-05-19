@@ -55,9 +55,9 @@ class ErrorDataWidget extends OrientationWidget {
                         height: AppUtils.isMobile() ? 8.r : 15.r,
                       ),
                       CustomElevatedButton(
-                        color: colorScheme.primary,
+                        color: context.colors.primary,
                         onPressed: onRetryClicked,
-                        label: AppTrans.retryText.tr,
+                        label: AppTrans.retryText.tr(context: context),
                       ),
                     ],
                     SizedBox(
@@ -102,9 +102,9 @@ class ErrorDataWidget extends OrientationWidget {
                   height: AppUtils.isMobile() ? 8.r : 15.r,
                 ),
                 CustomElevatedButton(
-                  color: colorScheme.primary,
+                  color: context.colors.primary,
                   onPressed: onRetryClicked,
-                  label: AppTrans.retryText.tr,
+                  label: AppTrans.retryText.tr(context: context),
                 ),
               ],
               SizedBox(

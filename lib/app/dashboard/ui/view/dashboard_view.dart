@@ -25,7 +25,9 @@ class DashboardView extends GetView<DashboardController> {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 12.0.w, vertical: 12.h),
+                        horizontal: 12.0.w,
+                        vertical: 12.h,
+                      ),
                       child: CustomText(
                         item.name,
                         style: CustomTextStyle.titleMedium,
@@ -33,11 +35,14 @@ class DashboardView extends GetView<DashboardController> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                          right: 12.0.w, left: 12.w, bottom: 8.h),
+                        right: 12.0.w,
+                        left: 12.w,
+                        bottom: 8.h,
+                      ),
                       child: CustomText(
                         item.description,
                         maxLines: 3,
-                        color: colorScheme.onBackground,
+                        color: context.colors.onBackground,
                       ),
                     ),
                   ],
@@ -49,7 +54,9 @@ class DashboardView extends GetView<DashboardController> {
                     child: FloatingActionButton(
                       mini: true,
                       onPressed: null,
-                      backgroundColor: colorScheme.background.withOpacity(.85),
+                      heroTag: null,
+                      backgroundColor:
+                          context.colors.background.withOpacity(.85),
                       child: FavoriteButton(
                         isInFavorite: item.isFavorite,
                         onFavoriteChanged: (isFavorite) {

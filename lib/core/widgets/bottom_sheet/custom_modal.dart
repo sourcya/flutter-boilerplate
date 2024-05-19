@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 import '../../resources/colors/app_colors.dart';
 import '../../resources/translation/app_translations.dart';
@@ -19,9 +18,9 @@ enum StickyActionBarStatus {
   loading;
 
   String get label => switch (this) {
-        retry => AppTrans.retryText.tr,
-        confirm => AppTrans.confirm.tr,
-        _ => AppTrans.next.tr,
+        retry => AppTrans.retryText,
+        confirm => AppTrans.confirm,
+        _ => AppTrans.next,
       };
 }
 
@@ -66,12 +65,13 @@ class CustomModal {
     VoidCallback? onNextPressed,
     RxBool? showPreviousButton,
     Rx<StickyActionBarStatus>? actionBarStatus,
+    required BuildContext context,
   }) {
     final showTopBar = showModalTopBar?.value ?? true;
     return isSliver
         ? SliverWoltModalSheetPage(
             hasSabGradient: hasSabGradient,
-            sabGradientColor: colorScheme.background.withOpacity(.95),
+            sabGradientColor: context.colors.background.withOpacity(.95),
             stickyActionBar: actionBarStatus != null
                 ? _buildNextButton(
                     status: actionBarStatus,
@@ -111,7 +111,7 @@ class CustomModal {
           )
         : WoltModalSheetPage(
             hasSabGradient: hasSabGradient,
-            sabGradientColor: colorScheme.background.withOpacity(.95),
+            sabGradientColor: context.colors.background.withOpacity(.95),
             hasTopBarLayer: showTopBar,
             isTopBarLayerAlwaysVisible: showTopBar,
             stickyActionBar: actionBarStatus != null

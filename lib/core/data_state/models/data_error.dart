@@ -1,6 +1,5 @@
+import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
 import 'package:playx/playx.dart';
-
-import '../../resources/translation/app_translations.dart';
 
 /// This is base class for handling different types of error.
 /// Based on each app use case you can customize and change these errors.
@@ -31,7 +30,7 @@ class NoInternetError extends DataError {
   const NoInternetError({this.error});
 
   @override
-  String get message => error ?? AppTrans.noInternetMessage.tr;
+  String get message => error ?? AppTrans.noInternetMessage;
 }
 
 class EmptyDataError extends DataError {
@@ -40,7 +39,7 @@ class EmptyDataError extends DataError {
   const EmptyDataError({this.error});
 
   @override
-  String get message => error ?? AppTrans.noDataMessage.tr;
+  String get message => error ?? AppTrans.noDataMessage;
 }
 
 class DefaultDataError extends DataError {
@@ -49,5 +48,5 @@ class DefaultDataError extends DataError {
   const DefaultDataError({this.error});
 
   @override
-  String get message => error ?? AppTrans.defaultError.tr;
+  String get message => error ?? AppTrans.defaultError;
 }
