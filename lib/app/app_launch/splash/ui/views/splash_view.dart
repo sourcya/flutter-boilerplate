@@ -11,9 +11,13 @@ class SplashView extends GetView<SplashController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(flex: 5,),
+            Spacer(
+              flex: 5,
+            ),
             BuildSplashAppTitleWidget(),
-            Spacer(flex: 4,),
+            Spacer(
+              flex: 4,
+            ),
             BuildSplashAppVersionWidget(),
           ],
         ),
