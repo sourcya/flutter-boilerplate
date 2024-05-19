@@ -31,7 +31,7 @@ class OnBoardingController extends GetxController {
       AppNavigation.navigateFromOnBoardingToLogin();
     } else {
       pageController.animateToPage(currentIndex.value + 1,
-          duration: const Duration(milliseconds: 350), curve: Curves.easeInOut);
+          duration: const Duration(milliseconds: 350), curve: Curves.easeInOut,);
     }
   }
 

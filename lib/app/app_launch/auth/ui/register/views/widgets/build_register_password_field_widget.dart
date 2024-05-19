@@ -33,7 +33,7 @@ class BuildRegisterPasswordFieldWidget extends GetView<RegisterController> {
             MinLength(
               6,
               AppTrans.passwordMinLengthError.tr(context: context),
-            )
+            ),
           ]),
           prefix: Icon(
             Icons.lock,

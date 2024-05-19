@@ -16,6 +16,6 @@ class BuildLoginButton extends GetView<OtpLoginController> {
                 controller.isPhoneNumberValid.value ? controller.login : null,
             isLoading: controller.isLoading.value,
           );
-        }));
+        }),);
   }
 }

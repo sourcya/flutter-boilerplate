@@ -17,8 +17,10 @@ class SettingsController extends GetxController {
     AppRouter.pop();
   }
 
-  Future<void> handleThemeSelection(XTheme theme,
-      {BuildContext? context}) async {
+  Future<void> handleThemeSelection(
+    XTheme theme, {
+    BuildContext? context,
+  }) async {
     AppRouter.pop();
     await Future.delayed(200.milliseconds);
     await PlayxTheme.updateTo(

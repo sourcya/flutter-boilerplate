@@ -40,7 +40,6 @@ class BuildVerifyCodeNotReceivedWidget extends GetView<VerifyPhoneController> {
           fontSize: 15.sp,
           // color: context.colors.primary,
           decoration: TextDecoration.underline,
-          textAlign: TextAlign.start,
         ),
       ),
     );

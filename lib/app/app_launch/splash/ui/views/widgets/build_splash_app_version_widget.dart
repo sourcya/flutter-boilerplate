@@ -11,7 +11,7 @@ class BuildSplashAppVersionWidget extends StatelessWidget {
         horizontal: 10,
       ),
       alignment: Alignment.center,
-      child: AppVersion(
+      child: const AppVersion(
         textStyle: TextStyle(
           fontSize: 13,
           // color: context.colors.secondary,

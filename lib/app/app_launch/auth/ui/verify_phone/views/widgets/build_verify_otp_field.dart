@@ -59,6 +59,6 @@ class BuildVerifyOtpField extends GetView<VerifyPhoneController> {
           ),
         ),
       );
-    }));
+    }),);
   }
 }

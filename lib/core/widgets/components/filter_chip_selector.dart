@@ -68,10 +68,11 @@ class _FilterChipSelectorState<T> extends State<FilterChipSelector<T>> {
         label: Text(
           label,
           style: TextStyle(
-              color: isSelected
-                  ? context.colors.onPrimary
-                  : context.colors.onChipBackgroundColor,
-              fontSize: 14.sp),
+            color: isSelected
+                ? context.colors.onPrimary
+                : context.colors.onChipBackgroundColor,
+            fontSize: 14.sp,
+          ),
         ),
         shape: Style.featureChipRoundedRectangleBorder,
         backgroundColor: isSelected
