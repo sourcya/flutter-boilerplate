@@ -7,13 +7,13 @@ class BuildSettingsLanguageWidget extends GetView<SettingsController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return BuildSettingsTile(
-          title: AppTrans.language.tr,
+          title: AppTrans.language,
           subtitle: controller.currentLocale.value?.name ?? '',
           icon: Icons.language,
           onTap: () {
             controller.showSettingsModalSheet(
               context,
-              BuildSettingsLanguageWidget.buildModalPage(controller),
+              BuildSettingsLanguageWidget.buildModalPage(controller, context),
             );
           });
     });
@@ -21,14 +21,15 @@ class BuildSettingsLanguageWidget extends GetView<SettingsController> {
 
   static SliverWoltModalSheetPage buildModalPage(
     SettingsController controller,
+    BuildContext context,
   ) {
     return BuildSettingsPage.buildModalPage(
-      title: AppTrans.language.tr,
-      items: controller.supportedLocales,
-      onItemSelected: (lang) => controller.handleLanguageSelection(lang),
-      itemName: (lang) => lang.name,
-      isItemSelected: (lang) => controller.currentLocale.value == lang,
-      onCloseButtonPressed: controller.closeSettingsModalSheet,
-    );
+        title: AppTrans.language,
+        items: controller.supportedLocales,
+        onItemSelected: (lang) => controller.handleLanguageSelection(lang),
+        itemName: (lang) => lang.name,
+        isItemSelected: (lang) => controller.currentLocale.value == lang,
+        onCloseButtonPressed: controller.closeSettingsModalSheet,
+        context: context);
   }
 }

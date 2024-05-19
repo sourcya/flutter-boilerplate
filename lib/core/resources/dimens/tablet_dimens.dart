@@ -29,6 +29,4 @@ class TabletDimens extends Dimens {
 
   @override
   double get appBarTextSize => 12.sp;
-
-
 }

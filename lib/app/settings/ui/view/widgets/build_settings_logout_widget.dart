@@ -6,7 +6,7 @@ class BuildSettingsLogOutWidget extends GetView<SettingsController> {
   @override
   Widget build(BuildContext context) {
     return BuildSettingsTile(
-      title: AppTrans.logout.tr,
+      title: AppTrans.logout,
       icon: Icons.logout,
       padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 16.0.h),
       onTap: controller.handleLogOutTap,

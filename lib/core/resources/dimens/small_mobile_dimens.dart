@@ -29,6 +29,4 @@ class SmallMobileDimens extends Dimens {
 
   @override
   double get appBarTextSize => 16.sp;
-
-
 }

@@ -1,2 +1,1 @@
-class Settings {
-}
+class Settings {}

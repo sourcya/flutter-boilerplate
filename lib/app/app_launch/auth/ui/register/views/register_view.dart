@@ -1,6 +1,5 @@
 part of '../imports/register_imports.dart';
 
-
 class RegisterView extends GetView<RegisterController> {
   const RegisterView({super.key});
 
@@ -10,7 +9,7 @@ class RegisterView extends GetView<RegisterController> {
       body: OptimizedScrollView(
         child: SafeArea(
           child: Container(
-            padding:  EdgeInsets.symmetric(
+            padding: EdgeInsets.symmetric(
               vertical: 10.h,
               horizontal: 10.w,
             ),

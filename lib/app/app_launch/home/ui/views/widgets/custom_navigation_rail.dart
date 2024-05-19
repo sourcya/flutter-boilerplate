@@ -21,15 +21,15 @@ class CustomNavigationRail extends StatelessWidget {
       destinations: [
         NavigationRailDestination(
           icon: const Icon(Icons.home),
-          label: Text(AppTrans.dashboard.tr),
+          label: Text(AppTrans.dashboard.tr(context: context)),
         ),
         NavigationRailDestination(
           icon: const Icon(Icons.favorite_border),
-          label: Text(AppTrans.wishlist.tr),
+          label: Text(AppTrans.wishlist.tr(context: context)),
         ),
         NavigationRailDestination(
           icon: const Icon(Icons.settings),
-          label: Text(AppTrans.settings.tr),
+          label: Text(AppTrans.settings.tr(context: context)),
         ),
       ],
     );

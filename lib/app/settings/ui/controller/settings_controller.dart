@@ -2,7 +2,7 @@ part of '../imports/settings_imports.dart';
 
 class SettingsController extends GetxController {
   Rxn<XLocale> currentLocale = Rxn(PlayxLocalization.currentXLocale);
-  Rx<XTheme> currentTheme = Rx(PlayxTheme.xTheme);
+  Rx<XTheme> currentTheme = Rx(PlayxTheme.currentTheme);
 
   List<XLocale> get supportedLocales => PlayxLocalization.supportedXLocales;
 
@@ -17,10 +17,16 @@ class SettingsController extends GetxController {
     AppRouter.pop();
   }
 
-  void handleThemeSelection(XTheme theme) {
-    PlayxTheme.updateTo(theme);
-    currentTheme.value = theme;
+  Future<void> handleThemeSelection(
+    XTheme theme, {
+    BuildContext? context,
+  }) async {
     AppRouter.pop();
+    await Future.delayed(200.milliseconds);
+    await PlayxTheme.updateTo(
+      theme,
+    );
+    currentTheme.value = theme;
   }
 
   Future<void> handleLogOutTap() async {

@@ -49,7 +49,6 @@ class RemoteAuthDataSource {
     return res;
   }
 
-
   Future<NetworkResult<ApiUser>> otpLogin({
     required String phoneNumber,
   }) async {
@@ -73,7 +72,5 @@ class RemoteAuthDataSource {
       },
       fromJson: ApiUser.fromJson,
     );
-
   }
-
 }

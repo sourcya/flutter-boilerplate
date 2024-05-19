@@ -26,11 +26,11 @@ class NetworkBoundResource<ResultType, RequestType> {
 
             yield* loadFromDb().asyncMap((data) => DataState.success(data));
           } catch (e) {
-            yield DataState.defaultError();
+            yield DataState.fromDefaultError();
           }
         },
         error: (error) async* {
-          yield DataState.networkError(error);
+          yield DataState.fromNetworkError(error);
         },
       );
     } else {
@@ -66,18 +66,18 @@ class NetworkBoundResource<ResultType, RequestType> {
             await saveCallResult(data);
             return DataState.success(await loadFromDb());
           } catch (e) {
-            return DataState.defaultError();
+            return DataState.fromDefaultError();
           }
         },
         error: (error) async {
-          return DataState.networkError(error.error);
+          return DataState.fromNetworkError(error.error);
         },
       );
     } else {
       if (initialDataResult != null) {
         return DataState.success(initialDataResult);
       } else {
-        return DataState.defaultError();
+        return DataState.fromDefaultError();
       }
     }
   }

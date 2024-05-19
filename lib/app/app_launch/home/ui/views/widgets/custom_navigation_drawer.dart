@@ -33,22 +33,22 @@ class CustomNavigationDrawer extends StatelessWidget {
           ),
           NavigationDrawerDestination(
             icon: const Icon(Icons.home),
-            label: CustomText(AppTrans.dashboard.tr),
+            label: CustomText(AppTrans.dashboard.tr(context: context)),
           ),
           NavigationDrawerDestination(
             icon: const Icon(Icons.favorite_border),
-            label: CustomText(AppTrans.wishlist.tr),
+            label: CustomText(AppTrans.wishlist.tr(context: context)),
           ),
           NavigationDrawerDestination(
             icon: const Icon(Icons.settings),
-            label: CustomText(AppTrans.settings.tr),
+            label: CustomText(AppTrans.settings.tr(context: context)),
           ),
           Divider(
-            color: colorScheme.onSurface.withOpacity(.3),
+            color: context.colors.onSurface.withOpacity(.3),
           ),
           NavigationDrawerDestination(
             icon: const Icon(Icons.logout),
-            label: CustomText(AppTrans.logout.tr),
+            label: CustomText(AppTrans.logout.tr(context: context)),
           ),
         ],
       ),

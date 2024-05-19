@@ -16,7 +16,8 @@ class ConnectionStatusWidget extends StatefulWidget {
     required this.child,
     this.enableCheckingInternet = true,
     this.onRetryClicked,
-    this.retryOnConnectionRestored = true, this.focusNode,
+    this.retryOnConnectionRestored = true,
+    this.focusNode,
   });
 
   @override
@@ -63,7 +64,8 @@ class _ConnectionStatusWidgetState extends State<ConnectionStatusWidget> {
 
   void showConnectionRestoredBanner() {
     Alert.showBanner(
-      message: AppTrans.internetConnectionRestoredBannerMsg.tr,
+      message:
+          AppTrans.internetConnectionRestoredBannerMsg.tr(context: context),
       color: Colors.green,
       actions: [
         TextButton(
@@ -73,8 +75,11 @@ class _ConnectionStatusWidgetState extends State<ConnectionStatusWidget> {
           focusNode: widget.focusNode,
           child: Padding(
             padding: EdgeInsets.all(4.0.r),
-            child: CustomText(AppTrans.noInternetConnectionDismissBannerMsg.tr,
-                color: Colors.white, fontSize: 12.sp,),
+            child: CustomText(
+              AppTrans.noInternetConnectionDismissBannerMsg,
+              color: Colors.white,
+              fontSize: 12.sp,
+            ),
           ),
         ),
       ],
@@ -85,7 +90,7 @@ class _ConnectionStatusWidgetState extends State<ConnectionStatusWidget> {
     final showRetryButton = widget.onRetryClicked != null;
 
     Alert.showBanner(
-      message: AppTrans.noInternetConnectionBannerMsg.tr,
+      message: AppTrans.noInternetConnectionBannerMsg.tr(context: context),
       color: Colors.red,
       textAlign: showRetryButton ? TextAlign.start : TextAlign.center,
       actions: [
@@ -97,8 +102,11 @@ class _ConnectionStatusWidgetState extends State<ConnectionStatusWidget> {
             focusNode: widget.focusNode,
             child: Padding(
               padding: EdgeInsets.all(4.0.r),
-              child: CustomText(AppTrans.refresh.tr,
-                  color: Colors.white, fontSize: 12.sp),
+              child: CustomText(
+                AppTrans.refresh,
+                color: Colors.white,
+                fontSize: 12.sp,
+              ),
             ),
           ),
         ] else ...[

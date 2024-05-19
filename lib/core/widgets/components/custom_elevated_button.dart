@@ -12,6 +12,7 @@ class CustomElevatedButton extends StatelessWidget {
   final bool isLoading;
   final String? label;
   final String? labelFont;
+  final bool isLabelTranslatable;
 
   final double? fontSize;
   final Color? color;
@@ -26,6 +27,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.margin,
     this.onPressed,
     this.isLoading = false,
+    this.isLabelTranslatable = true,
     this.padding,
     this.fontSize,
     this.label,
@@ -62,8 +64,8 @@ class CustomElevatedButton extends StatelessWidget {
             ),
         material: (ctx, _) => MaterialElevatedButtonData(
           style: ElevatedButton.styleFrom(
-            disabledBackgroundColor:
-                disabledBackground ?? colorScheme.disabledButtonBackgroundColor,
+            disabledBackgroundColor: disabledBackground ??
+                context.colors.disabledButtonBackgroundColor,
             padding: padding ??
                 EdgeInsets.symmetric(
                   horizontal: 8.w,
@@ -72,13 +74,13 @@ class CustomElevatedButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: borderRadius ?? Style.buttonBorderRadius,
             ),
-            backgroundColor: color ?? colorScheme.primary,
+            backgroundColor: color ?? context.colors.primary,
           ),
         ),
-        color: color ?? colorScheme.primary,
+        color: color ?? context.colors.primary,
         cupertino: (ctx, _) => CupertinoElevatedButtonData(
-          disabledColor:
-              disabledBackground ?? colorScheme.disabledButtonBackgroundColor,
+          disabledColor: disabledBackground ??
+              context.colors.disabledButtonBackgroundColor,
           padding: padding ??
               EdgeInsets.symmetric(
                 horizontal: 8.w,
@@ -90,6 +92,7 @@ class CustomElevatedButton extends StatelessWidget {
           context,
           isEnabled: onPressed != null,
           labelFont: labelFont,
+          isLabelTranslatable: isLabelTranslatable,
         ),
       ),
     );
@@ -99,6 +102,7 @@ class CustomElevatedButton extends StatelessWidget {
     BuildContext context, {
     required bool isEnabled,
     String? labelFont,
+    bool isLabelTranslatable = true,
   }) {
     if (child != null) return child!;
 
@@ -111,11 +115,12 @@ class CustomElevatedButton extends StatelessWidget {
           child: CustomText(
             label ?? '',
             color: isEnabled
-                ? colorScheme.onPrimary
-                : colorScheme.subtitleTextColor,
+                ? context.colors.onPrimary
+                : context.colors.subtitleTextColor,
             fontSize: fontSize,
             fontWeight: FontWeight.w400,
             font: labelFont,
+            isTranslatable: isLabelTranslatable,
           ),
         ),
         AnimatedOpacity(
@@ -126,8 +131,8 @@ class CustomElevatedButton extends StatelessWidget {
             width: 20.r,
             child: CenterLoading.adaptive(
               color: isEnabled
-                  ? colorScheme.onPrimary
-                  : colorScheme.subtitleTextColor,
+                  ? context.colors.onPrimary
+                  : context.colors.subtitleTextColor,
               radius: 10.r,
               strokeWidth: 3.r,
             ),

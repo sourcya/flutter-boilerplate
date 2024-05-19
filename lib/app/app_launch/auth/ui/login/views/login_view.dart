@@ -24,7 +24,7 @@ class LoginView extends GetView<LoginController> {
                 BuildLoginPasswordFieldWidget(),
                 BuildLoginButtonWidget(),
                 BuildLoginRegisterNowWidget(),
-                Spacer()
+                Spacer(),
               ],
             ),
           ),

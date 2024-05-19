@@ -6,9 +6,7 @@ import 'package:playx/playx.dart';
 abstract class Constants {
   Constants._();
 
-
   static const String? googleSignInServerId = null;
-
 
   //APP UPDATES
   static const String? appleId = null;
@@ -25,10 +23,9 @@ abstract class Constants {
           : '';
 
   static const String storeCountry = 'sa';
-  static String storeLanguage = PlayxLocalization.currentLocale.languageCode ;
+  static String storeLanguage = PlayxLocalization.currentLocale.languageCode;
 
   static const bool shouldUseGoogleSignIn = true;
 
   static const bool shouldUseBiometricAuth = true;
-
 }

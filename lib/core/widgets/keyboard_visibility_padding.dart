@@ -8,10 +8,12 @@ class KeyboardVisibilityPadding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return KeyboardVisibilityBuilder(builder: (context, isVisible) {
-      return isVisible
-          ? const SizedBox.shrink()
-          : const SizedBox(height: Dimens.bottomNavBarHeight);
-    });
+    return KeyboardVisibilityBuilder(
+      builder: (context, isVisible) {
+        return isVisible
+            ? const SizedBox.shrink()
+            : const SizedBox(height: Dimens.bottomNavBarHeight);
+      },
+    );
   }
 }

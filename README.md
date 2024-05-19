@@ -622,7 +622,7 @@ abstract class LightTheme {
           backgroundColor: AppColors.appBarLight,
         ),
         primaryColor: AppColors.primaryLight,
-        colorScheme: const ColorScheme.light(
+        colorScheme: const context.colors.light(
           primary: AppColors.primaryLight,
           secondary: AppColors.secondaryLight,
           background: AppColors.backgroundLight,
@@ -651,13 +651,13 @@ We can create custom color scheme for each theme. Each theme can have its own co
 ```dart
 class LightColorScheme extends XColorScheme{
   @override
-  Color get background => XColorScheme.white;
+  Color get background => Xcontext.colors.white;
 
   @override
-  Color get error => XColorScheme.red;
+  Color get error => Xcontext.colors.red;
 
   @override
-  Color get onBackground => XColorScheme.black;
+  Color get onBackground => Xcontext.colors.black;
 }
 
 ```
@@ -682,16 +682,16 @@ For example:
 ```dart
 class LightColorScheme extends BaseColorScheme {
   @override
-  Color get containerBackgroundColor => XColorScheme.white;
+  Color get containerBackgroundColor => Xcontext.colors.white;
 
   @override
-  Color get background => XColorScheme.white;
+  Color get background => Xcontext.colors.white;
 
   @override
-  Color get error => XColorScheme.red;
+  Color get error => Xcontext.colors.red;
 
   @override
-  Color get onBackground => XColorScheme.black;
+  Color get onBackground => Xcontext.colors.black;
 }
 
 ```
@@ -702,7 +702,7 @@ Then, We can access each theme color scheme like this:
 
 ```dart
  final colorScheme = AppTheme.colorScheme as BaseColorScheme;
-final primary = colorScheme.primary;
+final primary = context.colors.primary;
 
 ```
 
@@ -711,7 +711,7 @@ and use it in widget like this :
 ```dart
 @override
 Widget build(BuildContext context) {
-  return ColoredBox(color: colorScheme.primary);
+  return ColoredBox(color: context.colors.primary);
 }
 
 ```

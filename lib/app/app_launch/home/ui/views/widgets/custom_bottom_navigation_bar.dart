@@ -15,15 +15,15 @@ class CustomNavigationBar extends StatelessWidget {
       destinations: [
         NavigationDestination(
           icon: const Icon(Icons.home),
-          label: AppTrans.dashboard.tr,
+          label: AppTrans.dashboard.tr(context: context),
         ),
         NavigationDestination(
           icon: const Icon(Icons.favorite_border),
-          label: AppTrans.wishlist.tr,
+          label: AppTrans.wishlist.tr(context: context),
         ),
         NavigationDestination(
           icon: const Icon(Icons.settings),
-          label: AppTrans.settings.tr,
+          label: AppTrans.settings.tr(context: context),
         ),
       ],
     );

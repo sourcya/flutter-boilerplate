@@ -31,6 +31,7 @@ class BuildSettingsPage<T> extends StatefulWidget {
     required bool Function(T item) isItemSelected,
     VoidCallback? onBackButtonPressed,
     VoidCallback? onCloseButtonPressed,
+    required BuildContext context,
   }) {
     return CustomModal.buildCustomModalPage(
       title: title,
@@ -42,6 +43,7 @@ class BuildSettingsPage<T> extends StatefulWidget {
         itemIconWidget: itemIconWidget,
         isItemSelected: isItemSelected,
       ),
+      context: context,
       onClosePressed: onCloseButtonPressed,
       onPreviousPressed: onBackButtonPressed,
       showPreviousButton: RxBool(false),
@@ -66,7 +68,10 @@ class _BuildSettingsPageState<T> extends State<BuildSettingsPage<T>> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.r),
                         side: widget.isItemSelected(item)
-                            ? BorderSide(color: colorScheme.primary, width: 2)
+                            ? BorderSide(
+                                color: context.colors.primary,
+                                width: 2,
+                              )
                             : BorderSide.none,
                       ),
                       elevation: AppUtils.isDarkMode() ? 12 : 0,
@@ -78,7 +83,7 @@ class _BuildSettingsPageState<T> extends State<BuildSettingsPage<T>> {
                         trailing: widget.isItemSelected(item)
                             ? Icon(
                                 Icons.check,
-                                color: colorScheme.primary,
+                                color: context.colors.primary,
                                 size: 20.r,
                               )
                             : null,
@@ -110,7 +115,7 @@ class _BuildSettingsPageState<T> extends State<BuildSettingsPage<T>> {
                           ),
                           child: CustomText(
                             widget.itemName(item),
-                            color: colorScheme.primary,
+                            color: context.colors.primary,
                             fontSize: 15.sp,
                             font: fontFamilyBasedOnText(widget.itemName(item)),
                           ),

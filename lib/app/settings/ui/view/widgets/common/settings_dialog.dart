@@ -9,15 +9,16 @@ class BuildSettingsDialog<T> extends StatelessWidget {
   final Widget? Function(T item)? itemIconWidget;
   final bool Function(T item) isItemSelected;
 
-  const BuildSettingsDialog(
-      {super.key,
-      required this.title,
-      required this.items,
-      required this.onItemSelected,
-      required this.itemName,
-      this.itemIcon,
-      this.itemIconWidget,
-      required this.isItemSelected,});
+  const BuildSettingsDialog({
+    super.key,
+    required this.title,
+    required this.items,
+    required this.onItemSelected,
+    required this.itemName,
+    this.itemIcon,
+    this.itemIconWidget,
+    required this.isItemSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class BuildSettingsDialog<T> extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w500,
-                color: colorScheme.onSurface,
+                color: context.colors.onSurface,
               ),
             ),
           ),
@@ -47,7 +48,7 @@ class BuildSettingsDialog<T> extends StatelessWidget {
                       horizontal: 2.w,
                       vertical: 2.h,
                     ),
-                    color: colorScheme.surfaceVariant,
+                    color: context.colors.surfaceVariant,
                     child: Obx(() {
                       return ListTile(
                         contentPadding: EdgeInsets.symmetric(
@@ -57,7 +58,7 @@ class BuildSettingsDialog<T> extends StatelessWidget {
                         trailing: isItemSelected(item)
                             ? Icon(
                                 Icons.check,
-                                // color: colorScheme.primary,
+                                // color: context.colors.primary,
                                 size: 20.r,
                               )
                             : null,
@@ -91,7 +92,7 @@ class BuildSettingsDialog<T> extends StatelessWidget {
                           child: Text(
                             itemName(item),
                             style: TextStyle(
-                              // color: colorScheme.onBackground,
+                              // color: context.colors.onBackground,
                               fontSize: 14.sp,
                             ),
                           ),

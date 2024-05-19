@@ -28,7 +28,7 @@ abstract class ApiClient {
                 'authorization': 'Bearer $token',
               },
       exceptionMessages: const CustomExceptionMessage(),
-      onUnauthorizedRequestReceived: () => _signOut(),
+      onUnauthorizedRequestReceived: (res) => _signOut(),
     );
   }
 

@@ -3,7 +3,6 @@ import 'package:flutter_boilerplate/core/navigation/go_router/app_router.dart';
 import 'package:flutter_boilerplate/core/navigation/go_router/playx_binding.dart';
 import 'package:go_router/go_router.dart';
 import 'package:playx/playx.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 import '../../../../core/navigation/app_navigation.dart';
 import '../../../../core/preferences/preference_manger.dart';

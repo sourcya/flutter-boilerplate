@@ -7,13 +7,13 @@ class BuildSettingsThemeWidget extends GetView<SettingsController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return BuildSettingsTile(
-        title: AppTrans.theme.tr,
-        subtitle: controller.currentTheme.value.name.tr,
+        title: AppTrans.theme,
+        subtitle: controller.currentTheme.value.name,
         icon: Icons.dark_mode_rounded,
         onTap: () {
           controller.showSettingsModalSheet(
             context,
-            BuildSettingsThemeWidget.buildModalPage(controller),
+            BuildSettingsThemeWidget.buildModalPage(controller, context),
           );
         },
       );
@@ -22,14 +22,17 @@ class BuildSettingsThemeWidget extends GetView<SettingsController> {
 
   static SliverWoltModalSheetPage buildModalPage(
     SettingsController controller,
+    BuildContext context,
   ) {
     return BuildSettingsPage.buildModalPage(
-      title: AppTrans.theme.tr,
+      title: AppTrans.theme,
       items: PlayxTheme.supportedThemes,
-      onItemSelected: (theme) => controller.handleThemeSelection(theme),
-      itemName: (theme) => theme.name.tr,
+      onItemSelected: (theme) =>
+          controller.handleThemeSelection(theme, context: context),
+      itemName: (theme) => theme.name.tr(context: context),
       isItemSelected: (theme) => controller.currentTheme.value.id == theme.id,
       onCloseButtonPressed: controller.closeSettingsModalSheet,
+      context: context,
     );
   }
 }

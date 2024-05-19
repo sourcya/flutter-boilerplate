@@ -4,6 +4,9 @@ import 'package:playx/playx.dart';
 import '../../resources/colors/app_colors.dart';
 import '../../resources/translation/app_locale_config.dart';
 
+/// A custom text widget that allows for easy customization of text styles.
+/// It also supports the use of icons in the text.
+/// The text is translated by default.
 class CustomText extends StatelessWidget {
   final String text;
   final Color? color;
@@ -18,7 +21,8 @@ class CustomText extends StatelessWidget {
   final String? font;
   final IconData? icon;
   final Color? iconColor;
-
+  final bool isTranslatable;
+  final TextDecoration? decoration;
   const CustomText(
     this.text, {
     this.color,
@@ -31,6 +35,8 @@ class CustomText extends StatelessWidget {
     this.style = CustomTextStyle.bodyLarge,
     this.textStyle,
     this.font,
+    this.isTranslatable = true,
+    this.decoration,
   })  : icon = null,
         iconColor = null;
 
@@ -48,22 +54,25 @@ class CustomText extends StatelessWidget {
     this.textStyle,
     this.font,
     this.iconColor,
+    this.isTranslatable = true,
+    this.decoration,
   });
 
   @override
   Widget build(BuildContext context) {
     final textWidgetStyle = textStyle ??
         TextStyle(
-          color: color ?? colorScheme.onBackground,
+          color: color ?? context.colors.onBackground,
           fontSize: fontSize ?? style.fontSize,
           fontWeight: fontWeight ?? style.fontWeight,
           fontStyle: fontStyle,
           overflow: textOverflow,
           fontFamily: font ?? fontFamily,
+          decoration: decoration,
         );
 
     final textWidget = Text(
-      text,
+      isTranslatable ? text.tr(context: context) : text,
       style: textWidgetStyle,
       maxLines: maxLines,
       textAlign: textAlign,
@@ -81,13 +90,13 @@ class CustomText extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 4.0.w),
               child: Icon(
                 icon,
-                color: iconColor ?? color ?? colorScheme.onBackground,
+                color: iconColor ?? color ?? context.colors.onBackground,
                 size: 20.r,
               ),
             ),
           ),
           TextSpan(
-            text: text,
+            text: isTranslatable ? text.tr(context: context) : text,
             style: textWidgetStyle,
           ),
         ],

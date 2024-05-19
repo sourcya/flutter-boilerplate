@@ -16,7 +16,7 @@ class BuildLoginButtonWidget extends GetView<LoginController> {
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            // backgroundColor: colorScheme.secondary,
+            // backgroundColor: context.colors.secondary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
                 12,
@@ -31,12 +31,9 @@ class BuildLoginButtonWidget extends GetView<LoginController> {
             child: controller.isLoading.value
                 ? const CenterLoading()
                 : Center(
-                    child: Text(
-                      AppTrans.loginText.tr,
-                      style: TextStyle(
-                        // color: colorScheme.onSecondary,
-                        fontSize: 20.sp,
-                      ),
+                    child: CustomText(
+                      AppTrans.loginText,
+                      fontSize: 20.sp,
                     ),
                   ),
           ),

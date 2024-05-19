@@ -36,11 +36,6 @@ class DashboardController extends GetxController {
     dataState.value = DataState.success(_items);
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   void onFavoriteChanged(bool isFavorite, DashboardItem item) {
     if (isFavorite) {
       _wishlistRepository.insertWishlistItem(

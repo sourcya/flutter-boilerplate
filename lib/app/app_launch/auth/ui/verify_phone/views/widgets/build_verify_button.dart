@@ -12,7 +12,7 @@ class BuildVerifyButton extends GetView<VerifyPhoneController> {
       ),
       child: Obx(() {
         return CustomElevatedButton(
-          label: AppTrans.verifyPhoneBtnText.tr,
+          label: AppTrans.verifyPhoneBtnText,
           onPressed: controller.isOtpValid.value ? controller.verifyOtp : null,
           isLoading: controller.isLoading.value,
         );
