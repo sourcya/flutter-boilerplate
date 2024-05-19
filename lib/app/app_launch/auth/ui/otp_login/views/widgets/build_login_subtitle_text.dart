@@ -1,7 +1,6 @@
 part of '../../imports/login_view_imports.dart';
 
 class BuildLoginSubtitleText extends StatelessWidget {
-
   const BuildLoginSubtitleText();
 
   @override
@@ -15,11 +14,10 @@ class BuildLoginSubtitleText extends StatelessWidget {
       ),
       width: double.infinity,
       child: CustomText(
-        AppTrans.loginSubtitle.tr,
-        color: colorScheme.subtitleTextColor,
+        AppTrans.loginSubtitle,
+        color: context.colors.subtitleTextColor,
         fontSize: 15.sp,
       ),
     );
   }
-
 }

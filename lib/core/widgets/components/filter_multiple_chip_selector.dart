@@ -4,7 +4,6 @@ import 'package:playx/playx.dart';
 import '../../resources/colors/app_colors.dart';
 import '../../resources/style/style.dart';
 
-
 class FilterMultipleChipSelector<T> extends StatefulWidget {
   final List<T> items;
   final List<T> selectedItems;
@@ -21,7 +20,8 @@ class FilterMultipleChipSelector<T> extends StatefulWidget {
   });
 
   @override
-  State<FilterMultipleChipSelector<T>> createState() => _FilterChipSelectorState<T>();
+  State<FilterMultipleChipSelector<T>> createState() =>
+      _FilterChipSelectorState<T>();
 }
 
 class _FilterChipSelectorState<T> extends State<FilterMultipleChipSelector<T>> {
@@ -37,7 +37,7 @@ class _FilterChipSelectorState<T> extends State<FilterMultipleChipSelector<T>> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding:Style.mediumPadding,
+      padding: Style.mediumPadding,
       child: Wrap(
         spacing: 6,
         children: [
@@ -97,12 +97,15 @@ class _FilterChipSelectorState<T> extends State<FilterMultipleChipSelector<T>> {
           label,
           style: TextStyle(
             fontSize: 14.sp,
-            color: isSelected ? colorScheme.onPrimary : colorScheme.onChipBackgroundColor,
+            color: isSelected
+                ? context.colors.onPrimary
+                : context.colors.onChipBackgroundColor,
           ),
         ),
-        shape:  Style.featureChipRoundedRectangleBorder,
-        backgroundColor:
-            isSelected ? colorScheme.primary : colorScheme.chipBackgroundColor,
+        shape: Style.featureChipRoundedRectangleBorder,
+        backgroundColor: isSelected
+            ? context.colors.primary
+            : context.colors.chipBackgroundColor,
       ),
     );
   }

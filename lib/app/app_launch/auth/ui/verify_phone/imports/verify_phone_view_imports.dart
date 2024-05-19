@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/navigation/go_router/playx_binding.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_text.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pinput/pinput.dart';
 import 'package:playx/playx.dart';

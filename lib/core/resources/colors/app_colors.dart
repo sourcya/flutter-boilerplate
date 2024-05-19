@@ -8,10 +8,10 @@ import 'package:playx/playx.dart';
 /// You can define a function to get the color scheme like this:
 /// ```dart
 ///  BaseColorScheme get colorScheme => AppTheme.colorScheme as BaseColorScheme;
-///  final primary = colorScheme.primary;
+///  final primary = context.colors.primary;
 ///  ```
 ///  Now you can access each theme color.
-abstract class AppColors extends XColors {
+abstract class AppColors extends PlayxColors {
   final ColorScheme colorScheme;
 
   AppColors({
@@ -48,4 +48,6 @@ abstract class AppColors extends XColors {
   static const Color primaryKey = Color(0xFFDD6667);
 }
 
-AppColors get colorScheme => PlayxTheme.colors as AppColors;
+extension AppColorsExtension on BuildContext {
+  AppColors get colors => playxColors as AppColors;
+}

@@ -43,7 +43,7 @@ class BuildSettingsTile extends StatelessWidget {
                 child: IconViewer(
                   icon: icon,
                   svgIcon: svgIcon ?? '',
-                  iconColor: colorScheme.primary,
+                  iconColor: context.colors.primary,
                   width: size ?? 24.w,
                   height: size ?? 24.w,
                 ),
@@ -75,7 +75,7 @@ class BuildSettingsTile extends StatelessWidget {
                         ),
                         child: CustomText(
                           subtitle!,
-                          color: colorScheme.subtitleTextColor,
+                          color: context.colors.subtitleTextColor,
                           fontSize: 14.sp,
                         ),
                       ),
@@ -86,8 +86,8 @@ class BuildSettingsTile extends StatelessWidget {
                 Checkbox(
                   value: isSelected,
                   fillColor: const MaterialStatePropertyAll(Colors.transparent),
-                  activeColor: colorScheme.onBackground,
-                  checkColor: colorScheme.primary,
+                  activeColor: context.colors.onBackground,
+                  checkColor: context.colors.primary,
                   onChanged: onSelectionChanged,
                 ),
               SizedBox(width: 10.w),

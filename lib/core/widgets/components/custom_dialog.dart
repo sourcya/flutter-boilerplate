@@ -16,7 +16,7 @@ class CustomDialog extends StatelessWidget {
         elevation: 3,
         clipBehavior: Clip.hardEdge,
         shape: Style.dialogRoundedRectangleBorder,
-        color: colorScheme.surface,
+        color: context.colors.surface,
         margin: EdgeInsets.all(8.r),
         child: Padding(padding: Style.defaultPadding, child: child),
       ),

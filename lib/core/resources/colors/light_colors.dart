@@ -4,11 +4,11 @@ import 'package:playx/playx.dart';
 import 'app_colors.dart';
 
 class LightColors extends AppColors {
-  // static final ColorScheme scheme = SeedColorScheme.fromSeeds(
+  // static final ColorScheme scheme = Seedcontext.colors.fromSeeds(
   //   primaryKey:  AppColors.primaryKey,
   // );
 
-  // static final ColorScheme scheme = SeedColorScheme.fromSeeds(
+  // static final ColorScheme scheme = Seedcontext.colors.fromSeeds(
   //   primaryKey: AppColors.blue,
   //   tones: FlexTones.chroma(Brightness.light)
   //       .onMainsUseBW()
@@ -32,7 +32,7 @@ class LightColors extends AppColors {
   LightColors() : super(colorScheme: scheme);
 
   @override
-  Color get appBar => XColors.white;
+  Color get appBar => PlayxColors.white;
 
   @override
   Color? get chipBackgroundColor => Colors.grey;
@@ -44,7 +44,7 @@ class LightColors extends AppColors {
   Color? get buttonBackgroundColor => primary;
 
   @override
-  Color? get onButtonColor => XColors.white;
+  Color? get onButtonColor => PlayxColors.white;
 
   @override
   Color? get bottomBarUnselectedColor => const Color(0XFFAFAFAF);
@@ -53,7 +53,7 @@ class LightColors extends AppColors {
   Color? get bottomBarShadowColor => Colors.grey[300];
 
   @override
-  Color get onAppBar => XColors.black;
+  Color get onAppBar => PlayxColors.black;
 
   @override
   Color? get onChipBackgroundColor => Colors.white;

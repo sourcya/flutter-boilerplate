@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:playx/playx.dart';
 
 import '../../app/app_launch/auth/ui/otp_login/imports/login_view_imports.dart';
 import '../../app/app_launch/auth/ui/verify_phone/imports/verify_phone_view_imports.dart';
@@ -23,10 +22,10 @@ class AppPages {
   static final _homeNavigationRoutes = StatefulShellRoute.indexedStack(
     pageBuilder: (context, state, navigationShell) {
       final title = navigationShell.currentIndex == 0
-          ? AppTrans.dashboard.tr
+          ? AppTrans.dashboard
           : navigationShell.currentIndex == 1
-              ? AppTrans.wishlist.tr
-              : AppTrans.settings.tr;
+              ? AppTrans.wishlist
+              : AppTrans.settings;
       return CupertinoPage(
         child: CustomScaffold(
           navigationShell: navigationShell,

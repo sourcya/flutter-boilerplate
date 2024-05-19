@@ -124,7 +124,7 @@ class _CustomFieldState extends State<CustomTextField> {
               ),
               child: Icon(
                 widget.prefixIcon,
-                // color: colorScheme.secondary,
+                // color: context.colors.secondary,
                 size: 20.r,
               ),
             )
@@ -136,7 +136,7 @@ class _CustomFieldState extends State<CustomTextField> {
               ),
               child: Icon(
                 widget.suffixIcon,
-                // color: colorScheme.secondary,
+                // color: context.colors.secondary,
                 size: 20.r,
               ),
             )
@@ -154,7 +154,7 @@ class _CustomFieldState extends State<CustomTextField> {
       margin: widget.margin,
       errorMaxLines: widget.errorMaxLines,
       textColor: widget.textColor,
-      labelColor: widget.labelColor ?? colorScheme.onBackground,
+      labelColor: widget.labelColor ?? context.colors.onBackground,
       borderColor: widget.borderColor,
       focusedBorderColor: widget.focusedBorderColor,
       formKey: widget.formKey,
@@ -162,10 +162,10 @@ class _CustomFieldState extends State<CustomTextField> {
       textInputAction: widget.textInputAction,
       style: TextStyle(
         fontSize: Dimens.fieldTextSize,
-        color: widget.textColor ?? colorScheme.onBackground,
+        color: widget.textColor ?? context.colors.onBackground,
       ),
       labelStyle: TextStyle(
-        color: widget.labelColor ?? colorScheme.onBackground,
+        color: widget.labelColor ?? context.colors.onBackground,
         fontSize: Dimens.fieldTextSize,
       ),
       contentPadding: EdgeInsets.only(
@@ -174,22 +174,22 @@ class _CustomFieldState extends State<CustomTextField> {
         right: 15.0.w,
         left: 15.0.w,
       ),
-      hintColor: widget.hintColor ?? XColors.grey,
+      hintColor: widget.hintColor ?? PlayxColors.grey,
       enabledBorder: OutlineInputBorder(
         borderRadius: Style.fieldBorderRadius,
         borderSide: BorderSide(
-          color: widget.borderColor ?? XColors.grey,
+          color: widget.borderColor ?? PlayxColors.grey,
         ),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: widget.focusedBorderColor ?? XColors.grey,
+          color: widget.focusedBorderColor ?? PlayxColors.grey,
           width: .5,
         ),
         borderRadius: Style.fieldBorderRadius,
       ),
       border: OutlineInputBorder(
-        borderSide: BorderSide(color: widget.borderColor ?? XColors.grey),
+        borderSide: BorderSide(color: widget.borderColor ?? PlayxColors.grey),
         borderRadius: Style.fieldBorderRadius,
       ),
       errorBorder: OutlineInputBorder(
@@ -199,7 +199,7 @@ class _CustomFieldState extends State<CustomTextField> {
       boxDecoration: BoxDecoration(
         borderRadius: Style.fieldBorderRadius,
         border: Border.all(
-          color: widget.borderColor ?? XColors.grey,
+          color: widget.borderColor ?? PlayxColors.grey,
           width: .5,
         ),
       ),

@@ -8,18 +8,18 @@ class OnBoardingController extends GetxController {
 
   final pages = <OnBoarding>[
     OnBoarding(
-      title: AppTrans.firstBoardingTitle.tr,
-      subtitle: AppTrans.firstBoardingSubTitle.tr,
+      title: AppTrans.firstBoardingTitle,
+      subtitle: AppTrans.firstBoardingSubTitle,
       lottieAsset: Assets.animations.firstBoardingAnimation,
     ),
     OnBoarding(
-      title: AppTrans.secondBoardingTitle.tr,
-      subtitle: AppTrans.secondBoardingSubTitle.tr,
+      title: AppTrans.secondBoardingTitle,
+      subtitle: AppTrans.secondBoardingSubTitle,
       lottieAsset: Assets.animations.secondBoardingAnimation,
     ),
     OnBoarding(
-      title: AppTrans.thirdBoardingTitle.tr,
-      subtitle: AppTrans.thirdBoardingSubTitle.tr,
+      title: AppTrans.thirdBoardingTitle,
+      subtitle: AppTrans.thirdBoardingSubTitle,
       lottieAsset: Assets.animations.thirdBoardingAnimation,
     ),
   ];

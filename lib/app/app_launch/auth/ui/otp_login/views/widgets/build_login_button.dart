@@ -1,7 +1,6 @@
 part of '../../imports/login_view_imports.dart';
 
 class BuildLoginButton extends GetView<OtpLoginController> {
-
   const BuildLoginButton();
 
   @override
@@ -12,15 +11,11 @@ class BuildLoginButton extends GetView<OtpLoginController> {
         ),
         child: Obx(() {
           return CustomElevatedButton(
-            label: AppTrans.loginText.tr,
-            onPressed: controller.isPhoneNumberValid.value
-                ? controller.login
-                : null,
+            label: AppTrans.loginText.tr(context: context),
+            onPressed:
+                controller.isPhoneNumberValid.value ? controller.login : null,
             isLoading: controller.isLoading.value,
           );
-        })
-    );
+        }));
   }
-
-
 }

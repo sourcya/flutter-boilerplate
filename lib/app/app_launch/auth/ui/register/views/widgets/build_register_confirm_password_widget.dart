@@ -12,8 +12,8 @@ class BuildRegisterConfirmPasswordWidget extends GetView<RegisterController> {
           vertical: 5.h,
         ),
         child: CustomTextField(
-          label: AppTrans.confirmPasswordLabel.tr,
-          hint: AppTrans.confirmPasswordHint.tr,
+          label: AppTrans.confirmPasswordLabel.tr(context: context),
+          hint: AppTrans.confirmPasswordHint.tr(context: context),
           controller: controller.confirmPasswordController,
           obscureText: controller.hideConfirmPassword.value,
           type: TextInputType.visiblePassword,
@@ -24,20 +24,20 @@ class BuildRegisterConfirmPasswordWidget extends GetView<RegisterController> {
                   : Icons.visibility,
             ),
             onPressed: controller.changeHideConfirmPasswordState,
-            // color: colorScheme.secondary,
+            // color: context.colors.secondary,
           ),
           validator: qValidator([
             IsRequired(
-              AppTrans.passwordRequired.tr,
+              AppTrans.passwordRequired.tr(context: context),
             ),
             AreEqual(
               other: () => controller.passwordController.value.text,
-              errorMsg: AppTrans.confirmPasswordMatchError.tr,
+              errorMsg: AppTrans.confirmPasswordMatchError.tr(context: context),
             ),
           ]),
-          prefix: Icon(
+          prefix: const Icon(
             Icons.lock,
-            // color: colorScheme.secondary,
+            // color: context.colors.secondary,
           ),
           shouldAutoValidate: true,
           onValidationChanged: (isValid) {

@@ -2,56 +2,54 @@ import 'package:playx/playx.dart';
 
 import '../../resources/translation/app_translations.dart';
 
-class CustomExceptionMessage  extends ExceptionMessage{
-  const  CustomExceptionMessage();
+class CustomExceptionMessage extends ExceptionMessage {
+  const CustomExceptionMessage();
 
   @override
-  String get badRequest =>  AppTrans.badRequest.tr;
+  String get badRequest => AppTrans.badRequest;
 
   @override
-  String get conflict => AppTrans.conflict.tr;
+  String get conflict => AppTrans.conflict;
 
   @override
-  String get defaultError => AppTrans.defaultError.tr;
+  String get defaultError => AppTrans.defaultError;
 
   @override
-  String get emptyResponse =>  AppTrans.emptyResponse.tr;
+  String get emptyResponse => AppTrans.emptyResponse;
 
   @override
-  String get formatException => AppTrans.formatException.tr;
+  String get formatException => AppTrans.formatException;
 
   @override
-  String get internalServerError => AppTrans.internalServerError.tr;
-
-
-  @override
-  String get noInternetConnection => AppTrans.noInternetConnection.tr;
+  String get internalServerError => AppTrans.internalServerError;
 
   @override
-  String get notAcceptable =>AppTrans.notAcceptable.tr;
+  String get noInternetConnection => AppTrans.noInternetConnection;
 
   @override
-  String get notFound =>AppTrans.notFound.tr;
+  String get notAcceptable => AppTrans.notAcceptable;
 
   @override
-  String get requestCancelled =>AppTrans.requestCancelled.tr;
+  String get notFound => AppTrans.notFound;
 
   @override
-  String get requestTimeout => AppTrans.requestTimeout.tr;
+  String get requestCancelled => AppTrans.requestCancelled;
 
   @override
-  String get sendTimeout =>  AppTrans.sendTimeout.tr;
+  String get requestTimeout => AppTrans.requestTimeout;
 
   @override
-  String get serviceUnavailable => AppTrans.serviceUnavailable.tr;
-
-
-  @override
-  String get unableToProcess => AppTrans.unableToProcess.tr;
+  String get sendTimeout => AppTrans.sendTimeout;
 
   @override
-  String get unauthorizedRequest =>AppTrans.unauthorizedRequest.tr;
+  String get serviceUnavailable => AppTrans.serviceUnavailable;
 
   @override
-  String get unexpectedError => AppTrans.unexpectedError.tr;
+  String get unableToProcess => AppTrans.unableToProcess;
+
+  @override
+  String get unauthorizedRequest => AppTrans.unauthorizedRequest;
+
+  @override
+  String get unexpectedError => AppTrans.unexpectedError;
 }

@@ -14,8 +14,8 @@ class BuildLoginText extends StatelessWidget {
       ),
       width: double.infinity,
       child: CustomText(
-        AppTrans.loginText.tr,
-        // color: colorScheme.onBackground,
+        AppTrans.loginText,
+        // color: context.colors.onBackground,
         fontSize: 40.sp,
       ),
     );

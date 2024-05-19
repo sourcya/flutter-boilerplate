@@ -1,36 +1,24 @@
 import 'package:playx/playx.dart';
 
-class AppLocaleConfig extends XLocaleConfig {
-  AppLocaleConfig()
-      : super(
-          path: 'assets/translations',
-        );
+const String _arabicFontFamily = 'Cairo';
+const String _englishFontFamily = 'Poppins';
 
-  static const String arabicFontFamily = 'Cairo';
-  static const String englishFontFamily = 'Poppins';
-
-  @override
-  List<XLocale> get supportedLocales => [
-        const XLocale(id: 'en', name: 'English', languageCode: 'en'),
-        const XLocale(id: 'ar', name: 'العربية', languageCode: 'ar'),
-      ];
-
-  @override
-  XLocale? get startLocale => supportedLocales[0];
-
-  @override
-  XLocale? get fallbackLocale => supportedLocales[0];
-}
+const _supportedLocales = [
+  XLocale(id: 'en', name: 'English', languageCode: 'en'),
+  XLocale(id: 'ar', name: 'العربية', languageCode: 'ar'),
+];
+PlayxLocaleConfig createLocaleConfig() => PlayxLocaleConfig(
+      supportedLocales: _supportedLocales,
+      fallbackLocale: _supportedLocales[0],
+    );
 
 String get fontFamily => PlayxLocalization.isCurrentLocaleArabic()
-    ? AppLocaleConfig.arabicFontFamily
-    : AppLocaleConfig.englishFontFamily;
+    ? _arabicFontFamily
+    : _englishFontFamily;
 
 String fontFamilyBasedOnText(String text) {
   if (text.isEmpty) {
     return fontFamily;
   }
-  return text.isArabic
-      ? AppLocaleConfig.arabicFontFamily
-      : AppLocaleConfig.englishFontFamily;
+  return text.isArabic ? _arabicFontFamily : _englishFontFamily;
 }
