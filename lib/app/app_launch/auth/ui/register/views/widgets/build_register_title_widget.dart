@@ -11,7 +11,7 @@ class BuildRegisterTitleWidget extends StatelessWidget {
       ),
       width: double.infinity,
       child: CustomText(
-        AppTrans.registerText.tr,
+        AppTrans.registerText,
         fontSize: 40.sp,
       ),
     );

@@ -44,7 +44,7 @@ class EmptyDataWidget extends OrientationWidget {
                     Padding(
                       padding: EdgeInsets.all(4.0.r),
                       child: CustomText(
-                        error ?? AppTrans.emptyResponse.tr,
+                        error ?? AppTrans.emptyResponse.tr(context: context),
                         textAlign: TextAlign.center,
                         fontWeight: FontWeight.w400,
                         fontSize: AppUtils.isMobile() ? 16.sp : 20.sp,
@@ -55,9 +55,9 @@ class EmptyDataWidget extends OrientationWidget {
                         height: AppUtils.isMobile() ? 4.r : 15.r,
                       ),
                       CustomElevatedButton(
-                        color: colorScheme.primary,
+                        color: context.colors.primary,
                         onPressed: onRetryClicked,
-                        label: AppTrans.retryText.tr,
+                        label: AppTrans.retryText.tr(context: context),
                       ),
                     ],
                     SizedBox(
@@ -91,7 +91,7 @@ class EmptyDataWidget extends OrientationWidget {
               Padding(
                 padding: EdgeInsets.all(4.0.r),
                 child: CustomText(
-                  error ?? AppTrans.emptyResponse.tr,
+                  error ?? AppTrans.emptyResponse.tr(context: context),
                   textAlign: TextAlign.center,
                   fontWeight: FontWeight.w400,
                   fontSize: AppUtils.isMobile() ? 16.sp : 20.sp,
@@ -102,9 +102,9 @@ class EmptyDataWidget extends OrientationWidget {
                   height: AppUtils.isMobile() ? 4.r : 15.r,
                 ),
                 CustomElevatedButton(
-                  color: colorScheme.primary,
+                  color: context.colors.primary,
                   onPressed: onRetryClicked,
-                  label: AppTrans.retryText.tr,
+                  label: AppTrans.retryText.tr(context: context),
                 ),
               ],
               SizedBox(

@@ -37,7 +37,7 @@ class DashboardView extends GetView<DashboardController> {
                       child: CustomText(
                         item.description,
                         maxLines: 3,
-                        color: colorScheme.onBackground,
+                        color: context.colors.onBackground,
                       ),
                     ),
                   ],
@@ -49,7 +49,9 @@ class DashboardView extends GetView<DashboardController> {
                     child: FloatingActionButton(
                       mini: true,
                       onPressed: null,
-                      backgroundColor: colorScheme.background.withOpacity(.85),
+                      heroTag: null,
+                      backgroundColor:
+                          context.colors.background.withOpacity(.85),
                       child: FavoriteButton(
                         isInFavorite: item.isFavorite,
                         onFavoriteChanged: (isFavorite) {

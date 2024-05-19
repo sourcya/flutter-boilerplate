@@ -1,7 +1,6 @@
 part of '../../imports/verify_phone_view_imports.dart';
 
 class BuildVerifyOtpField extends GetView<VerifyPhoneController> {
-
   const BuildVerifyOtpField();
 
   @override
@@ -31,7 +30,7 @@ class BuildVerifyOtpField extends GetView<VerifyPhoneController> {
       ),
     );
 
-    return Material( child: Obx(() {
+    return Material(child: Obx(() {
       return Directionality(
         textDirection: TextDirection.ltr,
         child: Pinput(
@@ -46,7 +45,9 @@ class BuildVerifyOtpField extends GetView<VerifyPhoneController> {
           validator: (s) {
             final isValid = controller.isOtpCodeValidNumber(s ?? '');
             controller.isOtpValid.value = isValid;
-            return isValid ? null : AppTrans.verifyPhoneValidOtpError.tr;
+            return isValid
+                ? null
+                : AppTrans.verifyPhoneValidOtpError.tr(context: context);
           },
           onTap: () {
             controller.showScrollPadding.value = true;
@@ -59,7 +60,5 @@ class BuildVerifyOtpField extends GetView<VerifyPhoneController> {
         ),
       );
     }));
-
   }
-
 }

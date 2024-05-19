@@ -4,7 +4,6 @@ import 'package:playx/playx.dart';
 import '../../resources/colors/app_colors.dart';
 import '../../resources/style/style.dart';
 
-
 class FilterChipSelector<T> extends StatefulWidget {
   final List<T> items;
   final T selectedItem;
@@ -33,27 +32,27 @@ class _FilterChipSelectorState<T> extends State<FilterChipSelector<T>> {
 
   @override
   Widget build(BuildContext context) {
-    if(currentSelectedItem != widget.selectedItem) {
+    if (currentSelectedItem != widget.selectedItem) {
       currentSelectedItem = widget.selectedItem;
     }
     return Container(
       width: double.infinity,
-      padding:Style.mediumPadding,
+      padding: Style.mediumPadding,
       child: Wrap(
         spacing: 6,
         children: List.generate(widget.items.length, (index) {
-            final item = widget.items[index];
-            return _buildChip(
-              label: widget.itemLabel(item),
-              isSelected: currentSelectedItem == item,
-              onTap: () {
-                setState(() {
-                  currentSelectedItem = item;
-                });
-                widget.onSelectedItemChanged(item);
-              },
-            );
-          }),
+          final item = widget.items[index];
+          return _buildChip(
+            label: widget.itemLabel(item),
+            isSelected: currentSelectedItem == item,
+            onTap: () {
+              setState(() {
+                currentSelectedItem = item;
+              });
+              widget.onSelectedItemChanged(item);
+            },
+          );
+        }),
       ),
     );
   }
@@ -69,13 +68,15 @@ class _FilterChipSelectorState<T> extends State<FilterChipSelector<T>> {
         label: Text(
           label,
           style: TextStyle(
-            color: isSelected ? colorScheme.onPrimary : colorScheme.onChipBackgroundColor,
-            fontSize: 14.sp
-          ),
+              color: isSelected
+                  ? context.colors.onPrimary
+                  : context.colors.onChipBackgroundColor,
+              fontSize: 14.sp),
         ),
-        shape:  Style.featureChipRoundedRectangleBorder,
-        backgroundColor:
-            isSelected ? colorScheme.primary : colorScheme.chipBackgroundColor,
+        shape: Style.featureChipRoundedRectangleBorder,
+        backgroundColor: isSelected
+            ? context.colors.primary
+            : context.colors.chipBackgroundColor,
       ),
     );
   }

@@ -20,10 +20,10 @@ class NoDataAnimation extends StatelessWidget {
       children: [
         Lottie.asset(Assets.animations.noDataAnimation),
         Text(
-          message ?? AppTrans.noDataMessage.tr,
+          message ?? AppTrans.noDataMessage.tr(context: context),
           style: textStyle ??
               TextStyle(
-                color: colorScheme.onBackground,
+                color: context.colors.onBackground,
                 fontSize: 18.sp,
               ),
         )

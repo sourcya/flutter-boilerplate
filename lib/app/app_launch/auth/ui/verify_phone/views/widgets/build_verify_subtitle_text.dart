@@ -1,7 +1,6 @@
 part of '../../imports/verify_phone_view_imports.dart';
 
 class BuildVerifySubtitleText extends StatelessWidget {
-
   const BuildVerifySubtitleText();
 
   @override
@@ -13,14 +12,11 @@ class BuildVerifySubtitleText extends StatelessWidget {
         bottom: 10.h,
       ),
       width: double.infinity,
-      child: Text(
-        AppTrans.verifyPhoneSubtitle.tr,
-        style: TextStyle(
-          color: colorScheme.subtitleTextColor,
-          fontSize: 15.sp,
-        ),
+      child: CustomText(
+        AppTrans.verifyPhoneSubtitle,
+        color: context.colors.subtitleTextColor,
+        fontSize: 15.sp,
       ),
     );
   }
-
 }

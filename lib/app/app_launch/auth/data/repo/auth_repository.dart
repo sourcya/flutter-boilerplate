@@ -69,9 +69,9 @@ class AuthRepository {
             await _preferenceManger.saveUser(user);
           }
         } else {
-          return NetworkResult.error(
+          return const NetworkResult.error(
             EmptyResponseException(
-              errorMessage: AppTrans.emptyResponse.tr,
+              errorMessage: AppTrans.emptyResponse,
               statusCode: 400,
             ),
           );

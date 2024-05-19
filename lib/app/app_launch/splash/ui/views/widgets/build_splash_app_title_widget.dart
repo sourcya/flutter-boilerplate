@@ -6,12 +6,9 @@ class BuildSplashAppTitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        AppTrans.appName.tr,
-        style: TextStyle(
-          fontSize: 30,
-          // color: colorScheme.onBackground,
-        ),
+      child: CustomText(
+        AppTrans.appName,
+        fontSize: 30,
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'package:playx/playx.dart';
 import 'app_colors.dart';
 
 class DarkColors extends AppColors {
-  // static final ColorScheme scheme = SeedColorScheme.fromSeeds(
+  // static final ColorScheme scheme = Seedcontext.colors.fromSeeds(
   //   primaryKey:  AppColors.primaryKey,
   //   brightness: Brightness.dark,
   //   tones: FlexTones.vivid(Brightness.dark)
@@ -20,8 +20,6 @@ class DarkColors extends AppColors {
     onSecondary: Colors.white,
     error: Colors.red,
     onError: Colors.black,
-    background: Colors.black,
-    onBackground: Colors.white,
     surface: Colors.black,
     onSurface: Colors.white,
   );
@@ -29,7 +27,7 @@ class DarkColors extends AppColors {
   DarkColors() : super(colorScheme: scheme);
 
   @override
-  Color get appBar => XColors.black;
+  Color get appBar => PlayxColors.black;
 
   @override
   Color? get subtitleTextColor => Colors.grey[400];
@@ -38,25 +36,23 @@ class DarkColors extends AppColors {
   Color? get chipBackgroundColor => Colors.grey[700];
 
   @override
-  Color? get buttonBackgroundColor => XColors.white;
+  Color? get buttonBackgroundColor => PlayxColors.white;
 
   @override
   Color? get bottomBarUnselectedColor => Colors.grey[600];
 
   @override
-  Color? get onButtonColor => XColors.black;
+  Color? get onButtonColor => PlayxColors.black;
 
   @override
   Color? get bottomBarShadowColor => Colors.transparent;
 
   @override
-  Color get onAppBar => XColors.white;
+  Color get onAppBar => PlayxColors.white;
 
   @override
   Color? get onChipBackgroundColor => Colors.white;
 
-
   @override
   Color? get disabledButtonBackgroundColor => Colors.grey[600];
-
 }
