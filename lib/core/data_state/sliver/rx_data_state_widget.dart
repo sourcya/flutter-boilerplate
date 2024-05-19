@@ -8,7 +8,7 @@ typedef DataCallback<T> = Widget Function(T? data);
 typedef SuccessDataCallback<T> = Widget Function(T data);
 typedef ErrorCallback<T> = Widget Function(String error);
 
-class RxDataStateWidget<T> extends StatelessWidget {
+class RxSliverDataStateWidget<T> extends StatelessWidget {
   final Rx<DataState<T>> rxData;
   final DataCallback<T>? onInitial;
   final DataCallback<T>? onLoading;
@@ -19,7 +19,7 @@ class RxDataStateWidget<T> extends StatelessWidget {
   final VoidCallback? onNoInternetRetryClicked;
   final VoidCallback? onRetryClicked;
 
-  const RxDataStateWidget({
+  const RxSliverDataStateWidget({
     required this.rxData,
     this.onInitial,
     this.onLoading,
@@ -34,7 +34,7 @@ class RxDataStateWidget<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => DataStateWidget(
+      () => SliverDataStateWidget(
         data: rxData.value,
         onInitial: onInitial,
         onLoading: onLoading,

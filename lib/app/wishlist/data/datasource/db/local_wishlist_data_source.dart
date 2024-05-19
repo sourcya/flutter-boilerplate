@@ -20,7 +20,8 @@ class LocalWishlistDataSource {
   }
 
   Future<List<int>> insertWishlistItems(
-      List<DatabaseWishlistItem> wishlistItems) {
+    List<DatabaseWishlistItem> wishlistItems,
+  ) {
     return wishlistDao.insertWishlistItems(wishlistItems);
   }
 

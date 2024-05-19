@@ -4,5 +4,5 @@ class OnBoarding {
   final String lottieAsset;
 
   const OnBoarding(
-      {required this.title, required this.subtitle, required this.lottieAsset});
+      {required this.title, required this.subtitle, required this.lottieAsset,});
 }

@@ -4,6 +4,7 @@ import 'data_error.dart';
 
 class Initial<T> extends DataState<T> {
   /// If you want to init ui with initial data
+  @override
   final T? data;
 
   const Initial({this.data});
@@ -11,12 +12,14 @@ class Initial<T> extends DataState<T> {
 
 class Loading<T> extends DataState<T> {
   /// If you want to show data while loading
+  @override
   final T? data;
 
   const Loading({this.data});
 }
 
 class Success<T> extends DataState<T> {
+  @override
   final T data;
 
   const Success(this.data);
@@ -46,15 +49,20 @@ sealed class DataState<T> {
 
   const factory DataState.error(DataError error) = Failure;
 
-  factory DataState.networkError(NetworkException error) = NetworkError;
+  factory DataState.fromNetworkResult(NetworkResult<T> result) => result.map(
+        success: (success) => Success(success.data),
+        error: (error) => NetworkError(error.error),
+      );
 
-  factory DataState.emptyError({String? error}) =>
+  factory DataState.fromNetworkError(NetworkException error) = NetworkError;
+
+  factory DataState.fromEmptyError({String? error}) =>
       Failure(DataError.empty(error: error));
 
-  factory DataState.defaultError({String? error}) =>
+  factory DataState.fromDefaultError({String? error}) =>
       Failure(DataError.error(error: error));
 
-  factory DataState.noInternetError({String? error}) =>
+  factory DataState.fromNoInternetError({String? error}) =>
       Failure(DataError.noInternetError(error: error));
 
   bool get isSuccess => this is Success;
@@ -62,6 +70,19 @@ sealed class DataState<T> {
   bool get isLoading => this is Loading;
 
   bool hasError() => this is Failure;
+
+  T? get data {
+    if (this is Initial<T>) {
+      return this.data;
+    }
+    if (this is Loading<T>) {
+      return this.data;
+    }
+    if (this is Success<T>) {
+      return this.data;
+    }
+    return null;
+  }
 
   void when({
     Function(T? data)? initial,
@@ -149,11 +170,13 @@ sealed class DataState<T> {
       case Loading _:
         final oldData = (this as Loading<T>).data;
         return Loading(
-            data: oldData == null ? null : await dataMapper(oldData));
+          data: oldData == null ? null : await dataMapper(oldData),
+        );
       case Initial _:
         final oldData = (this as Initial<T>).data;
         return Initial(
-            data: oldData == null ? null : await dataMapper(oldData));
+          data: oldData == null ? null : await dataMapper(oldData),
+        );
     }
   }
 }

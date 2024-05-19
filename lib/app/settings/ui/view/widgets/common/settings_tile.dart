@@ -85,7 +85,7 @@ class BuildSettingsTile extends StatelessWidget {
               if (isSelected != null)
                 Checkbox(
                   value: isSelected,
-                  fillColor: const MaterialStatePropertyAll(Colors.transparent),
+                  fillColor: const WidgetStatePropertyAll(Colors.transparent),
                   activeColor: context.colors.onBackground,
                   checkColor: context.colors.primary,
                   onChanged: onSelectionChanged,

@@ -1,4 +1,3 @@
-
 part of '../imports/onboarding_imports.dart';
 
 class OnBoardingView extends GetView<OnBoardingController> {
@@ -12,7 +11,7 @@ class OnBoardingView extends GetView<OnBoardingController> {
               const BuildOnboardingPageViewWidget(),
               Expanded(
                 child: Container(
-                  padding:  EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
+                  padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
                   child: const Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -24,7 +23,7 @@ class OnBoardingView extends GetView<OnBoardingController> {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

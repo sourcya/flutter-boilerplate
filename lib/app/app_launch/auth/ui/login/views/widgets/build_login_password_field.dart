@@ -36,7 +36,7 @@ class BuildLoginPasswordFieldWidget extends GetView<LoginController> {
             IsRequired(
               AppTrans.passwordRequired.tr(context: context),
             ),
-            MinLength(6, AppTrans.passwordMinLengthError.tr(context: context))
+            MinLength(6, AppTrans.passwordMinLengthError.tr(context: context)),
           ]),
           prefix: Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0.w),

@@ -26,7 +26,7 @@ class NoDataAnimation extends StatelessWidget {
                 color: context.colors.onBackground,
                 fontSize: 18.sp,
               ),
-        )
+        ),
       ],
     );
   }

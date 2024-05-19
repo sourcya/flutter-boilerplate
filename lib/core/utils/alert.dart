@@ -43,10 +43,11 @@ abstract class Alert {
     bool isMessageTranslatable = true,
   }) {
     showSnackBar(
-        message: message,
-        color: PlayxColors.red,
-        duration: duration,
-        isMessageTranslatable: isMessageTranslatable);
+      message: message,
+      color: PlayxColors.red,
+      duration: duration,
+      isMessageTranslatable: isMessageTranslatable,
+    );
   }
 
   static void debugError({

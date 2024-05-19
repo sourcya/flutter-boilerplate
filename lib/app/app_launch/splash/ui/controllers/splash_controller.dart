@@ -28,7 +28,7 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
       },
       onUpdate: (info, mode) {
         PlayxVersionUpdate.openStore(
-            storeUrl: Constants.storeUrl, launchMode: mode);
+            storeUrl: Constants.storeUrl, launchMode: mode,);
         checkAppVersionAndNavigateToNextPage(shouldCheckVersion: false);
       },
       title: (info) => AppTrans.updateTitle.tr(),
@@ -48,7 +48,7 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
   }
 
   Future<void> checkAppVersionAndNavigateToNextPage(
-      {bool shouldCheckVersion = true}) async {
+      {bool shouldCheckVersion = true,}) async {
     // if (shouldCheckVersion) {
     //   final doesAppNeedUpdate = await shouldUpdateApp.future;
     //   if (doesAppNeedUpdate) return;

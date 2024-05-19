@@ -22,7 +22,8 @@ class WishlistDao {
   }
 
   Future<List<int>> insertWishlistItems(
-      List<DatabaseWishlistItem> wishlistItems) async {
+    List<DatabaseWishlistItem> wishlistItems,
+  ) async {
     return box.putManyAsync(wishlistItems);
   }
 

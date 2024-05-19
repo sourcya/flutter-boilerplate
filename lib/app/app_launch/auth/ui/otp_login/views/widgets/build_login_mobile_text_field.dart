@@ -38,10 +38,10 @@ class BuildMobileLoginTextField extends GetView<OtpLoginController> {
               autoFillHints: const [AutofillHints.telephoneNumber],
               validator: qValidator([
                 IsRequired(
-                    AppTrans.mobileNumberRequiredErrMsg.tr(context: context)),
+                    AppTrans.mobileNumberRequiredErrMsg.tr(context: context),),
                 IsNumber(AppTrans.validNumberErrMsg.tr(context: context)),
                 MinLength(
-                    10, AppTrans.validNumberMinLength.tr(context: context)),
+                    10, AppTrans.validNumberMinLength.tr(context: context),),
               ]),
               errorMaxLines: 2,
               prefixIcon: Icons.phone,

@@ -33,17 +33,17 @@ class CustomScaffold extends StatelessWidget {
 
     return PlayxThemeSwitchingArea(
       child: PlatformScaffold(
-          appBar: buildAppBar(title: title ?? AppTrans.appName),
-          body: SafeArea(child: scaffoldChild),
-          backgroundColor: context.colors.background,
-          material: (context, platform) => MaterialScaffoldData(
-                floatingActionButton: floatingActionButton,
-                drawer: CustomNavigationDrawer(
-                  navigationShell: navigationShell,
-                ),
-                bottomNavBar:
-                    CustomNavigationBar(navigationShell: navigationShell),
-              )),
+        appBar: buildAppBar(title: title ?? AppTrans.appName),
+        body: SafeArea(child: scaffoldChild),
+        backgroundColor: context.colors.background,
+        material: (context, platform) => MaterialScaffoldData(
+          floatingActionButton: floatingActionButton,
+          drawer: CustomNavigationDrawer(
+            navigationShell: navigationShell,
+          ),
+          bottomNavBar: CustomNavigationBar(navigationShell: navigationShell),
+        ),
+      ),
     );
   }
 }

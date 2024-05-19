@@ -1,4 +1,3 @@
-
 import 'package:playx/playx.dart';
 
 /// Match Validator for text fields
@@ -8,11 +7,11 @@ class AreEqual extends TextValidationRule {
   bool caseSensitive;
   String errorMsg;
 
-  AreEqual(
-      {required this.other,
-      this.errorMsg = 'There is no match',
-      this.caseSensitive = true})
-      : super(errorMsg);
+  AreEqual({
+    required this.other,
+    this.errorMsg = 'There is no match',
+    this.caseSensitive = true,
+  }) : super(errorMsg);
 
   ///  return a bool Either valid or NOT
   @override
