@@ -32,6 +32,7 @@ class BuildSettingsPage<T> extends StatefulWidget {
     VoidCallback? onBackButtonPressed,
     VoidCallback? onCloseButtonPressed,
     required BuildContext context,
+    bool showPreviousButton = false,
   }) {
     return CustomModal.buildCustomModalPage(
       title: title,
@@ -46,7 +47,7 @@ class BuildSettingsPage<T> extends StatefulWidget {
       context: context,
       onClosePressed: onCloseButtonPressed,
       onPreviousPressed: onBackButtonPressed,
-      showPreviousButton: RxBool(false),
+      showPreviousButton: RxBool(showPreviousButton),
     );
   }
 }
@@ -74,6 +75,7 @@ class _BuildSettingsPageState<T> extends State<BuildSettingsPage<T>> {
                               )
                             : BorderSide.none,
                       ),
+                      color: context.colors.cardBackgroundColor,
                       elevation: AppUtils.isDarkMode() ? 12 : 0,
                       child: ListTile(
                         contentPadding: EdgeInsets.symmetric(

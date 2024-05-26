@@ -11,6 +11,8 @@
   "bioNotEnrolledError": "No biometrics has been enrolled on the device",
   "bioPasscodeNotSetError": "You haven't configured any password for the device yet pls configure it to use the app.",
   "bioSignInTitle": "Biometric authentication is required!",
+  "bluePurpleGradientTheme": "Twilight Hues",
+  "confirm": "Confirm",
   "confirmPasswordHint": "Enter your password again.",
   "confirmPasswordLabel": "Confirm password",
   "confirmPasswordMatchError": "Passwords do not match.",
@@ -28,6 +30,7 @@
   "firstBoardingSubTitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
   "firstBoardingTitle": "First Boarding",
   "formatException": "Sorry, The request wasn't formatted correctly.",
+  "gradientTheme": "Sunset Glow",
   "haveAccountText": "Already have an account?",
   "home": "Home",
   "internalServerError": "Sorry, There is an internal server error.",
@@ -95,6 +98,5 @@
   "verifyPhoneSubtitle": "Enter the 4 digits code sent to your phone number.",
   "verifyPhoneTitle": "Verify your mobile number",
   "verifyPhoneValidOtpError": "Pin is not a valid number",
-  "wishlist": "Wishlist",
-  "confirm": "Confirm"
+  "wishlist": "Wishlist"
 }

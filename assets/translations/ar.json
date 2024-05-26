@@ -11,6 +11,8 @@
   "bioNotEnrolledError": "لم يتم إضافة اي مصادقة بيومترية  على هذا الجهاز",
   "bioPasscodeNotSetError": "لم تقم باضافة باسورد لهاتفك بعد، قم بإضافة الباسورد لتستطيع استخدام التطبيق",
   "bioSignInTitle": "المصادقة البيومترية مطلوبة!",
+  "bluePurpleGradientTheme": "ألوان الشفق",
+  "confirm": "تأكيد",
   "confirmPasswordHint": "أدخل كلمة المرور ثانية.",
   "confirmPasswordLabel": "تأكيد كلمة المرور",
   "confirmPasswordMatchError": "كلمتي المرور غير متوافقتان.",
@@ -28,6 +30,7 @@
   "firstBoardingSubTitle": "لوريم إيبسوم دولار سيت أميت، كونسيكتيتور أديبيسينغ إيليت. دونيك يوسيمود نيبس يوريسوس موليس، إيجيت بورتيتور إروس تينسيدونت. موريس فيتاي أورنا أك دولور سكليريسكي إنتردم.  ",
   "firstBoardingTitle": "أول صفحة ",
   "formatException": "عذرًا ، الطلب لم يتم تنسيقه بشكل صحيح.",
+  "gradientTheme": "ضوء الغروب",
   "haveAccountText": "هل لديك حساب؟",
   "home": "الرئيسية",
   "internalServerError": "عذرا ، هناك مشكلة في الخادم.",
@@ -95,7 +98,5 @@
   "verifyPhoneSubtitle": "أدخل الكود المكون من 4 أرقام الذي تم إرساله إلي هاتفك.",
   "verifyPhoneTitle": "تأكيد رقم الهاتف",
   "verifyPhoneValidOtpError": "الكود ليس رقم صحيح",
-  "wishlist": "قائمة الأمنيات",
-  "confirm": "تأكيد"
-
+  "wishlist": "قائمة الأمنيات"
 }

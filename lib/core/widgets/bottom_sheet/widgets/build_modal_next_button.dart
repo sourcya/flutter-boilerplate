@@ -8,9 +8,11 @@ class BuildModalNextButton extends StatelessWidget {
   final bool listenToUpdates;
   final Rx<StickyActionBarStatus> status;
   final VoidCallback? onPressed;
+  final String? label;
 
   const BuildModalNextButton({
     required this.status,
+    this.label,
     this.onPressed,
     this.listenToUpdates = true,
   });
@@ -22,9 +24,11 @@ class BuildModalNextButton extends StatelessWidget {
             return _buildButton(
               status: status,
               onPressed: onPressed,
+              label: label,
             );
           })
         : _buildButton(
+            label: label,
             status: status,
             onPressed: onPressed,
           );
@@ -43,6 +47,7 @@ class BuildModalNextButton extends StatelessWidget {
   }
 
   Widget _buildButton({
+    String? label,
     required Rx<StickyActionBarStatus> status,
     VoidCallback? onPressed,
   }) {
@@ -52,7 +57,7 @@ class BuildModalNextButton extends StatelessWidget {
 
     final isEnabled = status.value != StickyActionBarStatus.disabled;
     final isLoading = status.value == StickyActionBarStatus.loading;
-    final label = status.value.label;
+    final btnLabel = label ?? status.value.label;
 
     return CustomElevatedButton(
       onPressed: isEnabled ? onPressed : null,
@@ -61,7 +66,7 @@ class BuildModalNextButton extends StatelessWidget {
         horizontal: 8.w,
         vertical: 12.h,
       ),
-      label: label,
+      label: btnLabel,
     );
   }
 }
