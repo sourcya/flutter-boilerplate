@@ -14,6 +14,8 @@ import 'package:playx/playx.dart';
 abstract class AppColors extends PlayxColors {
   final ColorScheme colorScheme;
 
+  Color get cardBackgroundColor;
+
   AppColors({
     required this.colorScheme,
   }) : super.fromColorScheme(scheme: colorScheme);
@@ -39,6 +41,9 @@ abstract class AppColors extends PlayxColors {
   Color? get bottomBarShadowColor;
 
   Color? get disabledButtonBackgroundColor;
+  Gradient? get backgroundGradient;
+
+  Color get onBackgroundGradient;
 
   static const Color blueGrey = Color(0xFF728295);
 

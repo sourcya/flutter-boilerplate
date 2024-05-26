@@ -7,15 +7,16 @@ class BuildSettingsLanguageWidget extends GetView<SettingsController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return BuildSettingsTile(
-          title: AppTrans.language,
-          subtitle: controller.currentLocale.value?.name ?? '',
-          icon: Icons.language,
-          onTap: () {
-            controller.showSettingsModalSheet(
-              context,
-              BuildSettingsLanguageWidget.buildModalPage(controller, context),
-            );
-          });
+        title: AppTrans.language,
+        subtitle: controller.currentLocale.value?.name ?? '',
+        icon: Icons.language,
+        onTap: () {
+          controller.showSettingsModalPageSheet(
+            context,
+            buildModalPage(controller, context),
+          );
+        },
+      );
     });
   }
 
@@ -24,12 +25,17 @@ class BuildSettingsLanguageWidget extends GetView<SettingsController> {
     BuildContext context,
   ) {
     return BuildSettingsPage.buildModalPage(
-        title: AppTrans.language,
-        items: controller.supportedLocales,
-        onItemSelected: (lang) => controller.handleLanguageSelection(lang),
-        itemName: (lang) => lang.name,
-        isItemSelected: (lang) => controller.currentLocale.value == lang,
-        onCloseButtonPressed: controller.closeSettingsModalSheet,
-        context: context);
+      title: AppTrans.language,
+      items: controller.supportedLocales,
+      onItemSelected: (lang) => controller.handleLanguageSelection(lang),
+      itemName: (lang) => lang.name,
+      isItemSelected: (lang) => controller.currentLocale.value == lang,
+      onBackButtonPressed: () {
+        controller.currentPage.value = SettingsPage.settings.index;
+      },
+      showPreviousButton: true,
+      onCloseButtonPressed: controller.closeSettingsModalSheet,
+      context: context,
+    );
   }
 }

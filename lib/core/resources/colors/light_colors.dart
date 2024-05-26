@@ -58,4 +58,13 @@ class LightColors extends AppColors {
 
   @override
   Color? get disabledButtonBackgroundColor => Colors.grey[300];
+
+  @override
+  Color get cardBackgroundColor => background;
+
+  @override
+  Gradient? get backgroundGradient => null;
+
+  @override
+  Color get onBackgroundGradient => onBackground;
 }

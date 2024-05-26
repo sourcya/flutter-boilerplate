@@ -33,6 +33,7 @@ class BuildSettingsTile extends StatelessWidget {
             ? EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h)
             : EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
         padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
+        color: context.colors.cardBackgroundColor,
         child: Padding(
           padding: padding ??
               EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 12.0.h),

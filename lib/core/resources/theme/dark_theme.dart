@@ -32,6 +32,11 @@ class DarkTheme {
           textTheme: CupertinoTextThemeData(primaryColor: colors.primary),
         ),
         applyElevationOverlayColor: true,
+        extensions: const [
+          WoltModalSheetThemeData(
+            modalElevation: 4,
+          ),
+        ],
       );
 
   static XTheme get theme => XTheme.builder(

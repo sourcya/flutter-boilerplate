@@ -126,4 +126,8 @@ abstract class AppTrans {
   static const refresh = 'refresh';
 
   static const confirm = 'confirm';
+
+  static const gradientTheme = 'gradientTheme';
+
+  static const bluePurpleGradientTheme = 'bluePurpleGradientTheme';
 }

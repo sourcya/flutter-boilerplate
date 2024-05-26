@@ -6,15 +6,16 @@ class BuildSplashAppVersionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 30,
-        horizontal: 10,
+      padding: EdgeInsets.symmetric(
+        vertical: 30.r,
+        horizontal: 10.r,
       ),
       alignment: Alignment.center,
-      child: const AppVersion(
+      child: AppVersion(
         textStyle: TextStyle(
-          fontSize: 13,
-          // color: context.colors.secondary,
+          fontSize: 13.sp,
+          color: context.colors.primary,
+          fontFamily: fontFamily,
         ),
       ),
     );
