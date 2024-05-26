@@ -1,10 +1,18 @@
 part of '../imports/settings_imports.dart';
 
+enum SettingsPage {
+  settings,
+  language,
+  theme;
+}
+
 class SettingsController extends GetxController {
   Rxn<XLocale> currentLocale = Rxn(PlayxLocalization.currentXLocale);
   Rx<XTheme> currentTheme = Rx(PlayxTheme.currentTheme);
 
   List<XLocale> get supportedLocales => PlayxLocalization.supportedXLocales;
+
+  final currentPage = ValueNotifier(SettingsPage.settings.index);
 
   @override
   Future<void> onInit() async {
@@ -23,36 +31,44 @@ class SettingsController extends GetxController {
   }) async {
     AppRouter.pop();
     await Future.delayed(200.milliseconds);
-    await PlayxTheme.updateTo(
-      theme,
-    );
+    await PlayxTheme.updateTo(theme, animate: false);
     currentTheme.value = theme;
   }
 
   Future<void> handleLogOutTap() async {
-    final preferenceManger = MyPreferenceManger.instance;
-    await preferenceManger.signOut();
-    AppNavigation.navigateFromSettingsToLogin();
     AppRouter.pop();
   }
 
   Future<void> showSettingsModalSheet(
     BuildContext context,
-    SliverWoltModalSheetPage page,
   ) async {
     final List<SliverWoltModalSheetPage> settingsPages = [
-      page,
+      SettingsView.buildSettingsModalSheetPage(this, context),
+      BuildSettingsLanguageWidget.buildModalPage(this, context),
+      BuildSettingsThemeWidget.buildModalPage(this, context),
     ];
 
     return CustomModal.showModal(
       context: context,
       pageListBuilder: (context) => settingsPages,
       onModalDismissedWithBarrierTap: closeSettingsModalSheet,
-      pageIndexNotifier: ValueNotifier(0),
+      pageIndexNotifier: currentPage,
+    );
+  }
+
+  Future<void> showSettingsModalPageSheet(
+    BuildContext context,
+    SliverWoltModalSheetPage page,
+  ) async {
+    return CustomModal.showPageModal(
+      context: context,
+      pageBuilder: (context) => page,
+      onModalDismissedWithBarrierTap: closeSettingsModalSheet,
     );
   }
 
   void closeSettingsModalSheet() {
     AppRouter.pop();
+    currentPage.value = SettingsPage.settings.index;
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
+import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
+import 'package:flutter_boilerplate/core/utils/app_utils.dart';
 import 'package:playx/playx.dart';
 
-import '../../resources/colors/app_colors.dart';
-import '../../resources/translation/app_translations.dart';
-import '../../utils/app_utils.dart';
 import 'widgets/build_modal_close_button.dart';
 import 'widgets/build_modal_next_button.dart';
 import 'widgets/build_modal_previous_button.dart';
@@ -18,14 +18,41 @@ enum StickyActionBarStatus {
   loading;
 
   String get label => switch (this) {
-        retry => AppTrans.retryText,
-        confirm => AppTrans.confirm,
-        _ => AppTrans.next,
+        retry => AppTrans.retryText.tr(),
+        confirm => AppTrans.confirm.tr(),
+        _ => AppTrans.next.tr(),
       };
 }
 
 class CustomModal {
   const CustomModal._();
+
+  /// Show only page modal
+  static Future<void> showPageModal({
+    required BuildContext context,
+    required SliverWoltModalSheetPage Function(BuildContext context)
+        pageBuilder,
+    VoidCallback? onModalDismissedWithBarrierTap,
+    ValueNotifier<bool>? showModalTopBar,
+    bool barrierDismissible = true,
+  }) {
+    return WoltModalSheet.show<void>(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      pageListBuilder: (ctx) {
+        return [pageBuilder(ctx)];
+      },
+      modalTypeBuilder: (context) {
+        return context.isLandscape || !AppUtils.isMobile()
+            ? WoltModalType.dialog
+            : WoltModalType.bottomSheet;
+      },
+      onModalDismissedWithBarrierTap: onModalDismissedWithBarrierTap,
+      enableDrag: true,
+      minDialogWidth: context.width * 0.9,
+      maxDialogWidth: context.width * 0.95,
+    );
+  }
 
   static Future<void> showModal({
     required BuildContext context,
@@ -42,13 +69,13 @@ class CustomModal {
         return pageListBuilder(ctx);
       },
       modalTypeBuilder: (context) {
-        return AppUtils.isMobile()
-            ? WoltModalType.bottomSheet
-            : WoltModalType.dialog;
+        return context.isLandscape || !AppUtils.isMobile()
+            ? WoltModalType.dialog
+            : WoltModalType.bottomSheet;
       },
       enableDrag: true,
       onModalDismissedWithBarrierTap: onModalDismissedWithBarrierTap,
-      useRootNavigator: true,
+      onModalDismissedWithDrag: onModalDismissedWithBarrierTap,
       minDialogWidth: context.width * 0.9,
       maxDialogWidth: context.width * 0.95,
     );
@@ -62,12 +89,25 @@ class CustomModal {
     ValueNotifier<bool>? showModalTopBar,
     VoidCallback? onClosePressed,
     VoidCallback? onPreviousPressed,
+    String? nextLabel,
     VoidCallback? onNextPressed,
+    VoidCallback? onTitlePressed,
     RxBool? showPreviousButton,
     Rx<StickyActionBarStatus>? actionBarStatus,
     required BuildContext context,
   }) {
     final showTopBar = showModalTopBar?.value ?? true;
+
+    final modalBody = PopScope(
+      canPop: onPreviousPressed == null,
+      onPopInvoked: onPreviousPressed != null
+          ? (_) {
+              onPreviousPressed.call();
+            }
+          : null,
+      child: body,
+    );
+
     return isSliver
         ? SliverWoltModalSheetPage(
             hasSabGradient: hasSabGradient,
@@ -76,10 +116,12 @@ class CustomModal {
                 ? _buildNextButton(
                     status: actionBarStatus,
                     onPressed: onNextPressed,
+                    label: nextLabel,
                   )
                 : null,
             topBarTitle: BuildModalTitleWidget(
               title: title,
+              onTitlePressed: onTitlePressed,
             ),
             hasTopBarLayer: showTopBar,
             isTopBarLayerAlwaysVisible: showTopBar,
@@ -95,7 +137,7 @@ class CustomModal {
                     showPreviousButton: showPreviousButton,
                   ),
             mainContentSlivers: [
-              body,
+              modalBody,
               if (actionBarStatus != null && onNextPressed != null)
                 SliverToBoxAdapter(
                   child: Opacity(
@@ -104,6 +146,7 @@ class CustomModal {
                       listenToUpdates: false,
                       status: actionBarStatus,
                       onPressed: onNextPressed,
+                      label: nextLabel,
                     ),
                   ),
                 ),
@@ -118,11 +161,13 @@ class CustomModal {
                 ? _buildNextButton(
                     status: actionBarStatus,
                     onPressed: onNextPressed,
+                    label: nextLabel,
                   )
                 : null,
             topBarTitle: showTopBar
                 ? BuildModalTitleWidget(
                     title: title,
+                    onTitlePressed: onTitlePressed,
                   )
                 : const SizedBox.shrink(),
             trailingNavBarWidget: onClosePressed == null
@@ -136,7 +181,7 @@ class CustomModal {
                     onPressed: onPreviousPressed,
                     showPreviousButton: showPreviousButton,
                   ),
-            child: body,
+            child: modalBody,
           );
   }
 
@@ -144,11 +189,13 @@ class CustomModal {
     bool listenToUpdates = true,
     required Rx<StickyActionBarStatus> status,
     VoidCallback? onPressed,
+    String? label,
   }) {
     return BuildModalNextButton(
       listenToUpdates: listenToUpdates,
       status: status,
       onPressed: onPressed,
+      label: label,
     );
   }
 }

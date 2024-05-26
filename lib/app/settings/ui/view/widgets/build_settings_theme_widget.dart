@@ -11,9 +11,9 @@ class BuildSettingsThemeWidget extends GetView<SettingsController> {
         subtitle: controller.currentTheme.value.name,
         icon: Icons.dark_mode_rounded,
         onTap: () {
-          controller.showSettingsModalSheet(
+          controller.showSettingsModalPageSheet(
             context,
-            BuildSettingsThemeWidget.buildModalPage(controller, context),
+            buildModalPage(controller, context),
           );
         },
       );
@@ -32,7 +32,11 @@ class BuildSettingsThemeWidget extends GetView<SettingsController> {
       itemName: (theme) => theme.name.tr(context: context),
       isItemSelected: (theme) => controller.currentTheme.value.id == theme.id,
       onCloseButtonPressed: controller.closeSettingsModalSheet,
+      onBackButtonPressed: () {
+        controller.currentPage.value = SettingsPage.settings.index;
+      },
       context: context,
+      showPreviousButton: true,
     );
   }
 }
