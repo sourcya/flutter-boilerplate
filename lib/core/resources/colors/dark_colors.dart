@@ -20,7 +20,7 @@ class DarkColors extends AppColors {
     onSecondary: Colors.white,
     error: Colors.red,
     onError: Colors.black,
-    surface: Colors.black,
+    surface: Color(0xFF121212),
     onSurface: Colors.white,
   );
 
@@ -55,4 +55,13 @@ class DarkColors extends AppColors {
 
   @override
   Color? get disabledButtonBackgroundColor => Colors.grey[600];
+
+  @override
+  Color get cardBackgroundColor => const Color(0xFF3A3A3A);
+
+  @override
+  Gradient? get backgroundGradient => null;
+
+  @override
+  Color get onBackgroundGradient => onBackground;
 }

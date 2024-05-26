@@ -1,3 +1,5 @@
+import 'package:flutter_boilerplate/core/resources/assets/icons/icons.dart';
+
 import 'animation/animations.dart';
 import 'images/images.dart';
 
@@ -8,4 +10,6 @@ abstract class Assets {
   static Animations get animations => Animations();
 
   static Images get images => Images();
+
+  static Icons get icons => Icons();
 }
