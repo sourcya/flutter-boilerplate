@@ -12,6 +12,8 @@ class PushNotificationManager extends FcmNotificationManager {
 
   @override
   Future<void> handleOpeningMessage(RemoteMessage message) async {
+    Fimber.d('PushNotificationManager : handleOpeningMessage :${message}');
+
     Fimber.d('PushNotificationManager : handleOpeningMessage :${message.data}');
   }
 

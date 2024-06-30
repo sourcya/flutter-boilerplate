@@ -2,13 +2,11 @@ import 'package:flutter/services.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
-import 'package:local_auth_ios/local_auth_ios.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../../core/model/result.dart';
 import '../../../../../core/model/result_error.dart';
 import '../../../../../core/resources/translation/app_translations.dart';
-
 
 class BiometricAuthRepository {
   static final BiometricAuthRepository _instance =
@@ -24,9 +22,6 @@ class BiometricAuthRepository {
 
   final androidAuthMessages = AndroidAuthMessages(
     signInTitle: AppTrans.bioSignInTitle.tr,
-    cancelButton: AppTrans.bioCancelText.tr,
-  );
-  final iosAuthMessages = IOSAuthMessages(
     cancelButton: AppTrans.bioCancelText.tr,
   );
 
@@ -80,18 +75,23 @@ class BiometricAuthRepository {
           biometricOnly: biometricOnly,
           stickyAuth: true,
         ),
-        authMessages: <AuthMessages>[androidAuthMessages, iosAuthMessages],
+        authMessages: <AuthMessages>[
+          androidAuthMessages,
+        ],
       );
       return Result.success(didAuthenticate);
     } on PlatformException catch (e) {
       e.printError();
       switch (e.code) {
         case auth_error.passcodeNotSet:
-          return Result.error(ResultError.error(AppTrans.bioPasscodeNotSetError.tr));
+          return Result.error(
+              ResultError.error(AppTrans.bioPasscodeNotSetError.tr));
         case auth_error.notAvailable:
-          return Result.error(ResultError.error(AppTrans.bioNotAvailableError.tr));
+          return Result.error(
+              ResultError.error(AppTrans.bioNotAvailableError.tr));
         case auth_error.notEnrolled:
-          return Result.error(ResultError.error(AppTrans.bioNotEnrolledError.tr));
+          return Result.error(
+              ResultError.error(AppTrans.bioNotEnrolledError.tr));
         case auth_error.lockedOut:
         case auth_error.permanentlyLockedOut:
           return Result.error(ResultError.error(AppTrans.bioLockedOutError.tr));

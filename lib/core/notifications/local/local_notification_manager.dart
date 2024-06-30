@@ -31,7 +31,7 @@ class LocalNotificationManager {
     final notification = message.notification;
     final android = message.notification?.android;
     print(
-        'FcmNotificationManager : _showNotification ${notification.hashCode}  :${notification?.title} ${notification?.body}');
+        'PushNotificationManager FcmNotificationManager : _showNotification ${notification.hashCode}  :${notification?.title} ${notification?.body}');
 
     // If `onMessage` is triggered with a notification, construct our own
     // local notification to show to users using the created channel.
