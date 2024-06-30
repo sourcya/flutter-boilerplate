@@ -129,7 +129,9 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await PushNotificationManager.instance.setupFcm();
-  print(
-    "FcmNotificationManager : Handling a background message: ${message.messageId}",
-  );
 }
+
+// {
+// data: { data: '{"id":2,"event":"end"}' },
+// notification: { body: 'event type 0....', title: 'new notification .....' }
+// }

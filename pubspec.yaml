@@ -11,7 +11,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   google_sign_in: ^6.2.1
   google_fonts: ^6.1.0
-  playx: ^1.0.4
+  playx: 1.0.4
   local_auth: ^2.1.8
   playx_version_update: ^0.0.4
   dots_indicator: ^3.0.0
@@ -22,6 +22,11 @@ dependencies:
   firebase_messaging: ^14.7.16
   flutter_local_notifications: ^16.3.2
 
+
+
+dependency_overrides:
+  intl: ^0.19.0
+  flutter_screenutil: 5.9.0
 
 
 dev_dependencies:
