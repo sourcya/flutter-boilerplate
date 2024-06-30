@@ -40,8 +40,6 @@ class BuildVerifyOtpField extends GetView<VerifyPhoneController> {
             submittedPinTheme: submittedPinTheme,
             keyboardAppearance: Brightness.dark,
             keyboardType: TextInputType.phone,
-            androidSmsAutofillMethod:
-                AndroidSmsAutofillMethod.smsUserConsentApi,
             closeKeyboardWhenCompleted: false,
             autofocus: true,
             validator: (s) {
