@@ -1,21 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/navigation/go_router/app_router.dart';
-import 'package:go_router/go_router.dart';
-import 'package:playx/playx.dart';
+part of '../imports/custom_navigation_drawer_imports.dart';
 
-import '../../../../../../core/resources/translation/app_translations.dart';
-
-class CustomNavigationRail extends StatelessWidget {
+class CustomNavigationRail extends GetView<CustomNavigationDrawerController> {
   final StatefulNavigationShell navigationShell;
 
   const CustomNavigationRail({required this.navigationShell, super.key});
 
   @override
   Widget build(BuildContext context) {
+    controller.updateIndex(navigationShell.currentIndex);
     return NavigationRail(
-      selectedIndex: navigationShell.currentIndex,
+      selectedIndex: controller.currentIndex,
       onDestinationSelected: (index) {
-        AppRouter.goToBranch(index: index, navigationShell: navigationShell);
+        controller.handleItemChanged(
+          index: index,
+          navigationShell: navigationShell,
+        );
       },
       labelType: NavigationRailLabelType.all,
       destinations: [

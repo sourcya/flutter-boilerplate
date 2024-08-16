@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_boilerplate/core/navigation/navigation_utils.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/app_launch/auth/ui/otp_login/imports/login_view_imports.dart';
@@ -8,8 +9,7 @@ import '../../app/app_launch/splash/ui/imports/splash_imports.dart';
 import '../../app/dashboard/ui/imports/dashboard_imports.dart';
 import '../../app/settings/ui/imports/settings_imports.dart';
 import '../../app/wishlist/ui/imports/wishlist_imports.dart';
-import '../resources/translation/app_translations.dart';
-import '../widgets/components/custom_scaffold.dart';
+import '../widgets/navigation/custom_page.dart';
 import 'app_routes.dart';
 import 'go_router/playx_route.dart';
 
@@ -21,17 +21,12 @@ class AppPages {
 
   static final _homeNavigationRoutes = StatefulShellRoute.indexedStack(
     pageBuilder: (context, state, navigationShell) {
-      final title = navigationShell.currentIndex == 0
-          ? AppTrans.dashboard
-          : navigationShell.currentIndex == 1
-              ? AppTrans.wishlist
-              : AppTrans.settings;
-      return CupertinoPage(
-        child: CustomScaffold(
-          navigationShell: navigationShell,
-          title: title,
-        ),
-        key: state.pageKey,
+      return CustomPageScaffold.buildPage(
+        state: state,
+        navigationShell: navigationShell,
+        showBottomNav: NavigationUtils.showBottomNav,
+        canShowDrawer: NavigationUtils.canShowDrawer,
+        canShowNavigationRail: NavigationUtils.showNavigationRail,
       );
     },
     branches: [

@@ -18,6 +18,11 @@ abstract class AppRouter {
     routes: AppPages.routes,
   );
 
+  static RouteMatch get currentRoute =>
+      router.routerDelegate.currentConfiguration.last;
+
+  static String? get currentRouteName => currentRoute.route.name;
+
   /// Navigate to the current location of the branch at the provided index when
   /// tapping an item in the BottomNavigationBar.
   static void goToBranch({

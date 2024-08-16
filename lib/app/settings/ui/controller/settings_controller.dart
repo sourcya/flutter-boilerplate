@@ -31,7 +31,9 @@ class SettingsController extends GetxController {
   }) async {
     AppRouter.pop();
     await Future.delayed(200.milliseconds);
-    await PlayxTheme.updateTo(theme, animate: false);
+    await PlayxTheme.updateTo(
+      theme,
+    );
     currentTheme.value = theme;
   }
 
