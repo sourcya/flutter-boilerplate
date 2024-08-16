@@ -6,7 +6,7 @@ import 'go_router/app_router.dart';
 abstract class AppNavigation {
   AppNavigation._();
 
-  static void navigateFormSplashToHome() {
+  static void navigateFormSplashToDashboard() {
     AppRouter.offAllNamed(Routes.dashboard);
   }
 

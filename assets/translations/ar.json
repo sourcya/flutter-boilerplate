@@ -98,5 +98,24 @@
   "verifyPhoneSubtitle": "أدخل الكود المكون من 4 أرقام الذي تم إرساله إلي هاتفك.",
   "verifyPhoneTitle": "تأكيد رقم الهاتف",
   "verifyPhoneValidOtpError": "الكود ليس رقم صحيح",
-  "wishlist": "قائمة الأمنيات"
+  "wishlist": "قائمة الأمنيات",
+  "userCanceledLoginErrorMessage": "تم إلغاء عملية المصادقة من قبل المستخدم.",
+  "browserNotAvailableErrorMessage": "لا يوجد تطبيق متصفح مثبت لمعالجة المصادقة عبر الويب.",
+  "pkceNotAvailableErrorMessage": "الخوارزميات المطلوبة لدعم مصادقة PKCE عبر الويب غير متاحة على هذا الجهاز.",
+  "invalidAuthorizeUrlErrorMessage": "عنوان URL للمصادقة غير صالح.",
+  "invalidConfigurationErrorMessage": "تكوين مزود الخدمة الاجتماعية غير صالح.",
+  "mfaRequiredErrorMessage": "مطلوب رمز المصادقة متعددة العوامل (MFA) للمصادقة.",
+  "mfaRegistrationRequiredErrorMessage": "المصادقة متعددة العوامل (MFA) مطلوبة ولكن المستخدم غير مسجل.",
+  "requiresVerificationErrorMessage": "تم وضع علامة على الطلب على أنه مشبوه ويتطلب التحقق.",
+  "passwordLeakedErrorMessage": "تم الإبلاغ عن تسريب كلمة المرور المستخدمة. مطلوب كلمة مرور مختلفة.",
+  "ruleError": "أعاد قاعدة Auth0 خطأً. يرجى الاطلاع على الوصف لمزيد من التفاصيل.",
+  "accessDeniedErrorMessage": "تم رفض الوصول من قبل خادم الموارد وفقًا لمواصفات OAuth2.",
+  "loginRequiredErrorMessage": "انتهت صلاحية جلسة المصادقة، يلزم تسجيل الدخول.",
+  "tooManyAttemptsErrorMessage": "تم حظر المستخدم بسبب كثرة محاولات تسجيل الدخول.",
+  "loggingInText": "جاري تسجيل الدخول...",
+  "loginWithAuth0Label": "تسجيل الدخول باستخدام Auth0",
+  "loginWithEmailLabel": "تسجيل الدخول باستخدام البريد الإلكتروني",
+  "loginWithGoogleLabel": "تسجيل الدخول باستخدام Google",
+  "loginWithAppleLabel": "تسجيل الدخول باستخدام Apple"
+
 }

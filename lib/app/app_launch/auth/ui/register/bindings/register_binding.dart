@@ -1,10 +1,18 @@
 part of '../imports/register_imports.dart';
 
-class RegisterBinding extends Bindings {
+class RegisterBinding extends PlayxBinding {
   @override
-  void dependencies() {
-    Get.lazyPut<RegisterController>(
-      () => RegisterController(),
-    );
+  Future<void> onEnter(BuildContext context, GoRouterState state) async {
+    if (!Get.isRegistered<RegisterController>()) {
+      Get.put(RegisterController());
+    }
+  }
+
+  @override
+  Future<void> onExit(BuildContext context) async {
+    await Future.delayed(500.milliseconds);
+    if (Get.isRegistered<RegisterController>()) {
+      Get.delete<RegisterController>();
+    }
   }
 }

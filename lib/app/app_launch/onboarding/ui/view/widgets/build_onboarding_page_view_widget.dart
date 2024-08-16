@@ -6,7 +6,7 @@ class BuildOnboardingPageViewWidget extends GetView<OnBoardingController> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.height * .82,
+      height: GetPlatform.isIOS ? context.height * .77 : context.height * .82,
       child: PageView(
         controller: controller.pageController,
         onPageChanged: controller.onPageChanged,
