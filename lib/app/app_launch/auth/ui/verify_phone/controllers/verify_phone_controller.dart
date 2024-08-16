@@ -24,7 +24,7 @@ class VerifyPhoneController extends GetxController {
     result.when(
       success: (ApiUser user) async {
         isLoading.value = false;
-        AppNavigation.navigateFromVerifyOtpToHome();
+        AppNavigation.navigateFromVerifyOtpToDashboard();
       },
       error: (NetworkException exception) {
         isLoading.value = false;

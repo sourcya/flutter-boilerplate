@@ -44,13 +44,11 @@ class CustomModal {
       },
       modalTypeBuilder: (context) {
         return context.isLandscape || !AppUtils.isMobile()
-            ? WoltModalType.dialog
-            : WoltModalType.bottomSheet;
+            ? WoltModalType.dialog()
+            : WoltModalType.bottomSheet();
       },
       onModalDismissedWithBarrierTap: onModalDismissedWithBarrierTap,
       enableDrag: true,
-      minDialogWidth: context.width * 0.9,
-      maxDialogWidth: context.width * 0.95,
     );
   }
 
@@ -70,14 +68,12 @@ class CustomModal {
       },
       modalTypeBuilder: (context) {
         return context.isLandscape || !AppUtils.isMobile()
-            ? WoltModalType.dialog
-            : WoltModalType.bottomSheet;
+            ? WoltModalType.dialog()
+            : WoltModalType.bottomSheet();
       },
       enableDrag: true,
       onModalDismissedWithBarrierTap: onModalDismissedWithBarrierTap,
       onModalDismissedWithDrag: onModalDismissedWithBarrierTap,
-      minDialogWidth: context.width * 0.9,
-      maxDialogWidth: context.width * 0.95,
     );
   }
 
@@ -100,8 +96,8 @@ class CustomModal {
 
     final modalBody = PopScope(
       canPop: onPreviousPressed == null,
-      onPopInvoked: onPreviousPressed != null
-          ? (_) {
+      onPopInvokedWithResult: onPreviousPressed != null
+          ? (_, __) {
               onPreviousPressed.call();
             }
           : null,
@@ -111,7 +107,7 @@ class CustomModal {
     return isSliver
         ? SliverWoltModalSheetPage(
             hasSabGradient: hasSabGradient,
-            sabGradientColor: context.colors.background.withOpacity(.95),
+            sabGradientColor: context.colors.surface.withOpacity(.95),
             stickyActionBar: actionBarStatus != null
                 ? _buildNextButton(
                     status: actionBarStatus,
@@ -154,7 +150,7 @@ class CustomModal {
           )
         : WoltModalSheetPage(
             hasSabGradient: hasSabGradient,
-            sabGradientColor: context.colors.background.withOpacity(.95),
+            sabGradientColor: context.colors.surface.withOpacity(.95),
             hasTopBarLayer: showTopBar,
             isTopBarLayerAlwaysVisible: showTopBar,
             stickyActionBar: actionBarStatus != null
