@@ -28,3 +28,8 @@ class AppUtils {
     return shortestSide < 600;
   }
 }
+
+extension AppUtilsExtension on BuildContext {
+  bool get isDarkMode => AppUtils.isDarkMode();
+  bool get isTablet => mediaQuery.size.width >= 600;
+}

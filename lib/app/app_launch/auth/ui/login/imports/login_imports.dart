@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/navigation/go_router/playx_binding.dart';
+import 'package:go_router/src/state.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../../../core/navigation/app_navigation.dart';

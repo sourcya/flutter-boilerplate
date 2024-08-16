@@ -28,23 +28,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlayxMaterialApp(
-      title: AppTrans.appName.tr(),
-      preferredOrientations: const [
-        DeviceOrientation.landscapeRight,
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.portraitUp,
-      ],
-      navigationSettings: PlayxNavigationSettings.router(
-        routerDelegate: AppRouter.router.routerDelegate,
-        routeInformationProvider: AppRouter.router.routeInformationProvider,
-        routeInformationParser: AppRouter.router.routeInformationParser,
-        backButtonDispatcher: AppRouter.router.backButtonDispatcher,
+    return ScaffoldMessenger(
+      child: Builder(
+        builder: (context) {
+          return PlayxMaterialApp(
+            title: AppTrans.appName.tr(),
+            preferredOrientations: const [
+              DeviceOrientation.landscapeRight,
+              DeviceOrientation.landscapeLeft,
+              DeviceOrientation.portraitUp,
+            ],
+            navigationSettings: PlayxNavigationSettings.router(
+              routerDelegate: AppRouter.router.routerDelegate,
+              routeInformationProvider:
+                  AppRouter.router.routeInformationProvider,
+              routeInformationParser: AppRouter.router.routeInformationParser,
+              backButtonDispatcher: AppRouter.router.backButtonDispatcher,
+            ),
+            screenSettings: const PlayxScreenSettings(
+              fontSizeResolver: FontSizeResolvers.radius,
+            ),
+            scrollBehavior: DefaultAppScrollBehavior(),
+          );
+        },
       ),
-      screenSettings: const PlayxScreenSettings(
-        fontSizeResolver: FontSizeResolvers.radius,
-      ),
-      scrollBehavior: DefaultAppScrollBehavior(),
     );
   }
 }
