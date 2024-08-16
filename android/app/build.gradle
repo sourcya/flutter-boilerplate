@@ -59,6 +59,8 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        manifestPlaceholders += [auth0Domain: "sourcya.eu.auth0.com", auth0Scheme: "https"]
+
     }
     // Tell Gradle to exclude the objectbox-android dependency
     // that is added by objectbox_flutter_libs for debug builds.

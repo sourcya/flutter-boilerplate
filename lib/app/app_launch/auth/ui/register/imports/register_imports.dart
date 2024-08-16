@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/navigation/go_router/playx_binding.dart';
+import 'package:go_router/go_router.dart';
 import 'package:playx/playx.dart';
 
 import '../../../../../../core/navigation/app_navigation.dart';

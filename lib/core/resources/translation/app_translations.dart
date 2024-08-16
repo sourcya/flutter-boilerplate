@@ -130,4 +130,28 @@ abstract class AppTrans {
   static const gradientTheme = 'gradientTheme';
 
   static const bluePurpleGradientTheme = 'bluePurpleGradientTheme';
+
+  static const userCanceledLoginErrorMessage = 'userCanceledLoginErrorMessage';
+  static const browserNotAvailableErrorMessage =
+      'browserNotAvailableErrorMessage';
+  static const pkceNotAvailableErrorMessage = 'pkceNotAvailableErrorMessage';
+  static const invalidAuthorizeUrlErrorMessage =
+      'invalidAuthorizeUrlErrorMessage';
+  static const invalidConfigurationErrorMessage =
+      'invalidConfigurationErrorMessage';
+  static const mfaRequiredErrorMessage = 'mfaRequiredErrorMessage';
+  static const mfaRegistrationRequiredErrorMessage =
+      'mfaRegistrationRequiredErrorMessage';
+  static const requiresVerificationErrorMessage =
+      'requiresVerificationErrorMessage';
+  static const passwordLeakedErrorMessage = 'passwordLeakedErrorMessage';
+  static const ruleError = 'ruleError';
+  static const accessDeniedErrorMessage = 'accessDeniedErrorMessage';
+  static const loginRequiredErrorMessage = 'loginRequiredErrorMessage';
+  static const tooManyAttemptsErrorMessage = 'tooManyAttemptsErrorMessage';
+  static const loggingInText = 'loggingInText';
+  static const loginWithAuth0Label = 'loginWithAuth0Label';
+  static const loginWithEmailLabel = 'loginWithEmailLabel';
+  static const loginWithGoogleLabel = 'loginWithGoogleLabel';
+  static const loginWithAppleLabel = 'loginWithAppleLabel';
 }

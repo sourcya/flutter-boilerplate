@@ -15,16 +15,32 @@ class LoginView extends GetView<LoginController> {
               horizontal: 5,
             ),
             alignment: Alignment.center,
-            child: const Column(
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                BuildLoginLottieAnimation(),
-                BuildLoginTitleWidget(),
-                BuildLoginEmailFieldWidget(),
-                BuildLoginPasswordFieldWidget(),
-                BuildLoginButtonWidget(),
-                BuildLoginRegisterNowWidget(),
-                Spacer(),
+                const BuildLoginLottieAnimation(),
+                const BuildLoginTitleWidget(),
+                Obx(() {
+                  return AnimatedSwitcher(
+                    duration: 350.milliseconds,
+                    child:
+                        controller.currentLoginMethod.value == LoginMethod.email
+                            ? const BuildLoginWithEmailWidget()
+                            : const BuildChooseLoginMethodWidget(),
+                  );
+                }),
+                const Spacer(),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  child: AppVersion(
+                    textStyle: TextStyle(
+                      color: context.colors.onSurface,
+                      fontSize: 12.sp,
+                      fontFamily: fontFamily,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 12.r),
               ],
             ),
           ),
