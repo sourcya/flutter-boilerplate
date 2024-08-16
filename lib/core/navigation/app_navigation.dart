@@ -18,7 +18,7 @@ abstract class AppNavigation {
     AppRouter.toNamed(Routes.register);
   }
 
-  static void navigateFromLoginToHome() {
+  static void navigateFromLoginToDashboard() {
     AppRouter.offAllNamed(Routes.dashboard);
   }
 
@@ -26,7 +26,7 @@ abstract class AppNavigation {
     AppRouter.offAllNamed(Routes.login);
   }
 
-  static void navigateFromRegisterToHome() {
+  static void navigateFromRegisterToDashboard() {
     AppRouter.offAllNamed(Routes.dashboard);
   }
 
@@ -42,7 +42,7 @@ abstract class AppNavigation {
     AppRouter.offAllNamed(Routes.login);
   }
 
-  static void navigateFromVerifyOtpToHome() {
+  static void navigateFromVerifyOtpToDashboard() {
     AppRouter.offAllNamed(Routes.dashboard);
   }
 

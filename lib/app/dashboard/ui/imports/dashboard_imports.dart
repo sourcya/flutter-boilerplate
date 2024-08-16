@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_scaffold.dart';
+import 'package:flutter_boilerplate/core/widgets/custom_app_bar.dart';
 import 'package:go_router/go_router.dart';
 import 'package:playx/playx.dart';
 
