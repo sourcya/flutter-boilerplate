@@ -3,7 +3,6 @@ import 'package:playx/playx.dart';
 
 import '../../../../../core/config/constant.dart';
 import '../../../../../core/network/endpoints/endpoints.dart';
-import '../../../../../core/preferences/preference_manger.dart';
 import '../../../../../core/resources/translation/app_translations.dart';
 import '../models/api_user.dart';
 import '../models/auth0Exception.dart';
@@ -25,8 +24,7 @@ class Auth0AuthDataSource {
   Future<bool> get hasValidCredentials async =>
       await _auth0.credentialsManager.hasValidCredentials();
 
-  Future<bool> get isLoggedIn async =>
-      (await hasValidCredentials) && (MyPreferenceManger.instance.isLoggedIn);
+  Future<bool> get isLoggedIn async => await hasValidCredentials;
 
   // Use a Universal Link callback URL on iOS 17.4+ / macOS 14.4+
   // useHTTPS is ignored on Android

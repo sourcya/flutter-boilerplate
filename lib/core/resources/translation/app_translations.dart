@@ -154,4 +154,6 @@ abstract class AppTrans {
   static const loginWithEmailLabel = 'loginWithEmailLabel';
   static const loginWithGoogleLabel = 'loginWithGoogleLabel';
   static const loginWithAppleLabel = 'loginWithAppleLabel';
+
+  static const loggingOutText = 'loggingOutText';
 }
