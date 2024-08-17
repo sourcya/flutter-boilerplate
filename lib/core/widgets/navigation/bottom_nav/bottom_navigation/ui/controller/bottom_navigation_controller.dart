@@ -3,6 +3,8 @@ part of '../imports/bottom_navigation_imports.dart';
 class CustomBottomNavigationController extends GetxController {
   int currentIndex = 0;
 
+  final showBottomNav = true.obs;
+
   @override
   void onInit() {
     super.onInit();

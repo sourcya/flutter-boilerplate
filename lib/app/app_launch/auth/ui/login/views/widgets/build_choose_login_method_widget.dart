@@ -10,7 +10,7 @@ class BuildChooseLoginMethodWidget extends GetView<LoginController> {
         ...List.generate(
           controller.loginMethods.length,
           (i) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0.r),
+            padding: EdgeInsets.symmetric(vertical: 5.0.r),
             child: BuildLoginMethodButton(
               method: controller.loginMethods[i],
             ),

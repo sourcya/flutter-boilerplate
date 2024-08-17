@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
+import 'package:flutter_boilerplate/core/widgets/loading_overlay.dart';
 import 'package:go_router/go_router.dart';
 import 'package:playx/playx.dart';
 
@@ -51,17 +53,32 @@ class CustomPageScaffold extends StatelessWidget {
         }
         return false;
       },
-      child: PlatformScaffold(
-        body: scaffoldChild,
-        key: ValueKey(navigationShell.currentIndex),
-        backgroundColor: context.colors.surface,
-        bottomNavBar: showBottomNav
-            ? buildCustomNavigationBar(
-                navigationShell: navigationShell,
-                context: context,
-              )
-            : null,
-      ),
+      child: Obx(() {
+        final bottomNavController =
+            Get.find<CustomBottomNavigationController>();
+        final drawerController = Get.find<CustomNavigationDrawerController>();
+        return PlatformScaffold(
+          body: Stack(
+            children: [
+              scaffoldChild,
+              Obx(() {
+                return LoadingOverlay(
+                  isLoading: drawerController.isLoggingOut.value,
+                  loadingText: AppTrans.loggingOutText,
+                );
+              }),
+            ],
+          ),
+          key: ValueKey(navigationShell.currentIndex),
+          backgroundColor: context.colors.surface,
+          bottomNavBar: bottomNavController.showBottomNav.value && showBottomNav
+              ? buildCustomNavigationBar(
+                  navigationShell: navigationShell,
+                  context: context,
+                )
+              : null,
+        );
+      }),
     );
   }
 

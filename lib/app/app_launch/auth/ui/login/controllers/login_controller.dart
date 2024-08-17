@@ -26,11 +26,11 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     if (kDebugMode) {
-      emailController.text = 'bbbb@mail.com';
-      passwordController.text = '123456';
-      isEmailValid.value = true;
-      isPasswordValid.value = true;
-      isFormValid.value = true;
+      // emailController.text = 'bbbb@mail.com';
+      // passwordController.text = '123456';
+      // isEmailValid.value = true;
+      // isPasswordValid.value = true;
+      // isFormValid.value = true;
     }
     super.onInit();
     listenToValidationState();

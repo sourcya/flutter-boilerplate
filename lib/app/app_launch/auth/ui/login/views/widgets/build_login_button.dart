@@ -7,8 +7,7 @@ class BuildLoginButtonWidget extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return CustomElevatedButton(
-        onPressed: controller.login,
-        isLoading: controller.isLoading.value,
+        onPressed: controller.isFormValid.value ? controller.login : null,
         label: AppTrans.loginText,
       );
     });

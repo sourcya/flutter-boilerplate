@@ -35,9 +35,15 @@ class AuthRepository {
     return res;
   }
 
-  Future<bool> get isLoggedIn async => _auth0DataSource.isLoggedIn;
+  Future<bool> isLoggedIn({bool checkAuth0Credentials = true}) async {
+    if (checkAuth0Credentials) {
+      return await _auth0DataSource.isLoggedIn && _preferenceManger.isLoggedIn;
+    }
+    return _preferenceManger.isLoggedIn;
+  }
 
-  Future<bool> get isLoggedOut async => !(await isLoggedIn);
+  Future<bool> isLoggedOut({bool checkAuth0Credentials = true}) async =>
+      !(await isLoggedIn(checkAuth0Credentials: checkAuth0Credentials));
 
   Future<ApiUser?> getAuth0AuthedUser() async {
     final res = await _auth0DataSource.getCredentials();
@@ -118,5 +124,18 @@ class AuthRepository {
     );
 
     return result;
+  }
+
+  Future<void> logout({bool logOutFromAuth0 = true}) async {
+    await _preferenceManger.signOut();
+    await Future.delayed(2.seconds);
+    if (logOutFromAuth0) {
+      try {
+        await _auth0DataSource.logout();
+      } catch (e) {
+        Fimber.e('Error logging out via Auth0', ex: e);
+        Sentry.captureException(e);
+      }
+    }
   }
 }
