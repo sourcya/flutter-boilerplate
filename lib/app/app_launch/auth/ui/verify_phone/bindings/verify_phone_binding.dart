@@ -9,7 +9,7 @@ class VerifyPhoneBinding extends PlayxBinding {
   }
 
   @override
-  Future<void> onExit(BuildContext context) async {
+  Future<void> onExit(BuildContext context, GoRouterState state) async {
     if (Get.isRegistered<VerifyPhoneController>()) {
       Get.delete<VerifyPhoneController>();
     }

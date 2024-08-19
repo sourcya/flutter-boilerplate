@@ -7,6 +7,8 @@ import 'package:playx/playx.dart';
 
 import '../../../../core/data_state/models/data_state.dart';
 import '../../../../core/data_state/widgets/rx_data_state_widget.dart';
+import '../../../../core/navigation/app_routes.dart';
+import '../../../../core/navigation/go_router/app_router.dart';
 import '../../../../core/navigation/go_router/playx_binding.dart';
 import '../../../../core/resources/colors/app_colors.dart';
 import '../../../../core/widgets/components/custom_card.dart';
