@@ -133,7 +133,6 @@ class AuthRepository {
       try {
         await _auth0DataSource.logout();
       } catch (e) {
-        Fimber.e('Error logging out via Auth0', ex: e);
         Sentry.captureException(e);
       }
     }
