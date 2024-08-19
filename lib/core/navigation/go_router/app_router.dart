@@ -18,6 +18,7 @@ abstract class AppRouter {
     routes: AppPages.routes,
   );
 
+
   static RouteMatch get currentRoute =>
       router.routerDelegate.currentConfiguration.last;
 
@@ -42,11 +43,13 @@ abstract class AppRouter {
     String name, {
     Map<String, String> pathParameters = const <String, String>{},
     Map<String, dynamic> queryParameters = const <String, dynamic>{},
+    Object? extra,
   }) async {
     return router.goNamed(
       name,
       pathParameters: pathParameters,
       queryParameters: queryParameters,
+      extra: extra,
     );
   }
 
@@ -54,11 +57,13 @@ abstract class AppRouter {
     String name, {
     Map<String, String> pathParameters = const <String, String>{},
     Map<String, dynamic> queryParameters = const <String, dynamic>{},
+    Object? extra,
   }) async {
     return router.goNamed(
       name,
       pathParameters: pathParameters,
       queryParameters: queryParameters,
+      extra: extra,
     );
   }
 
@@ -66,12 +71,12 @@ abstract class AppRouter {
     String name, {
     Map<String, String> pathParameters = const <String, String>{},
     Map<String, dynamic> queryParameters = const <String, dynamic>{},
+    Object? extra,
   }) async {
-    await router.pushNamed(
-      name,
-      pathParameters: pathParameters,
-      queryParameters: queryParameters,
-    );
+    await router.pushNamed(name,
+        pathParameters: pathParameters,
+        queryParameters: queryParameters,
+        extra: extra);
   }
 
   static void pop() {
