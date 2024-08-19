@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/app_launch/auth/ui/login/imports/login_imports.dart';
@@ -9,6 +9,7 @@ import '../../app/settings/ui/imports/settings_imports.dart';
 import '../../app/wishlist/ui/imports/wishlist_imports.dart';
 import '../widgets/navigation/custom_page.dart';
 import 'app_routes.dart';
+import 'go_router/playx_page_transition.dart';
 import 'go_router/playx_route.dart';
 import 'navigation_utils.dart';
 
@@ -34,14 +35,8 @@ class AppPages {
           PlayxRoute(
             path: Paths.dashboard,
             name: Routes.dashboard,
-            pageBuilder: (context, state) =>
-                CustomTransitionPage<void>(
-                  key: state.pageKey,
-                  child: DashboardView(),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                      FadeTransition(opacity: animation, child: child),
-                ),
+            builder: (ctx, state) => DashboardView(),
+            transition: PlayxPageTransition.fade,
             binding: DashboardBinding(),
           ),
         ],
@@ -51,12 +46,21 @@ class AppPages {
           PlayxRoute(
             path: Paths.wishlist,
             name: Routes.wishlist,
-            pageBuilder: (context, state) =>
-                CupertinoPage(
-                  child: WishlistView(),
-                  key: state.pageKey,
-                ),
+            builder: (ctx, state) => WishlistView(),
             binding: WishlistBinding(),
+            routes: [
+              PlayxRoute(
+                path: Paths.wishlistDetails,
+                name: Routes.wishlistDetails,
+                builder: (ctx, state) => const Scaffold(
+                  body: Center(
+                    child: Text('Wishlist Details'),
+                  ),
+                ),
+                transition: PlayxPageTransition.cupertino,
+                binding: WishlistDetailsBinding(),
+              ),
+            ],
           ),
         ],
       ),
@@ -65,11 +69,8 @@ class AppPages {
           PlayxRoute(
             path: Paths.settings,
             name: Routes.settings,
-            pageBuilder: (context, state) =>
-                CupertinoPage(
-                  child: const SettingsView(),
-                  key: state.pageKey,
-                ),
+            builder: (ctx, state) => const SettingsView(),
+            transition: PlayxPageTransition.cupertino,
             binding: SettingsBinding(),
           ),
         ],
@@ -81,31 +82,19 @@ class AppPages {
     PlayxRoute(
       path: Paths.splash,
       name: Routes.splash,
-      pageBuilder: (context, state) =>
-          CupertinoPage(
-            child: const SplashView(),
-            key: state.pageKey,
-          ),
+      builder: (context, state) => const SplashView(),
       binding: SplashBinding(),
     ),
     PlayxRoute(
       path: Paths.login,
       name: Routes.login,
-      pageBuilder: (context, state) =>
-          CupertinoPage(
-            child: const  LoginView(),
-            key: state.pageKey,
-          ),
+      builder: (context, state) => const LoginView(),
       binding: LoginBinding(),
     ),
     PlayxRoute(
       path: Paths.onboarding,
       name: Routes.onboarding,
-      pageBuilder: (context, state) =>
-          CupertinoPage(
-            child: OnBoardingView(),
-            key: state.pageKey,
-          ),
+      builder: (context, state) => OnBoardingView(),
       binding: OnBoardingBinding(),
     ),
     _homeNavigationRoutes,
