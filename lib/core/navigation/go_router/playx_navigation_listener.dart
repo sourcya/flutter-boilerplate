@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/navigation/go_router/app_router.dart';
 import 'package:flutter_boilerplate/core/navigation/go_router/playx_route.dart';
 import 'package:go_router/go_router.dart';
-import 'package:playx/playx.dart';
 
 class PlayxNavigationListener extends StatefulWidget {
   final Widget Function(BuildContext context) builder;
@@ -28,7 +27,6 @@ class _PlayxNavigationListenerState extends State<PlayxNavigationListener> {
     final currentRoute = AppRouter.currentRoute;
 
     final previousRoute = _currentRoute?.route;
-    Fimber.d('PlayxRoute changes from $previousRoute to $currentRoute');
     if (previousRoute is PlayxRoute) {
       if (previousRoute.binding != null &&
           previousRoute.binding!.shouldExecuteOnExit) {

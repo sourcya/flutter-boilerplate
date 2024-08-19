@@ -1,6 +1,5 @@
 import 'package:flutter_boilerplate/core/navigation/go_router/playx_binding.dart';
 import 'package:go_router/go_router.dart';
-import 'package:playx/playx.dart';
 
 import 'playx_page_transition.dart';
 
@@ -28,7 +27,6 @@ class PlayxRoute extends GoRoute {
     /// ```
     ///
     required GoRouterWidgetBuilder builder,
-    GoRouterWidgetBuilder? initialBuilder,
     this.transition = PlayxPageTransition.cupertino,
     this.pageConfiguration = const PlayxPageConfiguration(),
     super.parentNavigatorKey,
@@ -43,11 +41,6 @@ class PlayxRoute extends GoRoute {
               return redirect(context, state);
             }
             final topRoute = state.topRoute;
-
-            Fimber.d(
-              'PlayxRoute : Redirecting to ${state.name} => ${state.fullPath}',
-            );
-
             // Trigger onEnter when entering the page for the first time and when the top route is the same as the current route
             if (topRoute == null || name == topRoute.name) {
               binding?.shouldExecuteOnExit = false;
@@ -58,10 +51,6 @@ class PlayxRoute extends GoRoute {
           onExit: binding == null
               ? onExit
               : (context, state) async {
-                  Fimber.d(
-                    'PlayxRoute : onExit ${state.name} : state top ${state.topRoute?.name}',
-                  );
-
                   if (onExit != null) {
                     return onExit(context, state);
                   }
