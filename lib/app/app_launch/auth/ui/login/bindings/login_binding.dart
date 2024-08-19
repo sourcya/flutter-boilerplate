@@ -10,7 +10,7 @@ class LoginBinding extends PlayxBinding {
   }
 
   @override
-  Future<void> onExit(BuildContext context) async {
+  Future<void> onExit(BuildContext context, GoRouterState state) async {
     await Future.delayed(500.milliseconds);
     if (Get.isRegistered<LoginController>()) {
       Get.delete<LoginController>();
