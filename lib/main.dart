@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
     return ScaffoldMessenger(
       child: Builder(
         builder: (context) {
-          return PlayxMaterialApp(
+          return PlayxPlatformApp(
             title: AppTrans.appName.tr(),
             preferredOrientations: const [
               DeviceOrientation.landscapeRight,
