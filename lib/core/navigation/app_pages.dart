@@ -45,7 +45,7 @@ class AppPages {
             path: Paths.dashboard,
             name: Routes.dashboard,
             builder: (ctx, state) => DashboardView(),
-            transition: PlayxPageTransition.fade,
+            transition: PlayxPageTransition.cupertino,
             binding: DashboardBinding(),
           ),
         ],
@@ -63,7 +63,7 @@ class AppPages {
               PlayxRoute(
                 path: Paths.wishlistDetails,
                 name: Routes.wishlistDetails,
-                transition: PlayxPageTransition.fade,
+                transition: PlayxPageTransition.cupertino,
                 builder: (ctx, state) {
                   return const Scaffold(
                     body: Center(
@@ -82,6 +82,7 @@ class AppPages {
           PlayxRoute(
             path: Paths.settings,
             name: Routes.settings,
+            transition: PlayxPageTransition.cupertino,
             builder: (ctx, state) => const SettingsView(),
             binding: SettingsBinding(),
           ),
