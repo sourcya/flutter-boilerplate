@@ -20,6 +20,15 @@ class AppPages {
   static const initial = Routes.splash;
 
   static final _homeNavigationRoutes = StatefulShellRoute.indexedStack(
+    // builder: (context, state, navigationShell) {
+    //   return CustomPageScaffold(
+    //     // state: state,
+    //     navigationShell: navigationShell,
+    //     showBottomNav: NavigationUtils.showBottomNav,
+    //     canShowDrawer: NavigationUtils.canShowDrawer,
+    //     canShowNavigationRail: NavigationUtils.showNavigationRail,
+    //   );
+    // },
     pageBuilder: (context, state, navigationShell) {
       return CustomPageScaffold.buildPage(
         state: state,
@@ -46,18 +55,22 @@ class AppPages {
           PlayxRoute(
             path: Paths.wishlist,
             name: Routes.wishlist,
-            builder: (ctx, state) => WishlistView(),
+            builder: (ctx, state) {
+              return WishlistView();
+            },
             binding: WishlistBinding(),
             routes: [
               PlayxRoute(
                 path: Paths.wishlistDetails,
                 name: Routes.wishlistDetails,
-                builder: (ctx, state) => const Scaffold(
-                  body: Center(
-                    child: Text('Wishlist Details'),
-                  ),
-                ),
-                transition: PlayxPageTransition.cupertino,
+                transition: PlayxPageTransition.fade,
+                builder: (ctx, state) {
+                  return const Scaffold(
+                    body: Center(
+                      child: Text('Wishlist Details'),
+                    ),
+                  );
+                },
                 binding: WishlistDetailsBinding(),
               ),
             ],
@@ -70,7 +83,6 @@ class AppPages {
             path: Paths.settings,
             name: Routes.settings,
             builder: (ctx, state) => const SettingsView(),
-            transition: PlayxPageTransition.cupertino,
             binding: SettingsBinding(),
           ),
         ],

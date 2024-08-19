@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_boilerplate/core/navigation/go_router/playx_binding.dart';
 import 'package:go_router/go_router.dart';
 import 'package:playx/playx.dart';
@@ -29,6 +28,7 @@ class PlayxRoute extends GoRoute {
     /// ```
     ///
     required GoRouterWidgetBuilder builder,
+    GoRouterWidgetBuilder? initialBuilder,
     this.transition = PlayxPageTransition.cupertino,
     this.pageConfiguration = const PlayxPageConfiguration(),
     super.parentNavigatorKey,
@@ -50,28 +50,31 @@ class PlayxRoute extends GoRoute {
 
             // Trigger onEnter when entering the page for the first time and when the top route is the same as the current route
             if (topRoute == null || name == topRoute.name) {
+              binding?.shouldExecuteOnExit = false;
               binding?.onEnter(context, state);
             } else {}
             return null;
           },
           onExit: binding == null
-              ? null
+              ? onExit
               : (context, state) async {
                   Fimber.d(
                     'PlayxRoute : onExit ${state.name} : state top ${state.topRoute?.name}',
                   );
 
-                  binding.onExit(context, state);
                   if (onExit != null) {
                     return onExit(context, state);
                   }
+
+                  binding.shouldExecuteOnExit = true;
                   return true;
                 },
           pageBuilder: (ctx, state) {
-            final Widget child;
-            child = builder(ctx, state);
             return transition.buildPage(
-                config: pageConfiguration, child: child, state: state);
+              config: pageConfiguration,
+              child: builder(ctx, state),
+              state: state,
+            );
           },
         );
 }

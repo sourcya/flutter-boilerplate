@@ -32,9 +32,11 @@ class AppConfig extends PlayXAppConfig {
     Get.put<AppDatabase>(database);
     Get.put<LocalWishlistDataSource>(localWishlistDataSource);
     Get.put<CustomNavigationDrawerController>(
-        CustomNavigationDrawerController());
+      CustomNavigationDrawerController(),
+    );
     Get.put<CustomBottomNavigationController>(
-        CustomBottomNavigationController());
+      CustomBottomNavigationController(),
+    );
   }
 
   @override

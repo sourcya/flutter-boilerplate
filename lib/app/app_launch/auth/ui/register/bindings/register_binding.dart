@@ -9,7 +9,9 @@ class RegisterBinding extends PlayxBinding {
   }
 
   @override
-  Future<void> onExit(BuildContext context, GoRouterState state) async {
+  Future<void> onExit(
+    BuildContext context,
+  ) async {
     await Future.delayed(500.milliseconds);
     if (Get.isRegistered<RegisterController>()) {
       Get.delete<RegisterController>();
