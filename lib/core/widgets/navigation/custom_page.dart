@@ -135,6 +135,7 @@ class CustomPageScaffold extends StatelessWidget {
         },
       ),
       key: state.pageKey,
+      name: state.name,
     );
   }
 }
