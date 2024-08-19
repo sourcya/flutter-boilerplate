@@ -11,7 +11,9 @@ class WishlistDetailsBinding extends PlayxBinding {
   }
 
   @override
-  Future<void> onExit(BuildContext context, GoRouterState state) async {
+  Future<void> onExit(
+    BuildContext context,
+  ) async {
     Fimber.d('PlayxRoute Binding Wishlist Details onExit');
 
     // if (Get.isRegistered<WishlistController>()) {

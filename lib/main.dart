@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_boilerplate/core/navigation/go_router/playx_navigation_listener.dart';
 import 'package:playx/playx.dart';
 
 import 'core/config/app_config.dart';
@@ -31,24 +32,26 @@ class MyApp extends StatelessWidget {
     return ScaffoldMessenger(
       child: Builder(
         builder: (context) {
-          return PlayxPlatformApp(
-            title: AppTrans.appName.tr(),
-            preferredOrientations: const [
-              DeviceOrientation.landscapeRight,
-              DeviceOrientation.landscapeLeft,
-              DeviceOrientation.portraitUp,
-            ],
-            navigationSettings: PlayxNavigationSettings.router(
-              routerDelegate: AppRouter.router.routerDelegate,
-              routeInformationProvider:
-                  AppRouter.router.routeInformationProvider,
-              routeInformationParser: AppRouter.router.routeInformationParser,
-              backButtonDispatcher: AppRouter.router.backButtonDispatcher,
+          return PlayxNavigationListener(
+            builder: (c) => PlayxPlatformApp(
+              title: AppTrans.appName.tr(),
+              preferredOrientations: const [
+                DeviceOrientation.landscapeRight,
+                DeviceOrientation.landscapeLeft,
+                DeviceOrientation.portraitUp,
+              ],
+              navigationSettings: PlayxNavigationSettings.router(
+                routerDelegate: AppRouter.router.routerDelegate,
+                routeInformationProvider:
+                    AppRouter.router.routeInformationProvider,
+                routeInformationParser: AppRouter.router.routeInformationParser,
+                backButtonDispatcher: AppRouter.router.backButtonDispatcher,
+              ),
+              screenSettings: const PlayxScreenSettings(
+                fontSizeResolver: FontSizeResolvers.radius,
+              ),
+              scrollBehavior: DefaultAppScrollBehavior(),
             ),
-            screenSettings: const PlayxScreenSettings(
-              fontSizeResolver: FontSizeResolvers.radius,
-            ),
-            scrollBehavior: DefaultAppScrollBehavior(),
           );
         },
       ),

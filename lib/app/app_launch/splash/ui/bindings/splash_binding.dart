@@ -9,7 +9,9 @@ class SplashBinding extends PlayxBinding {
   }
 
   @override
-  Future<void> onExit(BuildContext context, GoRouterState state) async {
+  Future<void> onExit(
+    BuildContext context,
+  ) async {
     if (Get.isRegistered<SplashController>()) {
       Get.delete<SplashController>();
     }
