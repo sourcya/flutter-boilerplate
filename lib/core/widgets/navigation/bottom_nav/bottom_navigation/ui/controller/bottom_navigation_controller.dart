@@ -20,6 +20,6 @@ class CustomBottomNavigationController extends GetxController {
 
   void handleItemChanged(
       {required int index, required StatefulNavigationShell navigationShell}) {
-    AppRouter.goToBranch(index: index, navigationShell: navigationShell);
+    PlayxNavigation.goToBranch(index: index, navigationShell: navigationShell);
   }
 }

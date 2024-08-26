@@ -111,7 +111,7 @@ class CustomElevatedButton extends StatelessWidget {
       children: [
         AnimatedOpacity(
           opacity: isLoading ? 0 : 1,
-          duration: 150.milliseconds,
+          duration: const Duration(milliseconds: 150),
           child: CustomText(
             label ?? '',
             color: isEnabled
@@ -125,7 +125,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
         AnimatedOpacity(
           opacity: isLoading ? 1 : 0,
-          duration: 150.milliseconds,
+          duration: const Duration(milliseconds: 150),
           child: SizedBox(
             height: 20.r,
             width: 20.r,

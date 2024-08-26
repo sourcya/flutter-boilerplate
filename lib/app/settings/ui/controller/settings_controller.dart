@@ -25,17 +25,18 @@ class SettingsController extends GetxController {
   void handleLanguageSelection(XLocale locale) {
     currentLocale.value = locale;
     PlayxLocalization.updateTo(locale);
-    AppRouter.pop();
+    PlayxNavigation.pop();
   }
 
   Future<void> handleThemeSelection(
     XTheme theme, {
     BuildContext? context,
   }) async {
-    AppRouter.pop();
-    await Future.delayed(200.milliseconds);
+    PlayxNavigation.pop();
+    await Future.delayed(const Duration(milliseconds: 500));
     await PlayxTheme.updateTo(
       theme,
+      animation: PlayxThemeClipperAnimation(),
     );
     currentTheme.value = theme;
   }
@@ -47,7 +48,7 @@ class SettingsController extends GetxController {
     } catch (e) {
       Alert.error(message: e.toString());
     }
-    await Future.delayed(200.milliseconds);
+    await Future.delayed(const Duration(milliseconds: 200));
     AppNavigation.navigateToSplash();
     drawerController.updateLoginStatus(isLoggingOut: false);
   }
@@ -57,8 +58,16 @@ class SettingsController extends GetxController {
   ) async {
     final List<SliverWoltModalSheetPage> settingsPages = [
       SettingsView.buildSettingsModalSheetPage(this, context),
-      BuildSettingsLanguageWidget.buildModalPage(this, context),
-      BuildSettingsThemeWidget.buildModalPage(this, context),
+      BuildSettingsLanguageWidget.buildModalPage(
+        controller: this,
+        context: context,
+        isOnlyPage: false,
+      ),
+      BuildSettingsThemeWidget.buildModalPage(
+        controller: this,
+        context: context,
+        isOnlyPage: false,
+      ),
     ];
 
     return CustomModal.showModal(
@@ -81,7 +90,7 @@ class SettingsController extends GetxController {
   }
 
   void closeSettingsModalSheet() {
-    AppRouter.pop();
+    PlayxNavigation.pop();
     currentPage.value = SettingsPage.settings.index;
   }
 }

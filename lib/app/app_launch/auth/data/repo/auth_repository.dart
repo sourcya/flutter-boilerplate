@@ -128,7 +128,7 @@ class AuthRepository {
 
   Future<void> logout({bool logOutFromAuth0 = true}) async {
     await _preferenceManger.signOut();
-    await Future.delayed(2.seconds);
+    await Future.delayed(const Duration(seconds: 2));
     if (logOutFromAuth0) {
       try {
         await _auth0DataSource.logout();

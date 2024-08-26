@@ -2,15 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/app/wishlist/data/model/ui/wishlist.dart';
-import 'package:flutter_boilerplate/core/navigation/go_router/app_router.dart';
-import 'package:go_router/go_router.dart';
 import 'package:playx/playx.dart';
+import 'package:playx_navigation/playx_navigation.dart';
 
 import '../../../../core/data_state/models/data_error.dart';
 import '../../../../core/data_state/models/data_state.dart';
 import '../../../../core/data_state/widgets/rx_data_state_widget.dart';
 import '../../../../core/navigation/app_routes.dart';
-import '../../../../core/navigation/go_router/playx_binding.dart';
 import '../../../../core/resources/translation/app_translations.dart';
 import '../../../../core/widgets/components/custom_card.dart';
 import '../../../../core/widgets/components/custom_scaffold.dart';
