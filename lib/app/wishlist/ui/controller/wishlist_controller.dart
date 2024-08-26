@@ -18,7 +18,7 @@ class WishlistController extends GetxController {
 
   Future<void> watchWishlistItems() async {
     dataState.value = const DataState.loading();
-    await Future.delayed(2.seconds);
+    await Future.delayed(const Duration(seconds: 2));
     _watchWishlistItemsSub?.cancel();
     _watchWishlistItemsSub = _repository.watchAllWishlistItems().listen((data) {
       if (data.isEmpty) {

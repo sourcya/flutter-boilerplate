@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_boilerplate/core/navigation/app_pages.dart';
+import 'package:playx_navigation/playx_navigation.dart';
+
 import '../utils/app_utils.dart';
 import 'app_routes.dart';
-import 'go_router/app_router.dart';
 
 class NavigationUtils {
   NavigationUtils._();
@@ -17,9 +20,14 @@ class NavigationUtils {
       ];
 
   static bool get showBottomNav =>
-      routesBottomNav.contains(AppRouter.currentRouteName);
+      routesBottomNav.contains(PlayxNavigation.currentRouteName);
 
   static bool get canShowDrawer => AppUtils.isMobile();
 
   static bool get showNavigationRail => !AppUtils.isMobile();
+
+  static GlobalKey<NavigatorState> get navigatorKey =>
+      AppPages.router.routerDelegate.navigatorKey;
+
+  static BuildContext? get navigationContext => navigatorKey.currentContext;
 }

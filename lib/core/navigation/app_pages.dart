@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:playx_navigation/playx_navigation.dart';
 
 import '../../app/app_launch/auth/ui/login/imports/login_imports.dart';
 import '../../app/app_launch/onboarding/ui/imports/onboarding_imports.dart';
@@ -9,15 +9,19 @@ import '../../app/settings/ui/imports/settings_imports.dart';
 import '../../app/wishlist/ui/imports/wishlist_imports.dart';
 import '../widgets/navigation/custom_page.dart';
 import 'app_routes.dart';
-import 'go_router/playx_page_transition.dart';
-import 'go_router/playx_route.dart';
 import 'navigation_utils.dart';
 
 /// contains all possible routes for the application.
 class AppPages {
   AppPages._();
 
-  static const initial = Routes.splash;
+  static const initial = Paths.splash;
+
+  static final router = GoRouter(
+    initialLocation: initial,
+    debugLogDiagnostics: true,
+    routes: routes,
+  );
 
   static final _homeNavigationRoutes = StatefulShellRoute.indexedStack(
     // builder: (context, state, navigationShell) {
@@ -45,7 +49,6 @@ class AppPages {
             path: Paths.dashboard,
             name: Routes.dashboard,
             builder: (ctx, state) => DashboardView(),
-            transition: PlayxPageTransition.cupertino,
             binding: DashboardBinding(),
           ),
         ],
@@ -63,7 +66,6 @@ class AppPages {
               PlayxRoute(
                 path: Paths.wishlistDetails,
                 name: Routes.wishlistDetails,
-                transition: PlayxPageTransition.cupertino,
                 builder: (ctx, state) {
                   return const Scaffold(
                     body: Center(
@@ -82,7 +84,6 @@ class AppPages {
           PlayxRoute(
             path: Paths.settings,
             name: Routes.settings,
-            transition: PlayxPageTransition.cupertino,
             builder: (ctx, state) => const SettingsView(),
             binding: SettingsBinding(),
           ),

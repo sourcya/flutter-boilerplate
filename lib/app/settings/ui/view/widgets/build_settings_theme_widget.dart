@@ -13,17 +13,18 @@ class BuildSettingsThemeWidget extends GetView<SettingsController> {
         onTap: () {
           controller.showSettingsModalPageSheet(
             context,
-            buildModalPage(controller, context),
+            buildModalPage(controller: controller, context: context),
           );
         },
       );
     });
   }
 
-  static SliverWoltModalSheetPage buildModalPage(
-    SettingsController controller,
-    BuildContext context,
-  ) {
+  static SliverWoltModalSheetPage buildModalPage({
+    required SettingsController controller,
+    required BuildContext context,
+    bool isOnlyPage = true,
+  }) {
     return BuildSettingsPage.buildModalPage(
       title: AppTrans.theme,
       items: PlayxTheme.supportedThemes,
@@ -32,11 +33,13 @@ class BuildSettingsThemeWidget extends GetView<SettingsController> {
       itemName: (theme) => theme.name.tr(context: context),
       isItemSelected: (theme) => controller.currentTheme.value.id == theme.id,
       onCloseButtonPressed: controller.closeSettingsModalSheet,
-      onBackButtonPressed: () {
-        controller.currentPage.value = SettingsPage.settings.index;
-      },
+      onBackButtonPressed: isOnlyPage
+          ? null
+          : () {
+              controller.currentPage.value = SettingsPage.settings.index;
+            },
       context: context,
-      showPreviousButton: true,
+      showPreviousButton: !isOnlyPage,
     );
   }
 }

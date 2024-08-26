@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
 
-import '../navigation/go_router/app_router.dart';
+import '../navigation/navigation_utils.dart';
 import '../widgets/components/custom_text.dart';
 
 ///This class provides custom alerts for the app
@@ -68,7 +68,7 @@ abstract class Alert {
     TextAlign textAlign = TextAlign.start,
     List<Widget> actions = const [SizedBox.shrink()],
   }) {
-    final context = AppRouter.rootNavigatorKey.currentContext;
+    final context = NavigationUtils.navigationContext;
     if (context != null) {
       final banner = MaterialBanner(
         content: Text(
@@ -99,7 +99,7 @@ abstract class Alert {
     Duration duration = const Duration(seconds: 3),
     bool isMessageTranslatable = true,
   }) {
-    final context = AppRouter.rootNavigatorKey.currentContext;
+    final context = NavigationUtils.navigationContext;
     if (context != null) {
       final snackBar = SnackBar(
         content: CustomText(

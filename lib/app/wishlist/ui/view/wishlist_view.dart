@@ -17,7 +17,7 @@ class WishlistView extends GetView<WishlistController> {
               final item = data[index];
               return InkWell(
                 onTap: () {
-                  AppRouter.toNamed(Routes.wishlistDetails, extra: item);
+                  PlayxNavigation.toNamed(Routes.wishlistDetails, extra: item);
                 },
                 child: CustomCard(
                   padding: EdgeInsets.zero,

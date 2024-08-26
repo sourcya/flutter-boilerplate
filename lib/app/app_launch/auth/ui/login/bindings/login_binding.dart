@@ -13,7 +13,7 @@ class LoginBinding extends PlayxBinding {
   Future<void> onExit(
     BuildContext context,
   ) async {
-    await Future.delayed(500.milliseconds);
+    await Future.delayed(const Duration(milliseconds: 500));
     if (Get.isRegistered<LoginController>()) {
       Get.delete<LoginController>();
     }

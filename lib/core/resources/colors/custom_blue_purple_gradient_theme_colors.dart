@@ -57,7 +57,4 @@ class CustomBluePurpleGradientThemeColors extends AppColors {
 
   @override
   Color get onBackgroundGradient => PlayxColors.white;
-
-  @override
-  Color get cardBackgroundColor => PlayxColors.white;
 }

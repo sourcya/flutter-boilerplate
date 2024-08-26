@@ -19,6 +19,7 @@ class CustomCard extends StatelessWidget {
   final bool? shouldShowCustomShadow;
   final VoidCallback? onPressed;
   final BorderRadius? borderRadius;
+  final bool isChild;
 
   const CustomCard({
     this.padding,
@@ -34,6 +35,7 @@ class CustomCard extends StatelessWidget {
     this.shouldShowCustomShadow,
     this.onPressed,
     this.borderRadius,
+    this.isChild = false,
   });
 
   @override
@@ -43,11 +45,16 @@ class CustomCard extends StatelessWidget {
       height: height,
       margin: margin ??
           (AppUtils.isDarkMode()
-              ? EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h)
-              : EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h)),
+              ? EdgeInsets.symmetric(horizontal: 8.r, vertical: 4.r)
+              : EdgeInsets.symmetric(horizontal: 6.r, vertical: 4.r)),
       shouldShowCustomShadow: shouldShowCustomShadow ?? !AppUtils.isDarkMode(),
       elevation: elevation ?? (AppUtils.isDarkMode() ? 4 : 0),
-      color: color ?? context.colors.surface,
+      color: color ??
+          (AppUtils.isDarkMode()
+              ? isChild
+                  ? context.colors.surfaceContainerHighest
+                  : context.colors.surfaceContainerHigh
+              : context.colors.surface),
       innerCardShadowMargin: innerCardShadowMargin,
       shadowBorderRadius: shadowBorderRadius,
       shape: shape ??

@@ -20,7 +20,7 @@ class CustomNavigationDrawerController extends GetxController {
       handleLogout();
       return;
     }
-    AppRouter.goToBranch(index: index, navigationShell: navigationShell);
+    PlayxNavigation.goToBranch(index: index, navigationShell: navigationShell);
   }
 
   Future<void> handleLogout() async {
@@ -31,7 +31,7 @@ class CustomNavigationDrawerController extends GetxController {
       Alert.error(message: e.toString());
     }
     isLoggingOut.value = false;
-    await Future.delayed(200.milliseconds);
+    await Future.delayed(const Duration(milliseconds: 200));
     AppNavigation.navigateToSplash();
     bottomNavController.showBottomNav.value = true;
   }

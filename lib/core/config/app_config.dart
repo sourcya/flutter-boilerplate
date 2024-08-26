@@ -40,7 +40,5 @@ class AppConfig extends PlayXAppConfig {
   }
 
   @override
-  Future<void> asyncBoot() async {
-    return Future.delayed(10.seconds);
-  }
+  Future<void> asyncBoot() async {}
 }
