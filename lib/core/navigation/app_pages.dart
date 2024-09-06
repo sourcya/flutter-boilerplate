@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:playx_navigation/playx_navigation.dart';
+import 'package:playx/playx.dart';
 
 import '../../app/app_launch/auth/ui/login/imports/login_imports.dart';
 import '../../app/app_launch/onboarding/ui/imports/onboarding_imports.dart';
@@ -21,18 +21,12 @@ class AppPages {
     initialLocation: initial,
     debugLogDiagnostics: true,
     routes: routes,
+    observers: [
+      SentryNavigatorObserver(),
+    ],
   );
 
   static final _homeNavigationRoutes = StatefulShellRoute.indexedStack(
-    // builder: (context, state, navigationShell) {
-    //   return CustomPageScaffold(
-    //     // state: state,
-    //     navigationShell: navigationShell,
-    //     showBottomNav: NavigationUtils.showBottomNav,
-    //     canShowDrawer: NavigationUtils.canShowDrawer,
-    //     canShowNavigationRail: NavigationUtils.showNavigationRail,
-    //   );
-    // },
     pageBuilder: (context, state, navigationShell) {
       return CustomPageScaffold.buildPage(
         state: state,
