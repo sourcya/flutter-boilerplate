@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  playx: ^1.2.0
+  playx: ^1.2.2
   playx_version_update: ^0.0.5
   dots_indicator: ^3.0.0
   pinput: ^5.0.0
@@ -19,7 +19,7 @@ dependencies:
   objectbox_flutter_libs: any
   path_provider: ^2.1.4
   path: ^1.9.0
-  sentry_dio: ^8.7.0
+  sentry_dio: ^8.8.0
   auth0_flutter: ^1.7.2
 
 

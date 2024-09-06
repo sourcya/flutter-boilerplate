@@ -9,10 +9,9 @@ import 'core/resources/translation/app_locale_config.dart';
 import 'core/resources/translation/app_translations.dart';
 
 void main() async {
-  final appConfig = AppConfig();
-
+  WidgetsFlutterBinding.ensureInitialized();
   Playx.runPlayx(
-    appConfig: appConfig,
+    appConfig: AppConfig(),
     themeConfig: createThemeConfig(),
     localeConfig: createLocaleConfig(),
     envSettings: const PlayxEnvSettings(

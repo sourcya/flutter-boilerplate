@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:playx/playx.dart';
 
 import '../../app/wishlist/data/datasource/db/local_wishlist_data_source.dart';
@@ -15,6 +16,7 @@ class AppConfig extends PlayXAppConfig {
   @override
   Future<void> boot() async {
     //USED FOR DEBUGGING
+    WidgetsFlutterBinding.ensureInitialized();
     Fimber.plantTree(DebugTree());
     Get.put<MyPreferenceManger>(MyPreferenceManger());
     Get.put<EnvManger>(EnvManger());
