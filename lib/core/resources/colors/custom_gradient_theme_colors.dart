@@ -56,7 +56,4 @@ class CustomGradientThemeColors extends AppColors {
 
   @override
   Color get onBackgroundGradient => PlayxColors.black;
-
-  @override
-  Color get cardBackgroundColor => PlayxColors.white;
 }

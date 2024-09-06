@@ -48,7 +48,6 @@ class BuildSettingsDialog<T> extends StatelessWidget {
                       horizontal: 2.w,
                       vertical: 2.h,
                     ),
-                    color: context.colors.surfaceVariant,
                     child: Obx(() {
                       return ListTile(
                         contentPadding: EdgeInsets.symmetric(
@@ -92,7 +91,7 @@ class BuildSettingsDialog<T> extends StatelessWidget {
                           child: Text(
                             itemName(item),
                             style: TextStyle(
-                              // color: context.colors.onBackground,
+                              // color: context.colors.onSurface,
                               fontSize: 14.sp,
                             ),
                           ),

@@ -1,15 +1,13 @@
-part of '../imports/dashboard_imports.dart';
+part of '../imports/wishlist_imports.dart';
 
-class DashboardBinding extends PlayxBinding {
+class WishlistDetailsBinding extends PlayxBinding {
   @override
   Future<void> onEnter(BuildContext context, GoRouterState state) async {
-    Get.put(DashboardController());
   }
 
   @override
   Future<void> onExit(
     BuildContext context,
   ) async {
-    // Get.delete<DashboardController>();
   }
 }

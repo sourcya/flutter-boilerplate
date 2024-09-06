@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_boilerplate/core/navigation/app_pages.dart';
 import 'package:playx/playx.dart';
 
 import 'core/config/app_config.dart';
-import 'core/navigation/go_router/app_router.dart';
 import 'core/resources/theme/theme.dart';
 import 'core/resources/translation/app_locale_config.dart';
 import 'core/resources/translation/app_translations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final appConfig = AppConfig();
-
   Playx.runPlayx(
-    appConfig: appConfig,
+    appConfig: AppConfig(),
     themeConfig: createThemeConfig(),
     localeConfig: createLocaleConfig(),
     envSettings: const PlayxEnvSettings(
@@ -31,24 +29,22 @@ class MyApp extends StatelessWidget {
     return ScaffoldMessenger(
       child: Builder(
         builder: (context) {
-          return PlayxMaterialApp(
-            title: AppTrans.appName.tr(),
+          return PlayxPlatformApp(
             preferredOrientations: const [
               DeviceOrientation.landscapeRight,
               DeviceOrientation.landscapeLeft,
               DeviceOrientation.portraitUp,
             ],
-            navigationSettings: PlayxNavigationSettings.router(
-              routerDelegate: AppRouter.router.routerDelegate,
-              routeInformationProvider:
-                  AppRouter.router.routeInformationProvider,
-              routeInformationParser: AppRouter.router.routeInformationParser,
-              backButtonDispatcher: AppRouter.router.backButtonDispatcher,
+            navigationSettings: PlayxNavigationSettings.goRouter(
+              goRouter: AppPages.router,
             ),
             screenSettings: const PlayxScreenSettings(
               fontSizeResolver: FontSizeResolvers.radius,
             ),
-            scrollBehavior: DefaultAppScrollBehavior(),
+            appSettings: PlayxAppSettings(
+              title: AppTrans.appName.tr(),
+              scrollBehavior: DefaultAppScrollBehavior(),
+            ),
           );
         },
       ),

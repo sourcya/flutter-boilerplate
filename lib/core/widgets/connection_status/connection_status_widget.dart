@@ -33,10 +33,15 @@ class _ConnectionStatusWidgetState extends State<ConnectionStatusWidget> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     if (widget.enableCheckingInternet) {
-      connectionWorker?.dispose();
-      connectionWorker = ever(controller.connectionStatus, (status) {
-        if (mounted) {
+      return ValueListenableBuilder(
+        valueListenable: controller,
+        child: widget.child,
+        builder: (ctx, status, child) {
           switch (status) {
             case ConnectionStatus.connected:
               hideBanner();
@@ -48,13 +53,11 @@ class _ConnectionStatusWidgetState extends State<ConnectionStatusWidget> {
                 widget.onRetryClicked?.call();
               }
           }
-        }
-      });
-    }
-  }
 
-  @override
-  Widget build(BuildContext context) {
+          return child ?? widget.child;
+        },
+      );
+    }
     return widget.child;
   }
 

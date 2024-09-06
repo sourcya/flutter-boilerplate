@@ -1,10 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/navigation/go_router/playx_binding.dart';
 import 'package:flutter_boilerplate/core/widgets/components/custom_elevated_button.dart';
 import 'package:flutter_boilerplate/core/widgets/loading_overlay.dart';
-import 'package:go_router/go_router.dart';
 import 'package:playx/playx.dart';
+import 'package:playx_navigation/playx_navigation.dart';
 
 import '../../../../../../core/navigation/app_navigation.dart';
 import '../../../../../../core/resources/assets/assets.dart';
