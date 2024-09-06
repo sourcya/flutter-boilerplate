@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
-import 'package:flutter_boilerplate/core/widgets/loading_overlay.dart';
-import 'package:go_router/go_router.dart';
 import 'package:playx/playx.dart';
+import 'package:playx_navigation/playx_navigation.dart';
 
 import '../../navigation/app_routes.dart';
-import '../../navigation/go_router/app_router.dart';
 import '../../navigation/navigation_utils.dart';
 import '../../resources/colors/app_colors.dart';
+import '../../resources/translation/app_translations.dart';
+import '../loading_overlay.dart';
 import 'bottom_nav/bottom_navigation/ui/imports/bottom_navigation_imports.dart';
 import 'navigation_drawer/ui/imports/custom_navigation_drawer_imports.dart';
 
@@ -37,21 +36,20 @@ class CustomPageScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     final scaffoldChild = buildScaffoldChild(context);
 
-    return BackButtonListener(
-      // Manage back button press for home routes
-      // As it should navigate to home when pressed back button pressed on home routes
-      // Then it can exit the app
-      onBackButtonPressed: () async {
-        // if (Scaffold.of(context).isDrawerOpen) {
-        //   Navigator.of(context).pop();
-        //   return true;
-        // }
-        if (NavigationUtils.mainRoutes.contains(AppRouter.currentRouteName) &&
-            AppRouter.currentRouteName != Routes.dashboard) {
-          AppRouter.offAllNamed(Routes.dashboard);
-          return true;
+    final canPop = !(NavigationUtils.mainRoutes
+            .contains(PlayxNavigation.currentRouteName) &&
+        PlayxNavigation.currentRouteName != Routes.dashboard);
+
+    // Manage back button press for home routes
+    // As it should navigate to home when pressed back button pressed on home routes
+    // Then it can exit the app
+    return PopScope(
+      canPop: canPop,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) {
+          return;
         }
-        return false;
+        PlayxNavigation.offAllNamed(Routes.dashboard);
       },
       child: Obx(() {
         final bottomNavController =
@@ -135,6 +133,7 @@ class CustomPageScaffold extends StatelessWidget {
         },
       ),
       key: state.pageKey,
+      name: state.name,
     );
   }
 }

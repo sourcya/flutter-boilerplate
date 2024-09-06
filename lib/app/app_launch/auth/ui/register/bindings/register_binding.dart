@@ -9,8 +9,10 @@ class RegisterBinding extends PlayxBinding {
   }
 
   @override
-  Future<void> onExit(BuildContext context) async {
-    await Future.delayed(500.milliseconds);
+  Future<void> onExit(
+    BuildContext context,
+  ) async {
+    await Future.delayed(const Duration(milliseconds: 500));
     if (Get.isRegistered<RegisterController>()) {
       Get.delete<RegisterController>();
     }

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/navigation/navigation_utils.dart';
 import 'package:flutter_boilerplate/core/utils/app_utils.dart';
 import 'package:playx/playx.dart';
+import 'package:playx_navigation/playx_navigation.dart';
 
-import '../navigation/go_router/app_router.dart';
 import '../resources/colors/app_colors.dart';
 import 'components/custom_text.dart';
 
@@ -46,7 +46,7 @@ enum AppBarLeadingType {
                       color: context.colors.primary,
                     ),
               onPressed: () {
-                AppRouter.pop();
+                PlayxNavigation.pop();
               },
             );
           },

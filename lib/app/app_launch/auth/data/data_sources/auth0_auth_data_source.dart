@@ -52,7 +52,6 @@ class Auth0AuthDataSource {
       );
     } on WebAuthenticationException catch (e) {
       Sentry.captureException(e);
-      Fimber.e('Login Error code :${e.code}', ex: e);
       return NetworkResult.error(
         Auth0exception(
           errorCode: e.code,
@@ -61,7 +60,6 @@ class Auth0AuthDataSource {
         ),
       );
     } on Exception catch (e) {
-      Fimber.e('Login Error code', ex: e);
       Sentry.captureException(e);
       return const NetworkResult.error(
         UnexpectedErrorException(errorMessage: AppTrans.unexpectedError),

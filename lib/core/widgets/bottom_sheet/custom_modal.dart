@@ -94,15 +94,19 @@ class CustomModal {
   }) {
     final showTopBar = showModalTopBar?.value ?? true;
 
-    final modalBody = PopScope(
-      canPop: onPreviousPressed == null,
-      onPopInvokedWithResult: onPreviousPressed != null
-          ? (_, __) {
-              onPreviousPressed.call();
-            }
-          : null,
-      child: body,
-    );
+    Fimber.d('onPreviousPressed :$onPreviousPressed');
+    final modalBody = onPreviousPressed == null
+        ? body
+        : PopScope(
+            canPop: false,
+            onPopInvokedWithResult: (didPop, _) {
+              if (didPop) {
+                return;
+              }
+              onPreviousPressed();
+            },
+            child: body,
+          );
 
     return isSliver
         ? SliverWoltModalSheetPage(
@@ -132,21 +136,23 @@ class CustomModal {
                     onPressed: onPreviousPressed,
                     showPreviousButton: showPreviousButton,
                   ),
-            mainContentSlivers: [
-              modalBody,
-              if (actionBarStatus != null && onNextPressed != null)
-                SliverToBoxAdapter(
-                  child: Opacity(
-                    opacity: 0,
-                    child: _buildNextButton(
-                      listenToUpdates: false,
-                      status: actionBarStatus,
-                      onPressed: onNextPressed,
-                      label: nextLabel,
+            mainContentSliversBuilder: (context) {
+              return [
+                modalBody,
+                if (actionBarStatus != null && onNextPressed != null)
+                  SliverToBoxAdapter(
+                    child: Opacity(
+                      opacity: 0,
+                      child: _buildNextButton(
+                        listenToUpdates: false,
+                        status: actionBarStatus,
+                        onPressed: onNextPressed,
+                        label: nextLabel,
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ];
+            },
           )
         : WoltModalSheetPage(
             hasSabGradient: hasSabGradient,

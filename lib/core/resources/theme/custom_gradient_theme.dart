@@ -6,7 +6,7 @@ import '../colors/custom_gradient_theme_colors.dart';
 import '../translation/app_translations.dart';
 
 class CustomGradientTheme {
-  const CustomGradientTheme();
+  const CustomGradientTheme._();
   static String themeId = 'gradient-theme';
   static String themeNameKey = AppTrans.gradientTheme;
 
@@ -21,7 +21,7 @@ class CustomGradientTheme {
       barBackgroundColor: const Color(0xF0F9F9F9),
       primaryColor: colors.primary,
       primaryContrastingColor: colors.primaryContainer,
-      scaffoldBackgroundColor: colors.background,
+      scaffoldBackgroundColor: colors.surface,
       brightness: Brightness.light,
       textTheme:
           const CupertinoTextThemeData(primaryColor: CupertinoColors.label),

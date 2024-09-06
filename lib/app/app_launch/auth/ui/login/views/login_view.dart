@@ -24,7 +24,7 @@ class LoginView extends GetView<LoginController> {
                     const BuildLoginTitleWidget(),
                     Obx(() {
                       return AnimatedSwitcher(
-                        duration: 350.milliseconds,
+                        duration: const Duration(milliseconds: 350),
                         child: controller.currentLoginMethod.value ==
                                 LoginMethod.email
                             ? const BuildLoginWithEmailWidget()

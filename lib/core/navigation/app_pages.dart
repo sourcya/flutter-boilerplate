@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
+import 'package:playx/playx.dart';
 
 import '../../app/app_launch/auth/ui/login/imports/login_imports.dart';
 import '../../app/app_launch/onboarding/ui/imports/onboarding_imports.dart';
@@ -9,14 +9,22 @@ import '../../app/settings/ui/imports/settings_imports.dart';
 import '../../app/wishlist/ui/imports/wishlist_imports.dart';
 import '../widgets/navigation/custom_page.dart';
 import 'app_routes.dart';
-import 'go_router/playx_route.dart';
 import 'navigation_utils.dart';
 
 /// contains all possible routes for the application.
 class AppPages {
   AppPages._();
 
-  static const initial = Routes.splash;
+  static const initial = Paths.splash;
+
+  static final router = GoRouter(
+    initialLocation: initial,
+    debugLogDiagnostics: true,
+    routes: routes,
+    observers: [
+      SentryNavigatorObserver(),
+    ],
+  );
 
   static final _homeNavigationRoutes = StatefulShellRoute.indexedStack(
     pageBuilder: (context, state, navigationShell) {
@@ -34,14 +42,7 @@ class AppPages {
           PlayxRoute(
             path: Paths.dashboard,
             name: Routes.dashboard,
-            pageBuilder: (context, state) =>
-                CustomTransitionPage<void>(
-                  key: state.pageKey,
-                  child: DashboardView(),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                      FadeTransition(opacity: animation, child: child),
-                ),
+            builder: (ctx, state) => DashboardView(),
             binding: DashboardBinding(),
           ),
         ],
@@ -51,12 +52,24 @@ class AppPages {
           PlayxRoute(
             path: Paths.wishlist,
             name: Routes.wishlist,
-            pageBuilder: (context, state) =>
-                CupertinoPage(
-                  child: WishlistView(),
-                  key: state.pageKey,
-                ),
+            builder: (ctx, state) {
+              return WishlistView();
+            },
             binding: WishlistBinding(),
+            routes: [
+              PlayxRoute(
+                path: Paths.wishlistDetails,
+                name: Routes.wishlistDetails,
+                builder: (ctx, state) {
+                  return const Scaffold(
+                    body: Center(
+                      child: Text('Wishlist Details'),
+                    ),
+                  );
+                },
+                binding: WishlistDetailsBinding(),
+              ),
+            ],
           ),
         ],
       ),
@@ -65,11 +78,7 @@ class AppPages {
           PlayxRoute(
             path: Paths.settings,
             name: Routes.settings,
-            pageBuilder: (context, state) =>
-                CupertinoPage(
-                  child: const SettingsView(),
-                  key: state.pageKey,
-                ),
+            builder: (ctx, state) => const SettingsView(),
             binding: SettingsBinding(),
           ),
         ],
@@ -81,31 +90,19 @@ class AppPages {
     PlayxRoute(
       path: Paths.splash,
       name: Routes.splash,
-      pageBuilder: (context, state) =>
-          CupertinoPage(
-            child: const SplashView(),
-            key: state.pageKey,
-          ),
+      builder: (context, state) => const SplashView(),
       binding: SplashBinding(),
     ),
     PlayxRoute(
       path: Paths.login,
       name: Routes.login,
-      pageBuilder: (context, state) =>
-          CupertinoPage(
-            child: const  LoginView(),
-            key: state.pageKey,
-          ),
+      builder: (context, state) => const LoginView(),
       binding: LoginBinding(),
     ),
     PlayxRoute(
       path: Paths.onboarding,
       name: Routes.onboarding,
-      pageBuilder: (context, state) =>
-          CupertinoPage(
-            child: OnBoardingView(),
-            key: state.pageKey,
-          ),
+      builder: (context, state) => OnBoardingView(),
       binding: OnBoardingBinding(),
     ),
     _homeNavigationRoutes,

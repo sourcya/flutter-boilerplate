@@ -13,12 +13,12 @@ class _BuildSplashLogoWidget extends GetView<SplashController> {
       ),
     )
         .animate(
-          delay: 300.milliseconds,
+          delay: const Duration(milliseconds: 300),
           onComplete: controller.handleAnimationCompleted,
         )
-        .fadeIn(duration: 750.milliseconds)
-        .scale(duration: 1.seconds, curve: Curves.easeInOut)
+        .fadeIn(duration: const Duration(milliseconds: 750))
+        .scale(duration: const Duration(seconds: 1), curve: Curves.easeInOut)
         .then()
-        .shimmer(duration: 1.seconds);
+        .shimmer(duration: const Duration(seconds: 1));
   }
 }
