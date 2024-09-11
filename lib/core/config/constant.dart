@@ -28,4 +28,7 @@ abstract class Constants {
   static const bool shouldUseGoogleSignIn = true;
 
   static const bool shouldUseBiometricAuth = true;
+
+  static String auth0ClientId = '';
+  static String auth0Domain = 'sourcya.eu.auth0.com';
 }

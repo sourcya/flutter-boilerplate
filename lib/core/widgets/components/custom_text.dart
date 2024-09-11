@@ -62,7 +62,7 @@ class CustomText extends StatelessWidget {
   Widget build(BuildContext context) {
     final textWidgetStyle = textStyle ??
         TextStyle(
-          color: color ?? context.colors.onBackground,
+          color: color ?? context.colors.onSurface,
           fontSize: fontSize ?? style.fontSize,
           fontWeight: fontWeight ?? style.fontWeight,
           fontStyle: fontStyle,
@@ -90,7 +90,7 @@ class CustomText extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 4.0.w),
               child: Icon(
                 icon,
-                color: iconColor ?? color ?? context.colors.onBackground,
+                color: iconColor ?? color ?? context.colors.onSurface,
                 size: 20.r,
               ),
             ),

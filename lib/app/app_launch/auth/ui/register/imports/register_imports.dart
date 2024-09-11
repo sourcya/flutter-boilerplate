@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:playx/playx.dart';
+import 'package:playx_navigation/playx_navigation.dart';
 
 import '../../../../../../core/navigation/app_navigation.dart';
 import '../../../../../../core/resources/assets/assets.dart';

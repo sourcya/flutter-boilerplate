@@ -3,6 +3,7 @@
 /// description : "Default role given to authenticated user."
 /// type : "authenticated"
 /// __v : 0
+library;
 
 class Role {
   String? id;

@@ -1,8 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/navigation/go_router/playx_binding.dart';
-import 'package:go_router/src/state.dart';
 import 'package:playx/playx.dart';
+import 'package:playx_navigation/playx_navigation.dart';
 
 import '../../../../../core/navigation/app_navigation.dart';
 import '../../../../../core/preferences/preference_manger.dart';

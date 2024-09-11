@@ -27,7 +27,7 @@ class DarkTheme {
           barBackgroundColor: const Color(0xF0090909),
           primaryColor: colors.primary,
           primaryContrastingColor: colors.primaryContainer,
-          scaffoldBackgroundColor: colors.background,
+          scaffoldBackgroundColor: colors.surface,
           brightness: Brightness.dark,
           textTheme: CupertinoTextThemeData(primaryColor: colors.primary),
         ),

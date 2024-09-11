@@ -70,7 +70,7 @@ then if you don't pass **-t or --target** parameter it will try to rename all av
 
 _**Run this command inside your flutter project root.**_
   ```Shell
-        flutter pub global run rename setBundleId --value "Sourcya app"
+        flutter pub global run rename setBundleId --value "io.sourcy.app"
         flutter pub global run rename setAppName --value "Sourcya app"
         flutter pub global run rename setAppName --targets ios,android --value "Sourcya app"
 ```  

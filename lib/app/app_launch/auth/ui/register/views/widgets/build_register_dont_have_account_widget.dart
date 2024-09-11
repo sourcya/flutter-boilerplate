@@ -15,7 +15,7 @@ class BuildRegisterDontHaveAccountWidget extends GetView<RegisterController> {
           text: TextSpan(
             text: AppTrans.haveAccountText.tr(context: context),
             style: TextStyle(
-              // color: context.colors.onBackground,
+              // color: context.colors.onSurface,
               fontSize: 14.sp,
             ),
             children: <TextSpan>[

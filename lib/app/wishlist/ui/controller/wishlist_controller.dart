@@ -11,11 +11,14 @@ class WishlistController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    Fimber.d('PlayxRoute Binding Wishlist onInit');
+
     watchWishlistItems();
   }
 
-  void watchWishlistItems() {
+  Future<void> watchWishlistItems() async {
     dataState.value = const DataState.loading();
+    await Future.delayed(const Duration(seconds: 2));
     _watchWishlistItemsSub?.cancel();
     _watchWishlistItemsSub = _repository.watchAllWishlistItems().listen((data) {
       if (data.isEmpty) {

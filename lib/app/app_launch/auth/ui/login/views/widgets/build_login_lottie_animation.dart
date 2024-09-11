@@ -8,7 +8,7 @@ class BuildLoginLottieAnimation extends StatelessWidget {
     return Lottie.asset(
       Assets.animations.loginAnimation,
       width: double.infinity,
-      height: context.height * .35,
+      height: context.height * .41,
     );
   }
 }

@@ -21,12 +21,17 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
     // }
 
     await isAnimationCompleted.future;
-    // if (!(await MyPreferenceManger.instance.isOnBoardingShown)) {
-    //   AppNavigation.navigateFromSplashToOnBoarding();
-    //   return;
-    // }
+    if (!(await MyPreferenceManger.instance.isOnBoardingShown)) {
+      AppNavigation.navigateFromSplashToOnBoarding();
+      return;
+    }
 
-    AppNavigation.navigateFormSplashToHome();
+    if (!await AuthRepository().isLoggedIn(checkAuth0Credentials: false)) {
+      AppNavigation.navigateFormSplashToLogin();
+      return;
+    }
+
+    AppNavigation.navigateFormSplashToDashboard();
   }
 
   // Future<void> handleAppUpdate() async {

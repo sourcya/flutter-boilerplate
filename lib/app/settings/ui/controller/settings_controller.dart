@@ -14,6 +14,9 @@ class SettingsController extends GetxController {
 
   final currentPage = ValueNotifier(SettingsPage.settings.index);
 
+  CustomNavigationDrawerController get drawerController =>
+      Get.find<CustomNavigationDrawerController>();
+
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -22,21 +25,32 @@ class SettingsController extends GetxController {
   void handleLanguageSelection(XLocale locale) {
     currentLocale.value = locale;
     PlayxLocalization.updateTo(locale);
-    AppRouter.pop();
+    PlayxNavigation.pop();
   }
 
   Future<void> handleThemeSelection(
     XTheme theme, {
     BuildContext? context,
   }) async {
-    AppRouter.pop();
-    await Future.delayed(200.milliseconds);
-    await PlayxTheme.updateTo(theme, animate: false);
+    PlayxNavigation.pop();
+    await Future.delayed(const Duration(milliseconds: 500));
+    await PlayxTheme.updateTo(
+      theme,
+      animation: PlayxThemeClipperAnimation(),
+    );
     currentTheme.value = theme;
   }
 
   Future<void> handleLogOutTap() async {
-    AppRouter.pop();
+    drawerController.updateLoginStatus(isLoggingOut: true);
+    try {
+      await AuthRepository().logout(logOutFromAuth0: false);
+    } catch (e) {
+      Alert.error(message: e.toString());
+    }
+    await Future.delayed(const Duration(milliseconds: 200));
+    AppNavigation.navigateToSplash();
+    drawerController.updateLoginStatus(isLoggingOut: false);
   }
 
   Future<void> showSettingsModalSheet(
@@ -44,8 +58,16 @@ class SettingsController extends GetxController {
   ) async {
     final List<SliverWoltModalSheetPage> settingsPages = [
       SettingsView.buildSettingsModalSheetPage(this, context),
-      BuildSettingsLanguageWidget.buildModalPage(this, context),
-      BuildSettingsThemeWidget.buildModalPage(this, context),
+      BuildSettingsLanguageWidget.buildModalPage(
+        controller: this,
+        context: context,
+        isOnlyPage: false,
+      ),
+      BuildSettingsThemeWidget.buildModalPage(
+        controller: this,
+        context: context,
+        isOnlyPage: false,
+      ),
     ];
 
     return CustomModal.showModal(
@@ -68,7 +90,7 @@ class SettingsController extends GetxController {
   }
 
   void closeSettingsModalSheet() {
-    AppRouter.pop();
+    PlayxNavigation.pop();
     currentPage.value = SettingsPage.settings.index;
   }
 }

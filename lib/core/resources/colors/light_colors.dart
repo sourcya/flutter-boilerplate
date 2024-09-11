@@ -8,23 +8,12 @@ class LightColors extends AppColors {
   //   primaryKey:  AppColors.primaryKey,
   // );
 
-  // static final ColorScheme scheme = Seedcontext.colors.fromSeeds(
-  //   primaryKey: AppColors.blue,
-  //   tones: FlexTones.chroma(Brightness.light)
-  //       .onMainsUseBW()
-  //       .onSurfacesUseBW()
-  //       .surfacesUseBW(),
-
-  static const ColorScheme scheme = ColorScheme(
-    brightness: Brightness.light,
-    primary: Colors.black,
-    onPrimary: Colors.white,
-    secondary: Colors.white,
-    onSecondary: Colors.black,
-    error: Colors.red,
-    onError: Colors.white,
-    surface: Colors.white,
-    onSurface: Colors.black,
+  static final ColorScheme scheme = SeedColorScheme.fromSeeds(
+    primaryKey: Colors.white,
+    tones: FlexTones.chroma(Brightness.light)
+        .onMainsUseBW()
+        .onSurfacesUseBW()
+        .surfacesUseBW(),
   );
 
   LightColors() : super(colorScheme: scheme);
@@ -60,11 +49,8 @@ class LightColors extends AppColors {
   Color? get disabledButtonBackgroundColor => Colors.grey[300];
 
   @override
-  Color get cardBackgroundColor => background;
-
-  @override
   Gradient? get backgroundGradient => null;
 
   @override
-  Color get onBackgroundGradient => onBackground;
+  Color get onBackgroundGradient => onSurface;
 }

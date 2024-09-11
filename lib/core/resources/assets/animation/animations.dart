@@ -13,9 +13,9 @@ class Animations {
   final String noInternetAnimation = 'assets/animation/no_internet.json';
   final String error = 'assets/animation/error.json';
 
-  final String firstBoardingAnimation = "assets/animation/first_boarding.json";
-  final String secondBoardingAnimation =
-      "assets/animation/second_boarding.json";
-  final String thirdBoardingAnimation = "assets/animation/third_boarding.json";
+  final String firstBoardingAnimation = "assets/animation/boarding.json";
+  final String secondBoardingAnimation = "assets/animation/boarding.json";
+  final String thirdBoardingAnimation = "assets/animation/boarding.json";
   final String otpAnimation = 'assets/animation/otp-verification.json';
+  final String loading = 'assets/animation/loading.json';
 }

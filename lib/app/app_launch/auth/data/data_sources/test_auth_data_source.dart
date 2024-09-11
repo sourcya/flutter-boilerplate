@@ -17,7 +17,7 @@ class TestAuthDataSource {
     required String email,
     required String password,
   }) async {
-    await Future.delayed(3.seconds);
+    await Future.delayed(const Duration(seconds: 3));
     return NetworkResult.success(ApiUser(
         jwt: 'sasdfasfafa',
         user: User(
@@ -29,7 +29,7 @@ class TestAuthDataSource {
   Future<NetworkResult<ApiUser>> otpLogin({
     required String phoneNumber,
   }) async {
-    await Future.delayed(3.seconds);
+    await Future.delayed(const Duration(seconds: 3));
     return NetworkResult.success(ApiUser(
         jwt: 'sasdfasfafa',
         user: User(
@@ -39,7 +39,7 @@ class TestAuthDataSource {
   }
 
   Future<NetworkResult<ApiUser>> verifyOtpCode({required String pin}) async {
-    await Future.delayed(3.seconds);
+    await Future.delayed(const Duration(seconds: 3));
     return NetworkResult.success(ApiUser(
         jwt: 'sasdfasfafa',
         user: User(
@@ -50,7 +50,7 @@ class TestAuthDataSource {
 
   Future<NetworkResult<ApiUser>> register(
       {required String email, required String password}) async {
-    await Future.delayed(3.seconds);
+    await Future.delayed(const Duration(seconds: 3));
     return NetworkResult.success(ApiUser(
         jwt: 'sasdfasfafa',
         user: User(

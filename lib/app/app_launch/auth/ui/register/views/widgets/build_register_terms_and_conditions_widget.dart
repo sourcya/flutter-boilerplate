@@ -14,7 +14,7 @@ class BuildRegisterTermsAndConditionsWidget extends StatelessWidget {
         text: TextSpan(
           text: AppTrans.termsAndPrivacyInitialText.tr(context: context),
           style: TextStyle(
-            // color: context.colors.onBackground,
+            // color: context.colors.onSurface,
             fontSize: 12.sp,
           ),
           children: <TextSpan>[
@@ -29,7 +29,7 @@ class BuildRegisterTermsAndConditionsWidget extends StatelessWidget {
             TextSpan(
               text: AppTrans.andText.tr(context: context),
               style: TextStyle(
-                // color: context.colors.onBackground,
+                // color: context.colors.onSurface,
                 fontSize: 12.sp,
               ),
             ),

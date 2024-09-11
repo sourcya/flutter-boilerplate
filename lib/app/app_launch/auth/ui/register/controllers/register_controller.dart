@@ -62,7 +62,7 @@ class RegisterController extends GetxController {
     );
     result.when(
       success: (ApiUser user) {
-        AppNavigation.navigateFromRegisterToHome();
+        AppNavigation.navigateFromRegisterToDashboard();
       },
       error: (NetworkException exception) {
         Alert.error(message: exception.message);

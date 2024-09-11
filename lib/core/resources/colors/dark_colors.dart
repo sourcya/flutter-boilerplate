@@ -4,24 +4,13 @@ import 'package:playx/playx.dart';
 import 'app_colors.dart';
 
 class DarkColors extends AppColors {
-  // static final ColorScheme scheme = Seedcontext.colors.fromSeeds(
-  //   primaryKey:  AppColors.primaryKey,
-  //   brightness: Brightness.dark,
-  //   tones: FlexTones.vivid(Brightness.dark)
-  //       .onMainsUseBW()
-  //       .onSurfacesUseBW(),
-  // );
-
-  static const ColorScheme scheme = ColorScheme(
+  static final ColorScheme scheme = SeedColorScheme.fromSeeds(
+    primaryKey: Colors.black,
     brightness: Brightness.dark,
-    primary: Colors.white,
-    onPrimary: Colors.black,
-    secondary: Colors.black,
-    onSecondary: Colors.white,
-    error: Colors.red,
-    onError: Colors.black,
-    surface: Color(0xFF121212),
-    onSurface: Colors.white,
+    tones: FlexTones.chroma(Brightness.dark)
+        .onMainsUseBW()
+        .onSurfacesUseBW()
+        .surfacesUseBW(),
   );
 
   DarkColors() : super(colorScheme: scheme);
@@ -57,11 +46,8 @@ class DarkColors extends AppColors {
   Color? get disabledButtonBackgroundColor => Colors.grey[600];
 
   @override
-  Color get cardBackgroundColor => const Color(0xFF3A3A3A);
-
-  @override
   Gradient? get backgroundGradient => null;
 
   @override
-  Color get onBackgroundGradient => onBackground;
+  Color get onBackgroundGradient => onSurface;
 }
