@@ -14,8 +14,6 @@ import 'package:playx/playx.dart';
 abstract class AppColors extends PlayxColors {
   final ColorScheme colorScheme;
 
-  Color get cardBackgroundColor;
-
   AppColors({
     required this.colorScheme,
   }) : super.fromColorScheme(scheme: colorScheme);
@@ -50,7 +48,7 @@ abstract class AppColors extends PlayxColors {
   ///Colors that needs to is used for each theme.
   static const Color blue = Colors.blue;
 
-  static const Color primaryKey = Color(0xFFDD6667);
+  static const Color primaryKey = Colors.black;
 }
 
 extension AppColorsExtension on BuildContext {

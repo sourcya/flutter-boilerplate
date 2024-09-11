@@ -59,6 +59,9 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        manifestPlaceholders += [auth0Domain: "sourcya.eu.auth0.com", auth0Scheme: "https"]
+        multiDexEnabled true
+
     }
     // Tell Gradle to exclude the objectbox-android dependency
     // that is added by objectbox_flutter_libs for debug builds.
@@ -116,5 +119,6 @@ dependencies {
     // Warning: when ObjectBox for Dart updates check if <version>
     // needs to be updated.
     debugImplementation("io.objectbox:objectbox-android-objectbrowser:4.0.0")
+    implementation 'com.android.support:multidex:1.0.1'
 
 }

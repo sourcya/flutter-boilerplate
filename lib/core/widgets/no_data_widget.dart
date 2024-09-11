@@ -23,7 +23,7 @@ class NoDataAnimation extends StatelessWidget {
           message ?? AppTrans.noDataMessage.tr(context: context),
           style: textStyle ??
               TextStyle(
-                color: context.colors.onBackground,
+                color: context.colors.onSurface,
                 fontSize: 18.sp,
               ),
         ),

@@ -44,13 +44,11 @@ class CustomModal {
       },
       modalTypeBuilder: (context) {
         return context.isLandscape || !AppUtils.isMobile()
-            ? WoltModalType.dialog
-            : WoltModalType.bottomSheet;
+            ? WoltModalType.dialog()
+            : WoltModalType.bottomSheet();
       },
       onModalDismissedWithBarrierTap: onModalDismissedWithBarrierTap,
       enableDrag: true,
-      minDialogWidth: context.width * 0.9,
-      maxDialogWidth: context.width * 0.95,
     );
   }
 
@@ -70,14 +68,12 @@ class CustomModal {
       },
       modalTypeBuilder: (context) {
         return context.isLandscape || !AppUtils.isMobile()
-            ? WoltModalType.dialog
-            : WoltModalType.bottomSheet;
+            ? WoltModalType.dialog()
+            : WoltModalType.bottomSheet();
       },
       enableDrag: true,
       onModalDismissedWithBarrierTap: onModalDismissedWithBarrierTap,
       onModalDismissedWithDrag: onModalDismissedWithBarrierTap,
-      minDialogWidth: context.width * 0.9,
-      maxDialogWidth: context.width * 0.95,
     );
   }
 
@@ -98,20 +94,24 @@ class CustomModal {
   }) {
     final showTopBar = showModalTopBar?.value ?? true;
 
-    final modalBody = PopScope(
-      canPop: onPreviousPressed == null,
-      onPopInvoked: onPreviousPressed != null
-          ? (_) {
-              onPreviousPressed.call();
-            }
-          : null,
-      child: body,
-    );
+    Fimber.d('onPreviousPressed :$onPreviousPressed');
+    final modalBody = onPreviousPressed == null
+        ? body
+        : PopScope(
+            canPop: false,
+            onPopInvokedWithResult: (didPop, _) {
+              if (didPop) {
+                return;
+              }
+              onPreviousPressed();
+            },
+            child: body,
+          );
 
     return isSliver
         ? SliverWoltModalSheetPage(
             hasSabGradient: hasSabGradient,
-            sabGradientColor: context.colors.background.withOpacity(.95),
+            sabGradientColor: context.colors.surface.withOpacity(.95),
             stickyActionBar: actionBarStatus != null
                 ? _buildNextButton(
                     status: actionBarStatus,
@@ -136,25 +136,27 @@ class CustomModal {
                     onPressed: onPreviousPressed,
                     showPreviousButton: showPreviousButton,
                   ),
-            mainContentSlivers: [
-              modalBody,
-              if (actionBarStatus != null && onNextPressed != null)
-                SliverToBoxAdapter(
-                  child: Opacity(
-                    opacity: 0,
-                    child: _buildNextButton(
-                      listenToUpdates: false,
-                      status: actionBarStatus,
-                      onPressed: onNextPressed,
-                      label: nextLabel,
+            mainContentSliversBuilder: (context) {
+              return [
+                modalBody,
+                if (actionBarStatus != null && onNextPressed != null)
+                  SliverToBoxAdapter(
+                    child: Opacity(
+                      opacity: 0,
+                      child: _buildNextButton(
+                        listenToUpdates: false,
+                        status: actionBarStatus,
+                        onPressed: onNextPressed,
+                        label: nextLabel,
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ];
+            },
           )
         : WoltModalSheetPage(
             hasSabGradient: hasSabGradient,
-            sabGradientColor: context.colors.background.withOpacity(.95),
+            sabGradientColor: context.colors.surface.withOpacity(.95),
             hasTopBarLayer: showTopBar,
             isTopBarLayerAlwaysVisible: showTopBar,
             stickyActionBar: actionBarStatus != null

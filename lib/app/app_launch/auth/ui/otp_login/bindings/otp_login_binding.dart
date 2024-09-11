@@ -9,7 +9,9 @@ class OtpLoginBinding extends PlayxBinding {
   }
 
   @override
-  Future<void> onExit(BuildContext context) async {
+  Future<void> onExit(
+    BuildContext context,
+  ) async {
     if (Get.isRegistered<OtpLoginController>()) {
       Get.delete<OtpLoginController>();
     }

@@ -103,7 +103,7 @@ class _CustomFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return OptimizedTextField.adaptive(
+    return OptimizedTextField(
       hint: widget.hint,
       maxLines: widget.maxLines,
       minLines: widget.minLines,
@@ -154,7 +154,7 @@ class _CustomFieldState extends State<CustomTextField> {
       margin: widget.margin,
       errorMaxLines: widget.errorMaxLines,
       textColor: widget.textColor,
-      labelColor: widget.labelColor ?? context.colors.onBackground,
+      labelColor: widget.labelColor ?? context.colors.onSurface,
       borderColor: widget.borderColor,
       focusedBorderColor: widget.focusedBorderColor,
       formKey: widget.formKey,
@@ -162,10 +162,10 @@ class _CustomFieldState extends State<CustomTextField> {
       textInputAction: widget.textInputAction,
       style: TextStyle(
         fontSize: Dimens.fieldTextSize,
-        color: widget.textColor ?? context.colors.onBackground,
+        color: widget.textColor ?? context.colors.onSurface,
       ),
       labelStyle: TextStyle(
-        color: widget.labelColor ?? context.colors.onBackground,
+        color: widget.labelColor ?? context.colors.onSurface,
         fontSize: Dimens.fieldTextSize,
       ),
       contentPadding: EdgeInsets.only(
@@ -195,13 +195,6 @@ class _CustomFieldState extends State<CustomTextField> {
       errorBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: Colors.red),
         borderRadius: Style.fieldBorderRadius,
-      ),
-      boxDecoration: BoxDecoration(
-        borderRadius: Style.fieldBorderRadius,
-        border: Border.all(
-          color: widget.borderColor ?? PlayxColors.grey,
-          width: .5,
-        ),
       ),
     );
   }

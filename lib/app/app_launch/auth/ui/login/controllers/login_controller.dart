@@ -16,14 +16,21 @@ class LoginController extends GetxController {
   final isFormValid = false.obs;
   Worker? _validationWorker;
 
+  final Rxn<LoginMethod> currentLoginMethod = Rxn();
+  final loginMethods = <LoginMethod>[
+    LoginMethod.email,
+    LoginMethod.google,
+    LoginMethod.apple,
+  ];
+
   @override
   void onInit() {
     if (kDebugMode) {
-      emailController.text = 'bbbb@mail.com';
-      passwordController.text = '123456';
-      isEmailValid.value = true;
-      isPasswordValid.value = true;
-      isFormValid.value = true;
+      // emailController.text = 'bbbb@mail.com';
+      // passwordController.text = '123456';
+      // isEmailValid.value = true;
+      // isPasswordValid.value = true;
+      // isFormValid.value = true;
     }
     super.onInit();
     listenToValidationState();
@@ -39,6 +46,27 @@ class LoginController extends GetxController {
     });
   }
 
+  Future<void> loginBy({required LoginMethod method}) async {
+    currentLoginMethod.value = method;
+    if (method == LoginMethod.email) {
+      currentLoginMethod.value = LoginMethod.email;
+    } else {
+      currentLoginMethod.value = null;
+      isLoading.value = true;
+      final result = await authRepository.loginViaAuth0(method: method);
+      result.when(
+        success: (ApiUser user) async {
+          isLoading.value = false;
+          AppNavigation.navigateFromLoginToDashboard();
+        },
+        error: (NetworkException exception) {
+          isLoading.value = false;
+          Alert.error(message: exception.message);
+        },
+      );
+    }
+  }
+
   Future<void> login() async {
     if (!isFormValid()) return;
     FocusManager.instance.primaryFocus?.unfocus();
@@ -50,7 +78,7 @@ class LoginController extends GetxController {
     result.when(
       success: (ApiUser user) async {
         isLoading.value = false;
-        AppNavigation.navigateFromLoginToHome();
+        AppNavigation.navigateFromLoginToDashboard();
       },
       error: (NetworkException exception) {
         isLoading.value = false;

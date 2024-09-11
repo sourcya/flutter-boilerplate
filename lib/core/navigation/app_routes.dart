@@ -7,10 +7,10 @@ abstract class Routes {
   static const verifyPhone = 'verifyPhone';
   static const register = 'register';
   static const onboarding = 'onboarding';
-  static const home = 'home';
   static const settings = 'settings';
   static const dashboard = 'dashboard';
   static const wishlist = 'wishlist';
+  static const wishlistDetails = 'wishlistDetails';
 }
 
 /// app routes paths.
@@ -20,8 +20,8 @@ abstract class Paths {
   static const verifyPhone = '/otp';
   static const register = '/register';
   static const onboarding = '/onboarding';
-  static const home = '/app';
   static const settings = '/settings';
   static const dashboard = '/dashboard';
   static const wishlist = '/wishlist';
+  static const wishlistDetails = 'details';
 }
