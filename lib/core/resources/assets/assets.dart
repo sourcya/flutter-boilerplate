@@ -1,7 +1,6 @@
+import 'package:flutter_boilerplate/core/resources/assets/animation/animations.dart';
 import 'package:flutter_boilerplate/core/resources/assets/icons/icons.dart';
-
-import 'animation/animations.dart';
-import 'images/images.dart';
+import 'package:flutter_boilerplate/core/resources/assets/images/images.dart';
 
 ///This class is responsible for providing asset's items paths.
 abstract class Assets {

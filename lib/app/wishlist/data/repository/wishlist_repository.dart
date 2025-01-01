@@ -1,8 +1,7 @@
+import 'package:flutter_boilerplate/app/wishlist/data/datasource/db/local_wishlist_data_source.dart';
+import 'package:flutter_boilerplate/app/wishlist/data/model/mapper/database_wishlist_to_wishlist_item_mapper.dart';
+import 'package:flutter_boilerplate/app/wishlist/data/model/ui/wishlist.dart';
 import 'package:playx/playx.dart';
-
-import '../datasource/db/local_wishlist_data_source.dart';
-import '../model/mapper/database_wishlist_to_wishlist_item_mapper.dart';
-import '../model/ui/wishlist.dart';
 
 class WishlistRepository {
   static final WishlistRepository _instance = WishlistRepository._internal();

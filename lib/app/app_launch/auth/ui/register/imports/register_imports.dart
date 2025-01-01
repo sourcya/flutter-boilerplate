@@ -2,20 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/data/models/api_user.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/data/repo/auth_repository.dart';
+import 'package:flutter_boilerplate/core/navigation/app_navigation.dart';
+import 'package:flutter_boilerplate/core/resources/assets/assets.dart';
+import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
+import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
+import 'package:flutter_boilerplate/core/utils/alert.dart';
+import 'package:flutter_boilerplate/core/utils/app_utils.dart';
+import 'package:flutter_boilerplate/core/utils/are_equals_validation.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_text.dart';
+import 'package:flutter_boilerplate/core/widgets/components/text_field.dart';
 import 'package:playx/playx.dart';
-import 'package:playx_navigation/playx_navigation.dart';
-
-import '../../../../../../core/navigation/app_navigation.dart';
-import '../../../../../../core/resources/assets/assets.dart';
-import '../../../../../../core/resources/colors/app_colors.dart';
-import '../../../../../../core/resources/translation/app_translations.dart';
-import '../../../../../../core/utils/alert.dart';
-import '../../../../../../core/utils/app_utils.dart';
-import '../../../../../../core/utils/are_equals_validation.dart';
-import '../../../../../../core/widgets/components/custom_text.dart';
-import '../../../../../../core/widgets/components/text_field.dart';
-import '../../../data/models/api_user.dart';
-import '../../../data/repo/auth_repository.dart';
 
 part '../bindings/register_binding.dart';
 part '../controllers/register_controller.dart';

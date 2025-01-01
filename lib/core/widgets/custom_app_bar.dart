@@ -3,12 +3,10 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/navigation/navigation_utils.dart';
+import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
 import 'package:flutter_boilerplate/core/utils/app_utils.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_text.dart';
 import 'package:playx/playx.dart';
-import 'package:playx_navigation/playx_navigation.dart';
-
-import '../resources/colors/app_colors.dart';
-import 'components/custom_text.dart';
 
 enum AppBarLeadingType {
   none,

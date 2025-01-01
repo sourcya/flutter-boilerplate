@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/assets/assets.dart';
 import 'package:playx/playx.dart';
-
-import '../resources/assets/assets.dart';
 
 class PlaceholderImageWidget extends StatelessWidget {
   final String? path;

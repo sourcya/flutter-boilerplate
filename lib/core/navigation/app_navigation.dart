@@ -1,6 +1,5 @@
+import 'package:flutter_boilerplate/core/navigation/app_routes.dart';
 import 'package:playx_navigation/playx_navigation.dart';
-
-import 'app_routes.dart';
 
 /// This class is responsible for handling the app navigation.
 /// for each navigation from screen to another add it here.
