@@ -1,6 +1,6 @@
 import 'package:auth0_flutter/auth0_flutter.dart';
 
-import 'user.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/data/models/user.dart';
 
 /// Api user model.
 class ApiUser {

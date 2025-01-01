@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/dimens/dimens.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-
-import '../resources/dimens/dimens.dart';
 
 class KeyboardVisibilityPadding extends StatelessWidget {
   const KeyboardVisibilityPadding();

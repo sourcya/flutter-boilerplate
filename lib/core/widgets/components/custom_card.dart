@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
+import 'package:flutter_boilerplate/core/utils/app_utils.dart';
 import 'package:playx/playx.dart';
-
-import '../../resources/colors/app_colors.dart';
-import '../../utils/app_utils.dart';
 
 class CustomCard extends StatelessWidget {
   final Widget child;

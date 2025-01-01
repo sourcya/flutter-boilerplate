@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_boilerplate/core/config/app_config.dart';
 import 'package:flutter_boilerplate/core/navigation/app_pages.dart';
 import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
+import 'package:flutter_boilerplate/core/resources/theme/theme.dart';
+import 'package:flutter_boilerplate/core/resources/translation/app_locale_config.dart';
+import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
 import 'package:playx/playx.dart';
-
-import 'core/config/app_config.dart';
-import 'core/resources/theme/theme.dart';
-import 'core/resources/translation/app_locale_config.dart';
-import 'core/resources/translation/app_translations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

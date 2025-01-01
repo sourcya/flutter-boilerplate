@@ -1,5 +1,5 @@
-import '../../../../../../core/database/objectbox.g.dart';
-import '../../../model/db/database_wishlist_item.dart';
+import 'package:flutter_boilerplate/app/wishlist/data/model/db/database_wishlist_item.dart';
+import 'package:flutter_boilerplate/core/database/objectbox.g.dart';
 
 class WishlistDao {
   final Box<DatabaseWishlistItem> box;

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
+import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
+import 'package:flutter_boilerplate/core/widgets/custom_app_bar.dart';
 import 'package:playx/playx.dart';
-
-import '../../resources/colors/app_colors.dart';
-import '../../resources/translation/app_translations.dart';
-import '../custom_app_bar.dart';
 
 class CustomScaffold extends StatelessWidget {
   final Widget child;

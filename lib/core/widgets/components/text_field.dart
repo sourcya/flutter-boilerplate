@@ -1,11 +1,10 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
+import 'package:flutter_boilerplate/core/resources/dimens/dimens.dart';
+import 'package:flutter_boilerplate/core/resources/style/style.dart';
 import 'package:playx/playx.dart';
-
-import '../../resources/colors/app_colors.dart';
-import '../../resources/dimens/dimens.dart';
-import '../../resources/style/style.dart';
 
 /// This is a custom text field to have same behavior on whole application.
 /// With ability to auto validate it's field and easily customize it.

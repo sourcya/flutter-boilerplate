@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_text.dart';
 import 'package:playx/playx.dart';
-
-import '../../components/custom_text.dart';
 
 class BuildModalTitleWidget extends StatelessWidget {
   final String title;

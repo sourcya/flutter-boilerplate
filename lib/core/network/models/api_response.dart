@@ -1,6 +1,5 @@
+import 'package:flutter_boilerplate/core/network/models/api_meta.dart';
 import 'package:playx/playx.dart';
-
-import 'api_meta.dart';
 
 class ApiResponse<T> {
   final T data;

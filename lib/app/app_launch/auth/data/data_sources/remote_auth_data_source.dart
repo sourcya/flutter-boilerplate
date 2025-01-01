@@ -1,7 +1,6 @@
+import 'package:flutter_boilerplate/app/app_launch/auth/data/models/api_user.dart';
+import 'package:flutter_boilerplate/core/network/endpoints/endpoints.dart';
 import 'package:playx/playx.dart';
-
-import '../../../../../core/network/endpoints/endpoints.dart';
-import '../models/api_user.dart';
 
 ///This class is responsible of retrieving data from the network.
 class RemoteAuthDataSource {

@@ -1,9 +1,8 @@
+import 'package:flutter_boilerplate/core/resources/theme/custom_blue_purple_gradient_theme.dart';
+import 'package:flutter_boilerplate/core/resources/theme/custom_gradient_theme.dart';
+import 'package:flutter_boilerplate/core/resources/theme/dark_theme.dart';
+import 'package:flutter_boilerplate/core/resources/theme/light_theme.dart';
 import 'package:playx/playx.dart';
-
-import 'custom_blue_purple_gradient_theme.dart';
-import 'custom_gradient_theme.dart';
-import 'dark_theme.dart';
-import 'light_theme.dart';
 
 PlayxThemeConfig createThemeConfig() => PlayxThemeConfig(
       themes: [

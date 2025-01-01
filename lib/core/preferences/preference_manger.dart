@@ -1,8 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_boilerplate/app/app_launch/auth/data/models/user.dart';
 import 'package:playx/playx.dart';
-
-import '../../app/app_launch/auth/data/models/user.dart';
 
 /// This class is responsible for saving key/value pairs in shared preferences.
 class MyPreferenceManger {

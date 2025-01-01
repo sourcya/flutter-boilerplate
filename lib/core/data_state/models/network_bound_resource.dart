@@ -1,8 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter_boilerplate/core/data_state/models/data_state.dart';
 import 'package:playx/playx.dart';
-
-import 'data_state.dart';
 
 /// A class that represents a resource that is provided by the network or the database.
 
