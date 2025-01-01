@@ -1,6 +1,6 @@
 part of '../../imports/splash_imports.dart';
 
-class BuildSplashAppVersionWidget extends StatelessWidget {
+class BuildSplashAppVersionWidget extends GetView<SplashController> {
   const BuildSplashAppVersionWidget();
 
   @override
@@ -11,13 +11,16 @@ class BuildSplashAppVersionWidget extends StatelessWidget {
         horizontal: 10.r,
       ),
       alignment: Alignment.center,
-      child: AppVersion(
-        textStyle: TextStyle(
-          fontSize: 13.sp,
-          color: context.colors.primary,
-          fontFamily: fontFamily,
-        ),
-      ),
+      child: Obx(() {
+        return AppVersion(
+          showVersionCode: controller.showVersionCode.value,
+          textStyle: TextStyle(
+            fontSize: 13.sp,
+            color: context.colors.primary,
+            fontFamily: fontFamily,
+          ),
+        );
+      }),
     );
   }
 }

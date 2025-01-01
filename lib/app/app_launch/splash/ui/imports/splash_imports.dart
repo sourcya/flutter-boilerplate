@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/app/app_launch/auth/data/repo/auth_repository.dart';
+import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
 import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
 import 'package:playx/playx.dart';
-import 'package:playx_navigation/playx_navigation.dart';
 
 import '../../../../../core/navigation/app_navigation.dart';
 import '../../../../../core/preferences/preference_manger.dart';
