@@ -54,14 +54,26 @@ class IconInfo {
     if (icon != null) {
       return Icon(icon, color: color ?? this.color, size: size);
     } else if (svgIcon != null) {
-      return ImageViewer.svgAsset(svgIcon!,
-          color: color ?? this.color, width: size, height: size,);
+      return ImageViewer.svgAsset(
+        svgIcon!,
+        color: color ?? this.color,
+        width: size,
+        height: size,
+      );
     } else if (assetIcon != null) {
-      return ImageViewer.asset(assetIcon!,
-          color: color ?? this.color, width: size, height: size,);
+      return ImageViewer.asset(
+        assetIcon!,
+        color: color ?? this.color,
+        width: size,
+        height: size,
+      );
     } else if (url != null) {
-      return ImageViewer.cachedNetwork(url!,
-          color: color ?? this.color, width: size, height: size,);
+      return ImageViewer.cachedNetwork(
+        url!,
+        color: color ?? this.color,
+        width: size,
+        height: size,
+      );
     } else {
       return const SizedBox.shrink();
     }
