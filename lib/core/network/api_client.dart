@@ -1,5 +1,4 @@
 import 'package:playx/playx.dart';
-import 'package:sentry_dio/sentry_dio.dart';
 
 import '../navigation/app_navigation.dart';
 import '../preferences/preference_manger.dart';
@@ -39,11 +38,13 @@ abstract class ApiClient {
           'authorization': 'Bearer $token',
         };
       },
-      logSettings: const LoggerSettings(
-        responseBody: true,
-        responseHeader: true,
+      settings: const PlayxNetworkClientSettings(
+        logSettings: PlayxNetworkLoggerSettings(
+          responseBody: true,
+          responseHeader: true,
+        ),
+        exceptionMessages: CustomExceptionMessage(),
       ),
-      exceptionMessages: const CustomExceptionMessage(),
       // onUnauthorizedRequestReceived: (res) => _signOut(),
     );
   }
