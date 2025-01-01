@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/colors/light_colors.dart';
+import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
 import 'package:playx/playx.dart';
-
-import '../colors/light_colors.dart';
-import '../translation/app_translations.dart';
 
 // ignore: avoid_classes_with_only_static_members
 class LightTheme {

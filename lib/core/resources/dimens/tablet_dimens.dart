@@ -1,6 +1,5 @@
+import 'package:flutter_boilerplate/core/resources/dimens/dimens.dart';
 import 'package:playx/playx.dart';
-
-import 'dimens.dart';
 
 class TabletDimens extends Dimens {
   @override

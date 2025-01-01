@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
 import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
 import 'package:flutter_boilerplate/core/utils/app_utils.dart';
+import 'package:flutter_boilerplate/core/widgets/bottom_sheet/widgets/build_modal_close_button.dart';
+import 'package:flutter_boilerplate/core/widgets/bottom_sheet/widgets/build_modal_next_button.dart';
+import 'package:flutter_boilerplate/core/widgets/bottom_sheet/widgets/build_modal_previous_button.dart';
+import 'package:flutter_boilerplate/core/widgets/bottom_sheet/widgets/build_modal_title_widget.dart';
 import 'package:playx/playx.dart';
-
-import 'widgets/build_modal_close_button.dart';
-import 'widgets/build_modal_next_button.dart';
-import 'widgets/build_modal_previous_button.dart';
-import 'widgets/build_modal_title_widget.dart';
 
 enum StickyActionBarStatus {
   none,
@@ -111,7 +110,7 @@ class CustomModal {
     return isSliver
         ? SliverWoltModalSheetPage(
             hasSabGradient: hasSabGradient,
-            sabGradientColor: context.colors.surface.withOpacity(.95),
+            sabGradientColor: context.colors.surface.withAlpha(240),
             stickyActionBar: actionBarStatus != null
                 ? _buildNextButton(
                     status: actionBarStatus,
@@ -156,7 +155,7 @@ class CustomModal {
           )
         : WoltModalSheetPage(
             hasSabGradient: hasSabGradient,
-            sabGradientColor: context.colors.surface.withOpacity(.95),
+            sabGradientColor: context.colors.surface.withAlpha(240),
             hasTopBarLayer: showTopBar,
             isTopBarLayerAlwaysVisible: showTopBar,
             stickyActionBar: actionBarStatus != null

@@ -1,12 +1,11 @@
+import 'package:flutter_boilerplate/app/app_launch/auth/data/data_sources/auth0_auth_data_source.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/data/data_sources/test_auth_data_source.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/data/models/api_user.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/data/models/login_method.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/data/models/user.dart';
+import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
+import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
 import 'package:playx/playx.dart';
-
-import '../../../../../core/preferences/preference_manger.dart';
-import '../../../../../core/resources/translation/app_translations.dart';
-import '../data_sources/auth0_auth_data_source.dart';
-import '../data_sources/test_auth_data_source.dart';
-import '../models/api_user.dart';
-import '../models/login_method.dart';
-import '../models/user.dart';
 
 /// This is the repository where we should handle the data and return it to the controller.
 class AuthRepository {
