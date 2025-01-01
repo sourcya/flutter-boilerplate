@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/models/icon_info.dart';
+import 'package:flutter_boilerplate/core/resources/assets/assets.dart';
 import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
-
-import '../../../../../core/resources/assets/assets.dart';
-import '../../../../../core/resources/translation/app_translations.dart';
+import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
 
 enum LoginMethod {
   auth0Web,
@@ -35,8 +34,8 @@ enum LoginMethod {
   Color? backgroundColor(BuildContext context) => switch (this) {
         auth0Web => context.colors.primary,
         email => context.colors.primary,
-        google => context.colors.primary.withOpacity(.6),
-        apple => context.colors.primary.withOpacity(.6),
+        google => context.colors.primary.withAlpha(200),
+        apple => context.colors.primary.withAlpha(200),
       };
 
   Color? onBackground(BuildContext context) => switch (this) {

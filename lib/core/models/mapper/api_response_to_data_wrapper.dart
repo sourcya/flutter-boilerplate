@@ -1,7 +1,7 @@
-import '../../network/models/api_meta.dart';
-import '../../network/models/api_response.dart';
-import '../data_wrapper.dart';
-import '../page_info.dart';
+import 'package:flutter_boilerplate/core/models/data_wrapper.dart';
+import 'package:flutter_boilerplate/core/models/page_info.dart';
+import 'package:flutter_boilerplate/core/network/models/api_meta.dart';
+import 'package:flutter_boilerplate/core/network/models/api_response.dart';
 
 extension ApiResponseToDataWrapper<T> on ApiResponse<T> {
   DataWrapper<T> toDataWrapper() {

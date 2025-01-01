@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../../widgets/custom_loading.dart';
-import '../../widgets/empty_data_widget.dart';
-import '../../widgets/error_widget.dart';
-import '../../widgets/no_internet_widget.dart';
-import '../models/data_error.dart';
-import '../models/data_state.dart';
+import 'package:flutter_boilerplate/core/data_state/models/data_error.dart';
+import 'package:flutter_boilerplate/core/data_state/models/data_state.dart';
+import 'package:flutter_boilerplate/core/widgets/custom_loading.dart';
+import 'package:flutter_boilerplate/core/widgets/empty_data_widget.dart';
+import 'package:flutter_boilerplate/core/widgets/error_widget.dart';
+import 'package:flutter_boilerplate/core/widgets/no_internet_widget.dart';
 
 typedef DataCallback<T> = Widget Function(T? data);
 typedef SuccessDataCallback<T> = Widget Function(T data);

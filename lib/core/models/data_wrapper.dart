@@ -1,4 +1,4 @@
-import 'page_info.dart';
+import 'package:flutter_boilerplate/core/models/page_info.dart';
 
 class DataWrapper<T> {
   final T data;

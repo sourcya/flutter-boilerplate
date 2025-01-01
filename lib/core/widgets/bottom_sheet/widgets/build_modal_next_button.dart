@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/widgets/bottom_sheet/custom_modal.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_elevated_button.dart';
 import 'package:playx/playx.dart';
-
-import '../../components/custom_elevated_button.dart';
-import '../custom_modal.dart';
 
 class BuildModalNextButton extends StatelessWidget {
   final bool listenToUpdates;

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/ui/login/imports/login_imports.dart';
+import 'package:flutter_boilerplate/app/app_launch/onboarding/ui/imports/onboarding_imports.dart';
+import 'package:flutter_boilerplate/app/app_launch/splash/ui/imports/splash_imports.dart';
+import 'package:flutter_boilerplate/app/dashboard/ui/imports/dashboard_imports.dart';
+import 'package:flutter_boilerplate/app/settings/ui/imports/settings_imports.dart';
+import 'package:flutter_boilerplate/app/wishlist/ui/imports/wishlist_imports.dart';
+import 'package:flutter_boilerplate/core/navigation/app_routes.dart';
+import 'package:flutter_boilerplate/core/navigation/navigation_utils.dart';
+import 'package:flutter_boilerplate/core/widgets/navigation/custom_page.dart';
 import 'package:playx/playx.dart';
-
-import '../../app/app_launch/auth/ui/login/imports/login_imports.dart';
-import '../../app/app_launch/onboarding/ui/imports/onboarding_imports.dart';
-import '../../app/app_launch/splash/ui/imports/splash_imports.dart';
-import '../../app/dashboard/ui/imports/dashboard_imports.dart';
-import '../../app/settings/ui/imports/settings_imports.dart';
-import '../../app/wishlist/ui/imports/wishlist_imports.dart';
-import '../widgets/navigation/custom_page.dart';
-import 'app_routes.dart';
-import 'navigation_utils.dart';
 
 /// contains all possible routes for the application.
 class AppPages {

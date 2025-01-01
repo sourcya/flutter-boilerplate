@@ -14,8 +14,10 @@ class CustomNavigationDrawerController extends GetxController {
     }
   }
 
-  void handleItemChanged(
-      {required int index, required StatefulNavigationShell navigationShell}) {
+  void handleItemChanged({
+    required int index,
+    required StatefulNavigationShell navigationShell,
+  }) {
     if (index == 3) {
       handleLogout();
       return;

@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_boilerplate/core/navigation/app_pages.dart';
+import 'package:flutter_boilerplate/core/navigation/app_routes.dart';
+import 'package:flutter_boilerplate/core/utils/app_utils.dart';
 import 'package:playx_navigation/playx_navigation.dart';
-
-import '../utils/app_utils.dart';
-import 'app_routes.dart';
 
 class NavigationUtils {
   NavigationUtils._();

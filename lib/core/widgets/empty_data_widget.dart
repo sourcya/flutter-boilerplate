@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/assets/assets.dart';
+import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
+import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
+import 'package:flutter_boilerplate/core/utils/app_utils.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_elevated_button.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_text.dart';
+import 'package:flutter_boilerplate/core/widgets/orientation_widget.dart';
 import 'package:playx/playx.dart';
-
-import '../resources/assets/assets.dart';
-import '../resources/colors/app_colors.dart';
-import '../resources/translation/app_translations.dart';
-import '../utils/app_utils.dart';
-import 'components/custom_elevated_button.dart';
-import 'components/custom_text.dart';
-import 'orientation_widget.dart';
 
 class EmptyDataWidget extends OrientationWidget {
   final VoidCallback? onRetryClicked;

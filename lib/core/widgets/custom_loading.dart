@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
+import 'package:flutter_boilerplate/core/resources/dimens/dimens.dart';
 import 'package:playx/playx.dart';
-
-import '../resources/colors/app_colors.dart';
-import '../resources/dimens/dimens.dart';
 
 class CustomLoading extends StatelessWidget {
   final EdgeInsetsGeometry margin;

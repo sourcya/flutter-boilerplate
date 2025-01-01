@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_card.dart';
+import 'package:flutter_boilerplate/core/widgets/components/custom_text.dart';
 import 'package:playx/playx.dart';
-
-import '../resources/colors/app_colors.dart';
-import '../widgets/components/custom_card.dart';
-import '../widgets/components/custom_text.dart';
 
 class LoadingOverlay extends StatelessWidget {
   final bool isLoading;
@@ -15,7 +14,7 @@ class LoadingOverlay extends StatelessWidget {
   Widget build(BuildContext context) {
     if (!isLoading) return const SizedBox.shrink();
     return Container(
-      color: Colors.black.withOpacity(0.7),
+      color: Colors.black.withAlpha(200),
       height: double.infinity,
       child: Center(
         child: CustomCard(

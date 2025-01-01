@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
 import 'package:playx/playx.dart';
-
-import 'app_colors.dart';
 
 class LightColors extends AppColors {
   // static final ColorScheme scheme = Seedcontext.colors.fromSeeds(

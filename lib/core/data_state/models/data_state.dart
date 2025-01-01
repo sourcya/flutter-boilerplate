@@ -1,6 +1,5 @@
+import 'package:flutter_boilerplate/core/data_state/models/data_error.dart';
 import 'package:playx/playx.dart';
-
-import 'data_error.dart';
 
 class Initial<T> extends DataState<T> {
   /// If you want to init ui with initial data

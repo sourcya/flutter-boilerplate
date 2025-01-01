@@ -1,8 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
+import 'package:flutter_boilerplate/core/resources/translation/app_locale_config.dart';
 import 'package:playx/playx.dart';
-
-import '../../resources/colors/app_colors.dart';
-import '../../resources/translation/app_locale_config.dart';
 
 /// A custom text widget that allows for easy customization of text styles.
 /// It also supports the use of icons in the text.

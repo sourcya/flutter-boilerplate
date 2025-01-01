@@ -1,7 +1,6 @@
+import 'package:flutter_boilerplate/app/app_launch/auth/data/models/api_user.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/data/models/user.dart';
 import 'package:playx/playx.dart';
-
-import '../models/api_user.dart';
-import '../models/user.dart';
 
 ///This class is responsible of retrieving data from the network.
 class TestAuthDataSource {
@@ -18,44 +17,62 @@ class TestAuthDataSource {
     required String password,
   }) async {
     await Future.delayed(const Duration(seconds: 3));
-    return NetworkResult.success(ApiUser(
+    return NetworkResult.success(
+      ApiUser(
         jwt: 'sasdfasfafa',
         user: User(
-            username: 'mohamed.ahmed',
-            email: 'mohamed.ahmed@gmail.com',
-            id: '121')));
+          username: 'mohamed.ahmed',
+          email: 'mohamed.ahmed@gmail.com',
+          id: '121',
+        ),
+      ),
+    );
   }
 
   Future<NetworkResult<ApiUser>> otpLogin({
     required String phoneNumber,
   }) async {
     await Future.delayed(const Duration(seconds: 3));
-    return NetworkResult.success(ApiUser(
+    return NetworkResult.success(
+      ApiUser(
         jwt: 'sasdfasfafa',
         user: User(
-            username: 'mohamed.ahmed',
-            email: 'mohamed.ahmed@gmail.com',
-            id: '121')));
+          username: 'mohamed.ahmed',
+          email: 'mohamed.ahmed@gmail.com',
+          id: '121',
+        ),
+      ),
+    );
   }
 
   Future<NetworkResult<ApiUser>> verifyOtpCode({required String pin}) async {
     await Future.delayed(const Duration(seconds: 3));
-    return NetworkResult.success(ApiUser(
+    return NetworkResult.success(
+      ApiUser(
         jwt: 'sasdfasfafa',
         user: User(
-            username: 'mohamed.ahmed',
-            email: 'mohamed.ahmed@gmail.com',
-            id: '121')));
+          username: 'mohamed.ahmed',
+          email: 'mohamed.ahmed@gmail.com',
+          id: '121',
+        ),
+      ),
+    );
   }
 
-  Future<NetworkResult<ApiUser>> register(
-      {required String email, required String password}) async {
+  Future<NetworkResult<ApiUser>> register({
+    required String email,
+    required String password,
+  }) async {
     await Future.delayed(const Duration(seconds: 3));
-    return NetworkResult.success(ApiUser(
+    return NetworkResult.success(
+      ApiUser(
         jwt: 'sasdfasfafa',
         user: User(
-            username: 'mohamed.ahmed',
-            email: 'mohamed.ahmed@gmail.com',
-            id: '121')));
+          username: 'mohamed.ahmed',
+          email: 'mohamed.ahmed@gmail.com',
+          id: '121',
+        ),
+      ),
+    );
   }
 }

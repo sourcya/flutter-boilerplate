@@ -4,12 +4,18 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
   final isBiometricAuthEnabled = false;
   final Completer<bool> shouldUpdateApp = Completer();
   final Completer<bool> isAnimationCompleted = Completer();
+  final RxBool showVersionCode = false.obs;
 
   @override
   void onInit() {
     // handleAppUpdate();
     super.onInit();
+    updateAppVersion();
     checkAppVersionAndNavigateToNextPage();
+  }
+
+  Future<void> updateAppVersion() async {
+    showVersionCode.value = await EnvManger.instance.showVersionCode;
   }
 
   Future<void> checkAppVersionAndNavigateToNextPage({

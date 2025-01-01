@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_boilerplate/core/resources/assets/assets.dart';
+import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
+import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
 import 'package:playx/playx.dart';
-
-import '../resources/assets/assets.dart';
-import '../resources/colors/app_colors.dart';
-import '../resources/translation/app_translations.dart';
 
 //Widget for showing that there is no data.
 class NoDataAnimation extends StatelessWidget {

@@ -17,38 +17,39 @@ PlatformNavBar buildCustomNavigationBar({
     },
     material3: (context, platform) {
       return MaterialNavigationBarData(
-          indicatorColor: context.colors.primary,
-          // labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-          // backgroundColor: context.colors.surface,
-          items: [
-            NavigationDestination(
-              icon: Icon(
-                Icons.dashboard,
-                color: controller.currentIndex == 0
-                    ? context.colors.onPrimary
-                    : context.colors.onSurface,
-              ),
-              label: AppTrans.dashboard.tr(context: context),
+        indicatorColor: context.colors.primary,
+        // labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+        // backgroundColor: context.colors.surface,
+        items: [
+          NavigationDestination(
+            icon: Icon(
+              Icons.dashboard,
+              color: controller.currentIndex == 0
+                  ? context.colors.onPrimary
+                  : context.colors.onSurface,
             ),
-            NavigationDestination(
-              icon: Icon(
-                Icons.favorite_border,
-                color: controller.currentIndex == 1
-                    ? context.colors.onPrimary
-                    : context.colors.onSurface,
-              ),
-              label: AppTrans.wishlist.tr(context: context),
+            label: AppTrans.dashboard.tr(context: context),
+          ),
+          NavigationDestination(
+            icon: Icon(
+              Icons.favorite_border,
+              color: controller.currentIndex == 1
+                  ? context.colors.onPrimary
+                  : context.colors.onSurface,
             ),
-            NavigationDestination(
-              icon: Icon(
-                Icons.settings,
-                color: controller.currentIndex == 2
-                    ? context.colors.onPrimary
-                    : context.colors.onSurface,
-              ),
-              label: AppTrans.settings.tr(context: context),
+            label: AppTrans.wishlist.tr(context: context),
+          ),
+          NavigationDestination(
+            icon: Icon(
+              Icons.settings,
+              color: controller.currentIndex == 2
+                  ? context.colors.onPrimary
+                  : context.colors.onSurface,
             ),
-          ]);
+            label: AppTrans.settings.tr(context: context),
+          ),
+        ],
+      );
     },
     cupertino: (context, _) {
       return CupertinoTabBarData(

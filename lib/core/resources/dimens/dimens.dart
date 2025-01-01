@@ -1,10 +1,9 @@
 import 'dart:math';
 
+import 'package:flutter_boilerplate/core/resources/dimens/mobile_dimens.dart';
+import 'package:flutter_boilerplate/core/resources/dimens/small_mobile_dimens.dart';
+import 'package:flutter_boilerplate/core/resources/dimens/tablet_dimens.dart';
 import 'package:playx/playx.dart';
-
-import 'mobile_dimens.dart';
-import 'small_mobile_dimens.dart';
-import 'tablet_dimens.dart';
 
 abstract class Dimens {
   double get dashboardLogoSize;

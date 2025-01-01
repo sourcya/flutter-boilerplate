@@ -1,10 +1,8 @@
+import 'package:flutter_boilerplate/core/navigation/app_navigation.dart';
+import 'package:flutter_boilerplate/core/network/endpoints/endpoints.dart';
+import 'package:flutter_boilerplate/core/network/exception/custom_exception_message.dart';
+import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
 import 'package:playx/playx.dart';
-import 'package:sentry_dio/sentry_dio.dart';
-
-import '../navigation/app_navigation.dart';
-import '../preferences/preference_manger.dart';
-import 'endpoints/endpoints.dart';
-import 'exception/custom_exception_message.dart';
 
 abstract class ApiClient {
   ApiClient._();
@@ -39,11 +37,13 @@ abstract class ApiClient {
           'authorization': 'Bearer $token',
         };
       },
-      logSettings: const LoggerSettings(
-        responseBody: true,
-        responseHeader: true,
+      settings: const PlayxNetworkClientSettings(
+        logSettings: PlayxNetworkLoggerSettings(
+          responseBody: true,
+          responseHeader: true,
+        ),
+        exceptionMessages: CustomExceptionMessage(),
       ),
-      exceptionMessages: const CustomExceptionMessage(),
       // onUnauthorizedRequestReceived: (res) => _signOut(),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/resources/style/style.dart';
 import 'package:playx/playx.dart';
-
-import '../../resources/style/style.dart';
 
 class FeatureChip extends StatelessWidget {
   final String? label;

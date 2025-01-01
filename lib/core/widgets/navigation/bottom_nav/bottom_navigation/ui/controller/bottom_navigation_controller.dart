@@ -5,11 +5,6 @@ class CustomBottomNavigationController extends GetxController {
 
   final showBottomNav = true.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   void updateIndex(int index) {
     if (index < 3) {
       currentIndex = index;
@@ -18,8 +13,10 @@ class CustomBottomNavigationController extends GetxController {
     }
   }
 
-  void handleItemChanged(
-      {required int index, required StatefulNavigationShell navigationShell}) {
+  void handleItemChanged({
+    required int index,
+    required StatefulNavigationShell navigationShell,
+  }) {
     PlayxNavigation.goToBranch(index: index, navigationShell: navigationShell);
   }
 }

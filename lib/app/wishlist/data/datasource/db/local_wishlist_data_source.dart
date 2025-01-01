@@ -1,6 +1,5 @@
+import 'package:flutter_boilerplate/app/wishlist/data/datasource/db/dao/wishlist_dao.dart';
 import 'package:flutter_boilerplate/app/wishlist/data/model/db/database_wishlist_item.dart';
-
-import 'dao/wishlist_dao.dart';
 
 class LocalWishlistDataSource {
   final WishlistDao wishlistDao;

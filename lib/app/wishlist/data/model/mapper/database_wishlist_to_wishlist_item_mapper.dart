@@ -1,5 +1,5 @@
-import '../db/database_wishlist_item.dart';
-import '../ui/wishlist.dart';
+import 'package:flutter_boilerplate/app/wishlist/data/model/db/database_wishlist_item.dart';
+import 'package:flutter_boilerplate/app/wishlist/data/model/ui/wishlist.dart';
 
 extension DatabaseWishlistToWishlistItemMapper on DatabaseWishlistItem {
   WishlistItem toWishlistItem() {
