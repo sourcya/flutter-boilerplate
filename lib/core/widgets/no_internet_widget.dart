@@ -5,7 +5,6 @@ import 'package:flutter_boilerplate/core/resources/translation/app_translations.
 import 'package:flutter_boilerplate/core/utils/app_utils.dart';
 import 'package:flutter_boilerplate/core/widgets/components/custom_elevated_button.dart';
 import 'package:flutter_boilerplate/core/widgets/components/custom_text.dart';
-import 'package:flutter_boilerplate/core/widgets/orientation_widget.dart';
 import 'package:playx/playx.dart';
 
 /// Widget for showing there's no internet connection.

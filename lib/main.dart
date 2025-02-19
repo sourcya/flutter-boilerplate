@@ -20,7 +20,6 @@ void main() async {
     sentryOptions: (options) async {
       options.dsn = await EnvManger.instance.sentryKey;
       options.tracesSampleRate = 1.0;
-      options.enableMetrics = true;
       options.attachScreenshot = true;
       options.captureFailedRequests = true;
     },
