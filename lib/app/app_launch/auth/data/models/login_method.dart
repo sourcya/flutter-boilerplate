@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/models/icon_info.dart';
-import 'package:flutter_boilerplate/core/resources/assets/assets.dart';
-import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
-import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
+import 'package:flutter_boilerplate/core/models/models.dart';
+import 'package:flutter_boilerplate/core/ui/ui.dart';
 
 enum LoginMethod {
   auth0Web,

@@ -14,9 +14,6 @@ class SettingsController extends GetxController {
 
   final currentPage = ValueNotifier(SettingsPage.settings.index);
 
-  CustomNavigationDrawerController get drawerController =>
-      Get.find<CustomNavigationDrawerController>();
-
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -42,7 +39,7 @@ class SettingsController extends GetxController {
   }
 
   Future<void> handleLogOutTap() async {
-    drawerController.updateLoginStatus(isLoggingOut: true);
+    AppController.instance.updateLoginStatus(isLoggingOut: true);
     try {
       await AuthRepository().logout(logOutFromAuth0: false);
     } catch (e) {
@@ -50,7 +47,7 @@ class SettingsController extends GetxController {
     }
     await Future.delayed(const Duration(milliseconds: 200));
     AppNavigation.navigateToSplash();
-    drawerController.updateLoginStatus(isLoggingOut: false);
+    AppController.instance.updateLoginStatus(isLoggingOut: false);
   }
 
   Future<void> showSettingsModalSheet(

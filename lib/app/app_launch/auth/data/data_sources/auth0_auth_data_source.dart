@@ -3,8 +3,8 @@ import 'package:flutter_boilerplate/app/app_launch/auth/data/models/api_user.dar
 import 'package:flutter_boilerplate/app/app_launch/auth/data/models/auth0Exception.dart';
 import 'package:flutter_boilerplate/app/app_launch/auth/data/models/login_method.dart';
 import 'package:flutter_boilerplate/core/config/constant.dart';
-import 'package:flutter_boilerplate/core/network/endpoints/endpoints.dart';
-import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
+import 'package:flutter_boilerplate/core/network/network.dart';
+import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
 class Auth0AuthDataSource {

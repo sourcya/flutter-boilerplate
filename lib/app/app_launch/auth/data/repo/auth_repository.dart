@@ -4,7 +4,7 @@ import 'package:flutter_boilerplate/app/app_launch/auth/data/models/api_user.dar
 import 'package:flutter_boilerplate/app/app_launch/auth/data/models/login_method.dart';
 import 'package:flutter_boilerplate/app/app_launch/auth/data/models/user.dart';
 import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
-import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
+import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
 /// This is the repository where we should handle the data and return it to the controller.

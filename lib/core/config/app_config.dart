@@ -1,12 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_boilerplate/app/app_launch/app/ui/imports/app_imports.dart';
 import 'package:flutter_boilerplate/app/wishlist/data/datasource/db/local_wishlist_data_source.dart';
 import 'package:flutter_boilerplate/core/database/app_database.dart';
-import 'package:flutter_boilerplate/core/network/api_client.dart';
+import 'package:flutter_boilerplate/core/network/network.dart';
 import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
 import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
-import 'package:flutter_boilerplate/core/widgets/navigation/bottom_nav/bottom_navigation/ui/imports/bottom_navigation_imports.dart';
-import 'package:flutter_boilerplate/core/widgets/navigation/navigation_drawer/ui/imports/custom_navigation_drawer_imports.dart';
 import 'package:playx/playx.dart';
 
 /// This class contains app configuration like playx configuration.
@@ -32,11 +31,8 @@ class AppConfig extends PlayXAppConfig {
         LocalWishlistDataSource(wishlistDao: database.wishlistDao);
     Get.put<AppDatabase>(database);
     Get.put<LocalWishlistDataSource>(localWishlistDataSource);
-    Get.put<CustomNavigationDrawerController>(
-      CustomNavigationDrawerController(),
-    );
-    Get.put<CustomBottomNavigationController>(
-      CustomBottomNavigationController(),
+    Get.put<AppController>(
+      AppController(),
     );
   }
 
