@@ -39,15 +39,7 @@ class SettingsController extends GetxController {
   }
 
   Future<void> handleLogOutTap() async {
-    AppController.instance.updateLoginStatus(isLoggingOut: true);
-    try {
-      await AuthRepository().logout(logOutFromAuth0: false);
-    } catch (e) {
-      Alert.error(message: e.toString());
-    }
-    await Future.delayed(const Duration(milliseconds: 200));
-    AppNavigation.navigateToSplash();
-    AppController.instance.updateLoginStatus(isLoggingOut: false);
+    AppController.instance.handleLogout();
   }
 
   Future<void> showSettingsModalSheet(

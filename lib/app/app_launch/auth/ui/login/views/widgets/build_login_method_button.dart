@@ -11,7 +11,7 @@ class BuildLoginMethodButton extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: 10.r,
+        horizontal: 8.r,
         vertical: 4.r,
       ),
       child: CustomElevatedButton(
@@ -33,7 +33,7 @@ class BuildLoginMethodButton extends GetView<LoginController> {
             SizedBox(width: 10.r),
             CustomText(
               method.loginLabel,
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500,
               color: method.onBackground(context),
             ),

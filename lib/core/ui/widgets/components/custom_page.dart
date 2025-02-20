@@ -41,27 +41,28 @@ class CustomPageScaffold extends StatelessWidget {
         PlayxNavigation.offAllNamed(Routes.dashboard);
       },
       child: Obx(() {
-        final appController= AppController.instance;
-        return PlatformScaffold(
-          body: Stack(
-            children: [
-              scaffoldChild,
-              Obx(() {
-                return LoadingOverlay(
-                  isLoading: appController.isLoggingOut.value,
-                  loadingText: AppTrans.loggingOutText,
-                );
-              }),
-            ],
-          ),
-          key: ValueKey(navigationShell.currentIndex),
-          backgroundColor: context.colors.surface,
-          bottomNavBar: appController.showBottomNav.value && showBottomNav
-              ? buildCustomNavigationBar(
-                  navigationShell: navigationShell,
-                  context: context,
-                )
-              : null,
+        final appController = AppController.instance;
+        return Stack(
+          children: [
+            PlatformScaffold(
+              body: scaffoldChild,
+              key: ValueKey(navigationShell.currentIndex),
+              backgroundColor: context.colors.surface,
+              bottomNavBar: appController.showBottomNav.value && showBottomNav
+                  ? buildCustomNavigationBar(
+                      navigationShell: navigationShell,
+                      context: context,
+                    )
+                  : null,
+            ),
+            Obx(() {
+              return LoadingOverlay(
+                isLoading:
+                    appController.loadingStatus.value != LoadingStatus.none,
+                loadingText: appController.loadingStatus.value.displayName,
+              );
+            }),
+          ],
         );
       }),
     );

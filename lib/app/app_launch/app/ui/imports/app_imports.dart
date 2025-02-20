@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide NavigationDestination;
 import 'package:flutter_boilerplate/app/app_launch/app/data/model/custom_navigation_destination_item.dart';
+import 'package:flutter_boilerplate/app/app_launch/app/data/model/loading_status.dart';
 import 'package:flutter_boilerplate/app/app_launch/app/ui/view/navigation/widgets/custom_navigation_bar.dart';
 import 'package:flutter_boilerplate/app/app_launch/auth/data/repo/auth_repository.dart';
 import 'package:flutter_boilerplate/core/models/models.dart';

@@ -5,6 +5,8 @@ part of '../ui.dart';
 /// for example we can get app name by using AppTrans.appName.tr
 // ignore: avoid_classes_with_only_static_members
 abstract class AppTrans {
+  const AppTrans._();
+
   static const appName = 'appName';
   static const requestCancelled = 'requestCancelled';
   static const unauthorizedRequest = 'unauthorizedRequest';
@@ -157,5 +159,9 @@ abstract class AppTrans {
   static const loginWithGoogleLabel = 'loginWithGoogleLabel';
   static const loginWithAppleLabel = 'loginWithAppleLabel';
 
-  static const loggingOutText = 'loggingOutText';
+  static const loadingStatusLoading = 'loadingStatusLoading';
+  static const loadingStatusLogin = 'loadingStatusLogin';
+  static const loadingStatusRegister = 'loadingStatusRegister';
+  static const loadingStatusLogout = 'loadingStatusLogout';
+  static const loadingStatusNone = 'loadingStatusNone';
 }

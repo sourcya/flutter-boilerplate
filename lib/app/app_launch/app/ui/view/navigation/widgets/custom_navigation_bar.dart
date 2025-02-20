@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/ui/ui.dart';
 
 const double _kIndicatorHeight = 32;
 const double _kIndicatorWidth = 64;
@@ -378,7 +379,18 @@ class CustomNavigationDestination extends NavigationDestination {
             maxScaleFactor: _kMaxLabelTextScaleFactor,
             child: Text(
               label,
-              style: textStyle,
+              style: textStyle?.merge(
+                TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: fontFamily,
+                    ) ??
+                    TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: fontFamily,
+                    ),
+              ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -1365,6 +1377,7 @@ class _NavigationBarDefaultsM3 extends NavigationBarThemeData {
 
   @override
   Color? get indicatorColor => _colors.secondaryContainer;
+
   @override
   ShapeBorder? get indicatorShape => const StadiumBorder();
 

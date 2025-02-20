@@ -52,14 +52,16 @@ class LoginController extends GetxController {
       currentLoginMethod.value = LoginMethod.email;
     } else {
       currentLoginMethod.value = null;
-      isLoading.value = true;
+      AppController.instance.loadingStatus.value = LoadingStatus.loading;
       final result = await authRepository.loginViaAuth0(method: method);
       result.when(
         success: (ApiUser user) async {
+          AppController.instance.loadingStatus.value = LoadingStatus.none;
           isLoading.value = false;
           AppNavigation.navigateFromLoginToDashboard();
         },
         error: (NetworkException exception) {
+          AppController.instance.loadingStatus.value = LoadingStatus.none;
           isLoading.value = false;
           Alert.error(message: exception.message);
         },

@@ -1,4 +1,9 @@
 {
+  "loadingStatusLoading": "Loading",
+  "loadingStatusLogin": "Logging in",
+  "loadingStatusRegister": "Registering",
+  "loadingStatusLogout": "Logging out",
+  "loadingStatusNone": "Idle",
   "accessDeniedErrorMessage": "Access was denied by the resource server per OAuth2 specification.",
   "andText": " and ",
   "appName": "Sourcya App",

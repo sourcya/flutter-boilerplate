@@ -7,7 +7,7 @@ class AppController extends GetxController {
   int currentBottomNavIndex = 0;
 
   final showBottomNav = true.obs;
-  final isLoggingOut = false.obs;
+  final loadingStatus = LoadingStatus.none.obs;
 
   late final List<CustomNavigationDestinationItem> bottomNavItems = [
     CustomNavigationDestinationItem(
@@ -67,21 +67,28 @@ class AppController extends GetxController {
     PlayxNavigation.goToBranch(index: index, navigationShell: navigationShell);
   }
 
-  Future<void> handleLogout() async {
-    updateLoginStatus(isLoggingOut: true);
+  Future<void> handleLogout(
+      {bool showLoadingOverlay = true, bool navigateToLogin = true}) async {
+    if (showLoadingOverlay) {
+      _updateLoginStatus(isLoggingOut: true);
+    }
     try {
       await AuthRepository().logout(logOutFromAuth0: false);
     } catch (e) {
       Alert.error(message: e.toString());
     }
-    isLoggingOut.value = false;
     await Future.delayed(const Duration(milliseconds: 200));
-    AppNavigation.navigateToSplash();
-    showBottomNav.value = true;
+    if (showLoadingOverlay) {
+      _updateLoginStatus(isLoggingOut: false);
+    }
+    if (navigateToLogin) {
+      AppNavigation.navigateToLogin();
+    }
   }
 
-  void updateLoginStatus({required bool isLoggingOut}) {
-    this.isLoggingOut.value = isLoggingOut;
+  void _updateLoginStatus({required bool isLoggingOut}) {
+    loadingStatus.value =
+        isLoggingOut ? LoadingStatus.logout : LoadingStatus.none;
     showBottomNav.value = !isLoggingOut;
   }
 }

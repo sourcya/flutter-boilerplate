@@ -1,4 +1,10 @@
 {
+  "loadingStatusLoading": "جارٍ التحميل",
+  "loadingStatusLogin": "جارٍ تسجيل الدخول",
+  "loadingStatusRegister": "جارٍ التسجيل",
+  "loadingStatusLogout": "جارٍ تسجيل الخروج",
+  "loadingStatusNone": "",
+
   "accessDeniedErrorMessage": "تم رفض الوصول من قبل خادم الموارد وفقًا لمواصفات OAuth2.",
   "andText": " و ",
   "appName": "سورسيا",

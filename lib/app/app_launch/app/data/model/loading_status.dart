@@ -1,3 +1,5 @@
+import 'package:flutter_boilerplate/core/ui/ui.dart';
+
 enum LoadingStatus {
   loading,
   login,
@@ -5,13 +7,13 @@ enum LoadingStatus {
   logout,
   none;
 
-  // String get displayName => switch(this){
-  //   LoadingStatus.loading => AppTrans.loadingStatusLoading,
-  //    LoadingStatus.login => AppTrans.loadingStatusLogin,
-  //    LoadingStatus.register => AppTrans.loadingStatusRegister,
-  //    LoadingStatus.logout => AppTrans.loadingStatusLogout,
-  //    LoadingStatus.none => AppTrans.loadingStatusNone,
-  // };
+  String get displayName => switch (this) {
+        LoadingStatus.loading => AppTrans.loadingStatusLoading,
+        LoadingStatus.login => AppTrans.loadingStatusLogin,
+        LoadingStatus.register => AppTrans.loadingStatusRegister,
+        LoadingStatus.logout => AppTrans.loadingStatusLogout,
+        LoadingStatus.none => AppTrans.loadingStatusNone,
+      };
 
   static LoadingStatus fromString(String status) {
     switch (status) {
