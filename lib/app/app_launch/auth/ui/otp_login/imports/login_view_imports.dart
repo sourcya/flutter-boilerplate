@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/app/app_launch/auth/data/models/api_user.dart';
 import 'package:flutter_boilerplate/app/app_launch/auth/data/repo/auth_repository.dart';
 import 'package:flutter_boilerplate/core/navigation/navigation.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';

@@ -6,45 +6,19 @@ class BuildRegisterButtonWidget extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return Container(
-        margin: EdgeInsets.symmetric(
-          vertical: 5.h,
-        ),
+      return CustomElevatedButton(
+        onPressed: controller.isFormValid.value ? controller.register : null,
         padding: EdgeInsets.symmetric(
-          horizontal: 10.w,
-          vertical: 10.h,
+          vertical: 17.r,
+          horizontal: 8.r,
         ),
-        child: ElevatedButton(
-          style: ButtonStyle(
-            // backgroundColor: MaterialStatePropertyAll(
-            //     // context.colors.secondary,
-            // ),
-            shape: WidgetStatePropertyAll(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  12.r,
-                ), // <-- Radius
-              ),
-            ),
-            padding: WidgetStatePropertyAll(
-              EdgeInsets.all(8.r),
-            ),
-          ),
-          onPressed: controller.register,
-          child: SizedBox(
-            width: context.width * 0.5,
-            height: context.height * 0.05,
-            child: controller.isLoading.value
-                ? const CenterLoading(
-                    // color: context.colors.onSecondary,
-                    )
-                : Center(
-                    child: CustomText(
-                      AppTrans.registerText,
-                      fontSize: 18.sp,
-                    ),
-                  ),
-          ),
+        child: CustomText(
+          AppTrans.registerText,
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w700,
+          color: controller.isFormValid.value
+              ? context.colors.onPrimary
+              : context.colors.subtitleTextColor,
         ),
       );
     });

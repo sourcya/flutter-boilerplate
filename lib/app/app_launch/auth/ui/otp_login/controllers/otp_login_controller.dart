@@ -27,7 +27,7 @@ class OtpLoginController extends GetxController {
       phoneNumber: phoneController.text,
     );
     result.when(
-      success: (ApiUser user) async {
+      success: (user) async {
         isLoading.value = false;
         AppNavigation.navigateFromLoginToVerifyPhone();
       },

@@ -4,7 +4,6 @@ part of '../imports/login_imports.dart';
 class LoginController extends GetxController {
   final authRepository = AuthRepository();
 
-  final isLoading = false.obs;
   final hidePassword = true.obs;
 
   final emailController = TextEditingController();
@@ -51,18 +50,15 @@ class LoginController extends GetxController {
     if (method == LoginMethod.email) {
       currentLoginMethod.value = LoginMethod.email;
     } else {
+      AppController.instance.loadingStatus.value = LoadingStatus.login;
+
       currentLoginMethod.value = null;
-      AppController.instance.loadingStatus.value = LoadingStatus.loading;
       final result = await authRepository.loginViaAuth0(method: method);
       result.when(
-        success: (ApiUser user) async {
-          AppController.instance.loadingStatus.value = LoadingStatus.none;
-          isLoading.value = false;
-          AppNavigation.navigateFromLoginToDashboard();
+        success: (User user) async {
+          _navigateToHome();
         },
         error: (NetworkException exception) {
-          AppController.instance.loadingStatus.value = LoadingStatus.none;
-          isLoading.value = false;
           Alert.error(message: exception.message);
         },
       );
@@ -72,21 +68,31 @@ class LoginController extends GetxController {
   Future<void> login() async {
     if (!isFormValid()) return;
     FocusManager.instance.primaryFocus?.unfocus();
-    isLoading.value = true;
-    final result = await authRepository.login(
+    AppController.instance.loadingStatus.value = LoadingStatus.login;
+    final result = await authRepository.loginViaEmailAndPassword(
       email: emailController.text,
       password: passwordController.text,
     );
     result.when(
-      success: (ApiUser user) async {
-        isLoading.value = false;
-        AppNavigation.navigateFromLoginToDashboard();
+      success: (User user) async {
+        // if (saveLoginInfo.value) {
+        //   await authRepository.saveLoginInfo(
+        //     email: emailController.text,
+        //     password: passwordController.text,
+        //   );
+        // }
+        await _navigateToHome();
       },
       error: (NetworkException exception) {
-        isLoading.value = false;
+        AppController.instance.loadingStatus.value = LoadingStatus.none;
         Alert.error(message: exception.message);
       },
     );
+  }
+
+  Future<void> _navigateToHome() async {
+    AppController.instance.loadingStatus.value = LoadingStatus.none;
+    AppNavigation.navigateFromLoginToHome();
   }
 
   void navigateToRegister() {

@@ -5,8 +5,8 @@ part of '../navigation.dart';
 abstract class AppNavigation {
   AppNavigation._();
 
-  static void navigateFormSplashToDashboard() {
-    PlayxNavigation.offAllNamed(Routes.dashboard);
+  static void navigateFormSplashToHome() {
+    PlayxNavigation.offAllNamed(AppPages.homeRoute);
   }
 
   static void navigateFormSplashToLogin() {
@@ -17,16 +17,16 @@ abstract class AppNavigation {
     PlayxNavigation.toNamed(Routes.register);
   }
 
-  static void navigateFromLoginToDashboard() {
-    PlayxNavigation.offAllNamed(Routes.dashboard);
+  static void navigateFromLoginToHome() {
+    PlayxNavigation.offAllNamed(AppPages.homeRoute);
   }
 
   static void navigateFromRegisterToLogin() {
     PlayxNavigation.offAllNamed(Routes.login);
   }
 
-  static void navigateFromRegisterToDashboard() {
-    PlayxNavigation.offAllNamed(Routes.dashboard);
+  static void navigateFromRegisterToHome() {
+    PlayxNavigation.offAllNamed(AppPages.homeRoute);
   }
 
   static void navigateToSplash() {
@@ -41,8 +41,8 @@ abstract class AppNavigation {
     PlayxNavigation.offAllNamed(Routes.login);
   }
 
-  static void navigateFromVerifyOtpToDashboard() {
-    PlayxNavigation.offAllNamed(Routes.dashboard);
+  static void navigateFromVerifyOtpToHome() {
+    PlayxNavigation.offAllNamed(AppPages.homeRoute);
   }
 
   static void navigateFromLoginToVerifyPhone() {

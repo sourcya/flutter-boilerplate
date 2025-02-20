@@ -72,11 +72,7 @@ class AppController extends GetxController {
     if (showLoadingOverlay) {
       _updateLoginStatus(isLoggingOut: true);
     }
-    try {
-      await AuthRepository().logout(logOutFromAuth0: false);
-    } catch (e) {
-      Alert.error(message: e.toString());
-    }
+    await ApiHelper.instance.logout();
     await Future.delayed(const Duration(milliseconds: 200));
     if (showLoadingOverlay) {
       _updateLoginStatus(isLoggingOut: false);

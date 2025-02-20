@@ -4,7 +4,7 @@ part of '../../ui.dart';
 
 /// This is a custom text field to have same behavior on whole application.
 /// With ability to auto validate it's field and easily customize it.
-class CustomTextField extends StatefulWidget {
+class CustomTextField extends StatelessWidget {
   final String? hint;
   final String? label;
   final TextInputType? type;
@@ -43,11 +43,19 @@ class CustomTextField extends StatefulWidget {
   final EdgeInsets? scrollPadding;
 
   final Iterable<String>? autoFillHints;
+  final EdgeInsets? contentPadding;
+  final TextStyle? hintStyle;
+  final BorderRadius? borderRadius;
+  final double? borderWidth;
+  final void Function(String?)? onSubmitted;
+  final Duration? debounceDuration;
+  final bool debounceValidation;
 
   const CustomTextField({
     this.hint,
     this.maxLines = 1,
     this.minLines = 1,
+    this.hintStyle,
     this.onChanged,
     this.onTap,
     this.icon,
@@ -82,114 +90,125 @@ class CustomTextField extends StatefulWidget {
     this.suffixIcon,
     this.scrollPadding,
     this.autoFillHints,
+    this.contentPadding,
+    this.borderRadius,
+    this.borderWidth,
+    this.onSubmitted,
+    this.debounceDuration,
+    this.debounceValidation = false,
   });
 
   @override
-  State<StatefulWidget> createState() {
-    return _CustomFieldState();
-  }
-}
-
-class _CustomFieldState extends State<CustomTextField> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+
     return OptimizedTextField(
-      hint: widget.hint,
-      maxLines: widget.maxLines,
-      minLines: widget.minLines,
-      onChanged: widget.onChanged,
-      onTap: widget.onTap,
-      icon: widget.icon,
-      type: widget.type,
-      validator: widget.validator,
-      controller: widget.controller,
-      focus: widget.focus,
-      nextFocus: widget.nextFocus,
-      scrollPadding: widget.scrollPadding,
-      autoFillHints: widget.autoFillHints,
-      prefix: widget.prefixIcon != null
+      hint: hint?.tr(context: context),
+      hintStyle: hintStyle ??
+          TextStyle(
+            fontSize: 13.sp,
+            color: hintColor ?? PlayxColors.grey,
+            fontFamily: fontFamily,
+          ),
+      maxLines: maxLines,
+      minLines: minLines,
+      onChanged: onChanged,
+      onTap: onTap,
+      icon: icon,
+      type: type,
+      validator: validator,
+      controller: controller,
+      focus: focus,
+      nextFocus: nextFocus,
+      scrollPadding: scrollPadding,
+      autoFillHints: autoFillHints,
+      onSubmitted: onSubmitted,
+      prefix: prefixIcon != null
           ? Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: 8.0.w,
+                horizontal: 8.0.r,
               ),
               child: Icon(
-                widget.prefixIcon,
+                prefixIcon,
                 // color: context.colors.secondary,
                 size: 20.r,
               ),
             )
-          : widget.prefix,
-      suffix: widget.suffixIcon != null
+          : prefix,
+      suffix: suffixIcon != null
           ? Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: 8.0.w,
+                horizontal: 8.0.r,
               ),
               child: Icon(
-                widget.suffixIcon,
+                suffixIcon,
                 // color: context.colors.secondary,
                 size: 20.r,
               ),
             )
-          : widget.suffix,
-      label: widget.label,
-      read: widget.read,
-      obscureText: widget.obscureText,
-      enabled: widget.enabled,
-      eIcon: widget.eIcon,
-      edit: widget.edit,
-      fillColor: widget.fillColor,
-      autofocus: widget.autofocus,
-      shouldAutoValidate: widget.shouldAutoValidate,
-      padding: widget.padding ?? EdgeInsets.symmetric(vertical: 8.h),
-      margin: widget.margin,
-      errorMaxLines: widget.errorMaxLines,
-      textColor: widget.textColor,
-      labelColor: widget.labelColor ?? context.colors.onSurface,
-      borderColor: widget.borderColor,
-      focusedBorderColor: widget.focusedBorderColor,
-      formKey: widget.formKey,
-      onValidationChanged: widget.onValidationChanged,
-      textInputAction: widget.textInputAction,
+          : suffix,
+      label: label?.tr(context: context),
+      read: read,
+      obscureText: obscureText,
+      enabled: enabled,
+      eIcon: eIcon,
+      edit: edit,
+      fillColor: fillColor,
+      autofocus: autofocus,
+      shouldAutoValidate: shouldAutoValidate,
+      padding: padding ?? EdgeInsets.symmetric(vertical: 8.r),
+      margin: margin,
+      errorMaxLines: errorMaxLines,
+      textColor: textColor,
+      labelColor: labelColor ?? context.colors.onSurface,
+      borderColor: borderColor,
+      focusedBorderColor: focusedBorderColor,
+      formKey: formKey,
+      debounceDuration: debounceDuration,
+      debounceValidation: debounceValidation,
+      onValidationChanged: onValidationChanged,
+      textInputAction: textInputAction,
       style: TextStyle(
         fontSize: Dimens.fieldTextSize,
-        color: widget.textColor ?? context.colors.onSurface,
+        color: textColor ?? context.colors.onSurface,
+        fontFamily: fontFamily,
       ),
       labelStyle: TextStyle(
-        color: widget.labelColor ?? context.colors.onSurface,
+        color: labelColor ?? context.colors.onSurface,
         fontSize: Dimens.fieldTextSize,
+        fontFamily: fontFamily,
       ),
-      contentPadding: EdgeInsets.only(
-        top: 15.0.h,
-        bottom: 15.0.h,
-        right: 15.0.w,
-        left: 15.0.w,
-      ),
-      hintColor: widget.hintColor ?? PlayxColors.grey,
+      contentPadding: contentPadding ??
+          EdgeInsets.only(
+            top: 15.0.r,
+            bottom: 15.0.r,
+            right: 15.0.r,
+            left: 15.0.r,
+          ),
+      hintColor: hintColor ?? PlayxColors.grey,
       enabledBorder: OutlineInputBorder(
-        borderRadius: Style.fieldBorderRadius,
+        borderRadius: borderRadius ?? Style.fieldBorderRadius,
         borderSide: BorderSide(
-          color: widget.borderColor ?? PlayxColors.grey,
+          color: borderColor ?? PlayxColors.grey,
+          width: borderWidth ?? 1,
         ),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: widget.focusedBorderColor ?? PlayxColors.grey,
-          width: .5,
+          color: focusedBorderColor ?? PlayxColors.grey,
+          width: borderWidth ?? 1,
         ),
-        borderRadius: Style.fieldBorderRadius,
+        borderRadius: borderRadius ?? Style.fieldBorderRadius,
       ),
       border: OutlineInputBorder(
-        borderSide: BorderSide(color: widget.borderColor ?? PlayxColors.grey),
-        borderRadius: Style.fieldBorderRadius,
+        borderSide: BorderSide(
+          color: borderColor ?? PlayxColors.grey,
+          width: borderWidth ?? 1,
+        ),
+        borderRadius: borderRadius ?? Style.fieldBorderRadius,
       ),
       errorBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.red),
-        borderRadius: Style.fieldBorderRadius,
+        borderSide: BorderSide(color: Colors.red, width: borderWidth ?? 1),
+        borderRadius: borderRadius ?? Style.fieldBorderRadius,
       ),
     );
   }

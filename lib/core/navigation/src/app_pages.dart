@@ -5,6 +5,7 @@ class AppPages {
   AppPages._();
 
   static const initial = Paths.splash;
+  static const homeRoute = Routes.dashboard;
 
   static final router = GoRouter(
     initialLocation: initial,
@@ -87,6 +88,12 @@ class AppPages {
       name: Routes.login,
       builder: (context, state) => const LoginView(),
       binding: LoginBinding(),
+    ),
+    PlayxRoute(
+      path: Paths.register,
+      name: Routes.register,
+      builder: (context, state) => const RegisterView(),
+      binding: RegisterBinding(),
     ),
     PlayxRoute(
       path: Paths.onboarding,

@@ -1,5 +1,4 @@
-import 'package:flutter_boilerplate/core/ui/ui.dart';
-import 'package:playx/playx.dart';
+part of '../models.dart';
 
 class Auth0exception extends ApiException {
   final String errorCode;

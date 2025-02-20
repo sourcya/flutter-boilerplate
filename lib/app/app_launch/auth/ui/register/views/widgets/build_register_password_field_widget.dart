@@ -5,15 +5,11 @@ class BuildRegisterPasswordFieldWidget extends GetView<RegisterController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 10.w,
-          vertical: 5.h,
-        ),
-        child: CustomTextField(
-          label: AppTrans.passwordLabel.tr(context: context),
-          hint: AppTrans.passwordHint.tr(context: context),
+    return BuildRegisterFieldWidget(
+      label: AppTrans.passwordLabel,
+      textField: Obx(() {
+        return CustomTextField(
+          hint: AppTrans.passwordHint,
           controller: controller.passwordController,
           obscureText: controller.hidePassword.value,
           type: TextInputType.visiblePassword,
@@ -35,9 +31,14 @@ class BuildRegisterPasswordFieldWidget extends GetView<RegisterController> {
               AppTrans.passwordMinLengthError.tr(context: context),
             ),
           ]),
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 14.r,
+            vertical: 10.r,
+          ),
           prefix: Icon(
             Icons.lock,
-            color: context.colors.primary,
+            color: context.colors.onSurface,
+            size: 18.r,
           ),
           onChanged: (text) {
             if (controller.confirmPasswordController.value.text.isNotEmpty) {
@@ -54,8 +55,8 @@ class BuildRegisterPasswordFieldWidget extends GetView<RegisterController> {
           textInputAction: TextInputAction.next,
           focus: controller.passwordFocus,
           nextFocus: controller.confirmPasswordFocus,
-        ),
-      );
-    });
+        );
+      }),
+    );
   }
 }

@@ -23,13 +23,14 @@ class BuildLoginMethodButton extends GetView<LoginController> {
         child: Row(
           children: [
             SizedBox(width: 16.r),
-            SizedBox(
-              width: 20.r,
-              height: 20.r,
-              child: method.icon.buildIconWidget(
-                color: method.iconColor(context),
+            if (method.icon != null)
+              SizedBox(
+                width: 20.r,
+                height: 20.r,
+                child: method.icon?.buildIconWidget(
+                  color: method.iconColor(context),
+                ),
               ),
-            ),
             SizedBox(width: 10.r),
             CustomText(
               method.loginLabel,

@@ -1,7 +1,7 @@
 part of '../../imports/register_imports.dart';
 
-class BuildRegisterDontHaveAccountWidget extends GetView<RegisterController> {
-  const BuildRegisterDontHaveAccountWidget();
+class BuildRegisterHaveAccountWidget extends GetView<RegisterController> {
+  const BuildRegisterHaveAccountWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +15,20 @@ class BuildRegisterDontHaveAccountWidget extends GetView<RegisterController> {
           text: TextSpan(
             text: AppTrans.haveAccountText.tr(context: context),
             style: TextStyle(
-              // color: context.colors.onSurface,
-              fontSize: 14.sp,
+              color: context.colors.subtitleTextColor,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w500,
+              fontFamily: fontFamily,
             ),
             children: <TextSpan>[
               TextSpan(
                 text: AppTrans.loginNow.tr(context: context),
                 style: TextStyle(
-                  // color: context.colors.secondary,
-                  fontSize: 14.sp,
+                  color: context.colors.primary,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: fontFamily,
+                  decoration: TextDecoration.underline,
                 ),
               ),
             ],

@@ -1,5 +1,4 @@
-import 'package:flutter_boilerplate/app/app_launch/auth/data/models/api_user.dart';
-import 'package:flutter_boilerplate/app/app_launch/auth/data/models/user.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart';
 import 'package:playx/playx.dart';
 
 ///This class is responsible of retrieving data from the network.
@@ -20,10 +19,11 @@ class TestAuthDataSource {
     return NetworkResult.success(
       ApiUser(
         jwt: 'sasdfasfafa',
-        user: User(
+        userInfo: ApiUserInfo(
           username: 'mohamed.ahmed',
           email: 'mohamed.ahmed@gmail.com',
-          id: '121',
+          id: 11,
+          documentId: '21',
         ),
       ),
     );
@@ -36,10 +36,11 @@ class TestAuthDataSource {
     return NetworkResult.success(
       ApiUser(
         jwt: 'sasdfasfafa',
-        user: User(
+        userInfo: ApiUserInfo(
           username: 'mohamed.ahmed',
           email: 'mohamed.ahmed@gmail.com',
-          id: '121',
+          id: 21,
+          documentId: '31',
         ),
       ),
     );
@@ -50,10 +51,11 @@ class TestAuthDataSource {
     return NetworkResult.success(
       ApiUser(
         jwt: 'sasdfasfafa',
-        user: User(
+        userInfo: ApiUserInfo(
           username: 'mohamed.ahmed',
           email: 'mohamed.ahmed@gmail.com',
-          id: '121',
+          id: 21,
+          documentId: '31',
         ),
       ),
     );
@@ -62,15 +64,18 @@ class TestAuthDataSource {
   Future<NetworkResult<ApiUser>> register({
     required String email,
     required String password,
+    required String firstName,
+    required String lastName,
   }) async {
     await Future.delayed(const Duration(seconds: 3));
     return NetworkResult.success(
       ApiUser(
         jwt: 'sasdfasfafa',
-        user: User(
+        userInfo: ApiUserInfo(
           username: 'mohamed.ahmed',
           email: 'mohamed.ahmed@gmail.com',
-          id: '121',
+          id: 21,
+          documentId: '31',
         ),
       ),
     );

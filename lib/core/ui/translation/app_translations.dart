@@ -46,6 +46,13 @@ abstract class AppTrans {
   static const emailLabel = 'emailLabel';
   static const usernameLabel = 'usernameLabel';
   static const passwordLabel = 'passwordLabel';
+  static const String firstNameLabel = 'firstNameLabel';
+  static const String firstNameHint = 'firstNameHint';
+  static const String firstNameRequired = 'firstNameRequired';
+
+  static const String lastNameLabel = 'lastNameLabel';
+  static const String lastNameHint = 'lastNameHint';
+  static const String lastNameRequired = 'lastNameRequired';
   static const dontHaveAccountText = 'dontHaveAccountText';
   static const registerNow = 'registerNow';
   static const haveAccountText = 'haveAccountText';
@@ -60,6 +67,28 @@ abstract class AppTrans {
   static const terms = 'terms';
   static const andText = 'andText';
   static const privacyPolicyText = 'privacyPolicyText';
+
+  static const loggingInText = 'loggingInText';
+  static const loginWithAuth0Label = 'loginWithAuth0Label';
+  static const loginWithEmailLabel = 'loginWithEmailLabel';
+  static const loginWithGoogleLabel = 'loginWithGoogleLabel';
+  static const loginWithAppleLabel = 'loginWithAppleLabel';
+  static const emailOrPasswordIncorrect = 'emailOrPasswordIncorrect';
+  static const loginPrompt = 'loginPrompt';
+
+  static const continueWithSocial = 'continueWithSocial';
+
+  static const registerSubtitle = 'registerSubtitle';
+
+  static const registerTitle = 'registerTitle';
+
+  static const registeringText = 'registeringText';
+
+  static const contributions = 'contributions';
+
+  static const profile = 'profile';
+  static const agreeToTerms = 'agreeToTerms';
+
   static const noDataMessage = 'noDataMessage';
   static const noInternetMessage = 'noInternetMessage';
   static const retryText = 'retryText';
@@ -153,11 +182,6 @@ abstract class AppTrans {
   static const accessDeniedErrorMessage = 'accessDeniedErrorMessage';
   static const loginRequiredErrorMessage = 'loginRequiredErrorMessage';
   static const tooManyAttemptsErrorMessage = 'tooManyAttemptsErrorMessage';
-  static const loggingInText = 'loggingInText';
-  static const loginWithAuth0Label = 'loginWithAuth0Label';
-  static const loginWithEmailLabel = 'loginWithEmailLabel';
-  static const loginWithGoogleLabel = 'loginWithGoogleLabel';
-  static const loginWithAppleLabel = 'loginWithAppleLabel';
 
   static const loadingStatusLoading = 'loadingStatusLoading';
   static const loadingStatusLogin = 'loadingStatusLogin';

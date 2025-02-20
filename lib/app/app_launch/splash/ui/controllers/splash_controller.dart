@@ -11,7 +11,16 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
     // handleAppUpdate();
     super.onInit();
     updateAppVersion();
+    _checkAnimationCompleted();
     checkAppVersionAndNavigateToNextPage();
+  }
+
+  void _checkAnimationCompleted() {
+    Future.delayed(const Duration(seconds: 7), () {
+      if (!isAnimationCompleted.isCompleted) {
+        isAnimationCompleted.complete(true);
+      }
+    });
   }
 
   Future<void> updateAppVersion() async {
@@ -19,63 +28,67 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
   }
 
   Future<void> checkAppVersionAndNavigateToNextPage({
-    bool shouldCheckVersion = true,
+    bool shouldCheckVersion = false,
   }) async {
-    // if (shouldCheckVersion) {
-    //   final doesAppNeedUpdate = await shouldUpdateApp.future;
-    //   if (doesAppNeedUpdate) return;
-    // }
+    if (shouldCheckVersion) {
+      final doesAppNeedUpdate = await shouldUpdateApp.future;
+      if (doesAppNeedUpdate) return;
+    }
 
     await isAnimationCompleted.future;
-    if (!(await MyPreferenceManger.instance.isOnBoardingShown)) {
+    final isOnBoardingShown =
+        await MyPreferenceManger.instance.isOnBoardingShown;
+    if (!isOnBoardingShown) {
       AppNavigation.navigateFromSplashToOnBoarding();
       return;
     }
 
-    if (!await AuthRepository().isLoggedIn(checkAuth0Credentials: false)) {
+    final isUserLoggedIn =
+        await ApiHelper.instance.isLoggedIn(checkAuth0: false);
+    if (!isUserLoggedIn) {
       AppNavigation.navigateFormSplashToLogin();
       return;
     }
 
-    AppNavigation.navigateFormSplashToDashboard();
+    AppNavigation.navigateFormSplashToHome();
   }
 
-  // Future<void> handleAppUpdate() async {
-  //   final result = await PlayxVersionUpdate.showUpdateDialog(
-  //     context: Get.context!,
-  //     forceUpdate: false,
-  //     googlePlayId: Constants.playStoreId,
-  //     country: Constants.storeCountry,
-  //     language: Constants.storeLanguage,
-  //     onCancel: (info) {
-  //       if (info.forceUpdate) {
-  //         exit(0);
-  //       } else {
-  //         checkAppVersionAndNavigateToNextPage(shouldCheckVersion: false);
-  //       }
-  //     },
-  //     onUpdate: (info, mode) {
-  //       PlayxVersionUpdate.openStore(
-  //         storeUrl: Constants.storeUrl,
-  //         launchMode: mode,
-  //       );
-  //       checkAppVersionAndNavigateToNextPage(shouldCheckVersion: false);
-  //     },
-  //     title: (info) => AppTrans.updateTitle.tr(),
-  //     description: (info) => AppTrans.updateDescription.tr(),
-  //     releaseNotesTitle: (info) => AppTrans.updateReleaseNotesTitle.tr(),
-  //     updateActionTitle: AppTrans.updateConfirmActionTitle.tr(),
-  //     dismissActionTitle: AppTrans.updateDismissActionTitle.tr(),
-  //   );
-  //   result.when(
-  //     success: (canUpdate) {
-  //       shouldUpdateApp.complete(canUpdate);
-  //     },
-  //     error: (error) {
-  //       shouldUpdateApp.complete(false);
-  //     },
-  //   );
-  // }
+  Future<void> handleAppUpdate() async {
+    // final result = await PlayxVersionUpdate.showUpdateDialog(
+    //   context: Get.context!,
+    //   forceUpdate: false,
+    //   googlePlayId: Constants.playStoreId,
+    //   country: Constants.storeCountry,
+    //   language: Constants.storeLanguage,
+    //   onCancel: (info) {
+    //     if (info.forceUpdate) {
+    //       exit(0);
+    //     } else {
+    //       checkAppVersionAndNavigateToNextPage(shouldCheckVersion: false);
+    //     }
+    //   },
+    //   onUpdate: (info, mode) {
+    //     PlayxVersionUpdate.openStore(
+    //       storeUrl: Constants.storeUrl,
+    //       launchMode: mode,
+    //     );
+    //     checkAppVersionAndNavigateToNextPage(shouldCheckVersion: false);
+    //   },
+    //   title: (info) => AppTrans.updateTitle.tr(),
+    //   description: (info) => AppTrans.updateDescription.tr(),
+    //   releaseNotesTitle: (info) => AppTrans.updateReleaseNotesTitle.tr(),
+    //   updateActionTitle: AppTrans.updateConfirmActionTitle.tr(),
+    //   dismissActionTitle: AppTrans.updateDismissActionTitle.tr(),
+    // );
+    // result.when(
+    //   success: (canUpdate) {
+    //     shouldUpdateApp.complete(canUpdate);
+    //   },
+    //   error: (error) {
+    //     shouldUpdateApp.complete(false);
+    //   },
+    // );
+  }
 
   @override
   void onDetached() {}

@@ -1,0 +1,22 @@
+import 'package:auth0_flutter/auth0_flutter.dart' hide ApiException;
+import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/models/models.dart';
+import 'package:flutter_boilerplate/core/models/src/media_item.dart';
+import 'package:flutter_boilerplate/core/ui/ui.dart';
+import 'package:playx/playx.dart';
+
+part 'api/api_profile.dart';
+part 'api/api_user.dart';
+part 'api/api_user_info.dart';
+part 'api/auth0Exception.dart';
+part 'api/role.dart';
+part 'mapper/api_profile_to_profile_mapper.dart';
+part 'mapper/api_role_to_role.dart';
+part 'mapper/api_user_info_to_user_info_mapper.dart';
+part 'mapper/api_user_to_user_mapper.dart';
+part 'ui/login_method.dart';
+part 'ui/profile_info.dart';
+part 'ui/role.dart';
+part 'ui/user.dart';
+part 'ui/user_info.dart';
+part 'ui/user_role_type.dart';

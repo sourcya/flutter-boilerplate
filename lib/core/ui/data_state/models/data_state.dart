@@ -29,10 +29,10 @@ class Failure<T> extends DataState<T> {
   const Failure(this.error);
 }
 
-class NetworkError<T> extends Failure<T> {
+class NetworkFailure<T> extends Failure<T> {
   final NetworkException exception;
 
-  NetworkError(this.exception) : super(DataError.fromNetworkError(exception));
+  NetworkFailure(this.exception) : super(DataError.fromNetworkError(exception));
 }
 
 /// Generic Wrapper class for the result of any type.
@@ -49,10 +49,10 @@ sealed class DataState<T> {
 
   factory DataState.fromNetworkResult(NetworkResult<T> result) => result.map(
         success: (success) => Success(success.data),
-        error: (error) => NetworkError(error.error),
+        error: (error) => NetworkFailure(error.error),
       );
 
-  factory DataState.fromNetworkError(NetworkException error) = NetworkError;
+  factory DataState.fromNetworkError(NetworkException error) = NetworkFailure;
 
   factory DataState.fromEmptyError({String? error}) =>
       Failure(DataError.empty(error: error));
