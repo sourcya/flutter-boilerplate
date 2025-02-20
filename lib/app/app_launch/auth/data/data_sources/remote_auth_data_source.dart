@@ -1,6 +1,7 @@
 import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart';
 import 'package:flutter_boilerplate/core/models/src/media_item.dart';
 import 'package:flutter_boilerplate/core/network/network.dart';
+import 'package:flutter_boilerplate/core/network/src/helper/api_helper.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
@@ -81,18 +82,18 @@ class RemoteAuthDataSource {
         image: image,
       );
 
-      //   final updateUserRes = await _profileDataSource.updateUser(
-      //     user: updatedUser,
-      //     jwtToken: token,
-      //   );
-      //   if (updateUserRes is NetworkSuccess<ApiUserInfo> && token.isNotEmpty) {
-      //     return NetworkSuccess(
-      //       ApiUser(
-      //         jwt: res.data.jwt,
-      //         userInfo: updateUserRes.data,
-      //       ),
-      //     );
-      //   }
+      final updateUserRes = await ApiHelper.instance.updateUser(
+        user: updatedUser,
+        jwtToken: token,
+      );
+      if (updateUserRes is NetworkSuccess<ApiUserInfo> && token.isNotEmpty) {
+        return NetworkSuccess(
+          ApiUser(
+            jwt: res.data.jwt,
+            userInfo: updateUserRes.data,
+          ),
+        );
+      }
     }
     return res;
   }

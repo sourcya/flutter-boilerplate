@@ -29,6 +29,47 @@ class ApiHelper {
         ),
       );
 
+  Future<bool> isLoggedIn({bool checkAuth0 = true}) async {
+    try {
+      final loginMethod = await _preferenceManger.loginMethod;
+
+      final checkAuth0Credentials =
+          checkAuth0 && loginMethod != null && loginMethod != LoginMethod.email;
+
+      final isLoggedInAndSavedToPref = await _preferenceManger.isLoggedIn;
+
+      if (checkAuth0Credentials) {
+        return await _auth0DataSource.isLoggedIn && isLoggedInAndSavedToPref;
+      }
+      return isLoggedInAndSavedToPref;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> isLoggedOut({bool checkAuth0 = true}) async =>
+      !(await isLoggedIn(checkAuth0: checkAuth0));
+
+  Future<void> logout() async {
+    await _preferenceManger.signOut();
+
+    final loginMethod = await _preferenceManger.loginMethod;
+
+    final logOutFromAuth0 =
+        loginMethod != null && loginMethod != LoginMethod.email;
+
+    if (logOutFromAuth0) {
+      try {
+        await _auth0DataSource.logout();
+      } catch (e) {
+        Sentry.captureException(e);
+      }
+    }
+  }
+
+  Future<String?> get profileImageUrl async =>
+      (await _auth0DataSource.getCredentials())?.user.pictureUrl.toString();
+
   Future<NetworkResult<MediaItem>> uploadImage({
     required MediaItem image,
     String? jwtToken,
@@ -74,44 +115,51 @@ class ApiHelper {
     }
   }
 
-  Future<bool> isLoggedIn({bool checkAuth0 = true}) async {
-    try {
-      final loginMethod = await _preferenceManger.loginMethod;
-
-      final checkAuth0Credentials =
-          checkAuth0 && loginMethod != null && loginMethod != LoginMethod.email;
-
-      final isLoggedInAndSavedToPref = await _preferenceManger.isLoggedIn;
-
-      if (checkAuth0Credentials) {
-        return await _auth0DataSource.isLoggedIn && isLoggedInAndSavedToPref;
-      }
-      return isLoggedInAndSavedToPref;
-    } catch (e) {
-      return false;
-    }
+  Future<NetworkResult<ApiUserInfo>> updateUser({
+    required ApiUserInfo user,
+    String? jwtToken,
+  }) async {
+    // bool isImageError = false;
+    // if (updatedImage != null && updatedImage.id == null) {
+    //   final uploadRes = await ApiHelper.instance.uploadImage(
+    //     image: updatedImage,
+    //     jwtToken: token,
+    //   );
+    //   uploadRes.when(
+    //     success: (MediaItem success) {
+    //       updatedImage = success;
+    //     },
+    //     error: (NetworkException error) {
+    //       isImageError = true;
+    //     },
+    //   );
+    // }
+    return updateProfileName(
+      firstName: user.firstName,
+      lastName: user.lastName,
+      jwtToken: jwtToken,
+    );
   }
 
-  Future<bool> isLoggedOut({bool checkAuth0 = true}) async =>
-      !(await isLoggedIn(checkAuth0: checkAuth0));
+  Future<NetworkResult<ApiUserInfo>> updateProfileName({
+    required String? firstName,
+    required String? lastName,
+    String? jwtToken,
+  }) async {
+    final token = jwtToken ?? await MyPreferenceManger.instance.token;
 
-  Future<void> logout() async {
-    await _preferenceManger.signOut();
-
-    final loginMethod = await _preferenceManger.loginMethod;
-
-    final logOutFromAuth0 =
-        loginMethod != null && loginMethod != LoginMethod.email;
-
-    if (logOutFromAuth0) {
-      try {
-        await _auth0DataSource.logout();
-      } catch (e) {
-        Sentry.captureException(e);
-      }
-    }
+    return _client.put(
+      Endpoints.updateUser,
+      body: {
+        'firstName': firstName,
+        'lastName': lastName,
+        // if (!isImageError) 'image': updatedImage?.id,
+      },
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+      fromJson: ApiUserInfo.fromJson,
+      attachCustomHeaders: false,
+    );
   }
-
-  Future<String?> get profileImageUrl async =>
-      (await _auth0DataSource.getCredentials())?.user.pictureUrl.toString();
 }

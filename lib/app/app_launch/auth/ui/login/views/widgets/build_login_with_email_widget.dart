@@ -11,7 +11,6 @@ class BuildLoginWithEmailWidget extends StatelessWidget {
         BuildLoginEmailFieldWidget(),
         BuildLoginPasswordFieldWidget(),
         BuildLoginButtonWidget(),
-        BuildLoginRegisterNowWidget(),
       ],
     );
   }

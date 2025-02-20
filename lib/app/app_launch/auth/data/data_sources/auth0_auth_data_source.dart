@@ -4,6 +4,7 @@ import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart'
 import 'package:flutter_boilerplate/core/config/constant.dart';
 import 'package:flutter_boilerplate/core/models/src/media_item.dart';
 import 'package:flutter_boilerplate/core/network/network.dart';
+import 'package:flutter_boilerplate/core/network/src/helper/api_helper.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
@@ -151,38 +152,38 @@ class Auth0AuthDataSource {
         final user = res.data.userInfo;
         final token = res.data.jwt;
 
-        //   // Update only when user first name or last name is null
-        //   if (user.firstName == null ||
-        //       user.firstName!.isEmpty ||
-        //       user.lastName == null ||
-        //       user.lastName!.isEmpty) {
-        //     final firstName = user.firstName ??
-        //         credentials.user.givenName ??
-        //         credentials.user.name;
-        //     final lastName = user.lastName ?? credentials.user.familyName;
-        //     final imageUrl = credentials.user.pictureUrl.toString();
-        //     final image = user.image ?? MediaItem(url: imageUrl);
-        //
-        //     final updatedUser = user.copyWith(
-        //       firstName: firstName,
-        //       lastName: lastName,
-        //       image: image,
-        //     );
-        //
-        //     final updateUserRes = await _profileDataSource.updateUser(
-        //       user: updatedUser,
-        //       jwtToken: token,
-        //     );
-        //     if (updateUserRes is NetworkSuccess<ApiUserInfo> &&
-        //         token.isNotEmpty) {
-        //       return NetworkSuccess(
-        //         ApiUser(
-        //           jwt: res.data.jwt,
-        //           userInfo: updateUserRes.data,
-        //         ),
-        //       );
-        //     }
-        //   }
+        // Update only when user first name or last name is null
+        if (user.firstName == null ||
+            user.firstName!.isEmpty ||
+            user.lastName == null ||
+            user.lastName!.isEmpty) {
+          final firstName = user.firstName ??
+              credentials.user.givenName ??
+              credentials.user.name;
+          final lastName = user.lastName ?? credentials.user.familyName;
+          final imageUrl = credentials.user.pictureUrl.toString();
+          final image = user.image ?? MediaItem(url: imageUrl);
+
+          final updatedUser = user.copyWith(
+            firstName: firstName,
+            lastName: lastName,
+            image: image,
+          );
+
+          final updateUserRes = await ApiHelper.instance.updateUser(
+            user: updatedUser,
+            jwtToken: token,
+          );
+          if (updateUserRes is NetworkSuccess<ApiUserInfo> &&
+              token.isNotEmpty) {
+            return NetworkSuccess(
+              ApiUser(
+                jwt: res.data.jwt,
+                userInfo: updateUserRes.data,
+              ),
+            );
+          }
+        }
       }
       return res;
     } catch (e) {

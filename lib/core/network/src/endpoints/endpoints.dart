@@ -9,4 +9,7 @@ abstract class Endpoints {
   static const login = '/auth/local';
   static const register = '/auth/local/register';
   static const upload = '/upload';
+
+  static const profile = '/users/me';
+  static const updateUser = '/users/edit-profile';
 }
