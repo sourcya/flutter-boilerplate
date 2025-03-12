@@ -6,8 +6,10 @@ class LoginView extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: OptimizedScrollView(
+    return CustomScaffold(
+      includeAppBar: false  ,
+      includeLoadingOverlay: true,
+      child: OptimizedScrollView(
         child: SafeArea(
           child: Container(
             padding: const EdgeInsets.symmetric(

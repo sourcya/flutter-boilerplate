@@ -9,7 +9,7 @@ class RegisterController extends GetxController {
 
   final hidePassword = true.obs;
   final hideConfirmPassword = true.obs;
-  final agreeToTerms = false.obs;
+  final agreeToTerms = true.obs;
 
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();

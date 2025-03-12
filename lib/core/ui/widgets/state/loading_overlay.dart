@@ -16,7 +16,7 @@ class LoadingOverlay extends StatelessWidget {
         height: double.infinity,
         child: Center(
           child: CustomCard(
-            color: context.colors.surfaceContainer.withValues(alpha: .7),
+            color: context.colors.surfaceContainer.withValues(alpha: .85),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -107,5 +107,11 @@ class _AnimatedDottedTextState extends State<AnimatedDottedText>
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }

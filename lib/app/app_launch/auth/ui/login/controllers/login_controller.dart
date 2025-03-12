@@ -61,7 +61,7 @@ class LoginController extends GetxController {
       currentLoginMethod.value = null;
       final result = await authRepository.loginViaAuth0(method: method);
       result.when(
-        success: (User user) async {
+        success: (User user) {
           _navigateToHome();
         },
         error: (NetworkException exception) {

@@ -17,9 +17,10 @@ class RegisterView extends GetView<RegisterController> {
             return false;
           }
         },
-        child: Scaffold(
-          backgroundColor: context.colors.surface,
-          body: OptimizedScrollView(
+        child: CustomScaffold(
+          includeAppBar: false  ,
+          includeLoadingOverlay: true,
+          child: OptimizedScrollView(
             child: SafeArea(
               child: Column(
                 children: [

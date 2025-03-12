@@ -8,7 +8,8 @@ class CustomScaffold extends StatelessWidget {
   final Widget? floatingActionButton;
   final AppBarLeadingType leading;
   final bool useSafeArea;
-  final bool includeThemeSwitchingArea;
+  final bool includeAppBar;
+  final bool includeLoadingOverlay;
 
   const CustomScaffold({
     required this.child,
@@ -18,7 +19,8 @@ class CustomScaffold extends StatelessWidget {
     this.floatingActionButton,
     this.leading = AppBarLeadingType.none,
     this.useSafeArea = true,
-    this.includeThemeSwitchingArea = true,
+    this.includeLoadingOverlay = false,
+    this.includeAppBar = true,
     super.key,
   });
 
@@ -27,7 +29,7 @@ class CustomScaffold extends StatelessWidget {
     final scaffoldChild = Container(
       padding: padding,
       alignment: Alignment.center,
-      child: GetPlatform.isIOS
+      child: PlayxPlatform.isIOS
           ? Scaffold(
               floatingActionButton: floatingActionButton,
               body: child,
@@ -36,20 +38,29 @@ class CustomScaffold extends StatelessWidget {
     );
 
     final scaffold = PlatformScaffold(
-      appBar: appBar ??
+      appBar:includeAppBar? appBar ??
           buildAppBar(
             title: title ?? AppTrans.appName,
             context: context,
             leading: leading,
-          ),
-      body: useSafeArea ? SafeArea(child: scaffoldChild) : scaffoldChild,
+          ):null,
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          if (useSafeArea) SafeArea(child: scaffoldChild) else scaffoldChild,
+          if (includeLoadingOverlay)
+            Obx(() {
+              return LoadingOverlay(
+                isLoading:
+                AppController.instance.loadingStatus.value != LoadingStatus.none,
+                loadingText: AppController.instance.loadingStatus.value.displayName,
+              );
+            }),
+        ],
+      ),
       backgroundColor: context.colors.surface,
     );
 
-    return includeThemeSwitchingArea
-        ? PlayxThemeSwitchingArea(
-            child: scaffold,
-          )
-        : scaffold;
+    return scaffold;
   }
 }
