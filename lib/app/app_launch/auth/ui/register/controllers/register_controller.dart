@@ -36,7 +36,6 @@ class RegisterController extends GetxController {
 
   final isFormValid = false.obs;
 
-
   final Rxn<LoginMethod> currentLoginMethod = Rxn();
   final loginMethods = <LoginMethod>[
     LoginMethod.email,

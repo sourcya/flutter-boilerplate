@@ -26,6 +26,7 @@ class LightTheme {
         sliderTheme: const SliderThemeData(
           showValueIndicator: ShowValueIndicator.always,
         ),
+        fontFamily: fontFamily,
       );
 
   static XTheme get theme => XTheme.builder(

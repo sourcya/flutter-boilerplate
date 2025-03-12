@@ -128,7 +128,7 @@ sealed class Result<T> {
     required Mapper<T, S> success,
     required Mapper<ResultException, S> error,
     bool useWorkManager = true,
-  })  {
+  }) {
     return MapUtils.mapAsyncInIsolate(
       data: this,
       mapper: (Result<T> res) async {

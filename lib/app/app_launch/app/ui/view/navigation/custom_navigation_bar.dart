@@ -41,7 +41,7 @@ PlatformNavBar buildCustomNavigationBar({
       return CupertinoTabBarData(
         activeColor: context.colors.primary,
         backgroundColor: PlayxPlatform.isCupertino
-            ? context.colors.surfaceContainerHigh.withValues(alpha:.7)
+            ? context.colors.surfaceContainerHigh.withValues(alpha: .7)
             : null,
         items: controller.bottomNavItems
             .mapWithIndex(

@@ -48,7 +48,7 @@ class CustomNavigationDrawer extends StatelessWidget {
             context: context,
           ),
           Divider(
-            color: context.colors.onSurface.withValues(alpha:.3),
+            color: context.colors.onSurface.withValues(alpha: .3),
           ),
           NavigationDrawerDestination(
             icon: const Icon(Icons.logout),

@@ -8,7 +8,8 @@ import 'package:flutter_boilerplate/app/app_launch/app/data/model/loading_status
 import 'package:flutter_boilerplate/app/app_launch/app/ui/imports/app_imports.dart';
 import 'package:flutter_boilerplate/core/navigation/navigation.dart';
 import 'package:flutter_boilerplate/core/ui/resources/assets/animations.dart';
-import 'package:flutter_boilerplate/core/ui/resources/assets/icons.dart' as asset;
+import 'package:flutter_boilerplate/core/ui/resources/assets/icons.dart'
+    as asset;
 import 'package:flutter_boilerplate/core/ui/resources/assets/images.dart';
 import 'package:flutter_boilerplate/core/utils/app_utils.dart';
 import 'package:playx/playx.dart';

@@ -26,6 +26,7 @@ class DarkTheme {
           brightness: Brightness.dark,
           textTheme: CupertinoTextThemeData(primaryColor: colors.primary),
         ),
+        fontFamily: fontFamily,
         applyElevationOverlayColor: true,
         extensions: const [
           WoltModalSheetThemeData(

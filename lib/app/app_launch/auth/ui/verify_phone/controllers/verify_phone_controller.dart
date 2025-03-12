@@ -2,7 +2,7 @@ part of '../imports/verify_phone_view_imports.dart';
 
 ///Login controller to setup data to the ui.
 class VerifyPhoneController extends GetxController {
-  final AuthRepository authRepository ;
+  final AuthRepository authRepository;
 
   VerifyPhoneController({
     required this.authRepository,

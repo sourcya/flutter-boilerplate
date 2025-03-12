@@ -3,12 +3,10 @@ import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart'
 import 'package:playx/playx.dart';
 
 ///This class is responsible of retrieving data from the network.
-class TestAuthDataSource  extends RemoteAuthDataSource {
-
+class TestAuthDataSource extends RemoteAuthDataSource {
   TestAuthDataSource({
     required super.client,
   });
-
 
   @override
   Future<NetworkResult<ApiUser>> login({

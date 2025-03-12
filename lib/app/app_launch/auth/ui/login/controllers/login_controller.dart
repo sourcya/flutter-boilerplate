@@ -2,13 +2,11 @@ part of '../imports/login_imports.dart';
 
 ///Login controller to setup data to the ui.
 class LoginController extends GetxController {
-
   final AuthRepository authRepository;
 
   LoginController({
     required this.authRepository,
   });
-
 
   final hidePassword = true.obs;
 

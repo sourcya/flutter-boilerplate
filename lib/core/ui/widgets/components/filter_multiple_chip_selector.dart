@@ -20,7 +20,8 @@ class FilterMultipleChipSelector<T> extends StatefulWidget {
       _FilterMultiChipSelectorState<T>();
 }
 
-class _FilterMultiChipSelectorState<T> extends State<FilterMultipleChipSelector<T>> {
+class _FilterMultiChipSelectorState<T>
+    extends State<FilterMultipleChipSelector<T>> {
   late List<T> currentSelectedItems;
 
   @override

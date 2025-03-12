@@ -1,6 +1,5 @@
 part of '../../ui.dart';
 
-
 class SliverDataStateWidget<T> extends StatelessWidget {
   final DataState<T> data;
   final DataCallback<T>? onInitial;

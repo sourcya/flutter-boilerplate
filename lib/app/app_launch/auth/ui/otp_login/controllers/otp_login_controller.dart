@@ -2,7 +2,7 @@ part of '../imports/login_view_imports.dart';
 
 ///Login controller to setup data to the ui.
 class OtpLoginController extends GetxController {
-  final  AuthRepository authRepository;
+  final AuthRepository authRepository;
 
   OtpLoginController({
     required this.authRepository,

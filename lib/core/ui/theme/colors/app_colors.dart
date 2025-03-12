@@ -1,4 +1,5 @@
 part of '../../ui.dart';
+
 /// This is base class for creating a color scheme for each theme.
 /// You can create this class of you want to add more colors that will be implemented in each theme color scheme
 /// or if you want to add const colors for each theme.

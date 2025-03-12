@@ -1,3 +1,1 @@
-class SettingsDatasource {
-
-}
+class SettingsDatasource {}

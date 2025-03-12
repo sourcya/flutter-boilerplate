@@ -11,13 +11,12 @@ class Auth0AuthDataSource {
   final PlayxNetworkClient client;
   final Auth0 auth0;
   final Auth0Web auth0Web;
-  
+
   Auth0AuthDataSource({
     required this.client,
     required this.auth0,
     required this.auth0Web,
   });
-
 
   Future<bool> get hasValidCredentials async {
     try {

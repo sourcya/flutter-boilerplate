@@ -98,7 +98,6 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return OptimizedTextField(
       hint: hint?.tr(context: context),
       hintStyle: hintStyle ??

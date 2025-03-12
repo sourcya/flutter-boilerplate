@@ -190,5 +190,4 @@ abstract class AppTrans {
   static const loadingStatusNone = 'loadingStatusNone';
   static const readMore = 'readMore';
   static const readLess = 'readLess';
-
 }

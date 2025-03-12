@@ -21,7 +21,7 @@ class BuildBottomNavProfileImageWidget extends StatelessWidget {
         child: ClipOval(
           child: Obx(() {
             // final imageUrl = controller.userInfo.value?.image?.url ?? '';
-            final imageUrl = '';
+            const imageUrl = '';
             if (imageUrl.isEmpty) {
               return PlaceholderImageWidget(
                 path: Assets.images.profilePlaceholder,

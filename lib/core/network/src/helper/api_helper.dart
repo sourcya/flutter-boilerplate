@@ -122,7 +122,7 @@ class ApiHelper {
   Future<NetworkResult<ApiUserInfo>> updateUser({
     required ApiUserInfo user,
     String? jwtToken,
-  })  {
+  }) {
     // bool isImageError = false;
     // if (updatedImage != null && updatedImage.id == null) {
     //   final uploadRes = await ApiHelper.instance.uploadImage(

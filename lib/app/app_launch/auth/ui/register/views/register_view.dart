@@ -18,7 +18,7 @@ class RegisterView extends GetView<RegisterController> {
           }
         },
         child: CustomScaffold(
-          includeAppBar: false  ,
+          includeAppBar: false,
           includeLoadingOverlay: true,
           child: OptimizedScrollView(
             child: SafeArea(

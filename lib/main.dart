@@ -6,13 +6,12 @@ import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() {
   Playx.runPlayx(
-    appConfig: AppConfig(),
-    themeConfig: createThemeConfig(),
-    localeConfig: createLocaleConfig(),
-    envSettings: const PlayxEnvSettings(
+    appConfigBuilder: () => AppConfig(),
+    themeConfigBuilder: () => createThemeConfig(),
+    localeConfigBuilder: () => createLocaleConfig(),
+    envSettingsBuilder: () => const PlayxEnvSettings(
       fileName: 'assets/env/keys.env',
     ),
     sentryOptions: (options) async {

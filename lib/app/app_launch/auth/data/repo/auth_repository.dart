@@ -191,7 +191,8 @@ class AuthRepository {
   }
 
   Future<NetworkResult<User>> verifyOtpCode({required String pin}) async {
-    final NetworkResult<ApiUser> result = await remoteAuthDataSource.verifyOtpCode(
+    final NetworkResult<ApiUser> result =
+        await remoteAuthDataSource.verifyOtpCode(
       pin: pin,
     );
     return _handleSavingUser(result: result, loginMethod: LoginMethod.email);

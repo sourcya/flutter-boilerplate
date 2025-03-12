@@ -1,10 +1,7 @@
-import 'package:auth0_flutter/auth0_flutter.dart';
-import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_boilerplate/app/app_launch/app/ui/imports/app_imports.dart';
 import 'package:flutter_boilerplate/app/wishlist/data/datasource/db/local_wishlist_data_source.dart';
-import 'package:flutter_boilerplate/core/config/constant.dart';
 import 'package:flutter_boilerplate/core/database/app_database.dart';
 import 'package:flutter_boilerplate/core/network/network.dart';
 import 'package:flutter_boilerplate/core/preferences/env_manger.dart';

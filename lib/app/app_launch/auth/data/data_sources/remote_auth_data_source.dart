@@ -7,7 +7,6 @@ import 'package:playx/playx.dart';
 
 ///This class is responsible of retrieving data from the network.
 class RemoteAuthDataSource {
-
   final PlayxNetworkClient client;
 
   RemoteAuthDataSource({
@@ -34,7 +33,6 @@ class RemoteAuthDataSource {
         return const NetworkResult.error(
           ApiException(
             errorMessage: AppTrans.emailOrPasswordIncorrect,
-            statusCode: 400,
           ),
         );
       }

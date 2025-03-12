@@ -38,12 +38,14 @@ class CustomScaffold extends StatelessWidget {
     );
 
     final scaffold = PlatformScaffold(
-      appBar:includeAppBar? appBar ??
-          buildAppBar(
-            title: title ?? AppTrans.appName,
-            context: context,
-            leading: leading,
-          ):null,
+      appBar: includeAppBar
+          ? appBar ??
+              buildAppBar(
+                title: title ?? AppTrans.appName,
+                context: context,
+                leading: leading,
+              )
+          : null,
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -51,9 +53,10 @@ class CustomScaffold extends StatelessWidget {
           if (includeLoadingOverlay)
             Obx(() {
               return LoadingOverlay(
-                isLoading:
-                AppController.instance.loadingStatus.value != LoadingStatus.none,
-                loadingText: AppController.instance.loadingStatus.value.displayName,
+                isLoading: AppController.instance.loadingStatus.value !=
+                    LoadingStatus.none,
+                loadingText:
+                    AppController.instance.loadingStatus.value.displayName,
               );
             }),
         ],
