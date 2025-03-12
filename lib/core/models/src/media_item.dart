@@ -1,7 +1,4 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
-import 'package:playx/playx.dart';
+part of '../models.dart';
 
 class MediaItem {
   final int? id;

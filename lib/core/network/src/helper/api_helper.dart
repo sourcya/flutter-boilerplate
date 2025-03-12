@@ -1,6 +1,6 @@
 import 'package:flutter_boilerplate/app/app_launch/auth/data/data_sources/auth0_auth_data_source.dart';
 import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart';
-import 'package:flutter_boilerplate/core/models/src/media_item.dart';
+import 'package:flutter_boilerplate/core/models/models.dart';
 import 'package:flutter_boilerplate/core/network/network.dart';
 import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
@@ -19,7 +19,11 @@ class ApiHelper {
 
   final _client = ApiClient.client;
   final _preferenceManger = MyPreferenceManger.instance;
-  final _auth0DataSource = Auth0AuthDataSource();
+  final _auth0DataSource = Auth0AuthDataSource(
+    client: ApiClient.client,
+    auth0: ApiClient.auth0,
+    auth0Web: ApiClient.auth0Web,
+  );
 
   static NetworkResult<T> unableToProcessError<T>() =>
       const NetworkResult.error(
@@ -99,7 +103,7 @@ class ApiHelper {
       );
 
       return res.mapDataAsyncInIsolate(
-        mapper: (data) async {
+        mapper: (data) {
           return NetworkSuccess(
             data[0],
           );
@@ -118,7 +122,7 @@ class ApiHelper {
   Future<NetworkResult<ApiUserInfo>> updateUser({
     required ApiUserInfo user,
     String? jwtToken,
-  }) async {
+  })  {
     // bool isImageError = false;
     // if (updatedImage != null && updatedImage.id == null) {
     //   final uploadRes = await ApiHelper.instance.uploadImage(

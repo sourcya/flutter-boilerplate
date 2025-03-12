@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 part of '../../ui.dart';
 
 /// This is a custom text field to have same behavior on whole application.

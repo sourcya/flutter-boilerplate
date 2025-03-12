@@ -1,32 +1,29 @@
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auth0_flutter/auth0_flutter_web.dart';
 import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart';
-import 'package:flutter_boilerplate/core/config/constant.dart';
-import 'package:flutter_boilerplate/core/models/src/media_item.dart';
+import 'package:flutter_boilerplate/core/models/models.dart';
 import 'package:flutter_boilerplate/core/network/network.dart';
 import 'package:flutter_boilerplate/core/network/src/helper/api_helper.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
 class Auth0AuthDataSource {
-  static final Auth0AuthDataSource _instance = Auth0AuthDataSource._internal();
+  final PlayxNetworkClient client;
+  final Auth0 auth0;
+  final Auth0Web auth0Web;
+  
+  Auth0AuthDataSource({
+    required this.client,
+    required this.auth0,
+    required this.auth0Web,
+  });
 
-  factory Auth0AuthDataSource() {
-    return _instance;
-  }
-
-  Auth0AuthDataSource._internal();
-
-  final _auth0 = Auth0(Constants.auth0Domain, Constants.auth0ClientId);
-  final _auth0Web = Auth0Web(Constants.auth0Domain, Constants.auth0WebClientId);
-
-  final PlayxNetworkClient _client = Get.find<PlayxNetworkClient>();
 
   Future<bool> get hasValidCredentials async {
     try {
       return PlayxPlatform.isWeb
-          ? await _auth0Web.hasValidCredentials()
-          : await _auth0.credentialsManager.hasValidCredentials();
+          ? await auth0Web.hasValidCredentials()
+          : await auth0.credentialsManager.hasValidCredentials();
     } catch (e) {
       return false;
     }
@@ -40,7 +37,7 @@ class Auth0AuthDataSource {
   Future<void> init() async {
     if (PlayxPlatform.isWeb) {
       try {
-        await _auth0Web.onLoad();
+        await auth0Web.onLoad();
       } catch (e) {
         Sentry.captureException(e);
       }
@@ -59,14 +56,14 @@ class Auth0AuthDataSource {
     LoginMethod method = LoginMethod.auth0Web,
   }) async {
     try {
-      final credentials = await _auth0.webAuthentication().login(
+      final credentials = await auth0.webAuthentication().login(
         useHTTPS: true,
         parameters: {
           'connection': method.auth0Connection,
         },
       );
 
-      final res = await _client.get(
+      final res = await client.get(
         Endpoints.loginViaAuth0,
         query: {
           'access_token': credentials.accessToken,
@@ -102,13 +99,13 @@ class Auth0AuthDataSource {
     LoginMethod method = LoginMethod.auth0Web,
   }) async {
     try {
-      final credentials = await _auth0Web.loginWithPopup(
+      final credentials = await auth0Web.loginWithPopup(
         parameters: {
           'connection': method.auth0Connection,
         },
       );
 
-      final res = await _client.get(
+      final res = await client.get(
         Endpoints.loginViaAuth0,
         query: {
           'access_token': credentials.accessToken,
@@ -197,8 +194,8 @@ class Auth0AuthDataSource {
   Future<Credentials?> getCredentials() async {
     try {
       final res = PlayxPlatform.isWeb
-          ? await _auth0Web.credentials()
-          : await _auth0.credentialsManager.credentials();
+          ? await auth0Web.credentials()
+          : await auth0.credentialsManager.credentials();
       return res;
     } on CredentialsManagerException {
       return null;
@@ -211,9 +208,9 @@ class Auth0AuthDataSource {
   Future<void> logout() async {
     try {
       if (PlayxPlatform.isWeb) {
-        return _auth0Web.logout();
+        return auth0Web.logout();
       }
-      return _auth0.webAuthentication().logout();
+      return auth0.webAuthentication().logout();
     } catch (e) {
       Sentry.captureException(e);
     }

@@ -10,6 +10,6 @@ class DashboardBinding extends PlayxBinding {
   Future<void> onExit(
     BuildContext context,
   ) async {
-    // Get.delete<DashboardController>();
+    Get.delete<DashboardController>();
   }
 }

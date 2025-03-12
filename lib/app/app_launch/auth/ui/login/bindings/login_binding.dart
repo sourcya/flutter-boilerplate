@@ -4,8 +4,21 @@ part of '../imports/login_imports.dart';
 class LoginBinding extends PlayxBinding {
   @override
   Future<void> onEnter(BuildContext context, GoRouterState state) async {
+    final authRepository = AuthRepository(
+      remoteAuthDataSource: TestAuthDataSource(
+        client: ApiClient.client,
+      ),
+      auth0DataSource: Auth0AuthDataSource(
+        client: ApiClient.client,
+        auth0: ApiClient.auth0,
+        auth0Web: ApiClient.auth0Web,
+      ),
+      preferenceManger: MyPreferenceManger.instance,
+    );
     if (!Get.isRegistered<LoginController>()) {
-      Get.put(LoginController());
+      Get.put(LoginController(
+        authRepository: authRepository,
+      ));
     }
   }
 
@@ -13,7 +26,6 @@ class LoginBinding extends PlayxBinding {
   Future<void> onExit(
     BuildContext context,
   ) async {
-    await Future.delayed(const Duration(milliseconds: 500));
     if (Get.isRegistered<LoginController>()) {
       Get.delete<LoginController>();
     }

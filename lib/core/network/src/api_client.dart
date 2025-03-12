@@ -7,6 +7,12 @@ abstract class ApiClient {
 
   static PlayxNetworkClient get client => Get.find<PlayxNetworkClient>();
 
+
+  static Auth0 get auth0 => Get.find<Auth0>();
+
+  static Auth0Web get auth0Web => Get.find<Auth0Web>();
+
+
   static Future<PlayxNetworkClient> createApiClient() async {
     final dio = Dio(
       BaseOptions(
@@ -43,6 +49,23 @@ abstract class ApiClient {
       // onUnauthorizedRequestReceived: (res) => _signOut(),
     );
   }
+
+  static Future<void> init() async {
+    final PlayxNetworkClient client = await ApiClient.createApiClient();
+    Get.put<PlayxNetworkClient>(client);
+
+    final Auth0 auth0 = Auth0(
+      Constants.auth0Domain,
+      Constants.auth0ClientId,
+    );
+
+    final Auth0Web auth0Web = Auth0Web(
+      Constants.auth0Domain,
+      Constants.auth0WebClientId,
+    );
+
+    Get.put<Auth0>(auth0);
+    Get.put<Auth0Web>(auth0Web);  }
 
   static Future<void> _signOut() async {
     final preferenceManger = MyPreferenceManger.instance;

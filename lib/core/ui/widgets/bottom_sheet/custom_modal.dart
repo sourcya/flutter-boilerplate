@@ -102,7 +102,7 @@ class CustomModal {
     return isSliver
         ? SliverWoltModalSheetPage(
             hasSabGradient: hasSabGradient,
-            sabGradientColor: context.colors.surface.withAlpha(240),
+            sabGradientColor: context.colors.surface.withValues(alpha: .7),
             stickyActionBar: actionBarStatus != null
                 ? _buildNextButton(
                     status: actionBarStatus,

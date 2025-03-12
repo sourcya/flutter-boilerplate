@@ -1,6 +1,12 @@
 part of '../imports/register_imports.dart';
 
 class RegisterController extends GetxController {
+  final AuthRepository authRepository;
+
+  RegisterController({
+    required this.authRepository,
+  });
+
   final hidePassword = true.obs;
   final hideConfirmPassword = true.obs;
   final agreeToTerms = false.obs;
@@ -30,7 +36,6 @@ class RegisterController extends GetxController {
 
   final isFormValid = false.obs;
 
-  final authRepository = AuthRepository();
 
   final Rxn<LoginMethod> currentLoginMethod = Rxn();
   final loginMethods = <LoginMethod>[

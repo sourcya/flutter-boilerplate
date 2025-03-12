@@ -1,7 +1,6 @@
 import 'package:auth0_flutter/auth0_flutter.dart' hide ApiException;
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/core/models/models.dart';
-import 'package:flutter_boilerplate/core/models/src/media_item.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 

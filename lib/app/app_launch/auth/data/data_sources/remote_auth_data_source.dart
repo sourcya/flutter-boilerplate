@@ -1,5 +1,5 @@
 import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart';
-import 'package:flutter_boilerplate/core/models/src/media_item.dart';
+import 'package:flutter_boilerplate/core/models/models.dart';
 import 'package:flutter_boilerplate/core/network/network.dart';
 import 'package:flutter_boilerplate/core/network/src/helper/api_helper.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
@@ -7,16 +7,12 @@ import 'package:playx/playx.dart';
 
 ///This class is responsible of retrieving data from the network.
 class RemoteAuthDataSource {
-  static final RemoteAuthDataSource _instance =
-      RemoteAuthDataSource._internal();
 
-  factory RemoteAuthDataSource() {
-    return _instance;
-  }
+  final PlayxNetworkClient client;
 
-  RemoteAuthDataSource._internal();
-
-  final PlayxNetworkClient client = Get.find<PlayxNetworkClient>();
+  RemoteAuthDataSource({
+    required this.client,
+  });
 
   Future<NetworkResult<ApiUser>> login({
     required String email,

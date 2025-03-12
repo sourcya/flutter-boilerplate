@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart';
-import 'package:flutter_boilerplate/core/models/src/media_item.dart';
+import 'package:flutter_boilerplate/core/models/models.dart';
 import 'package:flutter_boilerplate/core/network/src/helper/api_helper.dart';
 import 'package:playx/playx.dart';
 

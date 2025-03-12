@@ -8,7 +8,6 @@ import 'package:flutter_boilerplate/core/network/src/helper/api_helper.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
-part '../binding/app_binding.dart';
 part '../controller/app_controller.dart';
 part '../view/app_view.dart';
 part '../view/navigation/custom_navigation_bar.dart';

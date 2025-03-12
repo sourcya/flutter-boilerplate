@@ -1,5 +1,5 @@
 import 'package:flutter_boilerplate/app/app_launch/auth/data/data_sources/auth0_auth_data_source.dart';
-import 'package:flutter_boilerplate/app/app_launch/auth/data/data_sources/test_auth_data_source.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/data/data_sources/remote_auth_data_source.dart';
 import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart';
 import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
@@ -7,25 +7,24 @@ import 'package:playx/playx.dart';
 
 /// This is the repository where we should handle the data and return it to the controller.
 class AuthRepository {
-  final TestAuthDataSource _remoteDataSource = TestAuthDataSource();
-  final _auth0DataSource = Auth0AuthDataSource();
+  final RemoteAuthDataSource remoteAuthDataSource;
 
-  final MyPreferenceManger _preferenceManger = MyPreferenceManger.instance;
+  final Auth0AuthDataSource auth0DataSource;
 
-  static final AuthRepository _instance = AuthRepository._internal();
+  final MyPreferenceManger preferenceManger;
 
-  factory AuthRepository() {
-    return _instance;
-  }
-
-  AuthRepository._internal();
+  AuthRepository({
+    required this.remoteAuthDataSource,
+    required this.auth0DataSource,
+    required this.preferenceManger,
+  });
 
   Future<NetworkResult<User>> loginViaAuth0({
     LoginMethod method = LoginMethod.auth0Web,
     bool saveUser = true,
   }) async {
     try {
-      final res = await _auth0DataSource.login(method: method);
+      final res = await auth0DataSource.login(method: method);
 
       if (saveUser) {
         return _handleSavingUser(result: res, loginMethod: method);
@@ -48,12 +47,12 @@ class AuthRepository {
   }
 
   Future<bool> get isAuthenticatedViaAuth0 async {
-    final res = await _auth0DataSource.hasValidCredentials;
+    final res = await auth0DataSource.hasValidCredentials;
     return res;
   }
 
   Future<User?> getAuth0AuthedUser() async {
-    final res = await _auth0DataSource.getCredentials();
+    final res = await auth0DataSource.getCredentials();
     if (res != null) {
       final user = User(
         jwtToken: res.accessToken,
@@ -74,7 +73,7 @@ class AuthRepository {
     required String password,
   }) async {
     try {
-      final NetworkResult<ApiUser> result = await _remoteDataSource.login(
+      final NetworkResult<ApiUser> result = await remoteAuthDataSource.login(
         email: email,
         password: password,
       );
@@ -97,7 +96,7 @@ class AuthRepository {
     required String password,
   }) async {
     try {
-      final res = await _remoteDataSource.register(
+      final res = await remoteAuthDataSource.register(
         firstName: firstName,
         lastName: lastName,
         email: email,
@@ -122,14 +121,14 @@ class AuthRepository {
     final String token = user.jwt;
     final ApiUserInfo info = user.userInfo;
 
-    await _preferenceManger.saveToken(token);
-    await _preferenceManger.saveUser(info);
+    await preferenceManger.saveToken(token);
+    await preferenceManger.saveUser(info);
     final role = user.role?.type != null
         ? UserRoleType.fromString(user.role!.type)
         : null;
-    await _preferenceManger.saveUserRoleType(role);
+    await preferenceManger.saveUserRoleType(role);
     if (loginMethod != null) {
-      await _preferenceManger.saveLoginMethod(loginMethod);
+      await preferenceManger.saveLoginMethod(loginMethod);
     }
     return true;
   }
@@ -166,7 +165,7 @@ class AuthRepository {
         }
 
         return result.mapDataAsyncInIsolate(
-          mapper: (data) async {
+          mapper: (data) {
             return NetworkResult.success(data.toUser());
           },
         );
@@ -185,29 +184,29 @@ class AuthRepository {
   Future<NetworkResult<User>> otpLogin({
     required String phoneNumber,
   }) async {
-    final result = await _remoteDataSource.otpLogin(
+    final result = await remoteAuthDataSource.otpLogin(
       phoneNumber: phoneNumber,
     );
     return _handleSavingUser(result: result, loginMethod: LoginMethod.email);
   }
 
   Future<NetworkResult<User>> verifyOtpCode({required String pin}) async {
-    final NetworkResult<ApiUser> result = await _remoteDataSource.verifyOtpCode(
+    final NetworkResult<ApiUser> result = await remoteAuthDataSource.verifyOtpCode(
       pin: pin,
     );
     return _handleSavingUser(result: result, loginMethod: LoginMethod.email);
   }
 
 // Future<void> saveLoginInfo({
-  //   required String email,
-  //   required String password,
-  // }) {
-  //   return _preferenceManger.saveLoginInfo(email: email, password: password);
-  // }
-  //
-  // Future<({String? email, String? password})> getLoginInfo() async {
-  //   final email = await _preferenceManger.getSavedEmail();
-  //   final password = await _preferenceManger.getSavedPassword();
-  //   return (email: email, password: password);
-  // }
+//   required String email,
+//   required String password,
+// }) {
+//   return _preferenceManger.saveLoginInfo(email: email, password: password);
+// }
+//
+// Future<({String? email, String? password})> getLoginInfo() async {
+//   final email = await _preferenceManger.getSavedEmail();
+//   final password = await _preferenceManger.getSavedPassword();
+//   return (email: email, password: password);
+// }
 }

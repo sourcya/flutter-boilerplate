@@ -16,7 +16,7 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
   }
 
   void _checkAnimationCompleted() {
-    Future.delayed(const Duration(seconds: 7), () {
+    Future.delayed(const Duration(seconds: 5), () {
       if (!isAnimationCompleted.isCompleted) {
         isAnimationCompleted.complete(true);
       }
@@ -108,6 +108,8 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
   void onHidden() {}
 
   void handleAnimationCompleted(AnimationController controller) {
-    isAnimationCompleted.complete(true);
+    if (!isAnimationCompleted.isCompleted) {
+      isAnimationCompleted.complete(true);
+    }
   }
 }
