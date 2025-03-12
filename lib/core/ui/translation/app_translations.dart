@@ -188,4 +188,7 @@ abstract class AppTrans {
   static const loadingStatusRegister = 'loadingStatusRegister';
   static const loadingStatusLogout = 'loadingStatusLogout';
   static const loadingStatusNone = 'loadingStatusNone';
+  static const readMore = 'readMore';
+  static const readLess = 'readLess';
+
 }

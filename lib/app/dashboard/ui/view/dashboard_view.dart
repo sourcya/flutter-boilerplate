@@ -35,7 +35,7 @@ class DashboardView extends GetView<DashboardController> {
                           ),
                           child: CustomText(
                             item.name,
-                            style: CustomTextStyle.titleMedium,
+                            textStyle: CustomTextStyles.title,
                           ),
                         ),
                         Padding(
