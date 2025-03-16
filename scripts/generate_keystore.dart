@@ -3,7 +3,7 @@ import 'dart:math';
 
 void main() async {
   final String password = generateSecurePassword();
-  final String keyName = "sourcya_key";
+  const String keyName = "sourcya_key";
 
   print("Generated Password: $password");
 

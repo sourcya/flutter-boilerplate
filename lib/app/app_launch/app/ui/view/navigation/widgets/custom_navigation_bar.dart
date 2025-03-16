@@ -379,13 +379,11 @@ class CustomNavigationDestination extends NavigationDestination {
             maxScaleFactor: _kMaxLabelTextScaleFactor,
             child: Text(
               label,
-              style: textStyle?.merge(
-                TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: fontFamily,
-                    )
-              ),
+              style: textStyle?.merge(TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                fontFamily: fontFamily,
+              )),
               textAlign: TextAlign.center,
             ),
           ),
