@@ -1,0 +1,285 @@
+definitions:
+scripts:
+  - &set_up_local_properties
+    name: Set up local.properties
+    script: |
+      echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+  - &set_up_code_signing_xcode_settings
+    name: Set up code signing settings on Xcode project
+    script: |
+      xcode-project use-profiles
+  - &copy_env_file
+    name: Copy Environment File
+    script: |
+      mkdir -p $CM_BUILD_DIR/assets/env
+      echo "$ENVIROMENT_KEY" >> $CM_BUILD_DIR/assets/env/keys.env
+  - &get_flutter_packages
+    name: Get Flutter packages
+    script: |
+      flutter packages pub get
+  - &install_pods
+    name: Install pods
+    script: |
+      find . -name "Podfile" -execdir pod install \;
+  - &build_aab
+    name: Build AAB with Flutter
+    script: |
+      flutter build appbundle --build-number=$(($PROJECT_BUILD_NUMBER )) --verbose
+  - &build_apk
+    name: Build APK with Flutter
+    script: |
+      flutter build apk --build-number=$(($PROJECT_BUILD_NUMBER )) --verbose
+  - &build_ipa
+    name: Build IPA
+    script: |
+      flutter build ipa --build-number=$(($PROJECT_BUILD_NUMBER )) --export-options-plist=/Users/builder/export_options.plist --verbose
+
+  - &build_web
+    name: Build Web
+    script: |
+      flutter build web --build-number=$(($PROJECT_BUILD_NUMBER )) --verbose
+
+
+workflows:
+  build-workflow:
+    name: Build Workflow
+    instance_type: mac_mini_m1
+    max_build_duration: 120
+    environment:
+      java: 17
+      groups:
+        - ssh_key
+        - environment_vars
+      android_signing:
+        - sonbol_keystore
+      flutter: stable
+      cocoapods: default
+    scripts:
+      - *set_up_local_properties
+      - *copy_env_file
+      - *set_up_code_signing_xcode_settings
+      - *get_flutter_packages
+      - *install_pods
+      - *build_aab
+      - *build_apk
+      - *build_ipa
+
+    artifacts:
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/mapping.txt
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - flutter_drive.log
+    publishing:
+      slack:
+        channel: '#default-feed'
+        notify_on_build_start: true
+
+
+  test-workflow:
+    name: Test Workflow
+    instance_type: mac_mini_m1
+    max_build_duration: 120
+    triggering:
+      events:
+        - pull_request
+      branch_patterns:
+        - pattern: "main"
+          include: true
+          source: false
+      cancel_previous_builds: true
+    environment:
+      java : 17
+      groups:
+        - ssh_key
+        - environment_vars
+        - google_play # <-- (Includes GCLOUD_SERVICE_ACCOUNT_CREDENTIALS)
+        - appstore_credentials
+      vars:
+          GOOGLE_PLAY_TRACK: "internal"
+      android_signing:
+        - sonbol_keystore
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: "io.sourcya.sonbol.app"  # Replace with your actual bundle ID
+      flutter: stable
+      cocoapods: default
+    scripts:
+      - *set_up_local_properties
+      - *copy_env_file
+      - *set_up_code_signing_xcode_settings
+      - *get_flutter_packages
+      - *install_pods
+      - *build_aab
+      - *build_apk
+      - *build_ipa
+
+    artifacts:
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/mapping.txt
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - flutter_drive.log
+    publishing:
+      slack:
+        channel: '#default-feed'
+        notify_on_build_start: true
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: $GOOGLE_PLAY_TRACK
+        submit_as_draft: true
+
+#      app_store_connect:
+#         # Contents of the API key saved as a secure environment variable:
+#         api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+#         # Alphanumeric value that identifies the API key,
+#         key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+#         # Alphanumeric value that identifies who created the API key,
+#         issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+#
+#         # Configuration related to TestFlight (optional)
+#         # Note: This action is performed during post-processing.
+#         submit_to_testflight: true
+##         beta_groups: # Specify the names of beta tester groups that will get access to the build once it has passed beta review.
+##          - group name 1
+##          - group name 2
+#         # Configuration related to App Store (optional)
+#         submit_to_app_store: false
+
+
+
+
+  publish-workflow:
+    name: Publish Workflow
+    instance_type: mac_mini_m1
+    max_build_duration: 120
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: 'main'
+          include: true
+          source: true
+      cancel_previous_builds: true
+    environment:
+      java: 17
+      groups:
+        - ssh_key
+        - environment_vars
+        - google_play # <-- (Includes GCLOUD_SERVICE_ACCOUNT_CREDENTIALS)
+        - appstore_credentials
+      vars:
+           GOOGLE_PLAY_TRACK: "internal"
+
+      android_signing:
+        - sonbol_keystore
+      #      ios_signing :
+      #        distribution_type: app_store
+      flutter: stable
+      cocoapods: default
+    scripts:
+      - *set_up_local_properties
+      - *copy_env_file
+      - *set_up_code_signing_xcode_settings
+      - *get_flutter_packages
+      - *install_pods
+      - *build_aab
+      - *build_apk
+      - *build_ipa
+
+    artifacts:
+      - build/**/outputs/**/*.aab
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/mapping.txt
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - flutter_drive.log
+    publishing:
+      slack:
+        channel: '#default-feed'
+        notify_on_build_start: true
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: $GOOGLE_PLAY_TRACK
+        submit_as_draft: true
+
+  #      app_store_connect:
+  #         # Contents of the API key saved as a secure environment variable:
+  #         api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+  #         # Alphanumeric value that identifies the API key,
+  #         key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+  #         # Alphanumeric value that identifies who created the API key,
+  #         issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+  #
+  #         # Configuration related to TestFlight (optional)
+  #         # Note: This action is performed during post-processing.
+  #         submit_to_testflight: true
+  ##         beta_groups: # Specify the names of beta tester groups that will get access to the build once it has passed beta review.
+  ##          - group name 1
+  ##          - group name 2
+  #         # Configuration related to App Store (optional)
+  #         submit_to_app_store: false
+
+
+  android-workflow:
+    name: Android Workflow
+    instance_type: mac_mini_m1
+    max_build_duration: 120
+    environment:
+      java : 17
+      groups:
+        - ssh_key
+        - environment_vars
+      android_signing:
+        - sonbol_keystore
+      flutter: stable
+      cocoapods: default
+    scripts:
+      - *set_up_local_properties
+      - *copy_env_file
+      - *set_up_code_signing_xcode_settings
+      - *get_flutter_packages
+      - *build_apk
+      - *build_aab
+    artifacts:
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/mapping.txt
+      - flutter_drive.log
+    publishing:
+      slack:
+        channel: '#default-feed'
+        notify_on_build_start: true
+
+  ios-workflow:
+      name: IOS Workflow
+      instance_type: mac_mini_m1
+      max_build_duration: 120
+      environment:
+        java : 17
+        groups:
+          - ssh_key
+          - environment_vars
+        android_signing:
+          - sonbol_keystore
+        flutter: stable
+        cocoapods: default
+      scripts:
+        - *set_up_local_properties
+        - *copy_env_file
+        - *set_up_code_signing_xcode_settings
+        - *get_flutter_packages
+        - *install_pods
+        - *build_ipa
+
+      artifacts:
+        - build/ios/ipa/*.ipa
+        - /tmp/xcodebuild_logs/*.log
+        - flutter_drive.log
+      publishing:
+        slack:
+          channel: '#default-feed'
+          notify_on_build_start: true
+
