@@ -7,12 +7,15 @@ class BuildRegisterTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: 10.w,
+        vertical: 4.r,
+        horizontal: 4.r,
       ),
       width: double.infinity,
       child: CustomText(
-        AppTrans.registerText,
-        fontSize: 40.sp,
+        AppTrans.registerTitle,
+        fontSize: 24.sp,
+        textAlign: TextAlign.center,
+        fontWeight: FontWeight.w700,
       ),
     );
   }

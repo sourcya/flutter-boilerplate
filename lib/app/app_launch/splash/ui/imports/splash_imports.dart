@@ -1,15 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/app/app_launch/auth/data/repo/auth_repository.dart';
-import 'package:flutter_boilerplate/core/navigation/app_navigation.dart';
+import 'package:flutter_boilerplate/core/navigation/navigation.dart';
+import 'package:flutter_boilerplate/core/network/src/helper/api_helper.dart';
 import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
 import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
-import 'package:flutter_boilerplate/core/resources/assets/assets.dart';
-import 'package:flutter_boilerplate/core/resources/colors/app_colors.dart';
-import 'package:flutter_boilerplate/core/resources/translation/app_locale_config.dart';
-import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
-import 'package:flutter_boilerplate/core/widgets/components/custom_text.dart';
+import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
 part '../bindings/splash_binding.dart';

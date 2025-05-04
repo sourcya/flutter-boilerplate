@@ -2,7 +2,11 @@ part of '../imports/verify_phone_view_imports.dart';
 
 ///Login controller to setup data to the ui.
 class VerifyPhoneController extends GetxController {
-  final _authRepository = AuthRepository();
+  final AuthRepository authRepository;
+
+  VerifyPhoneController({
+    required this.authRepository,
+  });
 
   final isLoading = false.obs;
 
@@ -17,14 +21,14 @@ class VerifyPhoneController extends GetxController {
     if (!isOtpValid.value) return;
     isLoading.value = true;
 
-    final result = await _authRepository.verifyOtpCode(
+    final result = await authRepository.verifyOtpCode(
       pin: currentPin.value,
     );
 
     result.when(
-      success: (ApiUser user) async {
+      success: (user) async {
         isLoading.value = false;
-        AppNavigation.navigateFromVerifyOtpToDashboard();
+        AppNavigation.navigateFromVerifyOtpToHome();
       },
       error: (NetworkException exception) {
         isLoading.value = false;

@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_boilerplate/core/config/app_config.dart';
-import 'package:flutter_boilerplate/core/navigation/app_pages.dart';
+import 'package:flutter_boilerplate/core/navigation/navigation.dart';
 import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
-import 'package:flutter_boilerplate/core/resources/theme/theme.dart';
-import 'package:flutter_boilerplate/core/resources/translation/app_locale_config.dart';
-import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
+import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() {
   Playx.runPlayx(
-    appConfig: AppConfig(),
-    themeConfig: createThemeConfig(),
-    localeConfig: createLocaleConfig(),
-    envSettings: const PlayxEnvSettings(
+    appConfigBuilder: () => AppConfig(),
+    themeConfigBuilder: () => createThemeConfig(),
+    localeConfigBuilder: () => createLocaleConfig(),
+    envSettingsBuilder: () => const PlayxEnvSettings(
       fileName: 'assets/env/keys.env',
     ),
     sentryOptions: (options) async {
       options.dsn = await EnvManger.instance.sentryKey;
       options.tracesSampleRate = 1.0;
-      options.enableMetrics = true;
       options.attachScreenshot = true;
       options.captureFailedRequests = true;
     },

@@ -1,12 +1,9 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/app/app_launch/onboarding/data/model/onboarding.dart';
-import 'package:flutter_boilerplate/core/navigation/app_navigation.dart';
+import 'package:flutter_boilerplate/core/navigation/navigation.dart';
 import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
-import 'package:flutter_boilerplate/core/resources/assets/assets.dart';
-import 'package:flutter_boilerplate/core/resources/translation/app_translations.dart';
-import 'package:flutter_boilerplate/core/widgets/components/custom_elevated_button.dart';
-import 'package:flutter_boilerplate/core/widgets/components/custom_text.dart';
+import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
 part '../binding/onboarding_binding.dart';

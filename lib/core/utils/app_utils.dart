@@ -2,7 +2,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/resources/theme/dark_theme.dart';
+import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
 /// Class for app utilities that will be used in the app.

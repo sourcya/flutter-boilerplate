@@ -17,13 +17,16 @@ class BuildLoginRegisterNowWidget extends GetView<LoginController> {
             style: TextStyle(
               color: context.colors.onSurface,
               fontSize: 14.sp,
+              fontFamily: fontFamily,
             ),
             children: <TextSpan>[
               TextSpan(
                 text: AppTrans.registerNow.tr(context: context),
                 style: TextStyle(
-                  color: context.colors.onSurface,
+                  color: context.colors.primary,
                   fontSize: 14.sp,
+                  fontFamily: fontFamily,
+                  decoration: TextDecoration.underline,
                 ),
               ),
             ],

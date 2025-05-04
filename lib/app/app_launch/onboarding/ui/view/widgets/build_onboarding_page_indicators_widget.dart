@@ -9,7 +9,7 @@ class BuildOnboardingPageIndicatorsWidget
     return Obx(() {
       return DotsIndicator(
         dotsCount: controller.pages.length,
-        position: controller.currentIndex.value,
+        position: controller.currentIndex.value.toDouble(),
         decorator: DotsDecorator(
           activeSize: Size(24.0.w, 12.0.h),
           activeShape: RoundedRectangleBorder(

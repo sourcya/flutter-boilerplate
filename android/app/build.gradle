@@ -16,7 +16,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "io.sourcya.app"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -90,7 +90,7 @@ dependencies {
     // e.g. check https://github.com/objectbox/objectbox-dart/releases
     // Warning: when ObjectBox for Dart updates check if <version>
     // needs to be updated.
-    debugImplementation("io.objectbox:objectbox-android-objectbrowser:4.0.3")
+    debugImplementation("io.objectbox:objectbox-android-objectbrowser:4.2.0")
     implementation 'com.android.support:multidex:1.0.3'
 
 }

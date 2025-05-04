@@ -2,7 +2,11 @@ part of '../imports/login_view_imports.dart';
 
 ///Login controller to setup data to the ui.
 class OtpLoginController extends GetxController {
-  final authRepository = AuthRepository();
+  final AuthRepository authRepository;
+
+  OtpLoginController({
+    required this.authRepository,
+  });
 
   final isLoading = false.obs;
   final phoneController = TextEditingController();
@@ -27,7 +31,7 @@ class OtpLoginController extends GetxController {
       phoneNumber: phoneController.text,
     );
     result.when(
-      success: (ApiUser user) async {
+      success: (user) async {
         isLoading.value = false;
         AppNavigation.navigateFromLoginToVerifyPhone();
       },

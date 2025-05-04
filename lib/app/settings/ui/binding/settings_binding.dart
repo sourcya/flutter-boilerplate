@@ -10,6 +10,6 @@ class SettingsBinding extends PlayxBinding {
   Future<void> onExit(
     BuildContext context,
   ) async {
-    // Get.delete<SettingsController>();
+    Get.delete<SettingsController>();
   }
 }

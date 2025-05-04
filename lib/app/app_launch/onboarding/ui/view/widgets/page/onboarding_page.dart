@@ -24,7 +24,7 @@ class OnBoardingPage extends StatelessWidget {
             width: double.infinity,
             child: CustomText(
               onboarding.title,
-              style: CustomTextStyle.titleMedium,
+              textStyle: CustomTextStyles.title,
               textAlign: TextAlign.center,
             ),
           ),

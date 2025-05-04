@@ -7,37 +7,42 @@ class BuildRegisterTermsAndConditionsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: 15.h,
-        horizontal: 10.w,
+        vertical: 4.r,
+        horizontal: 10.r,
       ),
       child: RichText(
+        maxLines: 2,
         text: TextSpan(
           text: AppTrans.termsAndPrivacyInitialText.tr(context: context),
           style: TextStyle(
-            // color: context.colors.onSurface,
+            color: context.colors.subtitleTextColor,
             fontSize: 12.sp,
+            fontFamily: fontFamily,
           ),
           children: <TextSpan>[
             TextSpan(
               text: AppTrans.terms.tr(context: context),
               style: TextStyle(
-                // color: context.colors.secondary,
+                color: context.colors.subtitleTextColor,
                 fontSize: 12.sp,
+                fontFamily: fontFamily,
               ),
               recognizer: TapGestureRecognizer()..onTap = () {},
             ),
             TextSpan(
               text: AppTrans.andText.tr(context: context),
               style: TextStyle(
-                // color: context.colors.onSurface,
+                color: context.colors.subtitleTextColor,
                 fontSize: 12.sp,
+                fontFamily: fontFamily,
               ),
             ),
             TextSpan(
               text: AppTrans.privacyPolicyText.tr(context: context),
               style: TextStyle(
-                // color: context.colors.secondary,
+                color: context.colors.subtitleTextColor,
                 fontSize: 12.sp,
+                fontFamily: fontFamily,
               ),
               recognizer: TapGestureRecognizer()..onTap = () {},
             ),
