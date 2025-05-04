@@ -50,7 +50,7 @@ part 'widgets/components/feature_chip.dart';
 part 'widgets/components/filter_chip_selector.dart';
 part 'widgets/components/filter_multiple_chip_selector.dart';
 part 'widgets/components/text_field.dart';
-part 'widgets/connection_status_widget.dart';
+part 'widgets/state/connection_status_widget.dart';
 part 'widgets/custom_app_bar.dart';
 part 'widgets/state/custom_loading.dart';
 part 'widgets/state/empty_data_widget.dart';

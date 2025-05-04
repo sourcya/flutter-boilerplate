@@ -1,4 +1,4 @@
-part of '../ui.dart';
+part of '../../ui.dart';
 
 class ConnectionStatusWidget extends StatefulWidget {
   final Widget child;
