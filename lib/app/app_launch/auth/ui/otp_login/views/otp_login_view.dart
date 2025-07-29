@@ -6,8 +6,8 @@ class OtpLoginView extends GetView<OtpLoginController> {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformScaffold(
-      body: const SafeArea(
+    return const PlatformScaffold(
+      body: SafeArea(
         child: OptimizedScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

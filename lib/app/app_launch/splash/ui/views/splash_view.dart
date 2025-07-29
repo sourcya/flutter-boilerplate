@@ -6,8 +6,8 @@ class SplashView extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformScaffold(
-      body: const SafeArea(
+    return const PlatformScaffold(
+      body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

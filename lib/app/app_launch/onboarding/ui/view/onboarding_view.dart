@@ -8,7 +8,7 @@ class OnBoardingView extends GetView<OnBoardingController> {
       body: SafeArea(
         child: Column(
           children: [
-            Expanded(child: const BuildOnboardingPageViewWidget()),
+            const Expanded(child: BuildOnboardingPageViewWidget()),
             Container(
               padding: EdgeInsets.symmetric(vertical: 8.r, horizontal: 8.w),
               child: const Center(

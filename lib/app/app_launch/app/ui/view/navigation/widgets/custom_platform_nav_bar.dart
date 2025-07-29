@@ -2,7 +2,7 @@
 part of '../../../imports/app_imports.dart';
 
 class CustomPlatformNavBar extends PlatformNavBar {
-  CustomPlatformNavBar({
+  const CustomPlatformNavBar({
     super.key,
     super.widgetKey,
     super.backgroundColor,
