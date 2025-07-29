@@ -104,7 +104,7 @@ class CustomTextField extends StatelessWidget {
           TextStyle(
             fontSize: 13.sp,
             color: hintColor ?? PlayxColors.grey,
-            fontFamily: fontFamily,
+            fontFamily: fontFamily(context: context),
           ),
       maxLines: maxLines,
       minLines: minLines,
@@ -167,12 +167,12 @@ class CustomTextField extends StatelessWidget {
       style: TextStyle(
         fontSize: Dimens.fieldTextSize,
         color: textColor ?? context.colors.onSurface,
-        fontFamily: fontFamily,
+        fontFamily: fontFamily(context: context),
       ),
       labelStyle: TextStyle(
         color: labelColor ?? context.colors.onSurface,
         fontSize: Dimens.fieldTextSize,
-        fontFamily: fontFamily,
+        fontFamily: fontFamily(context: context),
       ),
       contentPadding: contentPadding ??
           EdgeInsets.only(

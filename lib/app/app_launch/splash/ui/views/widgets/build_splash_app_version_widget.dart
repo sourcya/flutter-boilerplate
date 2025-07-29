@@ -17,7 +17,7 @@ class BuildSplashAppVersionWidget extends GetView<SplashController> {
           textStyle: TextStyle(
             fontSize: 13.sp,
             color: context.colors.primary,
-            fontFamily: fontFamily,
+            fontFamily: fontFamily(context: context),
           ),
         );
       }),

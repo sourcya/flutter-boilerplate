@@ -382,7 +382,7 @@ class CustomNavigationDestination extends NavigationDestination {
               style: textStyle?.merge(TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
-                fontFamily: fontFamily,
+                fontFamily: fontFamily(context: context),
               )),
               textAlign: TextAlign.center,
             ),

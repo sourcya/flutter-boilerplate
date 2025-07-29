@@ -14,7 +14,7 @@ class BuildRegisterPromptWidget extends StatelessWidget {
       width: double.infinity,
       child: CustomText(
         AppTrans.loginPrompt,
-        textStyle: CustomTextStyles.title,
+        textStyle: CustomTextStyles.title(context),
         textAlign: TextAlign.center,
       ),
     );

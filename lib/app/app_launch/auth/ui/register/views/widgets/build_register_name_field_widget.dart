@@ -14,7 +14,7 @@ class BuildRegisterNameFieldWidget extends GetView<RegisterController> {
               hint: AppTrans.firstNameHint,
               hintStyle: TextStyle(
                 color: context.colors.subtitleTextColor,
-                fontFamily: fontFamily,
+                fontFamily: fontFamily(context: context),
                 fontSize: 12.sp,
               ),
               controller: controller.firstNameController,
@@ -49,7 +49,7 @@ class BuildRegisterNameFieldWidget extends GetView<RegisterController> {
               controller: controller.lastNameController,
               hintStyle: TextStyle(
                 color: context.colors.subtitleTextColor,
-                fontFamily: fontFamily,
+                fontFamily: fontFamily(context: context),
                 fontSize: 12.sp,
               ),
               type: TextInputType.name,

@@ -1,22 +1,26 @@
 part of '../../ui.dart';
 
 class LoadingOverlay extends StatelessWidget {
-  final bool isLoading;
+  final LoadingStatus loadingStatus;
   final String? loadingText;
 
-  const LoadingOverlay({super.key, required this.isLoading, this.loadingText});
+  const LoadingOverlay({
+    super.key,
+    required this.loadingStatus,
+    this.loadingText,
+  });
 
   @override
   Widget build(BuildContext context) {
-    if (!isLoading) return const SizedBox.shrink();
-    return Material(
-      color: Colors.transparent,
+    final text = loadingText ?? loadingStatus.displayName;
+    return AnimatedVisibility(
+      isVisible: loadingStatus is! LoadingStatusIdle,
       child: Container(
         color: Colors.black.withValues(alpha: .5),
         height: double.infinity,
         child: Center(
           child: CustomCard(
-            color: context.colors.surfaceContainer.withValues(alpha: .85),
+            color: context.colors.surfaceContainer.withValues(alpha: .7),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -27,7 +31,7 @@ class LoadingOverlay extends StatelessWidget {
                     color: context.colors.primary,
                   ),
                 ),
-                if (loadingText != null && loadingText!.isNotEmpty) ...[
+                if (text.isNotEmpty) ...[
                   Container(
                     width: double.infinity,
                     padding: EdgeInsets.symmetric(
@@ -35,11 +39,11 @@ class LoadingOverlay extends StatelessWidget {
                       vertical: 8.r,
                     ),
                     child: AnimatedDottedText(
-                      text: loadingText ?? '',
+                      text: text,
                       style: TextStyle(
                         fontSize: 16.sp,
                         color: context.colors.onSurface,
-                        fontFamily: fontFamily,
+                        fontFamily: fontFamily(context: context),
                       ),
                       color: context.colors.onSurface,
                     ),
@@ -100,8 +104,10 @@ class _AnimatedDottedTextState extends State<AnimatedDottedText>
     return AnimatedBuilder(
       animation: animation,
       builder: (context, child) {
+        final visibleDotsCount = tween.evaluate(animation);
         return Text(
-          '${widget.isTranslatable ? widget.text.tr(context: context) : widget.text}${'.' * tween.evaluate(animation)}',
+          // show dot or space
+          '${widget.isTranslatable ? widget.text.tr(context: context) : widget.text}${'.' * visibleDotsCount}${' ' * (widget.dotsCount - visibleDotsCount)}',
           style: widget.style,
           textAlign: TextAlign.center,
         );

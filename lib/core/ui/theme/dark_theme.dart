@@ -9,9 +9,11 @@ class DarkTheme {
 
   static ThemeData get themeData => ThemeData(
         brightness: Brightness.dark,
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           centerTitle: true,
-          // backgroundColor: colors.appBar,
+          color: colors.appBar,
+          scrolledUnderElevation: 2,
+          elevation: 2,
         ),
         useMaterial3: true,
         colorScheme: colors.colorScheme,
@@ -19,20 +21,17 @@ class DarkTheme {
           showValueIndicator: ShowValueIndicator.always,
         ),
         cupertinoOverrideTheme: CupertinoThemeData(
-          barBackgroundColor: const Color(0xF0090909),
+          barBackgroundColor: colors.primary.withValues(alpha: .93),
           primaryColor: colors.primary,
           primaryContrastingColor: colors.primaryContainer,
           scaffoldBackgroundColor: colors.surface,
           brightness: Brightness.dark,
           textTheme: CupertinoTextThemeData(primaryColor: colors.primary),
         ),
-        fontFamily: fontFamily,
+        splashColor: colors.primary.withValues(alpha: .5),
         applyElevationOverlayColor: true,
-        extensions: const [
-          WoltModalSheetThemeData(
-            modalElevation: 4,
-          ),
-        ],
+        fontFamily: fontFamily(),
+        textTheme: const TextTheme().apply(fontFamily: fontFamily()),
       );
 
   static XTheme get theme => XTheme.builder(

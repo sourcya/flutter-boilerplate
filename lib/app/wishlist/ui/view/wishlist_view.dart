@@ -36,7 +36,7 @@ class WishlistView extends GetView<WishlistController> {
                         ),
                         child: CustomText(
                           item.name ?? "Lorem ipsum",
-                          textStyle: CustomTextStyles.title,
+                          textStyle: CustomTextStyles.title(context),
                         ),
                       ),
                     ],

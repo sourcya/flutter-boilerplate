@@ -17,7 +17,7 @@ class BuildLoginRegisterNowWidget extends GetView<LoginController> {
             style: TextStyle(
               color: context.colors.onSurface,
               fontSize: 14.sp,
-              fontFamily: fontFamily,
+              fontFamily: fontFamily(context: context),
             ),
             children: <TextSpan>[
               TextSpan(
@@ -25,7 +25,7 @@ class BuildLoginRegisterNowWidget extends GetView<LoginController> {
                 style: TextStyle(
                   color: context.colors.primary,
                   fontSize: 14.sp,
-                  fontFamily: fontFamily,
+                  fontFamily: fontFamily(context: context),
                   decoration: TextDecoration.underline,
                 ),
               ),

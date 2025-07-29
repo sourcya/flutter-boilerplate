@@ -11,20 +11,21 @@ class OnBoardingPage extends StatelessWidget {
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          onboarding.customWidgetBuilder?.call(context) ??
+              Container(
+                padding: EdgeInsets.only(right: 8.r, left: 8.r, top: 8.h),
+                height: context.height * .48,
+                child: Lottie.asset(
+                  onboarding.lottieAsset ?? '',
+                  errorBuilder: (ctx, e, _) => const SizedBox.shrink(),
+                ),
+              ),
           Container(
-            padding: EdgeInsets.only(right: 8.w, left: 8.w, top: 8.h),
-            height: context.height * .48,
-            child: Lottie.asset(
-              onboarding.lottieAsset,
-              errorBuilder: (ctx, e, _) => const SizedBox.shrink(),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 16.0.h, horizontal: 4.w),
+            padding: EdgeInsets.symmetric(vertical: 16.0.r, horizontal: 4.w),
             width: double.infinity,
             child: CustomText(
               onboarding.title,
-              textStyle: CustomTextStyles.title,
+              textStyle: CustomTextStyles.title(context),
               textAlign: TextAlign.center,
             ),
           ),

@@ -9,8 +9,8 @@ import 'package:playx/playx.dart';
 void main() {
   Playx.runPlayx(
     appConfigBuilder: () => AppConfig(),
-    themeConfigBuilder: () => createThemeConfig(),
-    localeConfigBuilder: () => createLocaleConfig(),
+    themeConfigBuilder: () => AppThemeConfig.createThemeConfig(),
+    localeConfigBuilder: () => AppLocaleConfig.createLocaleConfig(),
     envSettingsBuilder: () => const PlayxEnvSettings(
       fileName: 'assets/env/keys.env',
     ),

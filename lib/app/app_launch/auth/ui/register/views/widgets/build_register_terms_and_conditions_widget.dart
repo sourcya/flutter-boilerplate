@@ -17,7 +17,7 @@ class BuildRegisterTermsAndConditionsWidget extends StatelessWidget {
           style: TextStyle(
             color: context.colors.subtitleTextColor,
             fontSize: 12.sp,
-            fontFamily: fontFamily,
+            fontFamily: fontFamily(context: context),
           ),
           children: <TextSpan>[
             TextSpan(
@@ -25,7 +25,7 @@ class BuildRegisterTermsAndConditionsWidget extends StatelessWidget {
               style: TextStyle(
                 color: context.colors.subtitleTextColor,
                 fontSize: 12.sp,
-                fontFamily: fontFamily,
+                fontFamily: fontFamily(context: context),
               ),
               recognizer: TapGestureRecognizer()..onTap = () {},
             ),
@@ -34,7 +34,7 @@ class BuildRegisterTermsAndConditionsWidget extends StatelessWidget {
               style: TextStyle(
                 color: context.colors.subtitleTextColor,
                 fontSize: 12.sp,
-                fontFamily: fontFamily,
+                fontFamily: fontFamily(context: context),
               ),
             ),
             TextSpan(
@@ -42,7 +42,7 @@ class BuildRegisterTermsAndConditionsWidget extends StatelessWidget {
               style: TextStyle(
                 color: context.colors.subtitleTextColor,
                 fontSize: 12.sp,
-                fontFamily: fontFamily,
+                fontFamily: fontFamily(context: context),
               ),
               recognizer: TapGestureRecognizer()..onTap = () {},
             ),

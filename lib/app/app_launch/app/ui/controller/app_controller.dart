@@ -7,7 +7,7 @@ class AppController extends GetxController {
   int currentBottomNavIndex = 0;
 
   final showBottomNav = true.obs;
-  final loadingStatus = LoadingStatus.none.obs;
+  final loadingStatus = Rx(const LoadingStatus.idle());
 
   late final List<CustomNavigationDestinationItem> bottomNavItems = [
     CustomNavigationDestinationItem(
@@ -74,17 +74,16 @@ class AppController extends GetxController {
     }
     await ApiHelper.instance.logout();
     await Future.delayed(const Duration(milliseconds: 200));
-    if (showLoadingOverlay) {
-      _updateLoginStatus(isLoggingOut: false);
-    }
+    _updateLoginStatus(isLoggingOut: false);
     if (navigateToLogin) {
       AppNavigation.navigateToLogin();
     }
   }
 
   void _updateLoginStatus({required bool isLoggingOut}) {
-    loadingStatus.value =
-        isLoggingOut ? LoadingStatus.logout : LoadingStatus.none;
+    loadingStatus.value = isLoggingOut
+        ? const LoadingStatus.logout()
+        : const LoadingStatus.idle();
     showBottomNav.value = !isLoggingOut;
   }
 }

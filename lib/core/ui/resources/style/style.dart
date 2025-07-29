@@ -11,6 +11,8 @@ abstract class Style {
 
   static BorderRadius buttonBorderRadius = BorderRadius.circular(30.r);
 
+  static BorderRadius cardBorderRadius = BorderRadius.circular(8.r);
+
   static RoundedRectangleBorder featureChipRoundedRectangleBorder =
       RoundedRectangleBorder(
     borderRadius: featureChipBorderRadius,

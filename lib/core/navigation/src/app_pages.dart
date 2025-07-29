@@ -18,7 +18,7 @@ class AppPages {
 
   static final _homeNavigationRoutes = StatefulShellRoute.indexedStack(
     pageBuilder: (context, state, navigationShell) {
-      return CustomPageScaffold.buildPage(
+      return CustomPageScaffold.buildNavigationShellPage(
         state: state,
         navigationShell: navigationShell,
         showBottomNav: NavigationUtils.showBottomNav,

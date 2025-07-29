@@ -190,4 +190,14 @@ abstract class AppTrans {
   static const loadingStatusNone = 'loadingStatusNone';
   static const readMore = 'readMore';
   static const readLess = 'readLess';
+
+  static const phoneNumberCopiedToClipboard = 'phoneNumberCopiedToClipboard';
+  static const contactUsVia = 'contactUsVia';
+  static const cancel = 'cancel';
+  static const all = 'all';
+  static const daysText = 'daysText';
+  static const hourText = 'hourText';
+  static const minText = 'minText';
+  static const secondText = 'secondText';
+  static const km = 'km';
 }

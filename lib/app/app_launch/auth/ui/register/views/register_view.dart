@@ -82,7 +82,7 @@ class RegisterView extends GetView<RegisterController> {
                       textStyle: TextStyle(
                         color: context.colors.onSurface,
                         fontSize: 12.sp,
-                        fontFamily: fontFamily,
+                        fontFamily: fontFamily(context: context),
                       ),
                     ),
                   ),

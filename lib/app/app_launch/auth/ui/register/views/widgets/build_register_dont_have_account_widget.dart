@@ -18,7 +18,7 @@ class BuildRegisterHaveAccountWidget extends GetView<RegisterController> {
               color: context.colors.subtitleTextColor,
               fontSize: 16.sp,
               fontWeight: FontWeight.w500,
-              fontFamily: fontFamily,
+              fontFamily: fontFamily(context: context),
             ),
             children: <TextSpan>[
               TextSpan(
@@ -27,7 +27,7 @@ class BuildRegisterHaveAccountWidget extends GetView<RegisterController> {
                   color: context.colors.primary,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
-                  fontFamily: fontFamily,
+                  fontFamily: fontFamily(context: context),
                   decoration: TextDecoration.underline,
                 ),
               ),

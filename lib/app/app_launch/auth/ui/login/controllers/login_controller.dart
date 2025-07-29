@@ -54,7 +54,7 @@ class LoginController extends GetxController {
     if (method == LoginMethod.email) {
       currentLoginMethod.value = LoginMethod.email;
     } else {
-      AppController.instance.loadingStatus.value = LoadingStatus.login;
+      AppController.instance.loadingStatus.value = const LoadingStatus.login();
 
       currentLoginMethod.value = null;
       final result = await authRepository.loginViaAuth0(method: method);
@@ -72,7 +72,7 @@ class LoginController extends GetxController {
   Future<void> login() async {
     if (!isFormValid()) return;
     FocusManager.instance.primaryFocus?.unfocus();
-    AppController.instance.loadingStatus.value = LoadingStatus.login;
+    AppController.instance.loadingStatus.value = const LoadingStatus.login();
     final result = await authRepository.loginViaEmailAndPassword(
       email: emailController.text,
       password: passwordController.text,
@@ -88,14 +88,14 @@ class LoginController extends GetxController {
         await _navigateToHome();
       },
       error: (NetworkException exception) {
-        AppController.instance.loadingStatus.value = LoadingStatus.none;
+        AppController.instance.loadingStatus.value = const LoadingStatus.idle();
         Alert.error(message: exception.message);
       },
     );
   }
 
   Future<void> _navigateToHome() async {
-    AppController.instance.loadingStatus.value = LoadingStatus.none;
+    AppController.instance.loadingStatus.value = const LoadingStatus.idle();
     AppNavigation.navigateFromLoginToHome();
   }
 

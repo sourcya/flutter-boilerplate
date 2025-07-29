@@ -31,9 +31,9 @@ class LoginView extends GetView<LoginController> {
                             : const BuildChooseLoginMethodWidget(),
                   );
                 }),
-                SizedBox(height: 12.r),
+                SizedBox(height: 8.r),
                 const BuildLoginRegisterNowWidget(),
-                SizedBox(height: 12.r),
+                SizedBox(height: 8.r),
                 const Spacer(),
                 Container(
                   alignment: Alignment.bottomCenter,
@@ -41,11 +41,11 @@ class LoginView extends GetView<LoginController> {
                     textStyle: TextStyle(
                       color: context.colors.onSurface,
                       fontSize: 12.sp,
-                      fontFamily: fontFamily,
+                      fontFamily: fontFamily(context: context),
                     ),
                   ),
                 ),
-                SizedBox(height: 12.r),
+                SizedBox(height: 8.r),
               ],
             ),
           ),

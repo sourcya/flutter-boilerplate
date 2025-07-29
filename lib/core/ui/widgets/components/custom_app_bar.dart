@@ -1,4 +1,4 @@
-part of '../ui.dart';
+part of '../../ui.dart';
 
 enum AppBarLeadingType {
   none,
@@ -15,26 +15,10 @@ enum AppBarLeadingType {
         return Builder(
           builder: (context) {
             return IconButton(
-              icon: GetPlatform.isIOS && context.locale.languageCode == 'ar'
-                  ? Transform(
-                      transform: Matrix4.identity()..rotateZ(pi),
-                      alignment: Alignment.center,
-                      // Center point as half the size of the child
-                      child: Icon(
-                        GetPlatform.isIOS
-                            ? CupertinoIcons.back
-                            : Icons.arrow_back,
-                        color: context.colors.primary,
-                        textDirection:
-                            GetPlatform.isIOS ? TextDirection.ltr : null,
-                      ),
-                    )
-                  : Icon(
-                      GetPlatform.isIOS
-                          ? CupertinoIcons.back
-                          : Icons.arrow_back,
-                      color: context.colors.primary,
-                    ),
+              icon: Icon(
+                PlayxPlatform.isIOS ? CupertinoIcons.back : Icons.arrow_back,
+                color: context.colors.primary,
+              ),
               onPressed: () {
                 PlayxNavigation.pop();
               },
@@ -81,24 +65,38 @@ enum AppBarLeadingType {
 
 PlatformAppBar buildAppBar({
   required String title,
-  AppBarLeadingType leading = AppBarLeadingType.drawerOrRail,
+  Widget? titleWidget,
+  AppBarLeadingType leading = AppBarLeadingType.drawer,
+  Widget? leadingWidget,
+  List<Widget>? actions,
+  bool showTrailingLogo = true,
   required BuildContext context,
+  double? titleSpacing,
 }) {
   return PlatformAppBar(
-    // toolbarHeight: dimens.appBarHeight,
     automaticallyImplyLeading: false,
-    leading: leading.buildWidget(context),
-    title: CustomText(
-      title,
-      fontSize: 16,
-    ),
+    leading: leadingWidget ?? leading.buildWidget(context),
+    trailingActions: actions,
+    title: titleWidget ??
+        CustomText(
+          title,
+          fontSize: 16,
+          color: context.colors.onAppBar,
+        ),
+    backgroundColor: context.colors.appBar,
     material: (ctx, _) => MaterialAppBarData(
       centerTitle: true,
+      toolbarHeight: dimens.appBarHeight,
+      titleSpacing: titleSpacing,
+      scrolledUnderElevation: kIsWeb ? 0 : null,
+      backgroundColor: context.colors.appBar,
+      elevation: kIsWeb ? 0 : null,
     ),
     cupertino: (ctx, __) => CupertinoNavigationBarData(
       // Issue with cupertino where a bar with no transparency
       // will push the list down. Adding some alpha value fixes it (in a hacky way)
-      backgroundColor: ctx.colors.surface.withAlpha(254),
+      backgroundColor: context.colors.appBar.withValues(alpha: .99),
+      automaticBackgroundVisibility: false,
     ),
   );
 }

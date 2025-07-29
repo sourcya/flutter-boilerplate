@@ -11,10 +11,11 @@ class BuildOnboardingPageIndicatorsWidget
         dotsCount: controller.pages.length,
         position: controller.currentIndex.value.toDouble(),
         decorator: DotsDecorator(
-          activeSize: Size(24.0.w, 12.0.h),
+          activeSize: Size(24.0.r, 12.0.h),
           activeShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0.r),
           ),
+          activeColor: context.colors.primary,
         ),
       );
     });

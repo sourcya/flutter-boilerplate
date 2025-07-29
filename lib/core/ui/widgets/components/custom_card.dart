@@ -5,6 +5,7 @@ class CustomCard extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final Color? color;
+  final bool isChild;
   final ShapeBorder? shape;
   final double? elevation;
   final EdgeInsetsGeometry? innerCardShadowMargin;
@@ -12,9 +13,7 @@ class CustomCard extends StatelessWidget {
   final double? height;
   final BorderRadius? shadowBorderRadius;
   final bool? shouldShowCustomShadow;
-  final VoidCallback? onPressed;
   final BorderRadius? borderRadius;
-  final bool isChild;
 
   const CustomCard({
     this.padding,
@@ -28,39 +27,38 @@ class CustomCard extends StatelessWidget {
     this.height,
     this.shadowBorderRadius,
     this.shouldShowCustomShadow,
-    this.onPressed,
     this.borderRadius,
     this.isChild = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = AppUtils.isDarkMode();
     return OptimizedCard(
       width: width,
       height: height,
       margin: margin ??
-          (AppUtils.isDarkMode()
-              ? EdgeInsets.symmetric(horizontal: 8.r, vertical: 4.r)
-              : EdgeInsets.symmetric(horizontal: 6.r, vertical: 4.r)),
-      shouldShowCustomShadow: shouldShowCustomShadow ?? !AppUtils.isDarkMode(),
-      elevation: elevation ?? (AppUtils.isDarkMode() ? 4 : 0),
+          (isDarkMode
+              ? EdgeInsets.symmetric(horizontal: 8.r, vertical: 4.h)
+              : EdgeInsets.symmetric(horizontal: 6.r, vertical: 4.h)),
+      shouldShowCustomShadow: shouldShowCustomShadow ?? !isDarkMode,
+      elevation: elevation ?? (isDarkMode ? 4 : 0),
       color: color ??
-          (AppUtils.isDarkMode()
+          (isDarkMode
               ? isChild
-                  ? context.colors.surfaceContainerHighest
-                  : context.colors.surfaceContainerHigh
-              : context.colors.surface),
+                  ? context.colorScheme.surfaceContainerHighest
+                  : context.colorScheme.surfaceContainerHigh
+              : context.colorScheme.surface),
       innerCardShadowMargin: innerCardShadowMargin,
       shadowBorderRadius: shadowBorderRadius,
       shape: shape ??
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.r),
+            borderRadius: borderRadius ?? BorderRadius.circular(8.r),
           ),
       borderRadius: borderRadius ?? BorderRadius.circular(8.r),
-      onPressed: onPressed,
       child: Padding(
         padding:
-            padding ?? EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8.0.h),
+            padding ?? EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 8.0.h),
         child: child,
       ),
     );

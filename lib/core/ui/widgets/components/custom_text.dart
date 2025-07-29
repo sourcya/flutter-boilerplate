@@ -23,6 +23,8 @@ class CustomText extends StatelessWidget {
   final bool isSelectable;
   final int? readMoreTextLength;
   final List<Shadow>? shadows;
+  final Color? strokeColor;
+  final double? strokeWidth;
 
   const CustomText(
     this.text, {
@@ -44,7 +46,9 @@ class CustomText extends StatelessWidget {
     this.shadows,
   })  : icon = null,
         iconColor = null,
-        iconSize = null;
+        iconSize = null,
+        strokeColor = null,
+        strokeWidth = null;
 
   const CustomText.icon(
     this.text, {
@@ -67,7 +71,33 @@ class CustomText extends StatelessWidget {
     this.isSelectable = false,
     this.readMoreTextLength,
     this.shadows,
+    this.strokeColor,
+    this.strokeWidth,
   });
+
+  const CustomText.stroke(
+    this.text, {
+    required Color this.strokeColor,
+    double this.strokeWidth = 3,
+    this.color,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.textOverflow = TextOverflow.visible,
+    this.maxLines,
+    this.textAlign = TextAlign.start,
+    this.textStyle,
+    this.font,
+    this.isTranslatable = true,
+    this.decoration,
+    this.letterSpacing,
+    this.height,
+    this.isSelectable = false,
+    this.readMoreTextLength,
+    this.shadows,
+  })  : icon = null,
+        iconColor = null,
+        iconSize = null;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +115,7 @@ class CustomText extends StatelessWidget {
           height: height,
           shadows: shadows,
         ) ??
-        CustomTextStyles.label.copyWith(
+        CustomTextStyles.label(context).copyWith(
           color: color ?? context.colors.onSurface,
           fontSize: fontSize,
           fontWeight: fontWeight,
@@ -116,13 +146,23 @@ class CustomText extends StatelessWidget {
                 maxLines: maxLines,
                 textAlign: textAlign,
               )
-            : Text(
-                translatedText,
-                style: effectiveTextStyle,
-                maxLines: maxLines,
-                textAlign: textAlign,
-                overflow: textOverflow,
-              );
+            : strokeColor != null
+                ? StrokeText(
+                    text: translatedText,
+                    strokeColor: strokeColor ?? Colors.black,
+                    strokeWidth: strokeWidth ?? 3,
+                    textStyle: effectiveTextStyle,
+                    maxLines: maxLines,
+                    textAlign: textAlign,
+                    overflow: textOverflow,
+                  )
+                : Text(
+                    translatedText,
+                    style: effectiveTextStyle,
+                    maxLines: maxLines,
+                    textAlign: textAlign,
+                    overflow: textOverflow,
+                  );
 
     if (icon == null) {
       return textWidget;
@@ -149,72 +189,46 @@ class CustomText extends StatelessWidget {
 class CustomTextStyles {
   const CustomTextStyles._();
 
-  static TextStyle headline = TextStyle(
-    fontSize: 32.sp,
-    fontWeight: FontWeight.bold,
-    fontFamily: fontFamily,
-  );
+  static TextStyle headline(BuildContext context) => TextStyle(
+        fontSize: 32.sp,
+        fontWeight: FontWeight.bold,
+        fontFamily: fontFamily(context: context),
+      );
 
-  static TextStyle title = TextStyle(
-    fontSize: 24.sp,
-    fontWeight: FontWeight.w600,
-    fontFamily: fontFamily,
-  );
+  static TextStyle title(BuildContext context) => TextStyle(
+        fontSize: 24.sp,
+        fontWeight: FontWeight.w600,
+        fontFamily: fontFamily(context: context),
+      );
 
-  static TextStyle subtitle = TextStyle(
-    fontSize: 18.sp,
-    fontWeight: FontWeight.w500,
-    fontFamily: fontFamily,
-  );
+  static TextStyle subtitle(BuildContext context) => TextStyle(
+        fontSize: 18.sp,
+        fontWeight: FontWeight.w500,
+        fontFamily: fontFamily(context: context),
+      );
 
-  static TextStyle body = TextStyle(
-    fontSize: 16.sp,
-    fontWeight: FontWeight.normal,
-    fontFamily: fontFamily,
-  );
+  static TextStyle body(BuildContext context) => TextStyle(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.normal,
+        fontFamily: fontFamily(context: context),
+      );
 
-  static TextStyle label = TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeight.w400,
-    fontFamily: fontFamily,
-  );
+  static TextStyle label(BuildContext context) => TextStyle(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w400,
+        fontFamily: fontFamily(context: context),
+      );
 
-  static TextStyle caption = TextStyle(
-    fontSize: 12.sp,
-    fontWeight: FontWeight.normal,
-    fontFamily: fontFamily,
-  );
+  static TextStyle caption(BuildContext context) => TextStyle(
+        fontSize: 12.sp,
+        fontWeight: FontWeight.normal,
+        fontFamily: fontFamily(context: context),
+      );
 
   static TextStyle description(BuildContext context) => TextStyle(
         fontSize: 14.sp,
         fontWeight: FontWeight.w400,
-        fontFamily: fontFamily,
+        fontFamily: fontFamily(context: context),
         color: context.colors.subtitleTextColor,
       );
-
-  static List<Shadow> outlinedText(
-      {double strokeWidth = 1,
-      Color strokeColor = Colors.black,
-      int precision = 5}) {
-    final Set<Shadow> result = HashSet();
-    for (int x = 1; x < strokeWidth + precision; x++) {
-      for (int y = 1; y < strokeWidth + precision; y++) {
-        final double offsetX = x.toDouble();
-        final double offsetY = y.toDouble();
-        result.add(Shadow(
-            offset: Offset(-strokeWidth / offsetX, -strokeWidth / offsetY),
-            color: strokeColor));
-        result.add(Shadow(
-            offset: Offset(-strokeWidth / offsetX, strokeWidth / offsetY),
-            color: strokeColor));
-        result.add(Shadow(
-            offset: Offset(strokeWidth / offsetX, -strokeWidth / offsetY),
-            color: strokeColor));
-        result.add(Shadow(
-            offset: Offset(strokeWidth / offsetX, strokeWidth / offsetY),
-            color: strokeColor));
-      }
-    }
-    return result.toList();
-  }
 }

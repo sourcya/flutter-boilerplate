@@ -74,7 +74,8 @@ class RegisterController extends GetxController {
     if (method == LoginMethod.email) {
       currentLoginMethod.value = LoginMethod.email;
     } else {
-      AppController.instance.loadingStatus.value = LoadingStatus.register;
+      AppController.instance.loadingStatus.value =
+          const LoadingStatus.register();
       currentLoginMethod.value = null;
       final result = await authRepository.loginViaAuth0(method: method);
       result.when(
@@ -82,7 +83,8 @@ class RegisterController extends GetxController {
           _navigateToHome();
         },
         error: (NetworkException exception) {
-          AppController.instance.loadingStatus.value = LoadingStatus.none;
+          AppController.instance.loadingStatus.value =
+              const LoadingStatus.idle();
           Alert.error(message: exception.message);
         },
       );
@@ -91,7 +93,7 @@ class RegisterController extends GetxController {
 
   Future<void> register() async {
     if (!isFormValid.value) return;
-    AppController.instance.loadingStatus.value = LoadingStatus.register;
+    AppController.instance.loadingStatus.value = const LoadingStatus.register();
 
     final result = await authRepository.register(
       firstName: firstNameController.text,
@@ -105,13 +107,13 @@ class RegisterController extends GetxController {
       },
       error: (NetworkException exception) {
         Alert.error(message: exception.message);
-        AppController.instance.loadingStatus.value = LoadingStatus.none;
+        AppController.instance.loadingStatus.value = const LoadingStatus.idle();
       },
     );
   }
 
   Future<void> _navigateToHome() async {
-    AppController.instance.loadingStatus.value = LoadingStatus.none;
+    AppController.instance.loadingStatus.value = const LoadingStatus.idle();
     AppNavigation.navigateFromRegisterToHome();
   }
 

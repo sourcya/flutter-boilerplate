@@ -1,9 +1,13 @@
 part of '../ui.dart';
 
-PlayxThemeConfig createThemeConfig() => PlayxThemeConfig(
-      themes: [
-        LightTheme.theme,
-        DarkTheme.theme,
-      ],
-      initialThemeIndex: PlayxTheme.isDeviceInDarkMode() ? 1 : 0,
-    );
+class AppThemeConfig {
+  AppThemeConfig._();
+
+  static PlayxThemeConfig createThemeConfig() => PlayxThemeConfig(
+        themes: [
+          LightTheme.theme,
+          DarkTheme.theme,
+        ],
+        initialThemeIndex: PlayxTheme.isDeviceInDarkMode() ? 1 : 0,
+      );
+}

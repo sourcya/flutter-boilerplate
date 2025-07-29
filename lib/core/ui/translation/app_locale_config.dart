@@ -1,24 +1,50 @@
 part of '../ui.dart';
 
-const String _arabicFontFamily = 'Cairo';
-const String _englishFontFamily = 'Poppins';
+class AppLocaleConfig {
+  const AppLocaleConfig._();
 
-const _supportedLocales = [
-  XLocale(id: 'en', name: 'English', languageCode: 'en'),
-  XLocale(id: 'ar', name: 'العربية', languageCode: 'ar'),
-];
-PlayxLocaleConfig createLocaleConfig() => PlayxLocaleConfig(
-      supportedLocales: _supportedLocales,
-      fallbackLocale: _supportedLocales[0],
-    );
+  static const String arabicFontFamily = 'Cairo';
+  static const String englishFontFamily = 'Poppins';
 
-String get fontFamily => PlayxLocalization.isCurrentLocaleArabic()
-    ? _arabicFontFamily
-    : _englishFontFamily;
+  static const arabicLocale = XLocale(
+    id: 'ar',
+    name: 'العربية',
+    languageCode: 'ar',
+    fontFamily: arabicFontFamily,
+  );
+  static const englishLocale = XLocale(
+    id: 'en',
+    name: 'English',
+    languageCode: 'en',
+    fontFamily: englishFontFamily,
+  );
 
-String fontFamilyBasedOnText(String text) {
-  if (text.isEmpty) {
-    return fontFamily;
-  }
-  return text.isArabic ? _arabicFontFamily : _englishFontFamily;
+  static PlayxLocaleConfig createLocaleConfig() => PlayxLocaleConfig(
+        supportedLocales: [
+          englishLocale,
+          arabicLocale,
+        ],
+        fallbackLocale: englishLocale,
+      );
 }
+
+String get currentLanguageCode =>
+    PlayxLocalization.currentLocale.toStringWithSeparator();
+
+String fontFamily({BuildContext? context}) {
+  try {
+    final locale = context?.locale ?? PlayxLocalization.currentLocale;
+    return locale.isArabic
+        ? AppLocaleConfig.arabicFontFamily
+        : AppLocaleConfig.englishFontFamily;
+  }
+  // ignore: avoid_catches_without_on_clauses
+  catch (e) {
+    return AppLocaleConfig.englishFontFamily;
+  }
+}
+
+String fontFamilyBasedOnText(String? text, {bool isTranslatable = true}) =>
+    (isTranslatable ? text?.tr() : text)?.isArabic == true
+        ? AppLocaleConfig.arabicFontFamily
+        : AppLocaleConfig.englishFontFamily;

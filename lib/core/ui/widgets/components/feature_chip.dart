@@ -2,86 +2,121 @@ part of '../../ui.dart';
 
 class FeatureChip extends StatelessWidget {
   final String? label;
-  final IconData? icon;
-  final String? svgIcon;
-  final String? imageUrl;
+  final IconInfo? icon;
   final Color? backgroundColor;
   final Color? color;
   final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? contentPadding;
+
+  final double? iconSize;
+  final BorderSide? borderSide;
+  final TextAlign? textAlign;
+  final bool isLabelTranslatable;
+  final double? fontSize;
+  final int maxLines;
+  final bool decreaseFontSizeByLength;
+  final double defaultVerticalPadding;
+  final bool? isMaxWidth;
+  final ShapeBorder? shape;
 
   const FeatureChip({
     this.label,
     this.color = Colors.black,
     this.icon,
-    this.svgIcon,
     this.backgroundColor,
     this.padding,
-    this.imageUrl,
+    this.contentPadding,
+    this.iconSize,
+    this.borderSide,
+    this.textAlign,
+    this.isLabelTranslatable = true,
+    this.fontSize,
+    this.maxLines = 2,
+    this.decreaseFontSizeByLength = false,
+    this.defaultVerticalPadding = 16,
+    this.isMaxWidth,
+    this.margin,
+    this.shape,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: label?.isNotEmpty == true,
-      child: Padding(
-        padding: padding ??
-            EdgeInsets.symmetric(
-              horizontal: 2.w,
+    final label =
+        isLabelTranslatable ? this.label?.tr(context: context) : this.label;
+    double labelFontSize =
+        fontSize ?? (PlayxLocalization.isCurrentLocaleArabic() ? 13.sp : 14.sp);
+    final labelLength = label?.length ?? 0;
+
+    if (decreaseFontSizeByLength && labelLength > 10) {
+      labelFontSize = labelFontSize -
+          (labelLength > 25
+                  ? 2
+                  : labelLength > 20
+                      ? 1
+                      : 0)
+              .sp;
+    }
+
+    final labelWidget = CustomText(
+      label ?? '',
+      isTranslatable: false,
+      color: color,
+      fontSize: labelFontSize,
+      fontWeight: label?.isArabic == true ? FontWeight.w500 : FontWeight.w400,
+      font: fontFamilyBasedOnText(
+        label,
+        isTranslatable: false,
+      ),
+      textAlign: textAlign ?? TextAlign.center,
+      maxLines: maxLines,
+      textOverflow: TextOverflow.ellipsis,
+    );
+
+    final isMaxWidth = this.isMaxWidth ?? (context.width <= 600);
+
+    return Container(
+      margin: margin,
+      child: Material(
+        color: backgroundColor ?? context.colors.surfaceContainer,
+        elevation: 2,
+        shadowColor: isCupertino(context) ? Colors.black : null,
+        shape: shape ??
+            RoundedRectangleBorder(
+              side: borderSide ?? BorderSide(color: context.colors.onSurface),
+              borderRadius: BorderRadius.circular(8.r),
             ),
-        child: Chip(
-          shape: Style.featureChipRoundedRectangleBorder,
-          label: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (icon != null ||
-                  svgIcon?.isNotEmpty == true ||
-                  imageUrl?.isNotEmpty == true) ...[
-                SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: icon != null
-                      ? IconViewer(
-                          icon: icon,
-                          iconColor: color,
-                          width: 16,
-                          height: 16,
-                          iconSize: 18,
-                        )
-                      : svgIcon?.isNotEmpty == true
-                          ? IconViewer.svg(svgIcon: svgIcon)
-                          : imageUrl?.isNotEmpty == true
-                              ? Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
-                                    image: DecorationImage(
-                                      image: CachedNetworkImageProvider(
-                                        imageUrl!,
-                                      ),
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
-                                )
-                              : const SizedBox.shrink(),
-                ),
-                SizedBox(
-                  width: 4.w,
-                ),
-              ],
-              Text(
-                label ?? '',
-                style: TextStyle(color: color),
+        child: Container(
+          padding: contentPadding ??
+              padding ??
+              EdgeInsets.symmetric(
+                vertical: (label?.length ?? 10) > 28
+                    ? 10.r
+                    : defaultVerticalPadding.r,
+                horizontal: (label?.length ?? 10) > 5 ? 12.r : 24.r,
               ),
-            ],
-          ),
-          backgroundColor: backgroundColor,
-          padding: EdgeInsets.symmetric(
-            horizontal: 4.w,
-          ),
-          labelPadding:
-              padding ?? EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),
+          child: icon != null
+              ? Row(
+                  mainAxisSize:
+                      isMaxWidth ? MainAxisSize.max : MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    icon!.buildIconWidget(
+                      size: iconSize ?? 20.r,
+                      color: color,
+                    ),
+                    SizedBox(
+                      width: 4.r,
+                    ),
+                    if (isMaxWidth)
+                      Expanded(
+                        child: labelWidget,
+                      )
+                    else
+                      labelWidget,
+                  ],
+                )
+              : labelWidget,
         ),
       ),
     );
