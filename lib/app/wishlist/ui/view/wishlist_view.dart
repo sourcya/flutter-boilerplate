@@ -3,8 +3,6 @@ part of '../imports/wishlist_imports.dart';
 class WishlistView extends GetView<WishlistController> {
   @override
   Widget build(BuildContext context) {
-    Fimber.d('PlayxRoute Binding Wishlist WishlistView build');
-
     return CustomScaffold(
       title: AppTrans.wishlist,
       leading: AppBarLeadingType.drawerOrRail,

@@ -11,8 +11,6 @@ class WishlistController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Fimber.d('PlayxRoute Binding Wishlist onInit');
-
     watchWishlistItems();
   }
 

@@ -84,8 +84,6 @@ class CustomModal {
     required BuildContext context,
   }) {
     final showTopBar = showModalTopBar?.value ?? true;
-
-    Fimber.d('onPreviousPressed :$onPreviousPressed');
     final modalBody = onPreviousPressed == null
         ? body
         : PopScope(

@@ -8,6 +8,8 @@ import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
 import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
 import 'package:playx/playx.dart';
 
+late PlayxBaseLogger myLogger;
+
 /// This class contains app configuration like playx configuration.
 class AppConfig extends PlayXAppConfig {
   // setup and boot your dependencies here
@@ -15,7 +17,9 @@ class AppConfig extends PlayXAppConfig {
   Future<void> boot() async {
     //USED FOR DEBUGGING
     WidgetsFlutterBinding.ensureInitialized();
-    Fimber.plantTree(DebugTree());
+
+    myLogger = PlayxLogger.initLogger(name: 'MY APP');
+
     Get.put<MyPreferenceManger>(MyPreferenceManger());
     Get.put<EnvManger>(EnvManger());
     ApiClient.init();

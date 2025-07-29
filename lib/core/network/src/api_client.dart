@@ -38,10 +38,6 @@ abstract class ApiClient {
         };
       },
       settings: const PlayxNetworkClientSettings(
-        logSettings: PlayxNetworkLoggerSettings(
-          responseBody: true,
-          responseHeader: true,
-        ),
         exceptionMessages: CustomExceptionMessage(),
       ),
       // onUnauthorizedRequestReceived: (res) => _signOut(),

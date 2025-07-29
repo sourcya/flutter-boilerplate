@@ -14,6 +14,12 @@ void main() {
     envSettingsBuilder: () => const PlayxEnvSettings(
       fileName: 'assets/env/keys.env',
     ),
+    securePrefsSettings: const PlayxSecurePrefsSettings(
+      androidOptions: AndroidOptions(
+        encryptedSharedPreferences: true,
+        resetOnError: true,
+      ),
+    ),
     sentryOptions: (options) async {
       options.dsn = await EnvManger.instance.sentryKey;
       options.tracesSampleRate = 1.0;
