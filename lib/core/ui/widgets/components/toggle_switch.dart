@@ -37,30 +37,49 @@ class _ToggleSwitchState<T> extends State<ToggleSwitch<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomCard(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.r)),
-      shadowBorderRadius: BorderRadius.circular(24.r),
-      padding: EdgeInsets.zero,
-      width: widget.width,
-      child: Row(
-        mainAxisSize: widget.isMaxWidth ? MainAxisSize.max : MainAxisSize.min,
-        children: List.generate(widget.items.length + (widget.showAll ? 1 : 0),
-            (index) {
-          if (widget.showAll && index == 0) {
-            return Expanded(
-              child: _buildItem(item: null, isSelected: selectedItem == null),
-            );
-          }
+    return Container(
+      margin: EdgeInsets.symmetric(
+        horizontal: 6.r,
+      ),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24.r),
+          side: BorderSide(
+            color: context.colors.subtitleTextColor ??
+                context.colors.onSurface.withValues(alpha: 0.2),
+            width: 1.r,
+          ),
+        ),
+        color: context.colors.surface,
+        clipBehavior: Clip.antiAlias,
+        child: Container(
+          margin: EdgeInsets.symmetric(
+            horizontal: PlayxLocalization.isCurrentLocaleArabic() ? 8.r : 8.r,
+          ),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisSize:
+                  widget.isMaxWidth ? MainAxisSize.max : MainAxisSize.min,
+              children: List.generate(
+                widget.items.length + (widget.showAll ? 1 : 0),
+                (index) {
+                  if (widget.showAll && index == 0) {
+                    return _buildItem(
+                        item: null, isSelected: selectedItem == null);
+                  }
 
-          final item = widget.items[widget.showAll ? index - 1 : index];
+                  final item = widget.items[widget.showAll ? index - 1 : index];
 
-          return Expanded(
-            child: _buildItem(
-              item: item,
-              isSelected: widget.isItemSelected.call(item),
+                  return _buildItem(
+                    item: item,
+                    isSelected: widget.isItemSelected.call(item),
+                  );
+                },
+              ),
             ),
-          );
-        }),
+          ),
+        ),
       ),
     );
   }
@@ -80,34 +99,46 @@ class _ToggleSwitchState<T> extends State<ToggleSwitch<T>> {
                 }
               });
             },
+      splashColor: context.colors.primary.withValues(alpha: .2),
       borderRadius: BorderRadius.circular(24.r),
       child: AnimatedContainer(
         duration: 250.milliseconds,
         padding: EdgeInsets.symmetric(
-          horizontal:
-              PlayxLocalization.isCurrentLocaleArabic() ? 12.0.r : 8.0.r,
-          vertical: 16.r,
+          horizontal: 8.r,
+          vertical: 6.r,
         ),
+        margin: EdgeInsets.symmetric(
+          horizontal: PlayxLocalization.isCurrentLocaleArabic() ? 4.r : 4.r,
+          vertical: 6.r,
+        ),
+        width: widget.width ?? context.width * 0.25,
         decoration: isSelected
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(24.r),
-                color: context.colors.primary,
+                color: AppUtils.isDarkMode()
+                    ? context.colors.surfaceContainerHigh
+                    : context.colors.surface,
                 boxShadow: [
                   BoxShadow(
-                    color: context.colors.onSurface.withValues(alpha: 0.2),
+                    color: context.colors.secondary.withValues(alpha: 0.25),
                     blurRadius: 4.r,
-                    offset: Offset(0, 2.r),
+                    offset: Offset(1, 3.r),
+                  ),
+                  BoxShadow(
+                    color: context.colors.onSurface.withValues(alpha: 0.1),
+                    blurRadius: 2.r,
+                    offset: Offset(1, 2.r),
                   ),
                 ],
               )
             : null,
-        width: widget.isMaxWidth ? double.infinity : null,
         child: CustomText(
           item != null ? widget.itemLabel(item) : AppTrans.all,
-          fontSize: 13.sp,
+          fontSize: PlayxLocalization.isCurrentLocaleArabic() ? 12.sp : 13.sp,
           textAlign: TextAlign.center,
-          color:
-              isSelected ? context.colors.onPrimary : context.colors.onSurface,
+          color: isSelected
+              ? context.colors.secondary
+              : context.colors.subtitleTextColor,
         ),
       ),
     );

@@ -30,6 +30,7 @@ class BuildLoginTitleWidget extends GetView<LoginController> {
               onPressed: () {
                 controller.currentLoginMethod.value = null;
               },
+              color: context.colors.onSurface,
             );
           }
           return const SizedBox.shrink();

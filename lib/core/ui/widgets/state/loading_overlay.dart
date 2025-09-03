@@ -23,6 +23,7 @@ class LoadingOverlay extends StatelessWidget {
           child: Center(
             child: Card(
               color: context.colors.surfaceContainer.withValues(alpha: .7),
+              margin: EdgeInsets.symmetric(horizontal: 40.r),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [

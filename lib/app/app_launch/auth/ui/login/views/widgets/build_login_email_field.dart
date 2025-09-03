@@ -7,8 +7,8 @@ class BuildLoginEmailFieldWidget extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: 10.w,
-        vertical: 5.h,
+        horizontal: 10.r,
+        vertical: 5.r,
       ),
       child: CustomTextField(
         label: AppTrans.emailOrUsernameLabel.tr(context: context),

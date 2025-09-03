@@ -21,6 +21,7 @@ class LightTheme {
           brightness: Brightness.light,
           textTheme:
               const CupertinoTextThemeData(primaryColor: CupertinoColors.label),
+          applyThemeToAll: true,
         ),
         useMaterial3: true,
         colorScheme: colors.colorScheme,

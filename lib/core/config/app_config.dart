@@ -36,15 +36,16 @@ class AppConfig extends PlayXAppConfig {
     await ApiClient.init();
 
     final apiClient = ApiClient.client;
+    final remoteAuthDataSource = TestAuthDataSource(client: apiClient);
+    final auth0DataSource = Auth0AuthDataSource(
+      client: apiClient,
+      auth0: ApiClient.auth0,
+      auth0Web: ApiClient.auth0Web,
+    );
+
     final authRepository = AuthRepository(
-      remoteAuthDataSource: TestAuthDataSource(
-        client: apiClient,
-      ),
-      auth0DataSource: Auth0AuthDataSource(
-        client: apiClient,
-        auth0: ApiClient.auth0,
-        auth0Web: ApiClient.auth0Web,
-      ),
+      remoteAuthDataSource: remoteAuthDataSource,
+      auth0DataSource: auth0DataSource,
       preferenceManger: MyPreferenceManger.instance,
     );
 
