@@ -13,44 +13,47 @@ class LoadingOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = loadingText ?? loadingStatus.displayName;
-    return AnimatedVisibility(
-      isVisible: loadingStatus is! LoadingStatusIdle,
-      child: Container(
-        color: Colors.black.withValues(alpha: .5),
-        height: double.infinity,
-        child: Center(
-          child: CustomCard(
-            color: context.colors.surfaceContainer.withValues(alpha: .7),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 16.r),
-                  child: CenterLoading.adaptive(
-                    color: context.colors.primary,
-                  ),
-                ),
-                if (text.isNotEmpty) ...[
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0.r,
-                      vertical: 8.r,
+    return Material(
+      color: Colors.transparent,
+      child: AnimatedVisibility(
+        isVisible: loadingStatus is! LoadingStatusIdle,
+        child: Container(
+          color: Colors.black.withValues(alpha: .5),
+          height: double.infinity,
+          child: Center(
+            child: Card(
+              color: context.colors.surfaceContainer.withValues(alpha: .7),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 16.r),
+                    child: CenterLoading.adaptive(
+                      color: context.colors.primary,
                     ),
-                    child: AnimatedDottedText(
-                      text: text,
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: context.colors.onSurface,
-                        fontFamily: fontFamily(context: context),
+                  ),
+                  if (text.isNotEmpty) ...[
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.0.r,
+                        vertical: 8.r,
                       ),
-                      color: context.colors.onSurface,
+                      child: AnimatedDottedText(
+                        text: text,
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: context.colors.onSurface,
+                          fontFamily: fontFamily(context: context),
+                        ),
+                        color: context.colors.onSurface,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 16.r),
+                    SizedBox(height: 16.r),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         ),

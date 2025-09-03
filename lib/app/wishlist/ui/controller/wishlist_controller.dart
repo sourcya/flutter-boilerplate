@@ -1,10 +1,12 @@
 part of '../imports/wishlist_imports.dart';
 
 class WishlistController extends GetxController {
+  final WishlistRepository _repository;
+  WishlistController({required WishlistRepository repository})
+      : _repository = repository;
+
   final dataState =
       Rx<DataState<List<WishlistItem>>>(const DataState.initial());
-
-  final _repository = WishlistRepository();
 
   StreamSubscription<List<WishlistItem>>? _watchWishlistItemsSub;
 

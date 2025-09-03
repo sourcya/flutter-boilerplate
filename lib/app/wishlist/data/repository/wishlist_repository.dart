@@ -4,35 +4,30 @@ import 'package:flutter_boilerplate/app/wishlist/data/model/ui/wishlist.dart';
 import 'package:playx/playx.dart';
 
 class WishlistRepository {
-  static final WishlistRepository _instance = WishlistRepository._internal();
+  final LocalWishlistDataSource _localDatasource;
+  WishlistRepository({
+    required LocalWishlistDataSource localDatasource,
+  }) : _localDatasource = localDatasource;
 
-  factory WishlistRepository() {
-    return _instance;
-  }
-
-  WishlistRepository._internal();
-
-  final LocalWishlistDataSource _localWishlistDataSource =
-      Get.find<LocalWishlistDataSource>();
+  static WishlistRepository get instance => getIt.get<WishlistRepository>();
 
   Future<List<WishlistItem>> getAllWishlistItems() async {
-    final items = await _localWishlistDataSource.getAllWishlistItems();
+    final items = await _localDatasource.getAllWishlistItems();
     return items.map((e) => e.toWishlistItem()).toList();
   }
 
   Stream<List<WishlistItem>> watchAllWishlistItems() {
-    return _localWishlistDataSource.watchAllWishlistItems().map(
+    return _localDatasource.watchAllWishlistItems().map(
           (event) => event.map((e) => e.toWishlistItem()).toList(),
         );
   }
 
   Future<int> insertWishlistItem(WishlistItem wishlist) {
-    return _localWishlistDataSource
+    return _localDatasource
         .insertWishlistItem(wishlist.toDatabaseWishlistItem());
   }
 
   void deleteWishlistItem(WishlistItem wishlist) {
-    _localWishlistDataSource
-        .deleteWishlistItem(wishlist.toDatabaseWishlistItem());
+    _localDatasource.deleteWishlistItem(wishlist.toDatabaseWishlistItem());
   }
 }

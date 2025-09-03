@@ -1,7 +1,9 @@
 part of '../imports/dashboard_imports.dart';
 
 class DashboardController extends GetxController {
-  final _wishlistRepository = WishlistRepository();
+  final WishlistRepository _wishlistRepository;
+  DashboardController({required WishlistRepository wishlistRepository})
+      : _wishlistRepository = wishlistRepository;
 
   final List<DashboardItem> _items = List.generate(
     20,

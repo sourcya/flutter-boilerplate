@@ -19,6 +19,8 @@ class AuthRepository {
     required this.preferenceManger,
   });
 
+  static AuthRepository get instance => getIt.get<AuthRepository>();
+
   Future<NetworkResult<User>> loginViaAuth0({
     LoginMethod method = LoginMethod.auth0Web,
     bool saveUser = true,
@@ -133,10 +135,7 @@ class AuthRepository {
     return true;
   }
 
-  Future<bool> saveUser({
-    required User user,
-    LoginMethod? loginMethod,
-  }) async {
+  Future<bool> saveUser({required User user, LoginMethod? loginMethod}) async {
     try {
       final ApiUser apiUser = await user.mapAsync(mapper: (e) => e.toApiUser());
       return saveApiUser(user: apiUser, loginMethod: loginMethod);
@@ -156,8 +155,10 @@ class AuthRepository {
         return NetworkResult.error(result.error);
       } else {
         final data = (result as NetworkSuccess<ApiUser>).data;
-        final bool saved =
-            await saveApiUser(user: data, loginMethod: loginMethod);
+        final bool saved = await saveApiUser(
+          user: data,
+          loginMethod: loginMethod,
+        );
         if (!saved) {
           return const NetworkResult<User>.error(
             UnexpectedErrorException(errorMessage: AppTrans.emptyResponse),
@@ -181,9 +182,7 @@ class AuthRepository {
     }
   }
 
-  Future<NetworkResult<User>> otpLogin({
-    required String phoneNumber,
-  }) async {
+  Future<NetworkResult<User>> otpLogin({required String phoneNumber}) async {
     final result = await remoteAuthDataSource.otpLogin(
       phoneNumber: phoneNumber,
     );
@@ -192,22 +191,20 @@ class AuthRepository {
 
   Future<NetworkResult<User>> verifyOtpCode({required String pin}) async {
     final NetworkResult<ApiUser> result =
-        await remoteAuthDataSource.verifyOtpCode(
-      pin: pin,
-    );
+        await remoteAuthDataSource.verifyOtpCode(pin: pin);
     return _handleSavingUser(result: result, loginMethod: LoginMethod.email);
   }
 
-// Future<void> saveLoginInfo({
-//   required String email,
-//   required String password,
-// }) {
-//   return _preferenceManger.saveLoginInfo(email: email, password: password);
-// }
-//
-// Future<({String? email, String? password})> getLoginInfo() async {
-//   final email = await _preferenceManger.getSavedEmail();
-//   final password = await _preferenceManger.getSavedPassword();
-//   return (email: email, password: password);
-// }
+  // Future<void> saveLoginInfo({
+  //   required String email,
+  //   required String password,
+  // }) {
+  //   return _preferenceManger.saveLoginInfo(email: email, password: password);
+  // }
+  //
+  // Future<({String? email, String? password})> getLoginInfo() async {
+  //   final email = await _preferenceManger.getSavedEmail();
+  //   final password = await _preferenceManger.getSavedPassword();
+  //   return (email: email, password: password);
+  // }
 }

@@ -1,9 +1,11 @@
+import 'package:flutter_boilerplate/app/dashboard/data/datasource/dashboard_datasource.dart';
+import 'package:playx/playx.dart';
+
 class DashboardRepository {
-  static final DashboardRepository _instance = DashboardRepository._internal();
+  final DashboardDatasource _dataSource;
+  DashboardRepository({
+    required DashboardDatasource dataSource,
+  }) : _dataSource = dataSource;
 
-  factory DashboardRepository() {
-    return _instance;
-  }
-
-  DashboardRepository._internal();
+  static DashboardRepository get instance => getIt.get<DashboardRepository>();
 }

@@ -3,9 +3,8 @@ part of '../imports/wishlist_imports.dart';
 class WishlistBinding extends PlayxBinding {
   @override
   Future<void> onEnter(BuildContext context, GoRouterState state) async {
-    if (!Get.isRegistered<WishlistController>()) {
-      Get.put(WishlistController());
-    }
+    final repository = WishlistRepository.instance;
+    Get.put(WishlistController(repository: repository));
   }
 
   @override

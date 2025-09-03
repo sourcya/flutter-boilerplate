@@ -64,6 +64,8 @@ class LoginController extends GetxController {
         },
         error: (NetworkException exception) {
           Alert.error(message: exception.message);
+          AppController.instance.loadingStatus.value =
+              const LoadingStatus.idle();
         },
       );
     }

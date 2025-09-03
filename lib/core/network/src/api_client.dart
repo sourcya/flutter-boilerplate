@@ -5,11 +5,11 @@ abstract class ApiClient {
   static Future<String?> get apiToken async =>
       MyPreferenceManger.instance.token;
 
-  static PlayxNetworkClient get client => Get.find<PlayxNetworkClient>();
+  static PlayxNetworkClient get client => getIt.get<PlayxNetworkClient>();
 
-  static Auth0 get auth0 => Get.find<Auth0>();
+  static Auth0 get auth0 => getIt.get<Auth0>();
 
-  static Auth0Web get auth0Web => Get.find<Auth0Web>();
+  static Auth0Web get auth0Web => getIt.get<Auth0Web>();
 
   static Future<PlayxNetworkClient> createApiClient() async {
     final dio = Dio(
@@ -46,7 +46,7 @@ abstract class ApiClient {
 
   static Future<void> init() async {
     final PlayxNetworkClient client = await ApiClient.createApiClient();
-    Get.put<PlayxNetworkClient>(client);
+    getIt.registerSingleton<PlayxNetworkClient>(client);
 
     final Auth0 auth0 = Auth0(
       Constants.auth0Domain,
@@ -58,8 +58,8 @@ abstract class ApiClient {
       Constants.auth0WebClientId,
     );
 
-    Get.put<Auth0>(auth0);
-    Get.put<Auth0Web>(auth0Web);
+    getIt.registerSingleton<Auth0>(auth0);
+    getIt.registerSingleton<Auth0Web>(auth0Web);
   }
 
   static Future<void> _signOut() async {

@@ -7,7 +7,7 @@ import 'package:playx/playx.dart';
 
 /// This class is responsible for saving key/value pairs in shared preferences.
 class MyPreferenceManger {
-  static final MyPreferenceManger instance = Get.find<MyPreferenceManger>();
+  static final MyPreferenceManger instance = getIt.get<MyPreferenceManger>();
 
   final String _tokenKey = 'token';
   final String _userKey = 'logged_in_user';

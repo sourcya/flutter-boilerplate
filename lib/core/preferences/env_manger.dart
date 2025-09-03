@@ -3,10 +3,10 @@ import 'package:playx/playx.dart';
 /// This class is responsible for saving key/value pairs in shared preferences.
 class EnvManger {
   static final EnvManger instance =
-      Get.isRegistered<EnvManger>() ? Get.find<EnvManger>() : EnvManger();
+      getIt.isRegistered<EnvManger>() ? getIt.get<EnvManger>() : EnvManger();
 
   void init() {
-    Get.put<EnvManger>(EnvManger());
+    getIt.registerSingleton<EnvManger>(EnvManger());
   }
 
   final String _sentryKey = 'SENTRY_KEY';
