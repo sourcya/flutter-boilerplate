@@ -2,8 +2,7 @@ part of '../../network.dart';
 
 /// contains network endpoints.
 abstract class Endpoints {
-  static const baseUrl =
-      "https://sonbol-crm-service-545469892583.europe-west1.run.app/api";
+  static const baseUrl = "https://sourcya-connect.herokuapp.com";
 
   /// `POST`
   static const loginViaAuth0 = '/auth/auth0/callback';
