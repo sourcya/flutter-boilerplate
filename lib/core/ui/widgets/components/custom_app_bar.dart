@@ -3,6 +3,7 @@ part of '../../ui.dart';
 enum AppBarLeadingType {
   none,
   back,
+  logoIcon,
   drawer,
   navigationRail,
   drawerOrRail;
@@ -17,7 +18,7 @@ enum AppBarLeadingType {
             return IconButton(
               icon: Icon(
                 PlayxPlatform.isIOS ? CupertinoIcons.back : Icons.arrow_back,
-                color: context.colors.primary,
+                color: context.colors.onSurface,
               ),
               onPressed: () {
                 PlayxNavigation.pop();
@@ -47,6 +48,16 @@ enum AppBarLeadingType {
                 },
               )
             : const SizedBox.shrink();
+      case AppBarLeadingType.logoIcon:
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 8.r),
+          height: kToolbarHeight - (PlayxPlatform.isIOS ? 16 : 4),
+          child: ImageViewer.svgAsset(
+            Assets.icons.logo,
+            height: kToolbarHeight - (PlayxPlatform.isIOS ? 24 : 4),
+            color: context.colors.onAppBar,
+          ),
+        );
       case AppBarLeadingType.navigationRail:
         return const SizedBox.shrink();
     }
@@ -64,39 +75,50 @@ enum AppBarLeadingType {
 }
 
 PlatformAppBar buildAppBar({
-  required String title,
+  String? title,
   Widget? titleWidget,
-  AppBarLeadingType leading = AppBarLeadingType.drawer,
+  AppBarLeadingType leadingType = AppBarLeadingType.drawer,
   Widget? leadingWidget,
   List<Widget>? actions,
   bool showTrailingLogo = true,
   required BuildContext context,
   double? titleSpacing,
+  Color? backgroundColor,
+  bool? enableBackgroundFilterBlur,
 }) {
   return PlatformAppBar(
     automaticallyImplyLeading: false,
-    leading: leadingWidget ?? leading.buildWidget(context),
+    leading: leadingWidget ?? leadingType.buildWidget(context),
     trailingActions: actions,
     title: titleWidget ??
-        CustomText(
-          title,
-          fontSize: 16,
-          color: context.colors.onAppBar,
-        ),
-    backgroundColor: context.colors.appBar,
+        (title != null
+            ? CustomText(
+                title,
+                fontSize: 16,
+                color: context.colors.onAppBar,
+              )
+            : null),
+    backgroundColor: backgroundColor ?? context.colors.appBar,
     material: (ctx, _) => MaterialAppBarData(
       centerTitle: true,
       toolbarHeight: dimens.appBarHeight,
-      titleSpacing: titleSpacing,
-      scrolledUnderElevation: kIsWeb ? 0 : null,
-      backgroundColor: context.colors.appBar,
-      elevation: kIsWeb ? 0 : null,
+      titleSpacing: titleSpacing ??
+          (leadingType == AppBarLeadingType.logoIcon ? 0 : null),
+      backgroundColor: backgroundColor ?? context.colors.appBar,
+      leadingWidth:
+          leadingType == AppBarLeadingType.logoIcon ? ctx.width * 0.25 : null,
+      // scrolledUnderElevation: kIsWeb ? 0 : null,
+      // elevation: kIsWeb ? 0 : null,
+      scrolledUnderElevation: 0,
+      elevation: 0,
     ),
     cupertino: (ctx, __) => CupertinoNavigationBarData(
       // Issue with cupertino where a bar with no transparency
       // will push the list down. Adding some alpha value fixes it (in a hacky way)
-      backgroundColor: context.colors.appBar.withValues(alpha: .99),
+      backgroundColor:
+          backgroundColor ?? context.colors.appBar.withValues(alpha: .99),
       automaticBackgroundVisibility: false,
+      enableBackgroundFilterBlur: enableBackgroundFilterBlur,
     ),
   );
 }

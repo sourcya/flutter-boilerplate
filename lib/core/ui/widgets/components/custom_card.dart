@@ -46,9 +46,9 @@ class CustomCard extends StatelessWidget {
       color: color ??
           (isDarkMode
               ? isChild
-                  ? context.colorScheme.surfaceContainerHighest
-                  : context.colorScheme.surfaceContainerHigh
-              : context.colorScheme.surface),
+                  ? context.colors.surfaceContainerHighest
+                  : context.colors.surfaceContainerHigh
+              : context.colors.surface),
       innerCardShadowMargin: innerCardShadowMargin,
       shadowBorderRadius: shadowBorderRadius,
       shape: shape ??

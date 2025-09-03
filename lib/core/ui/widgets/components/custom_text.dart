@@ -193,36 +193,42 @@ class CustomTextStyles {
         fontSize: 32.sp,
         fontWeight: FontWeight.bold,
         fontFamily: fontFamily(context: context),
+        color: context.colors.onSurface,
       );
 
   static TextStyle title(BuildContext context) => TextStyle(
         fontSize: 24.sp,
         fontWeight: FontWeight.w600,
         fontFamily: fontFamily(context: context),
+        color: context.colors.onSurface,
       );
 
   static TextStyle subtitle(BuildContext context) => TextStyle(
         fontSize: 18.sp,
         fontWeight: FontWeight.w500,
         fontFamily: fontFamily(context: context),
+        color: context.colors.onSurface,
       );
 
   static TextStyle body(BuildContext context) => TextStyle(
         fontSize: 16.sp,
         fontWeight: FontWeight.normal,
         fontFamily: fontFamily(context: context),
+        color: context.colors.onSurface,
       );
 
   static TextStyle label(BuildContext context) => TextStyle(
         fontSize: 14.sp,
         fontWeight: FontWeight.w400,
         fontFamily: fontFamily(context: context),
+        color: context.colors.onSurface,
       );
 
   static TextStyle caption(BuildContext context) => TextStyle(
         fontSize: 12.sp,
         fontWeight: FontWeight.normal,
         fontFamily: fontFamily(context: context),
+        color: context.colors.onSurface,
       );
 
   static TextStyle description(BuildContext context) => TextStyle(

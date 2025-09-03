@@ -104,7 +104,10 @@ class CustomModal {
         ? SliverWoltModalSheetPage(
             hasSabGradient: hasSabGradient,
             sabGradientColor: context.colors.surface.withValues(alpha: .95),
-            backgroundColor: backgroundColor,
+            backgroundColor: backgroundColor ??
+                (AppUtils.isDarkMode()
+                    ? context.colors.surface
+                    : context.colors.surfaceContainerHigh),
             stickyActionBar: actionBarStatus != null
                 ? _buildNextButton(
                     status: actionBarStatus,
@@ -153,7 +156,10 @@ class CustomModal {
         : WoltModalSheetPage(
             hasSabGradient: hasSabGradient,
             sabGradientColor: context.colors.surface.withValues(alpha: .95),
-            backgroundColor: backgroundColor,
+            backgroundColor: backgroundColor ??
+                (AppUtils.isDarkMode()
+                    ? context.colors.surface
+                    : context.colors.surfaceContainerHigh),
             navBarHeight: navBarHeight ?? (AppUtils.isMobile() ? 48.r : null),
             hasTopBarLayer: showTopBar,
             isTopBarLayerAlwaysVisible: showTopBar,

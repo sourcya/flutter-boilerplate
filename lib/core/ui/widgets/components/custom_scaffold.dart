@@ -12,7 +12,7 @@ class CustomScaffold extends StatelessWidget {
   final AppBarLeadingType leading;
   final Widget? leadingWidget;
   final bool useSafeArea;
-  final bool includeIosBottomSafeArea;
+  final bool includeBottomSafeArea;
   final bool includeAppBar;
   final Color? backgroundColor;
   final bool includeLoadingOverlay;
@@ -24,12 +24,12 @@ class CustomScaffold extends StatelessWidget {
     this.padding,
     this.appBar,
     this.floatingActionButton,
-    this.leading = AppBarLeadingType.drawer,
+    this.leading = AppBarLeadingType.none,
     this.leadingWidget,
     this.actions,
     this.useSafeArea = true,
     this.includeAppBar = true,
-    this.includeIosBottomSafeArea = false,
+    this.includeBottomSafeArea = false,
     this.backgroundColor,
     this.titleSpacing,
     this.includeLoadingOverlay = false,
@@ -38,17 +38,45 @@ class CustomScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scaffoldChild = Stack(
+    final scaffoldChild = Container(
+      padding: padding,
+      alignment: Alignment.center,
+      child: PlayxPlatform.isIOS
+          ? Scaffold(
+              floatingActionButton: floatingActionButton,
+              backgroundColor: context.colors.surface,
+              body: child,
+            )
+          : child,
+    );
+
+    final scaffold = Stack(
       children: [
-        Container(
-          padding: padding,
-          alignment: Alignment.center,
-          child: GetPlatform.isIOS
-              ? Scaffold(
-                  floatingActionButton: floatingActionButton,
-                  body: child,
+        PlatformScaffold(
+          appBar: includeAppBar
+              ? appBar ??
+                  buildAppBar(
+                    title: title,
+                    titleWidget: titleWidget,
+                    context: context,
+                    leadingType: leading,
+                    leadingWidget: leadingWidget,
+                    actions: actions,
+                    titleSpacing: 0,
+                  )
+              : null,
+          body: useSafeArea
+              ? SafeArea(
+                  bottom: includeBottomSafeArea,
+                  right: context.isPortrait,
+                  child: scaffoldChild,
                 )
-              : child,
+              : scaffoldChild,
+          material: (context, platform) => MaterialScaffoldData(
+            floatingActionButton: floatingActionButton,
+          ),
+          cupertino: (ctx, p) => CupertinoPageScaffoldData(),
+          backgroundColor: backgroundColor ?? context.colors.surface,
         ),
         if (includeLoadingOverlay)
           Obx(
@@ -57,33 +85,6 @@ class CustomScaffold extends StatelessWidget {
             ),
           ),
       ],
-    );
-
-    final scaffold = PlatformScaffold(
-      appBar: includeAppBar
-          ? appBar ??
-              buildAppBar(
-                title: title ?? AppTrans.appName,
-                titleWidget: titleWidget,
-                context: context,
-                leading: leading,
-                leadingWidget: leadingWidget,
-                actions: actions,
-                titleSpacing: titleSpacing,
-              )
-          : null,
-      body: useSafeArea
-          ? SafeArea(
-              bottom: includeIosBottomSafeArea,
-              right: context.isPortrait,
-              child: scaffoldChild,
-            )
-          : scaffoldChild,
-      material: (context, platform) => MaterialScaffoldData(
-        floatingActionButton: floatingActionButton,
-      ),
-      cupertino: (ctx, p) => CupertinoPageScaffoldData(),
-      backgroundColor: backgroundColor ?? context.colors.surface,
     );
 
     return scaffold;

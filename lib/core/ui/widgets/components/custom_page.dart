@@ -45,7 +45,7 @@ class CustomPageScaffold extends StatelessWidget {
 
     final canPop = !(NavigationUtils.mainRoutes
             .contains(PlayxNavigation.currentRouteName) &&
-        PlayxNavigation.currentRouteName != Routes.dashboard);
+        PlayxNavigation.currentRouteName != AppPages.homeRoute);
 
     // Manage back button press for home routes
     // As it should navigate to home when pressed back button pressed on home routes
@@ -118,9 +118,6 @@ class CustomPageScaffold extends StatelessWidget {
         drawer: drawer,
       );
     } else {
-      myLogger.e(
-        'No navigation shell or child provided, returning empty widget',
-      );
       return navigationShell ?? child ?? const SizedBox.shrink();
     }
   }
