@@ -18,6 +18,8 @@ class SettingsView extends GetView<SettingsController> {
                   SizedBox(height: 8.0.r),
                   const BuildSettingsLanguageWidget(),
                   const BuildSettingsThemeWidget(),
+                  const BuildSettingsPrivacyWidget(),
+                  const BuildSettingsTermsWidget(),
                   const BuildSettingsLogOutWidget(),
                   SizedBox(height: 16.0.r),
                 ],
@@ -28,6 +30,7 @@ class SettingsView extends GetView<SettingsController> {
       ),
     );
   }
+
 
   static SliverWoltModalSheetPage buildSettingsModalSheetPage(
     SettingsController controller,

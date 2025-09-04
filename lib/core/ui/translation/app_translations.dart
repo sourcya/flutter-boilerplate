@@ -200,4 +200,15 @@ abstract class AppTrans {
   static const minText = 'minText';
   static const secondText = 'secondText';
   static const km = 'km';
+
+  static const privacyPolicy = 'privacyPolicy';
+  static const viewPrivacyPolicy = "viewPrivacyPolicy";
+  static const termsConditions = "termsConditions";
+  static const viewTermsConditions = "viewTermsConditions";
+
+  static const versionText="versionText";
+  static const lastUpdatedText="lastUpdatedText";
+  static const copyText="copyText";
+  static const shareText="shareText";
+
 }

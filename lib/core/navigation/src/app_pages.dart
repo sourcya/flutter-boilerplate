@@ -102,5 +102,17 @@ class AppPages {
       binding: OnBoardingBinding(),
     ),
     _homeNavigationRoutes,
+    PlayxRoute(
+      path: Paths.privacyPolicy,
+      name: Routes.privacyPolicy,
+      builder: (context, state) => const PrivacyPolicyView(),
+      binding: PrivacyPolicyBinding(),
+    ),
+    PlayxRoute(
+      path: Paths.termsConditions,
+      name: Routes.termsConditions,
+      builder: (context, state) => const TermsConditionsView(),
+      binding: TermsConditionsBinding(),
+    ),
   ];
 }

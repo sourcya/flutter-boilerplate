@@ -5,6 +5,10 @@ import 'package:flutter_boilerplate/app/app_launch/auth/data/data_sources/test_a
 import 'package:flutter_boilerplate/app/app_launch/auth/data/repo/auth_repository.dart';
 import 'package:flutter_boilerplate/app/dashboard/data/datasource/dashboard_datasource.dart';
 import 'package:flutter_boilerplate/app/dashboard/data/repository/dashboard_repository.dart';
+import 'package:flutter_boilerplate/app/legal_document/data/datasource/legal_content_datasource.dart'
+    show LegalContentDatasource, RemoteLegalContentDatasource;
+import 'package:flutter_boilerplate/app/legal_document/data/repository/legal_content_repository.dart'
+    show LegalContentRepository;
 import 'package:flutter_boilerplate/app/wishlist/data/datasource/db/local_wishlist_data_source.dart';
 import 'package:flutter_boilerplate/app/wishlist/data/repository/wishlist_repository.dart';
 import 'package:flutter_boilerplate/core/database/app_database.dart';
@@ -25,8 +29,12 @@ class AppConfig extends PlayXAppConfig {
 
     myLogger = PlayxLogger.initLogger(name: 'MY APP');
 
-    await AppDatabase.init();
-
+    try {
+      await AppDatabase.init();
+    } catch (e) {
+      debugPrint('Database initialization error: $e');
+      // Handle error or continue without database
+    }
     await bootDependencies();
   }
 
@@ -48,8 +56,16 @@ class AppConfig extends PlayXAppConfig {
       auth0DataSource: auth0DataSource,
       preferenceManger: MyPreferenceManger.instance,
     );
-
     getIt.registerSingleton<AuthRepository>(authRepository);
+    // Get.put<LegalContentDatasource>(RemoteLegalContentDatasource(repository));
+    final LegalContentDatasource remoteLegalContentDatasource =
+        RemoteLegalContentDatasource(
+      client: apiClient,
+    );
+    final legalContentRepository = LegalContentRepository(
+      datasource: remoteLegalContentDatasource,
+    );
+    getIt.registerSingleton<LegalContentRepository>(legalContentRepository);
 
     final DashboardDatasource dashboardDatasource = DashboardDatasource();
     final dashboardRepository = DashboardRepository(

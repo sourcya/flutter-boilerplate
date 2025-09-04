@@ -98,7 +98,10 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
     val multidex_version = "2.0.1"
     implementation("androidx.multidex:multidex:$multidex_version")
-    debugImplementation("io.objectbox:objectbox-android-objectbrowser:4.3.0")
+    debugImplementation("io.objectbox:objectbox-android-objectbrowser:4.3.1")
+    
+    // Add this if you're using ObjectBox in release mode
+    releaseImplementation("io.objectbox:objectbox-android:4.3.1")
 }
 
 flutter {

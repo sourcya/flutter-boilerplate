@@ -1,10 +1,6 @@
 part of '../imports/settings_imports.dart';
 
-enum SettingsPage {
-  settings,
-  language,
-  theme;
-}
+enum SettingsPage { settings, language, theme, privacy, terms }
 
 class SettingsController extends GetxController {
   Rxn<XLocale> currentLocale = Rxn(PlayxLocalization.currentXLocale);
@@ -44,7 +40,7 @@ class SettingsController extends GetxController {
 
   Future<void> showSettingsModalSheet(
     BuildContext context,
-  ) async {
+  ) {
     final List<SliverWoltModalSheetPage> settingsPages = [
       SettingsView.buildSettingsModalSheetPage(this, context),
       BuildSettingsLanguageWidget.buildModalPage(
@@ -57,6 +53,8 @@ class SettingsController extends GetxController {
         context: context,
         isOnlyPage: false,
       ),
+      BuildSettingsPrivacyWidget._buildPrivacyPolicyModalPage(context),
+      BuildSettingsTermsWidget._buildTermsModalPage(context),
     ];
 
     return CustomModal.showModal(
@@ -70,7 +68,7 @@ class SettingsController extends GetxController {
   Future<void> showSettingsModalPageSheet(
     BuildContext context,
     SliverWoltModalSheetPage page,
-  ) async {
+  ) {
     return CustomModal.showPageModal(
       context: context,
       pageBuilder: (context) => page,
