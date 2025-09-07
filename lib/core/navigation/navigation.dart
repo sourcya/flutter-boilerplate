@@ -5,6 +5,7 @@ import 'package:flutter_boilerplate/app/app_launch/onboarding/ui/imports/onboard
 import 'package:flutter_boilerplate/app/app_launch/splash/ui/imports/splash_imports.dart';
 import 'package:flutter_boilerplate/app/dashboard/ui/imports/dashboard_imports.dart';
 import 'package:flutter_boilerplate/app/legal_document/ui/imports/legal_imports.dart' show PrivacyPolicyBinding, PrivacyPolicyView, TermsConditionsBinding, TermsConditionsView;
+import 'package:flutter_boilerplate/app/profile_update/ui/imports/profile_imports.dart';
 import 'package:flutter_boilerplate/app/settings/ui/imports/settings_imports.dart';
 import 'package:flutter_boilerplate/app/wishlist/ui/imports/wishlist_imports.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';

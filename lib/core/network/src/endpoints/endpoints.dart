@@ -19,4 +19,8 @@ abstract class Endpoints {
   static const settings = '/settings';
   static const syncSettings = '/settings/sync';
   static const resetSettings = '/settings/reset';
+
+  static const deleteUser= "/users/delete";
+  static const changePassword= "/users/change-password";
+  static const sendEmailConfirmation= "/users/send-email-confirmation";
 }

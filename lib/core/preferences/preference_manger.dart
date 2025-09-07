@@ -49,9 +49,9 @@ class MyPreferenceManger {
     return PlayxSecurePrefs.setString(_userRoleTypeKey, value);
   }
 
-  Future<void> saveUser(ApiUserInfo user) async {
+  Future<void> saveUser(ApiUserInfo? user) async {
     final savedUser = await getSavedUser();
-    final updatedUser = user.copyWith(image: savedUser?.image);
+    final updatedUser = user?.copyWith(image: savedUser?.image);
     final String userString = jsonEncode(updatedUser);
     return PlayxSecurePrefs.setString(_userKey, userString);
   }

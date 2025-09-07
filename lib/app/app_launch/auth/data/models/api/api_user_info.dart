@@ -7,6 +7,7 @@ class ApiUserInfo {
   final String documentId;
   final String? username;
   final String? email;
+  final String? mobileNumber;
   final String? firstName;
   final String? lastName;
   final MediaItem? image;
@@ -24,6 +25,7 @@ class ApiUserInfo {
     this.lastName,
     this.image,
     this.email,
+    this.mobileNumber,
     this.provider,
     this.createdAt,
     this.updatedAt,
@@ -60,6 +62,7 @@ class ApiUserInfo {
       id: asIntOrNull(map, 'id'),
       username: asStringOrNull(map, 'username'),
       email: asStringOrNull(map, 'email'),
+      mobileNumber: asStringOrNull(map, 'mobileNumber'),
       firstName: asStringOrNull(json, 'firstName'),
       lastName: asStringOrNull(json, 'lastName'),
       image: (json['image'] == null
@@ -79,6 +82,7 @@ class ApiUserInfo {
     map['documentId'] = documentId;
     map['username'] = username;
     map['email'] = email;
+    map['mobileNumber'] = mobileNumber;
     map['firstName'] = firstName;
     map['lastName'] = lastName;
     map['image'] = image?.toJson();
@@ -92,7 +96,7 @@ class ApiUserInfo {
 
   @override
   String toString() {
-    return 'User{ id: $id, username: $username, email: $email, firstName: $firstName, lastName: $lastName, '
+    return 'User{ id: $id, username: $username, email: $email, mobileNumber: $mobileNumber, firstName: $firstName, lastName: $lastName, '
         'imageUrl: ${image?.url}, provider: $provider, createdAt: $createdAt, updatedAt: $updatedAt, confirmed: $confirmed, blocked: $blocked,}';
   }
 
@@ -101,6 +105,7 @@ class ApiUserInfo {
     String? documentId,
     String? username,
     String? email,
+    String? mobileNumber,
     String? firstName,
     String? lastName,
     MediaItem? image,
@@ -115,6 +120,7 @@ class ApiUserInfo {
       documentId: documentId ?? this.documentId,
       username: username ?? this.username,
       email: email ?? this.email,
+      mobileNumber: mobileNumber ?? this.mobileNumber,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       image: image ?? this.image,

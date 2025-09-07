@@ -79,7 +79,7 @@ class RegisterController extends GetxController {
       currentLoginMethod.value = null;
       final result = await authRepository.loginViaAuth0(method: method);
       result.when(
-        success: (User user) async {
+        success: (User user) {
           _navigateToHome();
         },
         error: (NetworkException exception) {
@@ -102,7 +102,7 @@ class RegisterController extends GetxController {
       password: passwordController.text,
     );
     result.when(
-      success: (User user) async {
+      success: (User user) {
         _navigateToHome();
       },
       error: (NetworkException exception) {

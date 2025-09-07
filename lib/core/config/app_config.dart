@@ -9,6 +9,9 @@ import 'package:flutter_boilerplate/app/legal_document/data/datasource/legal_con
     show LegalContentDatasource, RemoteLegalContentDatasource;
 import 'package:flutter_boilerplate/app/legal_document/data/repository/legal_content_repository.dart'
     show LegalContentRepository;
+import 'package:flutter_boilerplate/app/profile_update/data/datasource/profile_datasource.dart';
+import 'package:flutter_boilerplate/app/profile_update/data/datasource/profile_local_datasource.dart';
+import 'package:flutter_boilerplate/app/profile_update/data/repository/profile_repository.dart';
 
 import 'package:flutter_boilerplate/app/wishlist/data/datasource/db/local_wishlist_data_source.dart';
 import 'package:flutter_boilerplate/app/wishlist/data/repository/wishlist_repository.dart';
@@ -68,11 +71,15 @@ class AppConfig extends PlayXAppConfig {
     );
     getIt.registerSingleton<LegalContentRepository>(legalContentRepository);
 
-// For mock testing, use MockProfileDatasource
-    // final datasource = MockProfileDatasource();
-    // final datasource = RemoteProfileDatasource(client: apiClient);
-    // final repository = ProfileRepository(datasource: datasource);
-    // getIt.registerSingleton<ProfileRepository>(repository);
+
+    final datasource = ProfileDataSource(client: apiClient);
+    final datasourceLocal = ProfileLocalDataSource();
+    final repository = ProfileRepository(
+      remoteDataSource: datasource,
+      localDataSource: datasourceLocal,
+      preferenceManger: MyPreferenceManger.instance,
+    );
+    getIt.registerSingleton<ProfileRepository>(repository);
 
     final DashboardDatasource dashboardDatasource = DashboardDatasource();
     final dashboardRepository = DashboardRepository(

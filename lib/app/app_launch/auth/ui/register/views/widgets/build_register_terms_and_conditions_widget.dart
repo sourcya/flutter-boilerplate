@@ -27,7 +27,10 @@ class BuildRegisterTermsAndConditionsWidget extends StatelessWidget {
                 fontSize: 12.sp,
                 fontFamily: fontFamily(context: context),
               ),
-              recognizer: TapGestureRecognizer()..onTap = () {},
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  PlayxNavigation.toNamed(Routes.termsConditions);
+                },
             ),
             TextSpan(
               text: AppTrans.andText.tr(context: context),
@@ -44,7 +47,10 @@ class BuildRegisterTermsAndConditionsWidget extends StatelessWidget {
                 fontSize: 12.sp,
                 fontFamily: fontFamily(context: context),
               ),
-              recognizer: TapGestureRecognizer()..onTap = () {},
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  PlayxNavigation.toNamed(Routes.privacyPolicy);
+                },
             ),
           ],
         ),

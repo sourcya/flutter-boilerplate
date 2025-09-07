@@ -71,11 +71,11 @@ class AppPages {
             builder: (ctx, state) => const SettingsView(),
             binding: SettingsBinding(),
             routes: [
-              /* PlayxRoute(
+              PlayxRoute(
                 path: Paths.updateprofile,
                 name: Routes.updateprofile,
-                binding: UpdateProfileBinding(),
-                builder: (ctx, state) => const UpdateProfileView(),
+                binding: EditProfileBinding(),
+                builder: (ctx, state) => const EditProfileView(),
                 transition: PlayxPageTransition.material,
                 // builder: (ctx, state) => CustomTransitionPage(
                 //   key: state.pageKey,
@@ -92,7 +92,7 @@ class AppPages {
                 //   },
                 //   child: const UpdateProfileView(),
                 // ),
-              ) */
+              )
             ],
           ),
         ],

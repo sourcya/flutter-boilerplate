@@ -8,9 +8,7 @@ import 'package:playx/playx.dart';
 /// This is the repository where we should handle the data and return it to the controller.
 class AuthRepository {
   final RemoteAuthDataSource remoteAuthDataSource;
-
   final Auth0AuthDataSource auth0DataSource;
-
   final MyPreferenceManger preferenceManger;
 
   AuthRepository({
