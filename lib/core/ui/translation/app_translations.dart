@@ -194,6 +194,7 @@ abstract class AppTrans {
   static const phoneNumberCopiedToClipboard = 'phoneNumberCopiedToClipboard';
   static const contactUsVia = 'contactUsVia';
   static const cancel = 'cancel';
+  static const reset = 'reset';
   static const all = 'all';
   static const daysText = 'daysText';
   static const hourText = 'hourText';
@@ -206,9 +207,58 @@ abstract class AppTrans {
   static const termsConditions = "termsConditions";
   static const viewTermsConditions = "viewTermsConditions";
 
-  static const versionText="versionText";
-  static const lastUpdatedText="lastUpdatedText";
-  static const copyText="copyText";
-  static const shareText="shareText";
+  static const versionText = "versionText";
+  static const lastUpdatedText = "lastUpdatedText";
+  static const copyText = "copyText";
+  static const shareText = "shareText";
 
+  static const bio = "bio";
+  static const bioHint = "bioHint";
+  static const saveChanges = "saveChanges";
+
+  static const uploading = "Uploading...";
+  static const updatingProfile = "Updating profile...";
+
+static const preferences = 'preferences';
+static const pushNotifications = 'pushNotifications';
+static const pushNotificationsDescription = 'pushNotificationsDescription';
+static const emailNotifications = 'emailNotifications';
+static const emailNotificationsDescription = 'emailNotificationsDescription';
+static const securityPrivacy = 'securityPrivacy';
+static const biometricLogin = 'biometricLogin';
+static const biometricLoginDescription = 'biometricLoginDescription';
+static const twoFactorAuth = 'twoFactorAuth';
+static const twoFactorAuthDescription = 'twoFactorAuthDescription';
+static const loginHistory = 'loginHistory';
+static const loginHistoryDescription = 'loginHistoryDescription';
+static const dataStorage = 'dataStorage';
+static const autoBackup = 'autoBackup';
+static const autoBackupDescription = 'autoBackupDescription';
+static const dataSync = 'dataSync';
+static const dataSyncDescription = 'dataSyncDescription';
+static const storageUsage = 'storageUsage';
+static const storageUsageDescription = 'storageUsageDescription';
+static const exportData = 'exportData';
+static const exportDataDescription = 'exportDataDescription';
+static const legalSupport = 'legalSupport';
+static const helpCenter = 'helpCenter';
+static const helpCenterDescription = 'helpCenterDescription';
+static const contactUs = 'contactUs';
+static const contactUsDescription = 'contactUsDescription';
+static const actions = 'actions';
+static const resetSettings = 'Reset Settings';
+static const resetSettingsDescription = 'resetSettingsDescription';
+static const resetConfirmTitle = 'resetConfirmTitle';
+static const resetConfirmMessage = 'resetConfirmMessage';
+static const resetConfirmWarning = 'resetConfirmWarning';
+static const editProfile = 'editProfile';
+static const share = 'share';
+static const memberSince = 'memberSince';
+static const status = 'status';
+static const active = 'active';
+static const online = 'online';
+static const general = 'general';
+static const privacy = 'privacy';
+static const backup = 'backup';
+static const security = 'security';
 }

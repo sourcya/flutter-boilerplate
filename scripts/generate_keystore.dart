@@ -1,17 +1,19 @@
-import 'dart:io';
-import 'dart:math';
+import 'dart:io' show File, Process;
+import 'dart:math' show Random;
+
+import 'package:flutter/foundation.dart' show kDebugMode;
 
 void main() async {
   final String password = generateSecurePassword();
   const String keyName = "sourcya_key";
 
-  print("Generated Password: $password");
+  if (kDebugMode) print("Generated Password: $password");
 
   // Ensure no existing keystore conflicts
   final keystoreFile = File("keystore.jks");
   if (keystoreFile.existsSync()) {
     keystoreFile.deleteSync();
-    print("Old keystore deleted.");
+    if (kDebugMode) print("Old keystore deleted.");
   }
 
   final result = await Process.run(
@@ -33,13 +35,15 @@ void main() async {
     runInShell: true,
   );
 
-  if (result.exitCode == 0) {
-    print("✅ Keystore generated successfully! at ${keystoreFile.path}");
-    print("🔑 Key Alias: $keyName");
-    print("🔑 Key Password: $password");
-    print("🔐 Store Password: $password");
-  } else {
-    print("❌ Error generating keystore: ${result.stderr}");
+  if (kDebugMode) {
+    if (result.exitCode == 0) {
+      print("✅ Keystore generated successfully! at ${keystoreFile.path}");
+      print("🔑 Key Alias: $keyName");
+      print("🔑 Key Password: $password");
+      print("🔐 Store Password: $password");
+    } else {
+      print("❌ Error generating keystore: ${result.stderr}");
+    }
   }
 }
 

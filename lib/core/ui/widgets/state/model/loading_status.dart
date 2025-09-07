@@ -36,6 +36,11 @@ sealed class LoadingStatus {
   }
 
   String toShortString();
+  bool get isLoading => this is LoadingStatusLoading;
+  bool get isIdle => this is LoadingStatusIdle;
+  bool get isLogin => this is LoadingStatusLogin;
+  bool get isRegister => this is LoadingStatusRegister;
+  bool get isLogout => this is LoadingStatusLogout;
 }
 
 class LoadingStatusLoading extends LoadingStatus {

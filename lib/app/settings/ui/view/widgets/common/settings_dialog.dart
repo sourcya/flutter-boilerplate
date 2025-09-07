@@ -28,13 +28,11 @@ class BuildSettingsDialog<T> extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.all(12.0.r),
-            child: Text(
+            child: CustomText(
               title,
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w500,
-                color: context.colors.onSurface,
-              ),
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+              color: context.colors.onSurface,
             ),
           ),
           Column(
@@ -88,12 +86,10 @@ class BuildSettingsDialog<T> extends StatelessWidget {
                             horizontal: 4.w,
                             vertical: 4.h,
                           ),
-                          child: Text(
+                          child: CustomText(
                             itemName(item),
-                            style: TextStyle(
-                              // color: context.colors.onSurface,
-                              fontSize: 14.sp,
-                            ),
+                            // color: context.colors.onSurface,
+                            fontSize: 14.sp,
                           ),
                         ),
                       );

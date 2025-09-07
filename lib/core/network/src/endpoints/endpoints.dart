@@ -13,7 +13,10 @@ abstract class Endpoints {
   static const profile = '/users/me';
   static const updateUser = '/users/edit-profile';
 
-  static const privacyPolicy= '/legal/privacy-policy';
-
+  static const privacyPolicy = '/legal/privacy-policy';
   static const termsConditions = '/legal/terms-conditions';
+
+  static const settings = '/settings';
+  static const syncSettings = '/settings/sync';
+  static const resetSettings = '/settings/reset';
 }

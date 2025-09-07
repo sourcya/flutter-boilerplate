@@ -70,6 +70,30 @@ class AppPages {
             name: Routes.settings,
             builder: (ctx, state) => const SettingsView(),
             binding: SettingsBinding(),
+            routes: [
+              /* PlayxRoute(
+                path: Paths.updateprofile,
+                name: Routes.updateprofile,
+                binding: UpdateProfileBinding(),
+                builder: (ctx, state) => const UpdateProfileView(),
+                transition: PlayxPageTransition.material,
+                // builder: (ctx, state) => CustomTransitionPage(
+                //   key: state.pageKey,
+                //   transitionsBuilder: (c, a1, a2, child) {
+                //     return SlideTransition(
+                //       position: a1.drive(
+                //         Tween<Offset>(
+                //           begin: const Offset(1.0, 0.0),
+                //           end: Offset.zero,
+                //         ).chain(CurveTween(curve: Curves.easeInOut)),
+                //       ),
+                //       child: child,
+                //     );
+                //   },
+                //   child: const UpdateProfileView(),
+                // ),
+              ) */
+            ],
           ),
         ],
       ),

@@ -30,7 +30,7 @@ class MyPreferenceManger {
     await PlayxSecurePrefs.setString(_loginMethodKey, method.value);
   }
 
-  Future<String?> get token async => PlayxSecurePrefs.maybeGetString(_tokenKey);
+  Future<String?> get token => PlayxSecurePrefs.maybeGetString(_tokenKey);
 
   Future<void> saveToken(String jwt) async {
     await PlayxSecurePrefs.setString(_tokenKey, jwt);
@@ -41,7 +41,7 @@ class MyPreferenceManger {
     return role == null ? null : UserRoleType.fromString(role);
   }
 
-  Future<void> saveUserRoleType(UserRoleType? role) async {
+  Future<void> saveUserRoleType(UserRoleType? role) {
     final value = role?.value;
     if (value == null) {
       return PlayxSecurePrefs.remove(_userRoleTypeKey);
@@ -76,14 +76,17 @@ class MyPreferenceManger {
   }
 
   Future<void> signOut() async {
-    await PlayxSecurePrefs.remove(_userKey);
-    return PlayxSecurePrefs.remove(_tokenKey);
+    await Future.value([
+      PlayxSecurePrefs.remove(_userKey),
+      PlayxSecurePrefs.remove(_userRoleTypeKey),
+      PlayxSecurePrefs.remove(_tokenKey),
+    ]);
   }
 
   Future<bool> get isOnBoardingShown async =>
       PlayxPrefs.getBool(_onBoardingKey);
 
-  Future<void> saveOnBoardingShown() async {
+  Future<void> saveOnBoardingShown() {
     return PlayxPrefs.setBool(_onBoardingKey, true);
   }
 }

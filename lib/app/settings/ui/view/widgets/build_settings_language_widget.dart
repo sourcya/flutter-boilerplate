@@ -8,7 +8,7 @@ class BuildSettingsLanguageWidget extends GetView<SettingsController> {
     return Obx(() {
       return BuildSettingsTile(
         title: AppTrans.language,
-        subtitle: controller.currentLocale.value?.name ?? '',
+        subtitle: controller.selectedLanguage.value.name,
         icon: Icons.language,
         onTap: () {
           controller.showSettingsModalPageSheet(
@@ -30,7 +30,7 @@ class BuildSettingsLanguageWidget extends GetView<SettingsController> {
       items: controller.supportedLocales,
       onItemSelected: (lang) => controller.handleLanguageSelection(lang),
       itemName: (lang) => lang.name,
-      isItemSelected: (lang) => controller.currentLocale.value == lang,
+      isItemSelected: (lang) => controller.selectedLanguage.value == lang,
       onBackButtonPressed: isOnlyPage
           ? null
           : () {

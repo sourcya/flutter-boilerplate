@@ -17,13 +17,13 @@ class BuildSettingsTermsWidget extends GetView<SettingsController> {
         //     _buildTermsModalPage(context),
         //   );
         // } else {
-        //   PlayxNavigation.toNamed(TermsConditionsView.route);
+        //   PlayxNavigation.toNamed(Routes.termsConditions);
         // }
           PlayxNavigation.toNamed(Routes.termsConditions);
       },
-    ).animate()
+    )/* .animate()
       .fadeIn(duration: 500.ms, delay: 300.ms)
-      .slideX(begin: -0.1, end: 0, duration: 500.ms);
+      .slideX(begin: -0.1, end: 0, duration: 500.ms) */;
   }
 
   static SliverWoltModalSheetPage _buildTermsModalPage(BuildContext context) {

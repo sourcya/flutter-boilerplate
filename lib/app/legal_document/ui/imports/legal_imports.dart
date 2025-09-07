@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_boilerplate/app/app_launch/app/ui/imports/app_imports.dart';
-import 'package:flutter_boilerplate/app/legal_document/data/datasource/legal_content_datasource.dart';
 import 'package:flutter_boilerplate/app/legal_document/data/model/legal_document.dart';
 import 'package:flutter_boilerplate/app/legal_document/data/repository/legal_content_repository.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart' hide Style;

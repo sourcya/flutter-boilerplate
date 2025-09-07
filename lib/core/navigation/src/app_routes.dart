@@ -14,7 +14,7 @@ abstract class Routes {
   static const wishlistDetails = 'wishlistDetails';
   static const privacyPolicy = 'privacyPolicy';
   static const termsConditions = 'termsConditions';
-
+  static const updateprofile ='update-profile'; 
 }
 
 /// app routes paths.
@@ -30,4 +30,5 @@ abstract class Paths {
   static const wishlistDetails = 'details';
   static const privacyPolicy = '/privacy-policy';
   static const termsConditions = '/terms-conditions';
+  static const updateprofile ='/update-profile';
 }
