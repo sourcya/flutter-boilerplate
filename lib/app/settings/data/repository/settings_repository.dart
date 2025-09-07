@@ -1,12 +1,12 @@
 import 'dart:convert';
+
 import 'package:flutter_boilerplate/app/settings/data/datasource/settings_datasource.dart';
 import 'package:flutter_boilerplate/app/settings/data/model/settings_model.dart';
 import 'package:flutter_boilerplate/core/preferences/preference_manger.dart'
     show MyPreferenceManger;
-import 'package:local_auth/local_auth.dart' show LocalAuthentication;
-import 'package:playx/playx.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:playx/playx.dart';
 
 abstract class SettingsRepository {
   Future<Settings> getSettings();
