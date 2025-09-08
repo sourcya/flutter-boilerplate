@@ -3,8 +3,11 @@ part of '../imports/legal_imports.dart';
 class TermsConditionsBinding extends PlayxBinding {
   @override
   Future<void> onEnter(BuildContext context, GoRouterState state) async {
-    final repository = LegalContentRepository.instance;
-    Get.put(TermsConditionsController(repository));
+    Get.put<TermsConditionsController>(
+      TermsConditionsController(
+        getIt.get<ILegalContentRepository>(instanceName: "live"),
+      ),
+    );
   }
 
   @override

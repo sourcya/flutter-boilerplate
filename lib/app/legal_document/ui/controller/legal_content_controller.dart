@@ -1,12 +1,8 @@
 part of '../imports/legal_imports.dart';
 
 abstract class LegalContentController extends GetxController {
-  final LegalContentRepository repository;
-
-  final Rx<LegalDocument?> document = Rx(null);
-  final loadingStatus = Rx(const LoadingStatus.idle());
-  final RxBool hasError = false.obs;
-  final RxString errorMessage = ''.obs;
+  final ILegalContentRepository repository;
+  final Rx<DataState<LegalDocument>> document = Rx(const DataState.initial());
   final RxDouble scrollProgress = 0.0.obs;
   final RxBool hasAccepted = false.obs;
   final RxList<String> expandedSections = <String>[].obs;
@@ -57,8 +53,9 @@ abstract class LegalContentController extends GetxController {
   }
 
   Future<void> copyToClipboard(BuildContext context) async {
-    if (document.value != null) {
-      await Clipboard.setData(ClipboardData(text: document.value!.content));
+    if (document.value.data != null) {
+      await Clipboard.setData(
+          ClipboardData(text: document.value.data!.content));
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -72,7 +69,7 @@ abstract class LegalContentController extends GetxController {
   }
 
   Future<void> shareContent() async {
-    if (document.value != null) {
+    if (document.value.data != null) {
       // Share.share(document.value!.content);
     }
   }

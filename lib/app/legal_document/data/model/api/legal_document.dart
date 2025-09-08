@@ -1,10 +1,7 @@
+import 'package:flutter_boilerplate/app/legal_document/data/model/mapper/legal_document_mapper.dart';
 import 'package:playx/playx.dart' show Equatable;
 
-enum ContentType { html, markdown, plainText }
-
-enum LegalDocumentType { privacyPolicy, termsConditions }
-
-class LegalDocument extends Equatable {
+class ApiLegalDocument extends Equatable {
   final String id;
   final String title;
   final String content;
@@ -12,9 +9,9 @@ class LegalDocument extends Equatable {
   final LegalDocumentType type;
   final DateTime lastUpdated;
   final String version;
-  final List<LegalSection> sections;
+  final List<ApiLegalSection> sections;
 
-  const LegalDocument({
+  const ApiLegalDocument({
     required this.id,
     required this.title,
     required this.content,
@@ -25,9 +22,9 @@ class LegalDocument extends Equatable {
     this.sections = const [],
   });
 
-  factory LegalDocument.fromJson(dynamic json) {
+  factory ApiLegalDocument.fromJson(dynamic json) {
     final map = json as Map<String, dynamic>;
-    return LegalDocument(
+    return ApiLegalDocument(
       id: map['id'] as String,
       title: map['title'] as String,
       content: map['content'] as String,
@@ -41,7 +38,7 @@ class LegalDocument extends Equatable {
       lastUpdated: DateTime.parse(map['lastUpdated'] as String),
       version: map['version'] as String,
       sections: (map['sections'] as List<dynamic>?)
-              ?.map((e) => LegalSection.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => ApiLegalSection.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
     );
@@ -65,14 +62,14 @@ class LegalDocument extends Equatable {
       [id, title, content, contentType, type, lastUpdated, version, sections];
 }
 
-class LegalSection extends Equatable {
+class ApiLegalSection extends Equatable {
   final String id;
   final String title;
   final String content;
   final int order;
-  final List<LegalSection> subSections;
+  final List<ApiLegalSection> subSections;
 
-  const LegalSection({
+  const ApiLegalSection({
     required this.id,
     required this.title,
     required this.content,
@@ -80,14 +77,14 @@ class LegalSection extends Equatable {
     this.subSections = const [],
   });
 
-  factory LegalSection.fromJson(Map<String, dynamic> json) {
-    return LegalSection(
+  factory ApiLegalSection.fromJson(Map<String, dynamic> json) {
+    return ApiLegalSection(
       id: json['id'] as String,
       title: json['title'] as String,
       content: json['content'] as String,
       order: json['order'] as int,
       subSections: (json['subSections'] as List<dynamic>?)
-              ?.map((e) => LegalSection.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => ApiLegalSection.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
     );

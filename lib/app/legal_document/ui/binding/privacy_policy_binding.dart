@@ -3,8 +3,10 @@ part of '../imports/legal_imports.dart';
 class PrivacyPolicyBinding extends PlayxBinding {
   @override
   Future<void> onEnter(BuildContext context, GoRouterState state) async {
-    final repository = LegalContentRepository.instance;
-    Get.put(PrivacyPolicyController(repository));
+    Get.put<PrivacyPolicyController>(
+      PrivacyPolicyController(
+          getIt.get<ILegalContentRepository>(instanceName: "test")),
+    );
   }
 
   @override

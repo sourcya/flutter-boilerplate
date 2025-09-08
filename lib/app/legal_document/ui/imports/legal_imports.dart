@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_boilerplate/app/legal_document/data/model/legal_document.dart';
+import 'package:flutter_boilerplate/app/legal_document/data/model/mapper/legal_document_mapper.dart';
+import 'package:flutter_boilerplate/app/legal_document/data/model/ui/legal_document.dart';
 import 'package:flutter_boilerplate/app/legal_document/data/repository/legal_content_repository.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart' hide Style;
 import 'package:flutter_boilerplate/core/utils/app_utils.dart';

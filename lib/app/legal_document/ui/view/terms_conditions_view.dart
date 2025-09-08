@@ -1,13 +1,8 @@
 part of '../imports/legal_imports.dart';
 
 class TermsConditionsView extends GetView<TermsConditionsController> {
-  static const String route = '/terms-conditions';
   final bool isModal;
-
-  const TermsConditionsView({
-    super.key,
-    this.isModal = false,
-  });
+  const TermsConditionsView({super.key, this.isModal = false});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +15,6 @@ class TermsConditionsView extends GetView<TermsConditionsController> {
         title: AppTrans.termsConditions,
         backgroundColor: context.colors.surface,
         actions: _buildActions(context),
-        // bottomNavigationBar: _buildAcceptButton(context),
         child: _buildContent(context),
       ),
     );
@@ -50,197 +44,170 @@ class TermsConditionsView extends GetView<TermsConditionsController> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return Obx(() {
-      if (controller.hasError.value) {
-        return _buildErrorState(context);
-      }
-
-      return Stack(
+    return RxDataStateWidget(
+      rxData: controller.document,
+      onError: (e) => _buildErrorState(context, e),
+      onSuccess: (data) => Stack(
         children: [
           CustomScrollView(
             controller: controller.scrollController,
             physics: const BouncingScrollPhysics(),
             slivers: [
-              SliverToBoxAdapter(
-                child: _buildHeader(context),
-              ),
-              if (controller.document.value != null) ...[
-                SliverPadding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  sliver: SliverToBoxAdapter(
-                    child: ContentRenderer(
-                      content: controller.document.value!.content,
-                      contentType: controller.document.value!.contentType,
-                    ),
+              SliverToBoxAdapter(child: _buildHeader(context, data)),
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                sliver: SliverToBoxAdapter(
+                  child: ContentRenderer(
+                    content: data.content,
+                    contentType: data.contentType,
                   ),
                 ),
-                if (controller.document.value!.sections.isNotEmpty)
-                  _buildSections(context),
-              ],
-              SliverToBoxAdapter(
-                child: SizedBox(height: 120.h),
               ),
+              if (data.sections.isNotEmpty)
+                _buildSections(context, data.sections),
+              SliverToBoxAdapter(child: SizedBox(height: 120.h)),
             ],
           ),
-          _buildScrollProgress(context),
-          Obx(() {
-            return LoadingOverlay(
-              loadingStatus: controller.loadingStatus.value,
-            );
-          }),
+          Obx(
+            () =>
+                _buildScrollProgress(context, controller.scrollProgress.value),
+          )
         ],
-      );
-    });
+      ),
+    );
   }
 
   Widget _buildModalContent(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Obx(() {
-        if (controller.hasError.value) {
-          return _buildErrorState(context);
-        }
-
-        return Column(
+      child: RxDataStateWidget(
+        rxData: controller.document,
+        onError: (e) => _buildErrorState(context, e),
+        onSuccess: (data) => Column(
           children: [
-            _buildHeader(context),
-            if (controller.document.value != null) ...[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: ContentRenderer(
-                  content: controller.document.value!.content,
-                  contentType: controller.document.value!.contentType,
-                ),
+            _buildHeader(context, data),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: ContentRenderer(
+                content: data.content,
+                contentType: data.contentType,
               ),
-            ],
+            ),
             SizedBox(height: 16.h),
             _buildAcceptButton(context),
           ],
-        );
-      }),
+        ),
+      ),
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
-    return Obx(() {
-      if (controller.document.value == null) {
-        return const SizedBox.shrink();
-      }
-
-      final doc = controller.document.value!;
-      return Container(
-        padding: EdgeInsets.all(20.r),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.description_outlined,
-                  size: 32.r,
-                  color: context.colors.primary,
-                ).animate().fadeIn(duration: 600.ms).scale(
-                      begin: const Offset(0.5, 0.5),
-                      end: const Offset(1, 1),
-                      duration: 600.ms,
-                      curve: Curves.elasticOut,
-                    ),
-                SizedBox(width: 12.w),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        doc.title,
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.w700,
-                        color: context.colors.primary,
-                      )
-                          .animate()
-                          .fadeIn(duration: 600.ms, delay: 100.ms)
-                          .slideX(begin: -0.2, end: 0, duration: 600.ms),
-                      SizedBox(height: 4.h),
-                      CustomText(
-                        '${AppTrans.versionText} ${doc.version} • ${AppTrans.lastUpdatedText} ${_formatDate(doc.lastUpdated)}',
-                        fontSize: 12.sp,
-                        color: context.colors.onSurface.withValues(alpha: 0.6),
-                      )
-                          .animate()
-                          .fadeIn(duration: 600.ms, delay: 200.ms)
-                          .slideX(begin: -0.2, end: 0, duration: 600.ms),
-                    ],
+  Widget _buildHeader(BuildContext context, LegalDocument doc) {
+    return Container(
+      padding: EdgeInsets.all(20.r),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.description_outlined,
+                size: 32.r,
+                color: context.colors.primary,
+              ).animate().fadeIn(duration: 600.ms).scale(
+                    begin: const Offset(0.5, 0.5),
+                    end: const Offset(1, 1),
+                    duration: 600.ms,
+                    curve: Curves.elasticOut,
                   ),
+              SizedBox(width: 12.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      doc.title,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w700,
+                      color: context.colors.primary,
+                    )
+                        .animate()
+                        .fadeIn(duration: 600.ms, delay: 100.ms)
+                        .slideX(begin: -0.2, end: 0, duration: 600.ms),
+                    SizedBox(height: 4.h),
+                    CustomText(
+                      '${AppTrans.versionText} ${doc.version} • ${AppTrans.lastUpdatedText} ${_formatDate(doc.lastUpdated)}',
+                      fontSize: 12.sp,
+                      color: context.colors.onSurface.withValues(alpha: 0.6),
+                    )
+                        .animate()
+                        .fadeIn(duration: 600.ms, delay: 200.ms)
+                        .slideX(begin: -0.2, end: 0, duration: 600.ms),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSections(BuildContext context, List<LegalSection> sections) {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(vertical: 16.h),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return Obx(() {
+              final section = sections[index];
+              return ExpandableSection(
+                section: section,
+                isExpanded: controller.isSectionExpanded(section.id),
+                onToggle: () => controller.toggleSection(section.id),
+              );
+            });
+          },
+          childCount: sections.length,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildScrollProgress(BuildContext context, double progress) {
+    return Positioned(
+      top: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        height: 3.h,
+        decoration: BoxDecoration(
+          color: context.colors.primary.withValues(alpha: 0.1),
+        ),
+        child: FractionallySizedBox(
+          alignment: Alignment.centerLeft,
+          widthFactor: progress,
+          child: Container(
+            decoration: BoxDecoration(
+              color: context.colors.primary,
+              borderRadius:
+                  BorderRadius.horizontal(right: Radius.circular(3.r)),
+              boxShadow: [
+                BoxShadow(
+                  color: context.colors.primary.withValues(alpha: 0.3),
+                  blurRadius: 8,
+                  offset: const Offset(2, 0),
                 ),
               ],
             ),
-          ],
-        ),
-      );
-    });
-  }
-
-  Widget _buildSections(BuildContext context) {
-    return Obx(() {
-      final sections = controller.document.value?.sections ?? [];
-
-      return SliverPadding(
-        padding: EdgeInsets.symmetric(vertical: 16.h),
-        sliver: SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              final section = sections[index];
-              return Obx(() => ExpandableSection(
-                    section: section,
-                    isExpanded: controller.isSectionExpanded(section.id),
-                    onToggle: () => controller.toggleSection(section.id),
-                  ));
-            },
-            childCount: sections.length,
           ),
         ),
-      );
-    });
+      ),
+    )
+        .animate()
+        .fadeIn(duration: 400.ms)
+        .slideY(begin: -1, end: 0, duration: 400.ms);
   }
 
-  Widget _buildScrollProgress(BuildContext context) {
-    return Obx(() {
-      final progress = controller.scrollProgress.value;
-
-      return Positioned(
-        top: 0,
-        left: 0,
-        right: 0,
-        child: Container(
-          height: 3.h,
-          decoration: BoxDecoration(
-            color: context.colors.primary.withValues(alpha: 0.1),
-          ),
-          child: FractionallySizedBox(
-            alignment: Alignment.centerLeft,
-            widthFactor: progress,
-            child: Container(
-              decoration: BoxDecoration(
-                color: context.colors.primary,
-                borderRadius:
-                    BorderRadius.horizontal(right: Radius.circular(3.r)),
-                boxShadow: [
-                  BoxShadow(
-                    color: context.colors.primary.withValues(alpha: 0.3),
-                    blurRadius: 8,
-                    offset: const Offset(2, 0),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      )
-          .animate()
-          .fadeIn(duration: 400.ms)
-          .slideY(begin: -1, end: 0, duration: 400.ms);
-    });
-  }
-
-  Widget _buildErrorState(BuildContext context) {
+  Widget _buildErrorState(BuildContext context, String error) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -255,7 +222,7 @@ class TermsConditionsView extends GetView<TermsConditionsController> {
               .scale(begin: const Offset(0.5, 0.5), end: const Offset(1, 1)),
           SizedBox(height: 16.h),
           CustomText(
-            controller.errorMessage.value,
+            error,
             fontSize: 16.sp,
             color: context.colors.onSurface,
             textAlign: TextAlign.center,
@@ -281,54 +248,54 @@ class TermsConditionsView extends GetView<TermsConditionsController> {
   }
 
   Widget _buildAcceptButton(BuildContext context) {
-    return Obx(() => AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          padding: EdgeInsets.all(16.r),
-          decoration: BoxDecoration(
-            color: context.colors.surface,
-            border: Border(
-              top: BorderSide(
-                color: context.colors.outline.withValues(alpha: 0.2),
-              ),
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      padding: EdgeInsets.all(16.r),
+      decoration: BoxDecoration(
+        color: context.colors.surface,
+        border: Border(
+          top: BorderSide(
+            color: context.colors.outline.withValues(alpha: 0.2),
+          ),
+        ),
+      ),
+      child: SafeArea(
+        top: false,
+        child: ElevatedButton(
+          onPressed:
+              controller.hasAccepted.value ? null : controller.acceptTerms,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: context.colors.primary,
+            foregroundColor: context.colors.onPrimary,
+            padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 24.w),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.r),
             ),
+            elevation: 2,
           ),
-          child: SafeArea(
-            top: false,
-            child: ElevatedButton(
-              onPressed:
-                  controller.hasAccepted.value ? null : controller.acceptTerms,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: context.colors.primary,
-                foregroundColor: context.colors.onPrimary,
-                padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 24.w),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-                elevation: 2,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (controller.hasAccepted.value)
+                Icon(Icons.check_circle, size: 20.r)
+                    .animate()
+                    .scale(duration: 300.ms),
+              if (controller.hasAccepted.value) SizedBox(width: 8.w),
+              CustomText(
+                controller.hasAccepted.value
+                    ? 'Accepted'
+                    : 'Accept Terms & Conditions',
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w600,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (controller.hasAccepted.value)
-                    Icon(Icons.check_circle, size: 20.r)
-                        .animate()
-                        .scale(duration: 300.ms),
-                  if (controller.hasAccepted.value) SizedBox(width: 8.w),
-                  CustomText(
-                    controller.hasAccepted.value
-                        ? 'Accepted'
-                        : 'Accept Terms & Conditions',
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ],
-              ),
-            )
-                .animate()
-                .fadeIn(duration: 600.ms)
-                .slideY(begin: 0.2, end: 0, duration: 600.ms),
+            ],
           ),
-        ));
+        )
+            .animate()
+            .fadeIn(duration: 600.ms)
+            .slideY(begin: 0.2, end: 0, duration: 600.ms),
+      ),
+    );
   }
 
   String _formatDate(DateTime date) {

@@ -1,40 +1,59 @@
-import 'package:flutter_boilerplate/app/legal_document/data/datasource/legal_content_datasource.dart'
-    show LegalContentDatasource;
-import 'package:flutter_boilerplate/app/legal_document/data/model/legal_document.dart';
+import 'package:flutter_boilerplate/app/legal_document/data/datasource/legal_content_datasource.dart';
+import 'package:flutter_boilerplate/app/legal_document/data/model/mapper/legal_document_mapper.dart';
+import 'package:flutter_boilerplate/app/legal_document/data/model/ui/legal_document.dart';
 import 'package:playx/playx.dart';
 
-class LegalContentRepository {
-  final LegalContentDatasource _datasource;
+abstract class ILegalContentRepository {
+  const ILegalContentRepository();
+  Future<NetworkResult<LegalDocument>> getPrivacyPolicy();
+  Future<NetworkResult<LegalDocument>> getTermsConditions();
+}
 
-  LegalContentRepository({
-    required LegalContentDatasource datasource,
-  }) : _datasource = datasource;
+class LegalContentRepository extends ILegalContentRepository {
+  final LegalContentDatasource _datasource;
+  const LegalContentRepository({required LegalContentDatasource datasource})
+      : _datasource = datasource;
 
   static LegalContentRepository get instance =>
       getIt.get<LegalContentRepository>();
 
+  @override
   Future<NetworkResult<LegalDocument>> getPrivacyPolicy() async {
-    try {
-      final result = await _datasource.getPrivacyPolicy();
-      return result;
-    } catch (e, stackTrace) {
-      Sentry.captureException(e, stackTrace: stackTrace);
-
-      final localContent = _getLocalPrivacyPolicy();
-      return NetworkResult<LegalDocument>.success(localContent);
-    }
+    final result = await _datasource.getPrivacyPolicy();
+    return result.mapDataAsyncInIsolate<LegalDocument>(
+      mapper: (data) =>
+          NetworkResult<LegalDocument>.success(data.toLocalLegalDocument()),
+    );
   }
 
+  @override
   Future<NetworkResult<LegalDocument>> getTermsConditions() async {
-    try {
-      final result = await _datasource.getTermsConditions();
-      return result;
-    } catch (e, stackTrace) {
-      Sentry.captureException(e, stackTrace: stackTrace);
+    final result = await _datasource.getTermsConditions();
+    return result.mapDataAsyncInIsolate<LegalDocument>(
+      mapper: (data) =>
+          NetworkResult<LegalDocument>.success(data.toLocalLegalDocument()),
+    );
+  }
+}
 
-      final localContent = _getLocalTermsConditions();
-      return NetworkResult<LegalDocument>.success(localContent);
-    }
+class TestLegalContentRepository extends ILegalContentRepository {
+  const TestLegalContentRepository();
+
+  static TestLegalContentRepository get instance =>
+      getIt.get<TestLegalContentRepository>();
+
+  @override
+  Future<NetworkResult<LegalDocument>> getPrivacyPolicy() async {
+    final localContent = _getLocalPrivacyPolicy();
+    Future.delayed(const Duration(seconds: 2));
+    return NetworkResult<LegalDocument>.success(localContent);
+  }
+
+  @override
+  Future<NetworkResult<LegalDocument>> getTermsConditions() async {
+    final localContent = _getLocalTermsConditions();
+    Future.delayed(const Duration(seconds: 2));
+    return NetworkResult<LegalDocument>.success(localContent);
   }
 
   LegalDocument _getLocalPrivacyPolicy() {
