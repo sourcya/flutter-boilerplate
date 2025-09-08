@@ -1,13 +1,8 @@
 part of '../imports/legal_imports.dart';
 
 class PrivacyPolicyView extends GetView<PrivacyPolicyController> {
-  static const String route = '/privacy-policy';
   final bool isModal;
-
-  const PrivacyPolicyView({
-    super.key,
-    this.isModal = false,
-  });
+  const PrivacyPolicyView({super.key, this.isModal = false});
 
   @override
   Widget build(BuildContext context) {
@@ -47,195 +42,172 @@ class PrivacyPolicyView extends GetView<PrivacyPolicyController> {
   }
 
   Widget _buildContent(BuildContext context) {
-    return Obx(() {
-      // if (controller.hasError.value) {
-      //   return _buildErrorState(context);
-      // }
-
-      return Stack(
+    return RxDataStateWidget(
+      rxData: controller.document,
+      onError: (e) => _buildErrorState(context, e),
+      onSuccess: (data) => Stack(
         children: [
           CustomScrollView(
             controller: controller.scrollController,
             physics: const BouncingScrollPhysics(),
             slivers: [
-              SliverToBoxAdapter(
-                child: _buildHeader(context),
-              ),
-              if (controller.document.value != null) ...[
+              SliverToBoxAdapter(child: _buildHeader(context, data)),
+              ...[
                 SliverPadding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   sliver: SliverToBoxAdapter(
                     child: ContentRenderer(
-                      content: controller.document.value!.content,
-                      contentType: controller.document.value!.contentType,
+                      content: data.content,
+                      contentType: data.contentType,
                     ),
                   ),
                 ),
-                if (controller.document.value!.sections.isNotEmpty)
-                  _buildSections(context),
+                if (data.sections.isNotEmpty)
+                  _buildSections(context, data.sections),
               ],
-              SliverToBoxAdapter(
-                child: SizedBox(height: 100.h),
-              ),
+              SliverToBoxAdapter(child: SizedBox(height: 100.h)),
             ],
           ),
-          _buildScrollProgress(context),
-          Obx(() {
-            return LoadingOverlay(
-              loadingStatus: controller.loadingStatus.value,
-            );
-          }),
+          Obx(
+            () =>
+                _buildScrollProgress(context, controller.scrollProgress.value),
+          ),
         ],
-      );
-    });
+      ),
+    );
   }
 
   Widget _buildModalContent(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Obx(() {
-        if (controller.hasError.value) {
-          return _buildErrorState(context);
-        }
-
-        return Column(
+      child: RxDataStateWidget(
+        rxData: controller.document,
+        onError: (e) => _buildErrorState(context, e),
+        onSuccess: (data) => Column(
           children: [
-            _buildHeader(context),
-            if (controller.document.value != null) ...[
+            _buildHeader(context, data),
+            ...[
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: ContentRenderer(
-                  content: controller.document.value!.content,
-                  contentType: controller.document.value!.contentType,
+                  content: data.content,
+                  contentType: data.contentType,
                 ),
               ),
             ],
           ],
-        );
-      }),
+        ),
+      ),
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
-    return Obx(() {
-      if (controller.document.value == null) {
-        return const SizedBox.shrink();
-      }
-
-      final doc = controller.document.value!;
-      return Container(
-        padding: EdgeInsets.all(20.r),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.privacy_tip_outlined,
-                  size: 32.r,
-                  color: context.colors.primary,
-                ).animate().fadeIn(duration: 600.ms).scale(
-                      begin: const Offset(0.5, 0.5),
-                      end: const Offset(1, 1),
-                      duration: 600.ms,
-                      curve: Curves.elasticOut,
-                    ),
-                SizedBox(width: 12.w),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        doc.title,
-                        fontSize: 24.sp,
-                        fontWeight: FontWeight.w700,
-                        color: context.colors.primary,
-                      )
-                          .animate()
-                          .fadeIn(duration: 600.ms, delay: 100.ms)
-                          .slideX(begin: -0.2, end: 0, duration: 600.ms),
-                      SizedBox(height: 4.h),
-                      CustomText(
-                        '${AppTrans.versionText} ${doc.version} • ${AppTrans.lastUpdatedText} ${_formatDate(doc.lastUpdated)}',
-                        fontSize: 12.sp,
-                        color: context.colors.onSurface.withValues(alpha: 0.6),
-                      )
-                          .animate()
-                          .fadeIn(duration: 600.ms, delay: 200.ms)
-                          .slideX(begin: -0.2, end: 0, duration: 600.ms),
-                    ],
+  Widget _buildHeader(BuildContext context, LegalDocument doc) {
+    return Container(
+      padding: EdgeInsets.all(20.r),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.privacy_tip_outlined,
+                size: 32.r,
+                color: context.colors.primary,
+              ).animate().fadeIn(duration: 600.ms).scale(
+                    begin: const Offset(0.5, 0.5),
+                    end: const Offset(1, 1),
+                    duration: 600.ms,
+                    curve: Curves.elasticOut,
                   ),
+              SizedBox(width: 12.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      doc.title,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w700,
+                      color: context.colors.primary,
+                    )
+                        .animate()
+                        .fadeIn(duration: 600.ms, delay: 100.ms)
+                        .slideX(begin: -0.2, end: 0, duration: 600.ms),
+                    SizedBox(height: 4.h),
+                    CustomText(
+                      '${AppTrans.versionText} ${doc.version} • ${AppTrans.lastUpdatedText} ${_formatDate(doc.lastUpdated)}',
+                      fontSize: 12.sp,
+                      color: context.colors.onSurface.withValues(alpha: 0.6),
+                    )
+                        .animate()
+                        .fadeIn(duration: 600.ms, delay: 200.ms)
+                        .slideX(begin: -0.2, end: 0, duration: 600.ms),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSections(BuildContext context, List<LegalSection> sections) {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(vertical: 16.h),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return Obx(() {
+              final section = sections[index];
+              return ExpandableSection(
+                section: section,
+                isExpanded: controller.isSectionExpanded(section.id),
+                onToggle: () => controller.toggleSection(section.id),
+              );
+            });
+          },
+          childCount: sections.length,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildScrollProgress(BuildContext context, double progress) {
+    return Positioned(
+      top: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        height: 3.h,
+        decoration: BoxDecoration(
+          color: context.colors.primary.withValues(alpha: 0.1),
+        ),
+        child: FractionallySizedBox(
+          alignment: Alignment.centerLeft,
+          widthFactor: progress,
+          child: Container(
+            decoration: BoxDecoration(
+              color: context.colors.primary,
+              borderRadius:
+                  BorderRadius.horizontal(right: Radius.circular(3.r)),
+              boxShadow: [
+                BoxShadow(
+                  color: context.colors.primary.withValues(alpha: 0.3),
+                  blurRadius: 8,
+                  offset: const Offset(2, 0),
                 ),
               ],
             ),
-          ],
-        ),
-      );
-    });
-  }
-
-  Widget _buildSections(BuildContext context) {
-    return Obx(() {
-      final sections = controller.document.value?.sections ?? [];
-
-      return SliverPadding(
-        padding: EdgeInsets.symmetric(vertical: 16.h),
-        sliver: SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              final section = sections[index];
-              return Obx(() => ExpandableSection(
-                    section: section,
-                    isExpanded: controller.isSectionExpanded(section.id),
-                    onToggle: () => controller.toggleSection(section.id),
-                  ));
-            },
-            childCount: sections.length,
           ),
         ),
-      );
-    });
+      ),
+    )
+        .animate()
+        .fadeIn(duration: 400.ms)
+        .slideY(begin: -1, end: 0, duration: 400.ms);
   }
 
-  Widget _buildScrollProgress(BuildContext context) {
-    return Obx(() {
-      final progress = controller.scrollProgress.value;
-
-      return Positioned(
-        top: 0,
-        left: 0,
-        right: 0,
-        child: Container(
-          height: 3.h,
-          decoration: BoxDecoration(
-            color: context.colors.primary.withValues(alpha: 0.1),
-          ),
-          child: FractionallySizedBox(
-            alignment: Alignment.centerLeft,
-            widthFactor: progress,
-            child: Container(
-              decoration: BoxDecoration(
-                color: context.colors.primary,
-                borderRadius:
-                    BorderRadius.horizontal(right: Radius.circular(3.r)),
-                boxShadow: [
-                  BoxShadow(
-                    color: context.colors.primary.withValues(alpha: 0.3),
-                    blurRadius: 8,
-                    offset: const Offset(2, 0),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      )
-          .animate()
-          .fadeIn(duration: 400.ms)
-          .slideY(begin: -1, end: 0, duration: 400.ms);
-    });
-  }
-
-  Widget _buildErrorState(BuildContext context) {
+  Widget _buildErrorState(BuildContext context, String errorMessage) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -250,7 +222,7 @@ class PrivacyPolicyView extends GetView<PrivacyPolicyController> {
               .scale(begin: const Offset(0.5, 0.5), end: const Offset(1, 1)),
           SizedBox(height: 16.h),
           CustomText(
-            controller.errorMessage.value,
+            errorMessage,
             fontSize: 16.sp,
             color: context.colors.onSurface,
             textAlign: TextAlign.center,

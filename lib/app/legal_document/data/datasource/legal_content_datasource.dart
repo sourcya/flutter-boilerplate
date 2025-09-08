@@ -1,10 +1,10 @@
-import 'package:flutter_boilerplate/app/legal_document/data/model/legal_document.dart';
+import 'package:flutter_boilerplate/app/legal_document/data/model/api/legal_document.dart';
 import 'package:flutter_boilerplate/core/network/network.dart';
 import 'package:playx/playx.dart';
 
 abstract class LegalContentDatasource {
-  Future<NetworkResult<LegalDocument>> getPrivacyPolicy();
-  Future<NetworkResult<LegalDocument>> getTermsConditions();
+  Future<NetworkResult<ApiLegalDocument>> getPrivacyPolicy();
+  Future<NetworkResult<ApiLegalDocument>> getTermsConditions();
 }
 
 class RemoteLegalContentDatasource implements LegalContentDatasource {
@@ -13,20 +13,20 @@ class RemoteLegalContentDatasource implements LegalContentDatasource {
   RemoteLegalContentDatasource({required this.client});
 
   @override
-  Future<NetworkResult<LegalDocument>> getPrivacyPolicy() async {
-    final result = await client.get<LegalDocument>(
+  Future<NetworkResult<ApiLegalDocument>> getPrivacyPolicy() async {
+    final result = await client.get<ApiLegalDocument>(
       Endpoints.privacyPolicy,
-      fromJson: LegalDocument.fromJson,
+      fromJson: ApiLegalDocument.fromJson,
     );
 
     return result;
   }
 
   @override
-  Future<NetworkResult<LegalDocument>> getTermsConditions() async {
-    final result = await client.get<LegalDocument>(
+  Future<NetworkResult<ApiLegalDocument>> getTermsConditions() async {
+    final result = await client.get<ApiLegalDocument>(
       Endpoints.termsConditions,
-      fromJson: LegalDocument.fromJson,
+      fromJson: ApiLegalDocument.fromJson,
     );
 
     return result;

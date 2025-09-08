@@ -5,33 +5,25 @@ class TermsConditionsController extends LegalContentController {
 
   @override
   Future<void> loadContent() async {
-    loadingStatus.value = const LoadingStatus.loading();
-    hasError.value = false;
-    errorMessage.value = "";
-
+    document.value = const DataState.loading();
     try {
-      final result = await repository.getTermsConditions();
+      final result = await repository.getPrivacyPolicy();
       result.when(
-        success: (document) {
-          this.document.value = document;
-          if (document.sections.isNotEmpty) {
-            expandedSections.add(document.sections.first.id);
+        success: (data) {
+          document.value = DataState.success(data);
+          if (data.sections.isNotEmpty) {
+            expandedSections.add(data.sections.first.id);
           }
         },
-        
-        
         error: (exception) {
-          hasError.value = true;
-          errorMessage.value = exception.errorMessage;
+          document.value = DataState.fromNetworkError(exception);
           Alert.error(message: exception.message);
         },
       );
     } catch (e) {
-      hasError.value = true;
-      errorMessage.value = 'Failed to load privacy policy: $e';
-      Alert.error(message: errorMessage.value);
-    } finally {
-      loadingStatus.value = const LoadingStatus.idle();
+      final errorMessage = 'Failed to load privacy policy: $e';
+      document.value = DataState.fromDefaultError(error: errorMessage);
+      Alert.error(message: errorMessage);
     }
   }
 }

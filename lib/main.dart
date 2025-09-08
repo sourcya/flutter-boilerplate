@@ -44,11 +44,11 @@ class MyApp extends StatelessWidget {
               DeviceOrientation.landscapeLeft,
               DeviceOrientation.portraitUp,
             ],
-            navigationSettings: PlayxNavigationSettings.goRouter(
-              goRouter: AppPages.router,
-            ),
-            screenSettings: const PlayxScreenSettings(
+            navigationSettings:
+                PlayxNavigationSettings.goRouter(goRouter: AppPages.router),
+            screenSettings: PlayxScreenSettings(
               fontSizeResolver: FontSizeResolvers.radius,
+              designSize: context.mediaQuery.size,
             ),
             appSettings: PlayxAppSettings(
               title: AppTrans.appName.tr(),

@@ -103,11 +103,7 @@ class ApiHelper {
       );
 
       return res.mapDataAsyncInIsolate(
-        mapper: (data) {
-          return NetworkSuccess(
-            data[0],
-          );
-        },
+        mapper: (data) => NetworkSuccess(data[0]),
       );
     } catch (e) {
       Sentry.captureException(e);
