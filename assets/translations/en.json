@@ -145,5 +145,14 @@
   "verifyPhoneSubtitle": "Enter the 4 digits code sent to your phone number.",
   "verifyPhoneTitle": "Verify your mobile number",
   "verifyPhoneValidOtpError": "Pin is not a valid number",
-  "wishlist": "Wishlist"
+  "wishlist": "Wishlist",
+  "privacyPolicy": "Privacy Policy",
+  "viewPrivacyPolicy": "View Privacy Policy",
+  "termsConditions": "Terms and Conditions",
+  "viewTermsConditions": "View Terms and Conditions",
+  "versionText": "Version",
+  "lastUpdatedText": "Last Updated",
+  "copyText": "Copy",
+  "shareText": "Share"
+
 }

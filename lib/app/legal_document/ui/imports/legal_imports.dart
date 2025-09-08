@@ -1,0 +1,23 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_boilerplate/app/app_launch/app/ui/imports/app_imports.dart';
+import 'package:flutter_boilerplate/app/legal_document/data/datasource/legal_content_datasource.dart';
+import 'package:flutter_boilerplate/app/legal_document/data/model/legal_document.dart';
+import 'package:flutter_boilerplate/app/legal_document/data/repository/legal_content_repository.dart';
+import 'package:flutter_boilerplate/core/ui/ui.dart' hide Style;
+import 'package:flutter_boilerplate/core/utils/app_utils.dart';
+import 'package:flutter_html/flutter_html.dart' ;
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:playx/playx.dart' hide ShimmerEffect;
+import 'package:url_launcher/url_launcher.dart';
+
+part '../binding/privacy_policy_binding.dart';
+part '../binding/terms_conditions_binding.dart';
+part '../controller/legal_content_controller.dart';
+part '../controller/privacy_policy_controller.dart';
+part '../controller/terms_conditions_controller.dart';
+part '../view/privacy_policy_view.dart';
+part '../view/terms_conditions_view.dart';
+part '../view/widgets/common/animated_legal_card.dart';
+part '../view/widgets/common/content_renderer.dart';
+part '../view/widgets/common/expandable_section.dart';

@@ -145,5 +145,13 @@
   "verifyPhoneSubtitle": "أدخل الكود المكون من 4 أرقام الذي تم إرساله إلي هاتفك.",
   "verifyPhoneTitle": "تأكيد رقم الهاتف",
   "verifyPhoneValidOtpError": "الكود ليس رقم صحيح",
-  "wishlist": "قائمة الأمنيات"
+  "wishlist": "قائمة الأمنيات",
+  "privacyPolicy": "سياسة الخصوصية",
+  "viewPrivacyPolicy": "عرض سياسة الخصوصية",
+  "termsConditions": "شروط الاستخدام",
+  "viewTermsConditions": "عرض شروط الاستخدام",
+  "versionText": "الإصدار",
+  "lastUpdatedText": "آخر تحديث",
+  "copyText": "نسخ",
+  "shareText": "مشاركة"
 }

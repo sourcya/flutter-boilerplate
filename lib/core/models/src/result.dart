@@ -97,7 +97,7 @@ sealed class Result<T> {
   /// [exceptionMessage] is the message that will be shown when an exception occurs.
   /// [useWorkManager] is used to determine whether to use work manager for mapping json in isolate or use [compute] function.
   Future<Result<S>> mapDataAsyncInIsolate<S>({
-    required Mapper<T, Result<S>> mapper,
+    required Mapper<T, S> mapper,
     String? exceptionMessage,
     bool useWorkManager = true,
   }) async {
@@ -105,7 +105,7 @@ sealed class Result<T> {
       return mapAsyncInIsolate(
         success: (data) async {
           final res = await mapper(data);
-          return res;
+          return Result.success(res);
         },
         error: (error) {
           return Result.error(error);

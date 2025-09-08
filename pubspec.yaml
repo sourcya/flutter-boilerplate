@@ -14,13 +14,18 @@ dependencies:
   dots_indicator: ^4.0.1
   pinput: ^5.0.1
   flutter_keyboard_visibility: ^6.0.0
-  objectbox: ^4.3.0
+  objectbox: ^4.3.1
   objectbox_flutter_libs: any
   path_provider: ^2.1.5
   path: ^1.9.1
   sentry_dio: ^9.5.0
   auth0_flutter: ^1.12.0
   dropdown_button2: ^2.3.9
+  flutter_markdown: ^0.7.7+1
+  skeletonizer: ^2.1.0+1
+  flutter_html: ^3.0.0
+  flutter_animate: ^4.5.2
+  url_launcher: ^6.3.2
 
 
 
@@ -31,7 +36,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   lint: ^2.8.0
-  objectbox_generator: ^4.3.0
+  objectbox_generator: ^4.3.1
   package_rename: ^1.10.0
   flutter_launcher_icons: ^0.14.4
   flutter_project_name_changer: ^1.0.5

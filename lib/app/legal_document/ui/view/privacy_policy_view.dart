@@ -1,0 +1,267 @@
+part of '../imports/legal_imports.dart';
+
+class PrivacyPolicyView extends GetView<PrivacyPolicyController> {
+  final bool isModal;
+  const PrivacyPolicyView({super.key, this.isModal = false});
+
+  @override
+  Widget build(BuildContext context) {
+    if (isModal) {
+      return _buildModalContent(context);
+    }
+
+    return PlayxThemeSwitchingArea(
+      child: CustomScaffold(
+        title: AppTrans.privacyPolicy,
+        backgroundColor: context.colors.surface,
+        actions: _buildActions(context),
+        child: _buildContent(context),
+      ),
+    );
+  }
+
+  List<Widget> _buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.copy, size: 20.r),
+        onPressed: () => controller.copyToClipboard(context),
+        tooltip: AppTrans.copyText,
+      )
+          .animate()
+          .fadeIn(delay: 400.ms)
+          .scale(begin: const Offset(0.8, 0.8), end: const Offset(1, 1)),
+      IconButton(
+        icon: Icon(Icons.share, size: 20.r),
+        onPressed: controller.shareContent,
+        tooltip: AppTrans.shareText,
+      )
+          .animate()
+          .fadeIn(delay: 500.ms)
+          .scale(begin: const Offset(0.8, 0.8), end: const Offset(1, 1)),
+    ];
+  }
+
+  Widget _buildContent(BuildContext context) {
+    return RxDataStateWidget(
+      rxData: controller.document,
+      onError: (e) => _buildErrorState(context, e),
+      onSuccess: (data) => Stack(
+        children: [
+          CustomScrollView(
+            controller: controller.scrollController,
+            physics: const BouncingScrollPhysics(),
+            slivers: [
+              SliverToBoxAdapter(child: _buildHeader(context, data)),
+              ...[
+                SliverPadding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  sliver: SliverToBoxAdapter(
+                    child: ContentRenderer(
+                      content: data.content,
+                      contentType: data.contentType,
+                    ),
+                  ),
+                ),
+                if (data.sections.isNotEmpty)
+                  _buildSections(context, data.sections),
+              ],
+              SliverToBoxAdapter(child: SizedBox(height: 100.h)),
+            ],
+          ),
+          Obx(
+            () =>
+                _buildScrollProgress(context, controller.scrollProgress.value),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildModalContent(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: RxDataStateWidget(
+        rxData: controller.document,
+        onError: (e) => _buildErrorState(context, e),
+        onSuccess: (data) => Column(
+          children: [
+            _buildHeader(context, data),
+            ...[
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: ContentRenderer(
+                  content: data.content,
+                  contentType: data.contentType,
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context, LegalDocument doc) {
+    return Container(
+      padding: EdgeInsets.all(20.r),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.privacy_tip_outlined,
+                size: 32.r,
+                color: context.colors.primary,
+              ).animate().fadeIn(duration: 600.ms).scale(
+                    begin: const Offset(0.5, 0.5),
+                    end: const Offset(1, 1),
+                    duration: 600.ms,
+                    curve: Curves.elasticOut,
+                  ),
+              SizedBox(width: 12.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      doc.title,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w700,
+                      color: context.colors.primary,
+                    )
+                        .animate()
+                        .fadeIn(duration: 600.ms, delay: 100.ms)
+                        .slideX(begin: -0.2, end: 0, duration: 600.ms),
+                    SizedBox(height: 4.h),
+                    CustomText(
+                      '${AppTrans.versionText} ${doc.version} • ${AppTrans.lastUpdatedText} ${_formatDate(doc.lastUpdated)}',
+                      fontSize: 12.sp,
+                      color: context.colors.onSurface.withValues(alpha: 0.6),
+                    )
+                        .animate()
+                        .fadeIn(duration: 600.ms, delay: 200.ms)
+                        .slideX(begin: -0.2, end: 0, duration: 600.ms),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSections(BuildContext context, List<LegalSection> sections) {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(vertical: 16.h),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return Obx(() {
+              final section = sections[index];
+              return ExpandableSection(
+                section: section,
+                isExpanded: controller.isSectionExpanded(section.id),
+                onToggle: () => controller.toggleSection(section.id),
+              );
+            });
+          },
+          childCount: sections.length,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildScrollProgress(BuildContext context, double progress) {
+    return Positioned(
+      top: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        height: 3.h,
+        decoration: BoxDecoration(
+          color: context.colors.primary.withValues(alpha: 0.1),
+        ),
+        child: FractionallySizedBox(
+          alignment: Alignment.centerLeft,
+          widthFactor: progress,
+          child: Container(
+            decoration: BoxDecoration(
+              color: context.colors.primary,
+              borderRadius:
+                  BorderRadius.horizontal(right: Radius.circular(3.r)),
+              boxShadow: [
+                BoxShadow(
+                  color: context.colors.primary.withValues(alpha: 0.3),
+                  blurRadius: 8,
+                  offset: const Offset(2, 0),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    )
+        .animate()
+        .fadeIn(duration: 400.ms)
+        .slideY(begin: -1, end: 0, duration: 400.ms);
+  }
+
+  Widget _buildErrorState(BuildContext context, String errorMessage) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.error_outline,
+            size: 64.r,
+            color: context.colors.error,
+          )
+              .animate()
+              .fadeIn(duration: 600.ms)
+              .scale(begin: const Offset(0.5, 0.5), end: const Offset(1, 1)),
+          SizedBox(height: 16.h),
+          CustomText(
+            errorMessage,
+            fontSize: 16.sp,
+            color: context.colors.onSurface,
+            textAlign: TextAlign.center,
+          ).animate().fadeIn(duration: 600.ms, delay: 200.ms),
+          SizedBox(height: 24.h),
+          ElevatedButton.icon(
+            onPressed: controller.loadContent,
+            icon: const Icon(Icons.refresh),
+            label: const CustomText(AppTrans.retryText),
+            style: ElevatedButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24.r),
+              ),
+            ),
+          )
+              .animate()
+              .fadeIn(duration: 600.ms, delay: 400.ms)
+              .slideY(begin: 0.2, end: 0),
+        ],
+      ),
+    );
+  }
+
+  String _formatDate(DateTime date) {
+    final months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
+    return '${months[date.month - 1]} ${date.day}, ${date.year}';
+  }
+}

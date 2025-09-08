@@ -33,9 +33,7 @@ class AuthRepository {
       }
 
       return res.mapDataAsyncInIsolate(
-        mapper: (data) {
-          return NetworkResult<User>.success(data.toUser());
-        },
+        mapper: (data) => NetworkResult<User>.success(data.toUser()),
       );
     } catch (e) {
       Sentry.captureException(e);
@@ -166,9 +164,7 @@ class AuthRepository {
         }
 
         return result.mapDataAsyncInIsolate(
-          mapper: (data) {
-            return NetworkResult.success(data.toUser());
-          },
+          mapper: (data) => NetworkResult<User>.success(data.toUser()),
         );
       }
     } catch (e) {
