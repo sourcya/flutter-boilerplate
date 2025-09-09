@@ -56,7 +56,7 @@ class MyPreferenceManger {
     return PlayxSecurePrefs.setString(_userKey, userString);
   }
 
-  Future<UserInfo?> getSavedUser() async {
+  Future<UserProfile?> getSavedUser() async {
     final String jsonString = await PlayxSecurePrefs.getString(_userKey);
     if (jsonString.isEmpty) {
       return null;

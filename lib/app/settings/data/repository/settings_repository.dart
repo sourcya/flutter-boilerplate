@@ -1,45 +1,39 @@
-import 'dart:convert';
+part of '../../ui/imports/settings_imports.dart';
 
-import 'package:flutter_boilerplate/app/settings/data/datasource/settings_datasource.dart';
-import 'package:flutter_boilerplate/app/settings/data/model/settings_model.dart';
-import 'package:flutter_boilerplate/core/preferences/preference_manger.dart'
-    show MyPreferenceManger;
-import 'package:local_auth/local_auth.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:playx/playx.dart';
+abstract class ISettingsRepository {
+  const ISettingsRepository();
 
-abstract class SettingsRepository {
-  Future<Settings> getSettings();
-  Future<void> saveSettings(Settings settings);
-  Future<void> resetSettings();
-  Future<void> syncSettingsToServer();
+  Future<NetworkResult<Settings>> getSettings();
+  Future<NetworkResult<void>> saveSettings(Settings settings);
+  Future<NetworkResult<void>> resetSettings();
+  Future<NetworkResult<void>> syncSettingsToServer();
 
-  Future<void> enablePushNotifications();
-  Future<void> disablePushNotifications();
-  Future<void> enableEmailNotifications();
-  Future<void> disableEmailNotifications();
+  Future<NetworkResult<void>> enablePushNotifications();
+  Future<NetworkResult<void>> disablePushNotifications();
+  Future<NetworkResult<void>> enableEmailNotifications();
+  Future<NetworkResult<void>> disableEmailNotifications();
 
-  Future<bool> isBiometricAvailable();
-  Future<bool> authenticateWithBiometric();
-  Future<void> setBiometricEnabled(bool enabled);
-  Future<bool> is2FAEnabled();
+  Future<NetworkResult<bool>> isBiometricAvailable();
+  Future<NetworkResult<bool>> authenticateWithBiometric();
+  Future<NetworkResult<void>> setBiometricEnabled(bool enabled);
+  Future<NetworkResult<bool>> is2FAEnabled();
 
-  Future<void> enableAutoBackup();
-  Future<void> disableAutoBackup();
-  Future<void> enableDataSync();
-  Future<void> disableDataSync();
-  Future<StorageInfo> getStorageUsage();
-  Future<void> clearCache();
-  Future<String> exportData();
-  Future<void> importData(String data);
+  Future<NetworkResult<void>> enableAutoBackup();
+  Future<NetworkResult<void>> disableAutoBackup();
+  Future<NetworkResult<void>> enableDataSync();
+  Future<NetworkResult<void>> disableDataSync();
+  Future<NetworkResult<StorageInfo>> getStorageUsage();
+  Future<NetworkResult<void>> clearCache();
+  Future<NetworkResult<String>> exportData();
+  Future<NetworkResult<void>> importData(String data);
 }
 
-class SettingsRepositoryImpl implements SettingsRepository {
+class SettingsRepository extends ISettingsRepository {
   final SettingsDatasource _remoteDatasource;
   final SettingsDatasource _localDatasource;
   final LocalAuthentication _localAuth;
 
-  SettingsRepositoryImpl({
+  SettingsRepository({
     required SettingsDatasource remoteDatasource,
     required SettingsDatasource localDatasource,
     LocalAuthentication? localAuth,
@@ -47,8 +41,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
         _localDatasource = localDatasource,
         _localAuth = localAuth ?? LocalAuthentication();
 
-  static SettingsRepositoryImpl get instance =>
-      getIt.get<SettingsRepositoryImpl>();
+  static SettingsRepository get instance => getIt.get<SettingsRepository>();
 
   Future<String> _currentUserId() async {
     final user = await MyPreferenceManger.instance.getSavedUser();
@@ -56,537 +49,391 @@ class SettingsRepositoryImpl implements SettingsRepository {
   }
 
   @override
-  Future<Settings> getSettings() async {
-    try {
-      final remoteResult =
-          await _remoteDatasource.getUserSettings(await _currentUserId());
-      remoteResult.when(
-        success: (settings) async {
-          await _localDatasource.updateUserSettings(settings);
-        },
-        error: (exception) {
-          /* final localResult =
-              await _localDatasource.getUserSettings(await _currentUserId());
-          localResult.when(
-            success: (settings) {},
-            error: (_) {
-              final settings = Settings(
-                pushNotificationsEnabled: false,
-                emailNotificationsEnabled: false,
-                biometricEnabled: false,
-                autoBackup: false,
-                dataSync: false,
-                lastUpdated: DateTime.now(),
-              );
-            },
-          ); */
-        },
-      );
-      return remoteResult.data!;
-    } catch (e, stackTrace) {
-      Sentry.captureException(e, stackTrace: stackTrace);
-      final settings = Settings(
-        pushNotificationsEnabled: false,
-        emailNotificationsEnabled: false,
-        biometricEnabled: false,
-        autoBackup: false,
-        dataSync: false,
-        lastUpdated: DateTime.now(),
-      );
-      return settings;
-    }
-  }
+  Future<NetworkResult<Settings>> getSettings() async {
+    final userId = await _currentUserId();
+    final remoteResult = await _remoteDatasource.getUserSettings(userId);
 
-  @override
-  Future<void> saveSettings(Settings settings) async {
-    try {
-      await _localDatasource.updateUserSettings(settings);
+    if (remoteResult is NetworkError<Settings>) {
+      final localResult = await _localDatasource.getUserSettings(userId);
+      if (localResult is NetworkError<Settings>) {
+        final defaultSettings = Settings(
+          pushNotificationsEnabled: false,
+          emailNotificationsEnabled: false,
+          biometricEnabled: false,
+          autoBackup: false,
+          dataSync: false,
+          lastUpdated: DateTime.now(),
+        );
 
-      final result = await _remoteDatasource.updateUserSettings(settings);
-
-      result.when(
-        success: (updatedSettings) async {
-          await _localDatasource.updateUserSettings(updatedSettings);
-        },
-        error: (exception) {
-          Sentry.captureException(exception);
-        },
-      );
-    } catch (e, stackTrace) {
-      Sentry.captureException(e, stackTrace: stackTrace);
-      throw Exception('Failed to save settings: $e');
-    }
-  }
-
-  @override
-  Future<void> resetSettings() async {
-    try {
-      final result =
-          await _remoteDatasource.resetSettings(await _currentUserId());
-
-      result.when(
-        success: (settings) async {
-          await _localDatasource.resetSettings(await _currentUserId());
-        },
-        error: (exception) async {
-          await _localDatasource.resetSettings(await _currentUserId());
-        },
-      );
-    } catch (e, stackTrace) {
-      Sentry.captureException(e, stackTrace: stackTrace);
-      throw Exception('Failed to reset settings: $e');
-    }
-  }
-
-  @override
-  Future<void> syncSettingsToServer() async {
-    try {
-      final localResult =
-          await _localDatasource.getUserSettings(await _currentUserId());
-
-      localResult.when(
-        success: (settings) async {
-          final syncResult = await _remoteDatasource.syncSettings(settings);
-          syncResult.when(
-            success: (success) {
-              if (!success) {
-                throw Exception('Sync returned false');
-              }
-            },
-            error: (exception) => throw exception,
-          );
-        },
-        error: (exception) => throw exception,
-      );
-    } catch (e, stackTrace) {
-      Sentry.captureException(e, stackTrace: stackTrace);
-      throw Exception('Failed to sync settings: $e');
-    }
-  }
-
-  @override
-  Future<void> enablePushNotifications() async {
-    try {
-      // Request permission
-      final status = await Permission.notification.request();
-      if (!status.isGranted) {
-        throw Exception('Notification permission denied');
+        return NetworkResult<Settings>.success(defaultSettings);
       }
 
-      final settings = await getSettings();
-      final updatedSettings = settings.copyWith(
-        pushNotificationsEnabled: true,
-        notificationSettings: settings.notificationSettings?.copyWith(
-              pushEnabled: true,
-            ) ??
-            const NotificationSettings(
-              pushEnabled: true,
-              emailEnabled: false,
-              smsEnabled: false,
-              enabledCategories: [],
-              quietHours: TimeRange(
-                startHour: 22,
-                startMinute: 0,
-                endHour: 8,
-                endMinute: 0,
-              ),
-              vibrationEnabled: true,
-              soundPreference: 'default',
-            ),
-      );
-
-      await saveSettings(updatedSettings);
-    } catch (e) {
-      throw Exception('Failed to enable push notifications: $e');
+      return localResult;
     }
+
+    return remoteResult;
   }
 
   @override
-  Future<void> disablePushNotifications() async {
-    try {
-      final settings = await getSettings();
-      final updatedSettings = settings.copyWith(
-        pushNotificationsEnabled: false,
-        notificationSettings: settings.notificationSettings?.copyWith(
-          pushEnabled: false,
-        ),
-      );
+  Future<NetworkResult<void>> saveSettings(Settings settings) async {
+    final localResult = await _localDatasource.updateUserSettings(settings);
 
-      await saveSettings(updatedSettings);
-    } catch (e) {
-      throw Exception('Failed to disable push notifications: $e');
-    }
+    return localResult.mapDataAsyncInIsolate<void>(
+      mapper: (_) async {
+        final remoteResult =
+            await _remoteDatasource.updateUserSettings(settings);
+        return remoteResult.mapDataAsyncInIsolate<void>(
+          mapper: (_) => const NetworkResult<void>.success(null),
+        );
+      },
+    );
   }
 
   @override
-  Future<void> enableEmailNotifications() async {
-    try {
-      final settings = await getSettings();
-      final updatedSettings = settings.copyWith(
-        emailNotificationsEnabled: true,
-        notificationSettings: settings.notificationSettings?.copyWith(
-              emailEnabled: true,
-            ) ??
-            const NotificationSettings(
-              pushEnabled: false,
-              emailEnabled: true,
-              smsEnabled: false,
-              enabledCategories: [],
-              quietHours: TimeRange(
-                startHour: 22,
-                startMinute: 0,
-                endHour: 8,
-                endMinute: 0,
-              ),
-              vibrationEnabled: true,
-              soundPreference: 'default',
-            ),
-      );
+  Future<NetworkResult<void>> resetSettings() async {
+    final result =
+        await _remoteDatasource.resetSettings(await _currentUserId());
 
-      await saveSettings(updatedSettings);
-    } catch (e) {
-      throw Exception('Failed to enable email notifications: $e');
-    }
+    return result.mapDataAsyncInIsolate<void>(
+      mapper: (_) async {
+        await _localDatasource.resetSettings(await _currentUserId());
+        return const NetworkResult<void>.success(null);
+      },
+    );
   }
 
   @override
-  Future<void> disableEmailNotifications() async {
-    try {
-      final settings = await getSettings();
-      final updatedSettings = settings.copyWith(
-        emailNotificationsEnabled: false,
-        notificationSettings: settings.notificationSettings?.copyWith(
-          emailEnabled: false,
-        ),
-      );
+  Future<NetworkResult<void>> syncSettingsToServer() async {
+    final localResult =
+        await _localDatasource.getUserSettings(await _currentUserId());
 
-      await saveSettings(updatedSettings);
-    } catch (e) {
-      throw Exception('Failed to disable email notifications: $e');
+    return localResult.mapDataAsyncInIsolate<void>(
+      mapper: (settings) async {
+        final syncResult = await _remoteDatasource.syncSettings(settings);
+        return syncResult.mapDataAsyncInIsolate<void>(
+          mapper: (_) => const NetworkResult<void>.success(null),
+        );
+      },
+    );
+  }
+
+  @override
+  Future<NetworkResult<void>> enablePushNotifications() async {
+    final status = await Permission.notification.request();
+    if (!status.isGranted) {
+      return const NetworkError(
+        ApiException(errorMessage: 'Notification permission denied'),
+      );
     }
+
+    final settingsResult = await getSettings();
+    return settingsResult.mapDataAsyncInIsolate<void>(
+      mapper: (settings) {
+        final updatedSettings = settings.copyWith(
+          pushNotificationsEnabled: true,
+          notificationSettings:
+              settings.notificationSettings?.copyWith(pushEnabled: true) ??
+                  const NotificationSettings(
+                    pushEnabled: true,
+                    emailEnabled: false,
+                    smsEnabled: false,
+                    enabledCategories: [],
+                    quietHours: TimeRange(
+                      startHour: 22,
+                      startMinute: 0,
+                      endHour: 8,
+                      endMinute: 0,
+                    ),
+                    vibrationEnabled: true,
+                    soundPreference: 'default',
+                  ),
+        );
+
+        return saveSettings(updatedSettings);
+      },
+    );
+  }
+
+  @override
+  Future<NetworkResult<void>> disablePushNotifications() async {
+    final settingsResult = await getSettings();
+    return settingsResult.mapDataAsyncInIsolate<void>(
+      mapper: (settings) {
+        final updatedSettings = settings.copyWith(
+          pushNotificationsEnabled: false,
+          notificationSettings: settings.notificationSettings?.copyWith(
+            pushEnabled: false,
+          ),
+        );
+
+        return saveSettings(updatedSettings);
+      },
+    );
+  }
+
+  @override
+  Future<NetworkResult<void>> enableEmailNotifications() async {
+    final settingsResult = await getSettings();
+    return settingsResult.mapDataAsyncInIsolate<void>(
+      mapper: (settings) {
+        final updatedSettings = settings.copyWith(
+          emailNotificationsEnabled: true,
+          notificationSettings:
+              settings.notificationSettings?.copyWith(emailEnabled: true) ??
+                  const NotificationSettings(
+                    pushEnabled: false,
+                    emailEnabled: true,
+                    smsEnabled: false,
+                    enabledCategories: [],
+                    quietHours: TimeRange(
+                      startHour: 22,
+                      startMinute: 0,
+                      endHour: 8,
+                      endMinute: 0,
+                    ),
+                    vibrationEnabled: true,
+                    soundPreference: 'default',
+                  ),
+        );
+
+        return saveSettings(updatedSettings);
+      },
+    );
+  }
+
+  @override
+  Future<NetworkResult<void>> disableEmailNotifications() async {
+    final settingsResult = await getSettings();
+    return settingsResult.mapDataAsyncInIsolate<void>(
+      mapper: (settings) {
+        final updatedSettings = settings.copyWith(
+          emailNotificationsEnabled: false,
+          notificationSettings:
+              settings.notificationSettings?.copyWith(emailEnabled: false),
+        );
+
+        return saveSettings(updatedSettings);
+      },
+    );
   }
 
   // Security Methods
   @override
-  Future<bool> isBiometricAvailable() async {
+  Future<NetworkResult<bool>> isBiometricAvailable() async {
     try {
       final isAvailable = await _localAuth.canCheckBiometrics;
-      if (!isAvailable) return false;
+      if (!isAvailable) return const NetworkResult.success(false);
 
       final availableBiometrics = await _localAuth.getAvailableBiometrics();
-      return availableBiometrics.isNotEmpty;
+      return NetworkResult.success(availableBiometrics.isNotEmpty);
     } catch (e) {
-      return false;
-    }
-  }
-
-  @override
-  Future<bool> authenticateWithBiometric() async {
-    try {
-      final isAvailable = await isBiometricAvailable();
-      if (!isAvailable) return false;
-
-      final didAuthenticate = await _localAuth.authenticate(
-        localizedReason: 'Please authenticate to enable biometric login',
-        options: const AuthenticationOptions(
-          biometricOnly: true,
-          stickyAuth: true,
-        ),
+      return NetworkResult.error(
+        ApiException(errorMessage: "Failed to check biometrics $e"),
       );
-
-      return didAuthenticate;
-    } catch (e) {
-      return false;
     }
   }
 
   @override
-  Future<void> setBiometricEnabled(bool enabled) async {
+  Future<NetworkResult<bool>> authenticateWithBiometric() async {
     try {
-      final settings = await getSettings();
-      final updatedSettings = settings.copyWith(
-        biometricEnabled: enabled,
-        securitySettings: settings.securitySettings?.copyWith(
-              biometricEnabled: enabled,
-            ) ??
-            SecuritySettings(
-              biometricEnabled: enabled,
-              twoFactorEnabled: false,
-              sessionTimeout: 3600, // 1 hour
-              autoLockEnabled: false,
-              trustedDevices: [],
-              loginNotificationsEnabled: true,
+      final isAvailableResult = await isBiometricAvailable();
+
+      return isAvailableResult.mapDataAsyncInIsolate<bool>(
+        mapper: (isAvailable) async {
+          if (!isAvailable) return const NetworkResult.success(false);
+
+          final didAuthenticate = await _localAuth.authenticate(
+            localizedReason: 'Please authenticate to enable biometric login',
+            options: const AuthenticationOptions(
+              biometricOnly: true,
+              stickyAuth: true,
             ),
-      );
+          );
 
-      await saveSettings(updatedSettings);
+          return NetworkResult.success(didAuthenticate);
+        },
+      );
     } catch (e) {
-      throw Exception('Failed to update biometric settings: $e');
+      return NetworkResult.error(
+        ApiException(errorMessage: "Failed to authenticate with biometric $e"),
+      );
     }
   }
 
   @override
-  Future<bool> is2FAEnabled() async {
-    try {
-      final settings = await getSettings();
-      return settings.securitySettings?.twoFactorEnabled ?? false;
-    } catch (e) {
-      return false;
-    }
+  Future<NetworkResult<void>> setBiometricEnabled(bool enabled) async {
+    final settingsResult = await getSettings();
+    return settingsResult.mapDataAsyncInIsolate<void>(
+      mapper: (settings) {
+        final updatedSettings = settings.copyWith(
+          biometricEnabled: enabled,
+          securitySettings:
+              settings.securitySettings?.copyWith(biometricEnabled: enabled) ??
+                  SecuritySettings(
+                    biometricEnabled: enabled,
+                    twoFactorEnabled: false,
+                    sessionTimeout: 3600,
+                    autoLockEnabled: false,
+                    trustedDevices: [],
+                    loginNotificationsEnabled: true,
+                  ),
+        );
+
+        return saveSettings(updatedSettings);
+      },
+    );
+  }
+
+  @override
+  Future<NetworkResult<bool>> is2FAEnabled() async {
+    final settingsResult = await getSettings();
+    return settingsResult.mapDataAsyncInIsolate<bool>(
+      mapper: (settings) => NetworkResult.success(
+          settings.securitySettings?.twoFactorEnabled ?? false),
+    );
   }
 
   // Data Management Methods
   @override
-  Future<void> enableAutoBackup() async {
-    try {
-      final settings = await getSettings();
-      final updatedSettings = settings.copyWith(
-        autoBackup: true,
-        dataSettings: settings.dataSettings?.copyWith(
-              autoBackupEnabled: true,
-            ) ??
-            const DataSettings(
-              autoBackupEnabled: true,
-              dataSyncEnabled: false,
-              backupFrequency: 'daily',
-              syncedDataTypes: ['photos', 'documents'],
-              maxStorageSize: 1073741824, // 1GB
-              compressionEnabled: true,
-              cloudProvider: 'default',
-            ),
-      );
+  Future<NetworkResult<void>> enableAutoBackup() async {
+    final settingsResult = await getSettings();
+    return settingsResult.mapDataAsyncInIsolate<void>(
+      mapper: (settings) {
+        final updatedSettings = settings.copyWith(
+          autoBackup: true,
+          dataSettings:
+              settings.dataSettings?.copyWith(autoBackupEnabled: true) ??
+                  const DataSettings(
+                    autoBackupEnabled: true,
+                    dataSyncEnabled: false,
+                    backupFrequency: 'daily',
+                    syncedDataTypes: ['photos', 'documents'],
+                    maxStorageSize: 1073741824,
+                    compressionEnabled: true,
+                    cloudProvider: 'default',
+                  ),
+        );
 
-      await saveSettings(updatedSettings);
-    } catch (e) {
-      throw Exception('Failed to enable auto backup: $e');
-    }
+        return saveSettings(updatedSettings);
+      },
+    );
   }
 
   @override
-  Future<void> disableAutoBackup() async {
-    try {
-      final settings = await getSettings();
-      final updatedSettings = settings.copyWith(
-        autoBackup: false,
-        dataSettings: settings.dataSettings?.copyWith(
-          autoBackupEnabled: false,
-        ),
-      );
+  Future<NetworkResult<void>> disableAutoBackup() async {
+    final settingsResult = await getSettings();
+    return settingsResult.mapDataAsyncInIsolate<void>(
+      mapper: (settings) {
+        final updatedSettings = settings.copyWith(
+          autoBackup: false,
+          dataSettings: settings.dataSettings?.copyWith(
+            autoBackupEnabled: false,
+          ),
+        );
 
-      await saveSettings(updatedSettings);
-    } catch (e) {
-      throw Exception('Failed to disable auto backup: $e');
-    }
+        return saveSettings(updatedSettings);
+      },
+    );
   }
 
   @override
-  Future<void> enableDataSync() async {
-    try {
-      final settings = await getSettings();
-      final updatedSettings = settings.copyWith(
-        dataSync: true,
-        dataSettings: settings.dataSettings?.copyWith(
-              dataSyncEnabled: true,
-            ) ??
-            const DataSettings(
-              autoBackupEnabled: false,
-              dataSyncEnabled: true,
-              backupFrequency: 'daily',
-              syncedDataTypes: ['settings', 'preferences'],
-              maxStorageSize: 1073741824, // 1GB
-              compressionEnabled: true,
-              cloudProvider: 'default',
-            ),
-      );
+  Future<NetworkResult<void>> enableDataSync() async {
+    final settingsResult = await getSettings();
+    return settingsResult.mapDataAsyncInIsolate<void>(
+      mapper: (settings) {
+        final updatedSettings = settings.copyWith(
+          dataSync: true,
+          dataSettings: settings.dataSettings?.copyWith(
+                dataSyncEnabled: true,
+              ) ??
+              const DataSettings(
+                autoBackupEnabled: false,
+                dataSyncEnabled: true,
+                backupFrequency: 'daily',
+                syncedDataTypes: ['settings', 'preferences'],
+                maxStorageSize: 1073741824,
+                compressionEnabled: true,
+                cloudProvider: 'default',
+              ),
+        );
 
-      await saveSettings(updatedSettings);
-    } catch (e) {
-      throw Exception('Failed to enable data sync: $e');
-    }
+        return saveSettings(updatedSettings);
+      },
+    );
   }
 
   @override
-  Future<void> disableDataSync() async {
-    try {
-      final settings = await getSettings();
-      final updatedSettings = settings.copyWith(
-        dataSync: false,
-        dataSettings: settings.dataSettings?.copyWith(
-          dataSyncEnabled: false,
-        ),
-      );
+  Future<NetworkResult<void>> disableDataSync() async {
+    final settingsResult = await getSettings();
+    return settingsResult.mapDataAsyncInIsolate<void>(
+      mapper: (settings) {
+        final updatedSettings = settings.copyWith(
+          dataSync: false,
+          dataSettings: settings.dataSettings?.copyWith(dataSyncEnabled: false),
+        );
 
-      await saveSettings(updatedSettings);
-    } catch (e) {
-      throw Exception('Failed to disable data sync: $e');
-    }
+        return saveSettings(updatedSettings);
+      },
+    );
   }
 
   @override
-  Future<StorageInfo> getStorageUsage() async {
+  Future<NetworkResult<StorageInfo>> getStorageUsage() async {
     try {
       // In a real app, you'd calculate actual storage usage
-      // For now, return mock data
-      return const StorageInfo(
-        photos: 512000000, // 512MB
-        videos: 256000000, // 256MB
-        documents: 64000000, // 64MB
-        cache: 32000000, // 32MB
-        total: 864000000, // 864MB
+      return const NetworkResult.success(StorageInfo(
+        photos: 512000000,
+        videos: 256000000,
+        documents: 64000000,
+        cache: 32000000,
+        total: 864000000,
+      ));
+    } catch (e) {
+      return NetworkResult.error(
+        ApiException(errorMessage: "Failed to get storage usage $e"),
       );
-    } catch (e) {
-      throw Exception('Failed to get storage usage: $e');
     }
   }
 
   @override
-  Future<void> clearCache() async {
+  Future<NetworkResult<void>> clearCache() async {
     try {
-      // Clear application cache
-      // This would involve clearing temporary files, image cache, etc.
-
-      // Clear Playx cache if available
       await PlayxPrefs.clear();
-
-      // You can add more cache clearing logic here
+      return const NetworkResult.success(null);
     } catch (e) {
-      throw Exception('Failed to clear cache: $e');
+      return NetworkResult.error(
+        ApiException(errorMessage: "Failed to clear cache $e"),
+      );
     }
   }
 
   @override
-  Future<String> exportData() async {
-    try {
-      final settings = await getSettings();
+  Future<NetworkResult<String>> exportData() async {
+    final settingsResult = await getSettings();
+    return settingsResult.mapDataAsyncInIsolate<String>(
+      mapper: (settings) {
+        final exportData = {
+          'settings': settings.toJson(),
+          'exportedAt': DateTime.now().toIso8601String(),
+          'version': '1.0',
+        };
 
-      // Create export data structure
-      final exportData = {
-        'settings': settings.toJson(),
-        'exportedAt': DateTime.now().toIso8601String(),
-        'version': '1.0',
-      };
-
-      return json.encode(exportData);
-    } catch (e) {
-      throw Exception('Failed to export data: $e');
-    }
+        return NetworkResult.success(json.encode(exportData));
+      },
+    );
   }
 
   @override
-  Future<void> importData(String data) async {
+  Future<NetworkResult<void>> importData(String data) async {
     try {
       final importData = json.decode(data) as Map<String, dynamic>;
       final settingsData = importData['settings'] as Map<String, dynamic>;
 
       final settings = Settings.fromJson(settingsData);
-      await saveSettings(settings);
-    } catch (e) {
-      throw Exception('Failed to import data: $e');
-    }
-  }
-
-  // Convenience methods for specific setting updates
-  Future<NetworkResult<Settings>> toggleNotifications(
-      String userId, bool enabled) async {
-    try {
-      final settings = await getSettings();
-      final updatedSettings = settings.copyWith(
-          pushNotificationsEnabled: enabled,
-          notificationSettings:
-              settings.notificationSettings?.copyWith(pushEnabled: enabled));
-      await saveSettings(updatedSettings);
-      return NetworkResult.success(updatedSettings);
+      return saveSettings(settings);
     } catch (e) {
       return NetworkResult.error(
-        UnexpectedErrorException(errorMessage: e.toString()),
-      );
-    }
-  }
-
-  Future<NetworkResult<Settings>> toggleBiometric(
-      String userId, bool enabled) async {
-    try {
-      await setBiometricEnabled(enabled);
-      final settings = await getSettings();
-      return NetworkResult.success(settings);
-    } catch (e) {
-      return NetworkResult.error(
-        UnexpectedErrorException(errorMessage: e.toString()),
-      );
-    }
-  }
-
-  Future<NetworkResult<Settings>> updateLanguage(
-      String userId, String languageCode) async {
-    try {
-      final settings = await getSettings();
-      final updatedSettings = settings.copyWith(languageCode: languageCode);
-      await saveSettings(updatedSettings);
-      return NetworkResult.success(updatedSettings);
-    } catch (e) {
-      return NetworkResult.error(
-        UnexpectedErrorException(errorMessage: e.toString()),
-      );
-    }
-  }
-
-  Future<NetworkResult<Settings>> updateTheme(
-      String userId, String themeId) async {
-    try {
-      final settings = await getSettings();
-      final updatedSettings = settings.copyWith(themeId: themeId);
-      await saveSettings(updatedSettings);
-      return NetworkResult.success(updatedSettings);
-    } catch (e) {
-      return NetworkResult.error(
-        UnexpectedErrorException(errorMessage: e.toString()),
-      );
-    }
-  }
-
-  // Network-based methods (maintain compatibility with existing code)
-  Future<NetworkResult<Settings>> getUserSettings(String userId) async {
-    try {
-      final settings = await getSettings();
-      return NetworkResult.success(settings);
-    } catch (e) {
-      return NetworkResult.error(
-        UnexpectedErrorException(errorMessage: e.toString()),
-      );
-    }
-  }
-
-  Future<NetworkResult<Settings>> updateUserSettings(Settings settings) async {
-    try {
-      await saveSettings(settings);
-      return NetworkResult.success(settings);
-    } catch (e) {
-      return NetworkResult.error(
-        UnexpectedErrorException(errorMessage: e.toString()),
-      );
-    }
-  }
-
-  Future<NetworkResult<bool>> syncSettings(Settings settings) async {
-    try {
-      await saveSettings(settings);
-      await syncSettingsToServer();
-      return const NetworkResult.success(true);
-    } catch (e) {
-      return NetworkResult.error(
-        UnexpectedErrorException(errorMessage: e.toString()),
-      );
-    }
-  }
-
-  Future<NetworkResult<Settings>> resetSettingsNetwork(String userId) async {
-    try {
-      await resetSettings();
-      final settings = await getSettings();
-      return NetworkResult.success(settings);
-    } catch (e) {
-      return NetworkResult.error(
-        UnexpectedErrorException(errorMessage: e.toString()),
+        ApiException(errorMessage: "Failed to import data $e"),
       );
     }
   }

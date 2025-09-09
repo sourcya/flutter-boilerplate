@@ -9,29 +9,7 @@ class BuildSettingsTermsWidget extends GetView<SettingsController> {
       title: AppTrans.termsConditions,
       subtitle: AppTrans.viewTermsConditions,
       icon: Icons.description_outlined,
-      onTap: () {
-        // if (controller.currentPage.value == SettingsPage.settings.index) {
-        //   // Navigate to Terms & Conditions
-        //   controller.showSettingsModalPageSheet(
-        //     context,
-        //     _buildTermsModalPage(context),
-        //   );
-        // } else {
-        //   PlayxNavigation.toNamed(Routes.termsConditions);
-        // }
-          PlayxNavigation.toNamed(Routes.termsConditions);
-      },
-    )/* .animate()
-      .fadeIn(duration: 500.ms, delay: 300.ms)
-      .slideX(begin: -0.1, end: 0, duration: 500.ms) */;
-  }
-
-  static SliverWoltModalSheetPage _buildTermsModalPage(BuildContext context) {
-    return CustomModal.buildCustomModalPage(
-      title: AppTrans.termsConditions,
-      body: const TermsConditionsView(isModal: true),
-      onClosePressed: () => PlayxNavigation.pop(),
-      context: context,
+      onTap: () => PlayxNavigation.toNamed(Routes.termsConditions),
     );
   }
 }

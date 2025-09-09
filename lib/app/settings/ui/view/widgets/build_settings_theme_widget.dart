@@ -29,7 +29,7 @@ class BuildSettingsThemeWidget extends GetView<SettingsController> {
       title: AppTrans.theme,
       items: PlayxTheme.supportedThemes,
       onItemSelected: (theme) =>
-          controller.handleThemeSelection(theme, context: context),
+          controller.changeTheme(theme, context: context),
       itemName: (theme) => theme.name.tr(context: context),
       isItemSelected: (theme) => controller.currentTheme.value.id == theme.id,
       onCloseButtonPressed: controller.closeSettingsModalSheet,

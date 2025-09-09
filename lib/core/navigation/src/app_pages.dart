@@ -73,7 +73,7 @@ class AppPages {
             routes: [
               PlayxRoute(
                 path: Paths.updateprofile,
-                name: Routes.updateprofile,
+                name: Routes.updateProfile,
                 binding: EditProfileBinding(),
                 builder: (ctx, state) => const EditProfileView(),
                 transition: PlayxPageTransition.material,

@@ -28,7 +28,7 @@ class BuildSettingsLanguageWidget extends GetView<SettingsController> {
     return BuildSettingsPage.buildModalPage(
       title: AppTrans.language,
       items: controller.supportedLocales,
-      onItemSelected: (lang) => controller.handleLanguageSelection(lang),
+      onItemSelected: (lang) => controller.changeLanguage(lang),
       itemName: (lang) => lang.name,
       isItemSelected: (lang) => controller.selectedLanguage.value == lang,
       onBackButtonPressed: isOnlyPage

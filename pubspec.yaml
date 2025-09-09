@@ -28,6 +28,7 @@ dependencies:
   playx: ^1.5.0
   playx_version_update: ^1.0.0
   sentry_dio: ^9.5.0
+  share_plus: ^11.1.0
   skeletonizer: ^2.1.0+1
   url_launcher: ^6.3.2
 

@@ -5,95 +5,144 @@ class SettingsView extends GetView<SettingsController> {
 
   @override
   Widget build(BuildContext context) {
-    return PlayxThemeSwitchingArea(
-      child: CustomScaffold(
-        title: AppTrans.settings,
-        leading: AppBarLeadingType.drawerOrRail,
-        backgroundColor: context.colors.surface,
-        child: _buildResponsiveLayout(context),
+    return Semantics(
+      label: 'Settings Screen',
+      child: PlayxThemeSwitchingArea(
+        child: Scaffold(
+          backgroundColor: context.colors.surface,
+          body: SafeArea(
+            child: ResponsiveLayoutBuilder(
+              mobileBuilder: _buildMobileLayout,
+              tabletBuilder: _buildTabletLayout,
+              desktopBuilder: _buildDesktopLayout,
+            ),
+          ),
+        ),
       ),
-    );
-  }
-
-  Widget _buildResponsiveLayout(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final isTablet = constraints.maxWidth > 600;
-        final isDesktop = constraints.maxWidth > 1000;
-
-        if (isDesktop) {
-          return _buildDesktopLayout(context);
-        } else if (isTablet) {
-          return _buildTabletLayout(context);
-        } else {
-          return _buildMobileLayout(context);
-        }
-      },
     );
   }
 
   Widget _buildMobileLayout(BuildContext context) {
     return CustomScrollView(
-      physics: const BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(
+        parent: AlwaysScrollableScrollPhysics(),
+      ),
       slivers: [
-        // Hero Profile Header
+        SliverAppBar(
+          expandedHeight: 60.h,
+          floating: true,
+          pinned: true,
+          backgroundColor: context.colors.surface,
+          elevation: 0,
+          title: Semantics(
+            header: true,
+            child: CustomText(
+              'Settings',
+              fontSize: 24.sp,
+              fontWeight: FontWeight.bold,
+            ).animate().fadeIn(duration: 600.ms),
+          ),
+          leading: AppBarLeadingType.drawer.buildWidget(context),
+        ),
         SliverToBoxAdapter(
-          child: Column(
-            children: [
-              SizedBox(height: 8.0.r),
-              const BuildUserProfileHeader()
-                  .animate()
-                  .fadeIn(duration: 800.ms)
-                  .slideY(begin: -0.3, end: 0),
-            ],
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: const AnimatedProfileHeader(),
           ),
         ),
-
-        // Animated Settings Sections
-        _buildAnimatedSectionsList(context),
-
-        // Bottom Padding
-        SliverToBoxAdapter(
-          child: SizedBox(height: 100.h),
+        SliverPadding(
+          padding: EdgeInsets.all(16.r),
+          sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => _buildSection(
+                context,
+                SettingsSection.values[index],
+                index,
+              ),
+              childCount: SettingsSection.values.length,
+            ),
+          ),
         ),
+        SliverToBoxAdapter(child: SizedBox(height: 80.h)),
       ],
     );
   }
 
   Widget _buildTabletLayout(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Left Panel - Profile
         Expanded(
           flex: 2,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(16.r),
-            child: Column(
-              children: [
-                const BuildUserProfileHeader(),
-                SizedBox(height: 20.h),
-                _buildQuickActionsGrid(context),
-              ],
+          child: Container(
+            decoration: BoxDecoration(
+              color: context.colors.surfaceContainer,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(24.r),
+                bottomRight: Radius.circular(24.r),
+              ),
+            ),
+            child: OptimizedScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(20.r),
+                    child: Row(
+                      children: [
+                        Icon(Icons.settings, size: 28.r),
+                        SizedBox(width: 12.w),
+                        CustomText(
+                          'Settings',
+                          fontSize: 22.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ],
+                    ).animate().fadeIn().slideX(begin: -0.2, end: 0),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: const AnimatedProfileHeader(),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.all(16.r),
+                      child: _buildQuickActionsGrid(context),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-
-        // Divider
-        Container(
-          width: 1,
-          color: context.colors.outline.withValues(alpha: 0.2),
-        ),
-
-        // Right Panel - Settings
         Expanded(
           flex: 3,
           child: CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: [
+              SliverAppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                toolbarHeight: 80.h,
+                title: Padding(
+                  padding: EdgeInsets.only(left: 24.w),
+                  child: CustomText(
+                    'Preferences',
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
               SliverPadding(
-                padding: EdgeInsets.all(16.r),
-                sliver: _buildAnimatedSectionsList(context),
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) => _buildSection(
+                      context,
+                      SettingsSection.values[index],
+                      index,
+                    ),
+                    childCount: SettingsSection.values.length,
+                  ),
+                ),
               ),
             ],
           ),
@@ -104,38 +153,127 @@ class SettingsView extends GetView<SettingsController> {
 
   Widget _buildDesktopLayout(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Sidebar
         Container(
-          width: 300.w,
+          width: 280.w,
           decoration: BoxDecoration(
             color: context.colors.surfaceContainer,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20.r),
-              bottomRight: Radius.circular(20.r),
-            ),
+            boxShadow: [
+              BoxShadow(
+                color: context.colors.shadow.withValues(alpha: 0.1),
+                blurRadius: 10,
+                offset: const Offset(2, 0),
+              ),
+            ],
           ),
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(20.r),
-            child: Column(
-              children: [
-                const BuildUserProfileHeader(),
-                SizedBox(height: 24.h),
-                _buildNavigationMenu(context),
-              ],
-            ),
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(24.r),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10.r),
+                      decoration: BoxDecoration(
+                        color: context.colors.primary.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: Icon(
+                        Icons.settings,
+                        size: 24.r,
+                        color: context.colors.primary,
+                      ),
+                    ),
+                    SizedBox(width: 12.w),
+                    CustomText(
+                      'Settings',
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ).animate().fadeIn().slideX(begin: -0.3, end: 0),
+              ),
+              Expanded(
+                child: Obx(
+                  () => ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    itemCount: SettingsSection.values.length,
+                    itemBuilder: (context, index) {
+                      final section = SettingsSection.values[index];
+                      final isSelected =
+                          controller.selectedSectionIndex.value == index;
+
+                      return Semantics(
+                        button: true,
+                        selected: isSelected,
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          margin: EdgeInsets.only(bottom: 8.h),
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? context.colors.primary.withValues(alpha: 0.1)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          child: ListTile(
+                            leading: Icon(
+                              _getSectionIcon(section),
+                              color: isSelected
+                                  ? context.colors.primary
+                                  : context.colors.onSurface
+                                      .withValues(alpha: 0.7),
+                            ),
+                            title: CustomText(
+                              _getSectionTitle(section),
+                              fontSize: 14.sp,
+                              fontWeight: isSelected
+                                  ? FontWeight.w600
+                                  : FontWeight.normal,
+                              color: isSelected
+                                  ? context.colors.primary
+                                  : context.colors.onSurface,
+                            ),
+                            onTap: () {
+                              HapticFeedback.selectionClick();
+                              controller.selectedSectionIndex.value = index;
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.r),
+                            ),
+                          ),
+                        )
+                            .animate(delay: (index * 50).ms)
+                            .fadeIn()
+                            .slideX(begin: -0.2, end: 0),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-
-        // Main Content
         Expanded(
-          child: CustomScrollView(
-            physics: const BouncingScrollPhysics(),
-            slivers: [
-              SliverPadding(
+          child: Column(
+            children: [
+              Container(
                 padding: EdgeInsets.all(24.r),
-                sliver: _buildAnimatedSectionsList(context),
+                child: const AnimatedProfileHeader(),
+              ),
+              Expanded(
+                child: Obx(() {
+                  final selectedSection = SettingsSection
+                      .values[controller.selectedSectionIndex.value];
+
+                  return SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(horizontal: 32.w),
+                    child: _buildSection(
+                      context,
+                      selectedSection,
+                      controller.selectedSectionIndex.value,
+                    ),
+                  );
+                }),
               ),
             ],
           ),
@@ -144,306 +282,205 @@ class SettingsView extends GetView<SettingsController> {
     );
   }
 
-  Widget _buildAnimatedSectionsList(BuildContext context) {
-    return SliverList(
-      delegate: SliverChildListDelegate([
-        _buildSectionWithAnimation(
-          context: context,
-          section: _buildPreferencesSection(),
-          delay: 100,
-        ),
-        _buildSectionWithAnimation(
-          context: context,
-          section: _buildNotificationsSection(),
-          delay: 200,
-        ),
-        _buildSectionWithAnimation(
-          context: context,
-          section: _buildSecuritySection(),
-          delay: 300,
-        ),
-        _buildSectionWithAnimation(
-          context: context,
-          section: _buildDataSection(),
-          delay: 400,
-        ),
-        _buildSectionWithAnimation(
-          context: context,
-          section: _buildLegalSection(),
-          delay: 500,
-        ),
-        _buildSectionWithAnimation(
-          context: context,
-          section: _buildActionsSection(),
-          delay: 600,
-        ),
-      ]),
-    );
-  }
-
-  Widget _buildSectionWithAnimation({
-    required BuildContext context,
-    required Widget section,
-    required int delay,
-  }) {
-    return section
-        .animate()
-        .fadeIn(duration: 600.ms, delay: delay.ms)
-        .slideX(begin: -0.1, end: 0, duration: 600.ms, delay: delay.ms)
-        .then()
-        .shimmer(
-          duration: 1500.ms,
-          color: context.colors.primary.withValues(alpha: 0.1),
-        );
-  }
-
-  Widget _buildPreferencesSection() {
-    return _buildModernSection(
-      title: AppTrans.preferences,
-      icon: Icons.tune_outlined,
-      children: [
-        const BuildSettingsLanguageWidget(),
-        const BuildSettingsThemeWidget(),
-      ],
-    );
-  }
-
-  Widget _buildNotificationsSection() {
-    return _buildModernSection(
-      title: AppTrans.notifications,
-      icon: Icons.notifications_outlined,
-      children: [
-        Obx(() => BuildSettingsTile(
-              title: AppTrans.pushNotifications,
-              subtitle: AppTrans.pushNotificationsDescription,
-              icon: Icons.notifications_active_outlined,
-              isSelected: controller.pushNotificationsEnabled.value,
-              onSelectionChanged: (_) => controller.togglePushNotifications(),
-              onTap: controller.togglePushNotifications,
-              showToggle: true,
-              badgeText:
-                  controller.pushNotificationsEnabled.value ? 'ON' : 'OFF',
-            )),
-        Obx(() => BuildSettingsTile(
-              title: AppTrans.emailNotifications,
-              subtitle: AppTrans.emailNotificationsDescription,
-              icon: Icons.email_outlined,
-              isSelected: controller.emailNotificationsEnabled.value,
-              onSelectionChanged: (_) => controller.toggleEmailNotifications(),
-              onTap: controller.toggleEmailNotifications,
-              showToggle: true,
-              badgeText:
-                  controller.emailNotificationsEnabled.value ? 'ON' : 'OFF',
-            )),
-      ],
-    );
-  }
-
-  Widget _buildSecuritySection() {
-    return _buildModernSection(
-      title: AppTrans.securityPrivacy,
-      icon: Icons.security_outlined,
-      children: [
-        Obx(() => BuildSettingsTile(
-              title: AppTrans.biometricLogin,
-              subtitle: AppTrans.biometricLoginDescription,
-              icon: Icons.fingerprint_outlined,
-              isSelected: controller.biometricEnabled.value,
-              onSelectionChanged: (_) => controller.toggleBiometric(),
-              onTap: controller.toggleBiometric,
-              showToggle: true,
-              badgeText:
-                  controller.biometricEnabled.value ? 'ENABLED' : 'DISABLED',
-            )),
-        BuildSettingsTile(
-          title: AppTrans.twoFactorAuth,
-          subtitle: AppTrans.twoFactorAuthDescription,
-          icon: Icons.security_outlined,
-          onTap: () => controller.navigate2FA(),
-          trailingIcon: Icons.arrow_forward_ios,
-        ),
-        BuildSettingsTile(
-          title: AppTrans.loginHistory,
-          subtitle: AppTrans.loginHistoryDescription,
-          icon: Icons.history_outlined,
-          onTap: () => controller.showLoginHistory(),
-          trailingIcon: Icons.arrow_forward_ios,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildDataSection() {
-    return _buildModernSection(
-      title: AppTrans.dataStorage,
-      icon: Icons.cloud_outlined,
-      children: [
-        Obx(() => BuildSettingsTile(
-              title: AppTrans.autoBackup,
-              subtitle: AppTrans.autoBackupDescription,
-              icon: Icons.backup_outlined,
-              isSelected: controller.autoBackup.value,
-              onSelectionChanged: (_) => controller.toggleAutoBackup(),
-              onTap: controller.toggleAutoBackup,
-              showToggle: true,
-              badgeText: controller.autoBackup.value ? 'ON' : 'OFF',
-            )),
-        Obx(() => BuildSettingsTile(
-              title: AppTrans.dataSync,
-              subtitle: AppTrans.dataSyncDescription,
-              icon: Icons.sync_outlined,
-              isSelected: controller.dataSync.value,
-              onSelectionChanged: (_) => controller.toggleDataSync(),
-              onTap: controller.toggleDataSync,
-              showToggle: true,
-              badgeText: controller.dataSync.value ? 'SYNCING' : 'OFF',
-            )),
-        BuildSettingsTile(
-          title: AppTrans.storageUsage,
-          subtitle: AppTrans.storageUsageDescription,
-          icon: Icons.storage_outlined,
-          onTap: () => controller.showStorageUsage(),
-          trailingIcon: Icons.arrow_forward_ios,
-        ),
-        BuildSettingsTile(
-          title: AppTrans.exportData,
-          subtitle: AppTrans.exportDataDescription,
-          icon: Icons.download_outlined,
-          onTap: () => controller.exportData(),
-          trailingIcon: Icons.arrow_forward_ios,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildLegalSection() {
-    return _buildModernSection(
-      title: AppTrans.legalSupport,
-      icon: Icons.info_outline,
-      children: [
-        const BuildSettingsPrivacyWidget(),
-        const BuildSettingsTermsWidget(),
-        BuildSettingsTile(
-          title: AppTrans.helpCenter,
-          subtitle: AppTrans.helpCenterDescription,
-          icon: Icons.help_outline,
-          onTap: () => controller.openHelpCenter(),
-          trailingIcon: Icons.arrow_forward_ios,
-        ),
-        BuildSettingsTile(
-          title: AppTrans.contactUs,
-          subtitle: AppTrans.contactUsDescription,
-          icon: Icons.contact_support_outlined,
-          onTap: () => controller.contactSupport(),
-          trailingIcon: Icons.arrow_forward_ios,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildActionsSection() {
-    return _buildModernSection(
-      title: AppTrans.actions,
-      icon: Icons.settings_outlined,
-      children: [
-        BuildSettingsTile(
-          title: AppTrans.resetSettings,
-          subtitle: AppTrans.resetSettingsDescription,
-          icon: Icons.restore_outlined,
-          onTap: () => _showResetConfirmation(),
-          isDangerous: true,
-        ),
-        const BuildSettingsLogOutWidget(),
-      ],
-    );
-  }
-
-  Widget _buildModernSection({
-    required String title,
-    required IconData icon,
-    required List<Widget> children,
-  }) {
-    return Builder(
-      builder: (context) => Container(
-        margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-        decoration: BoxDecoration(
-          color: context.colors.surfaceContainer,
-          borderRadius: BorderRadius.circular(16.r),
-          boxShadow: [
-            BoxShadow(
-              color: context.colors.shadow.withValues(alpha: 0.08),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSectionHeader(title, icon, context),
-            ...children.map((child) => Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w),
-                  child: child,
-                )),
-            SizedBox(height: 8.h),
-          ],
-        ),
+  Widget _buildSection(
+      BuildContext context, SettingsSection section, int index) {
+    return AnimatedSettingsCard(
+      title: _getSectionTitle(section),
+      icon: _getSectionIcon(section),
+      delay: index * 100,
+      child: Column(
+        children: _getSectionTiles(context, section),
       ),
     );
   }
 
-  Widget _buildSectionHeader(
-      String title, IconData icon, BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16.r),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(8.r),
-            decoration: BoxDecoration(
-              color: context.colors.primary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(10.r),
-            ),
-            child: Icon(
-              icon,
-              size: 20.r,
-              color: context.colors.primary,
+  List<Widget> _getSectionTiles(BuildContext context, SettingsSection section) {
+    switch (section) {
+      case SettingsSection.preferences:
+        return [
+          Obx(
+            () => InteractiveSettingsTile(
+              title: 'Language',
+              subtitle: controller.selectedLanguage.value.name,
+              icon: Icons.language,
+              onTap: () => _showLanguageDialog(context),
+              semanticLabel: 'Change language',
             ),
           ),
-          SizedBox(width: 12.w),
-          CustomText(
-            title,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w600,
-            color: context.colors.onSurface,
+          Obx(
+            () => InteractiveSettingsTile(
+              title: 'Theme',
+              subtitle: controller.currentTheme.value.name,
+              icon: Icons.dark_mode,
+              onTap: () => _showThemeDialog(context),
+              semanticLabel: 'Change theme',
+            ),
           ),
-        ],
-      ),
-    );
+        ];
+
+      case SettingsSection.notifications:
+        return [
+          Obx(
+            () => InteractiveSettingsTile(
+              title: 'Push Notifications',
+              subtitle: 'Receive push notifications',
+              icon: Icons.notifications_active,
+              showToggle: true,
+              toggleValue: controller.pushNotificationsEnabled.value,
+              onToggleChanged: (_) => controller.togglePushNotifications(),
+              semanticLabel: 'Toggle push notifications',
+            ),
+          ),
+          Obx(
+            () => InteractiveSettingsTile(
+              title: 'Email Notifications',
+              subtitle: 'Receive email updates',
+              icon: Icons.email,
+              showToggle: true,
+              toggleValue: controller.emailNotificationsEnabled.value,
+              onToggleChanged: (_) => controller.toggleEmailNotifications(),
+              semanticLabel: 'Toggle email notifications',
+            ),
+          ),
+        ];
+
+      case SettingsSection.security:
+        return [
+          Obx(
+            () => InteractiveSettingsTile(
+              title: 'Biometric Login',
+              subtitle: 'Use fingerprint or face ID',
+              icon: Icons.fingerprint,
+              showToggle: true,
+              toggleValue: controller.biometricEnabled.value,
+              onToggleChanged: (_) => controller.toggleBiometric(),
+              semanticLabel: 'Toggle biometric login',
+            ),
+          ),
+          const InteractiveSettingsTile(
+            title: 'Two-Factor Authentication',
+            subtitle: 'Add an extra layer of security',
+            icon: Icons.security,
+            trailingIcon: Icons.arrow_forward_ios,
+            semanticLabel: 'Configure two-factor authentication',
+          ),
+          const InteractiveSettingsTile(
+            title: 'Login History',
+            subtitle: 'View recent login activity',
+            icon: Icons.history,
+            trailingIcon: Icons.arrow_forward_ios,
+            semanticLabel: 'View login history',
+          ),
+        ];
+
+      case SettingsSection.dataStorage:
+        return [
+          Obx(
+            () => InteractiveSettingsTile(
+              title: 'Auto Backup',
+              subtitle: 'Automatically backup your data',
+              icon: Icons.backup,
+              showToggle: true,
+              toggleValue: controller.autoBackupEnabled.value,
+              onToggleChanged: (_) => controller.toggleAutoBackup(),
+              semanticLabel: 'Toggle auto backup',
+            ),
+          ),
+          Obx(
+            () => InteractiveSettingsTile(
+              title: 'Data Sync',
+              subtitle: 'Sync data across devices',
+              icon: Icons.sync,
+              showToggle: true,
+              toggleValue: controller.dataSyncEnabled.value,
+              onToggleChanged: (_) => controller.toggleDataSync(),
+              semanticLabel: 'Toggle data sync',
+            ),
+          ),
+          const InteractiveSettingsTile(
+            title: 'Storage Usage',
+            subtitle: 'View storage details',
+            icon: Icons.storage,
+            trailingIcon: Icons.arrow_forward_ios,
+            semanticLabel: 'View storage usage',
+          ),
+        ];
+
+      case SettingsSection.support:
+        return [
+          InteractiveSettingsTile(
+            title: 'Privacy Policy',
+            subtitle: 'View our privacy policy',
+            icon: Icons.privacy_tip,
+            onTap: () => PlayxNavigation.toNamed(Routes.privacyPolicy),
+            trailingIcon: Icons.arrow_forward_ios,
+            semanticLabel: 'View privacy policy',
+          ),
+          InteractiveSettingsTile(
+            title: 'Terms & Conditions',
+            subtitle: 'View terms of service',
+            icon: Icons.description,
+            onTap: () => PlayxNavigation.toNamed(Routes.termsConditions),
+            trailingIcon: Icons.arrow_forward_ios,
+            semanticLabel: 'View terms and conditions',
+          ),
+          const InteractiveSettingsTile(
+            title: 'Help Center',
+            subtitle: 'Get help and support',
+            icon: Icons.help,
+            trailingIcon: Icons.arrow_forward_ios,
+            semanticLabel: 'Open help center',
+          ),
+        ];
+
+      case SettingsSection.account:
+        return [
+          InteractiveSettingsTile(
+            title: 'Reset Settings',
+            subtitle: 'Reset all settings to default',
+            icon: Icons.restore,
+            onTap: () => controller.resetSettings(context),
+            isDangerous: true,
+            semanticLabel: 'Reset all settings',
+          ),
+          InteractiveSettingsTile(
+            title: 'Logout',
+            subtitle: 'Sign out of your account',
+            icon: Icons.logout,
+            onTap: () => controller.logout(context),
+            isDangerous: true,
+            semanticLabel: 'Logout from account',
+          ),
+        ];
+    }
   }
 
   Widget _buildQuickActionsGrid(BuildContext context) {
-    final actions = [
-      {
-        'title': AppTrans.backup,
-        'icon': Icons.backup_outlined,
-        'color': Colors.blue
-      },
-      {
-        'title': AppTrans.security,
-        'icon': Icons.security_outlined,
-        'color': Colors.green
-      },
-      {
-        'title': AppTrans.privacy,
-        'icon': Icons.privacy_tip_outlined,
-        'color': Colors.orange
-      },
-      {
-        'title': AppTrans.helpCenter,
-        'icon': Icons.help_outline,
-        'color': Colors.purple
-      },
+    final actions = <QuickActions>[
+      QuickActions(
+        title: 'Backup',
+        icon: Icons.backup,
+        color: Colors.blue,
+        tap: () {},
+      ),
+      QuickActions(
+        title: 'Security',
+        icon: Icons.security,
+        color: Colors.green,
+        tap: () {},
+      ),
+      QuickActions(
+        title: 'Privacy',
+        icon: Icons.privacy_tip,
+        color: Colors.orange,
+        tap: () => PlayxNavigation.toNamed(Routes.privacyPolicy),
+      ),
+      QuickActions(
+        title: 'Help',
+        icon: Icons.help,
+        color: Colors.purple,
+        tap: () {},
+      ),
     ];
 
     return GridView.builder(
@@ -453,157 +490,239 @@ class SettingsView extends GetView<SettingsController> {
         crossAxisCount: 2,
         crossAxisSpacing: 12.w,
         mainAxisSpacing: 12.h,
-        childAspectRatio: 1.2,
+        childAspectRatio: 1.3,
       ),
       itemCount: actions.length,
       itemBuilder: (context, index) {
         final action = actions[index];
-        return Container(
-          decoration: BoxDecoration(
-            color: (action['color']! as Color).withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(
-              color: (action['color']! as Color).withValues(alpha: 0.2),
-            ),
-          ),
+        return Semantics(
+          button: true,
+          label: action.title,
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              HapticFeedback.lightImpact();
+              action.tap();
+            },
             borderRadius: BorderRadius.circular(12.r),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  action['icon']! as IconData,
-                  size: 28.r,
-                  color: action['color']! as Color,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    action.color.withValues(alpha: 0.1),
+                    action.color.withValues(alpha: 0.05),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                 ),
-                SizedBox(height: 8.h),
-                CustomText(
-                  action['title']! as String,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  color: context.colors.onSurface,
+                borderRadius: BorderRadius.circular(12.r),
+                border: Border.all(
+                  color: action.color.withValues(alpha: 0.3),
                 ),
-              ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(action.icon, size: 28.r, color: action.color),
+                  SizedBox(height: 8.h),
+                  CustomText(
+                    action.title,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ).animate().scale(
-              begin: const Offset(0.8, 0.8),
-              duration: 400.ms,
-              delay: (index * 100).ms,
-            );
+          )
+              .animate(delay: (index * 100).ms)
+              .scale(
+                begin: const Offset(0.8, 0.8),
+              )
+              .fadeIn(),
+        );
       },
     );
   }
 
-  Widget _buildNavigationMenu(BuildContext context) {
-    final menuItems = [
-      {'title': AppTrans.general, 'icon': Icons.settings_outlined},
-      {'title': AppTrans.notifications, 'icon': Icons.notifications_outlined},
-      {'title': AppTrans.security, 'icon': Icons.security_outlined},
-      {'title': AppTrans.privacy, 'icon': Icons.privacy_tip_outlined},
-      {'title': AppTrans.helpCenter, 'icon': Icons.help_outline},
-    ];
+  void _showLanguageDialog(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final hapticFeedback = HapticFeedbackManager();
+    final screenWidth = context.mediaQuery.size.width;
+    final dialogPadding = screenWidth < 600 ? 16.r : 24.r;
 
-    return Column(
-      children: menuItems.map((item) {
-        return Container(
-          margin: EdgeInsets.only(bottom: 8.h),
-          child: ListTile(
-            leading: Icon(
-              item['icon']! as IconData,
-              color: context.colors.primary,
-            ),
-            title: CustomText(
-              item['title']! as String,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            onTap: () {},
+    showDialog<bool>(
+      context: context,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.r),
+        ),
+        backgroundColor: colorScheme.surface,
+        child: Container(
+          padding: EdgeInsets.all(dialogPadding),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CustomText(
+                'Select Language',
+                textStyle: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: colorScheme.onSurface,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              SizedBox(height: 20.h),
+              ...controller.supportedLocales.map((locale) {
+                final isSelected = controller.selectedLanguage.value == locale;
+                return ListTile(
+                  title: CustomText(
+                    locale.name,
+                    color: isSelected
+                        ? colorScheme.primary
+                        : colorScheme.onSurface,
+                    fontSize: 16.sp,
+                    fontWeight:
+                        isSelected ? FontWeight.w600 : FontWeight.normal,
+                  ),
+                  trailing: isSelected
+                      ? Icon(
+                          Icons.check,
+                          color: colorScheme.primary,
+                          size: 24.r,
+                          shadows: isDark
+                              ? [
+                                  Shadow(
+                                      color: colorScheme.primary
+                                          .withValues(alpha: 0.3),
+                                      blurRadius: 2)
+                                ]
+                              : null,
+                        )
+                      : null,
+                  onTap: () {
+                    hapticFeedback.lightImpact();
+                    controller.changeLanguage(locale);
+                    Navigator.of(context).pop(true);
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                  tileColor: isSelected
+                      ? colorScheme.primary.withValues(alpha: 0.08)
+                      : null,
+                ).animate().fadeIn().slideX(begin: -0.1, end: 0);
+              }),
+            ],
           ),
-        );
-      }).toList(),
+        ),
+      ).animate().scale(begin: const Offset(0.9, 0.9), duration: 200.ms),
     );
   }
 
-  void _showResetConfirmation() {
-    if (Get.context != null) {
-      Get.dialog(
-        AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.r),
-          ),
-          title: Row(
-            children: [
-              Icon(
-                Icons.warning_amber_outlined,
-                color: Colors.orange,
-                size: 24.r,
-              ),
-              SizedBox(width: 12.w),
-              const CustomText(AppTrans.resetSettings),
-            ],
-          ),
-          content: Column(
+  void _showThemeDialog(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final hapticFeedback = HapticFeedbackManager();
+    final screenWidth = context.mediaQuery.size.width;
+    final dialogPadding = screenWidth < 600 ? 16.r : 24.r;
+
+    showDialog<bool>(
+      context: context,
+      builder: (context) => Dialog(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+        backgroundColor: colorScheme.surface,
+        child: Container(
+          padding: EdgeInsets.all(dialogPadding),
+          child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomText(AppTrans.resetConfirmMessage, maxLines: 3),
-              SizedBox(height: 16.h),
-              Container(
-                padding: EdgeInsets.all(12.r),
-                decoration: BoxDecoration(
-                  color: Colors.orange.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.info_outline,
-                      color: Colors.orange,
-                      size: 16.r,
+              CustomText(
+                'Select Theme',
+                textStyle: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: colorScheme.onSurface,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
                     ),
-                    SizedBox(width: 8.w),
-                    const Expanded(
-                      child: CustomText(
-                        AppTrans.resetConfirmWarning,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
               ),
+              SizedBox(height: 20.h),
+              ...PlayxTheme.supportedThemes.map((theme) {
+                final isSelected = controller.currentTheme.value == theme;
+                return ListTile(
+                  title: CustomText(
+                    theme.name,
+                    color: isSelected
+                        ? colorScheme.primary
+                        : colorScheme.onSurface,
+                    fontSize: 16.sp,
+                    fontWeight:
+                        isSelected ? FontWeight.w600 : FontWeight.normal,
+                  ),
+                  trailing: isSelected
+                      ? Icon(
+                          Icons.check,
+                          color: colorScheme.primary,
+                          size: 24.r,
+                          shadows: isDark
+                              ? [
+                                  Shadow(
+                                      color: colorScheme.primary
+                                          .withValues(alpha: 0.3),
+                                      blurRadius: 2)
+                                ]
+                              : null,
+                        )
+                      : null,
+                  onTap: () {
+                    hapticFeedback.lightImpact();
+                    controller.changeTheme(theme, context: context);
+                    Navigator.of(context).pop(true);
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                  tileColor: isSelected
+                      ? colorScheme.primary.withValues(alpha: 0.08)
+                      : null,
+                ).animate().fadeIn().slideX(begin: -0.1, end: 0);
+              }),
             ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Get.back(),
-              child: const CustomText(AppTrans.cancel),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                PlayxNavigation.pop();
-                controller.resetSettings();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
-              child: const CustomText(AppTrans.reset),
-            ),
-          ],
-        ).animate().scale(
-              begin: const Offset(0.8, 0.8),
-              duration: 200.ms,
-              curve: Curves.easeOut,
-            ),
-      );
+        ),
+      ).animate().scale(begin: const Offset(0.9, 0.9), duration: 200.ms),
+    );
+  }
+
+  String _getSectionTitle(SettingsSection section) {
+    switch (section) {
+      case SettingsSection.preferences:
+        return 'Preferences';
+      case SettingsSection.notifications:
+        return 'Notifications';
+      case SettingsSection.security:
+        return 'Security & Privacy';
+      case SettingsSection.dataStorage:
+        return 'Data & Storage';
+      case SettingsSection.support:
+        return 'Support & Legal';
+      case SettingsSection.account:
+        return 'Account';
+    }
+  }
+
+  IconData _getSectionIcon(SettingsSection section) {
+    switch (section) {
+      case SettingsSection.preferences:
+        return Icons.tune;
+      case SettingsSection.notifications:
+        return Icons.notifications;
+      case SettingsSection.security:
+        return Icons.security;
+      case SettingsSection.dataStorage:
+        return Icons.cloud;
+      case SettingsSection.support:
+        return Icons.info;
+      case SettingsSection.account:
+        return Icons.account_circle;
     }
   }
 

@@ -3,7 +3,7 @@ part of '../models.dart';
 extension ApiProfileToProfileMapper on ApiProfile {
   ProfileInfo toProfileInfo() {
     return ProfileInfo(
-      userInfo: UserInfo(
+      userInfo: UserProfile(
         id: id,
         documentId: documentId,
         email: email,

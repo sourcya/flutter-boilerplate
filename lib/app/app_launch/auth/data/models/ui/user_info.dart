@@ -2,7 +2,73 @@
 
 part of '../models.dart';
 
-class UserInfo {
+class UserProfile {
+  final int? id;
+  final String? documentId;
+  final String? username;
+  final String? firstName;
+  final String? lastName;
+  final String? phoneNumber;
+  final MediaItem? image;
+  final String? email;
+  final String? provider;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final bool? confirmed;
+  final bool? blocked;
+
+  UserProfile({
+    this.id,
+    this.documentId,
+    this.username,
+    this.firstName,
+    this.lastName,
+    this.phoneNumber,
+    this.image,
+    this.email,
+    this.provider,
+    this.createdAt,
+    this.updatedAt,
+    this.confirmed,
+    this.blocked,
+  });
+
+  String get displayName {
+    if (firstName != null || lastName != null) {
+      return '${firstName ?? ''} ${lastName ?? ''}'.trim();
+    }
+    return username ?? email ?? 'User';
+  }
+
+  String get initials {
+    final name = displayName;
+    final parts = name.split(' ');
+    if (parts.length >= 2) {
+      return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
+    }
+    return name.isNotEmpty ? name[0].toUpperCase() : '?';
+  }
+
+  bool get isVerified => confirmed == true;
+  
+  String get memberSince {
+    if (createdAt == null) return 'Unknown';
+    final now = DateTime.now();
+    final diff = now.difference(createdAt!);
+    
+    if (diff.inDays > 365) {
+      return '${(diff.inDays / 365).floor()} years';
+    } else if (diff.inDays > 30) {
+      return '${(diff.inDays / 30).floor()} months';
+    } else if (diff.inDays > 0) {
+      return '${diff.inDays} days';
+    } else {
+      return 'Today';
+    }
+  }
+}
+
+/* class UserProfile {
   final int? id;
   final String? documentId;
   final String? username;
@@ -16,7 +82,7 @@ class UserInfo {
   final bool? confirmed;
   final bool? blocked;
 
-  UserInfo({
+  UserProfile({
     this.id,
     this.documentId,
     this.username,
@@ -55,13 +121,13 @@ class UserInfo {
 
   @override
   String toString() {
-    return 'UserInfo{ id: $id, username: $username, email: $email, '
+    return 'UserProfile{ id: $id, username: $username, email: $email, '
         'firstName: $firstName, lastName: $lastName, imageUrl: ${image?.url},'
         ' provider: $provider,confirmed: $confirmed, blocked: $blocked, createdAt: $createdAt,'
         ' updatedAt: $updatedAt}';
   }
 
-  UserInfo copyWith({
+  UserProfile copyWith({
     int? id,
     String? documentId,
     String? username,
@@ -76,7 +142,7 @@ class UserInfo {
     bool? confirmed,
     bool? blocked,
   }) {
-    return UserInfo(
+    return UserProfile(
       id: id ?? this.id,
       documentId: documentId ?? this.documentId,
       username: username ?? this.username,
@@ -92,3 +158,4 @@ class UserInfo {
     );
   }
 }
+ */

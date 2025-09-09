@@ -1,5 +1,6 @@
 import 'dart:convert' show json;
 
+import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart';
 import 'package:flutter_boilerplate/app/settings/data/model/settings_model.dart';
 import 'package:flutter_boilerplate/core/network/network.dart';
 import 'package:flutter_boilerplate/core/preferences/preference_manger.dart'

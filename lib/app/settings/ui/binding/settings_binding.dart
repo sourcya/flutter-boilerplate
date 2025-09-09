@@ -4,14 +4,14 @@ class SettingsBinding extends PlayxBinding {
   @override
   Future<void> onEnter(BuildContext context, GoRouterState state) async {
     // Setup dependencies if not already registered
-    if (!getIt.isRegistered<SettingsRepositoryImpl>()) {
+    if (!getIt.isRegistered<SettingsRepository>()) {
       _setupDependencies();
     }
 
     Get.put(
       SettingsController(
-        settingsRepository: getIt.get<SettingsRepositoryImpl>(),
-        // userRepository: getIt.get<ProfileRepository>(),
+        settingsRepository: getIt.get<SettingsRepository>(),
+        profileRepository: getIt.get<ProfileRepository>(),
       ),
     );
   }
@@ -42,8 +42,8 @@ class SettingsBinding extends PlayxBinding {
     // );
 
     // Register repository
-    getIt.registerLazySingleton<SettingsRepositoryImpl>(
-      () => SettingsRepositoryImpl(
+    getIt.registerLazySingleton<SettingsRepository>(
+      () => SettingsRepository(
         remoteDatasource: getIt<SettingsDatasource>(instanceName: 'remote'),
         localDatasource: getIt<SettingsDatasource>(instanceName: 'local'),
         // localAuth: getIt<LocalAuth>(),

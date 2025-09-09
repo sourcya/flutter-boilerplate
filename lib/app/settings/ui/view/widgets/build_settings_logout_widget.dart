@@ -9,7 +9,7 @@ class BuildSettingsLogOutWidget extends GetView<SettingsController> {
       title: AppTrans.logout,
       icon: Icons.logout,
       padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 16.0.h),
-      onTap: () => controller.handleLogOutTap(context),
+      onTap: () => controller.logout(context),
     );
   }
 }

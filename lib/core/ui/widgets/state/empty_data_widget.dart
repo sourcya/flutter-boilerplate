@@ -23,9 +23,7 @@ class EmptyDataWidget extends OrientationWidget {
                 Assets.animations.noDataAnimation,
               ),
             ),
-            SizedBox(
-              height: 6.r,
-            ),
+            SizedBox(width: 6.r),
             Expanded(
               child: OptimizedScrollView(
                 child: Column(

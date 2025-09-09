@@ -1,8 +1,8 @@
 part of '../models.dart';
 
 extension ApiUserInfoToUserInfoMapper on ApiUserInfo {
-  UserInfo toUserInfo() {
-    return UserInfo(
+  UserProfile toUserInfo() {
+    return UserProfile(
       id: id,
       documentId: documentId,
       username: username,
@@ -19,7 +19,7 @@ extension ApiUserInfoToUserInfoMapper on ApiUserInfo {
   }
 }
 
-extension UserInfoToApiUserInfoMapper on UserInfo {
+extension UserInfoToApiUserInfoMapper on UserProfile {
   ApiUserInfo toApiUserInfo() {
     return ApiUserInfo(
       id: id,

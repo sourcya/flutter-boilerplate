@@ -1,7 +1,7 @@
 part of '../models.dart';
 
 class ProfileInfo {
-  final UserInfo userInfo;
+  final UserProfile userInfo;
   final Role? role;
 
   ProfileInfo({

@@ -54,7 +54,7 @@ class AuthRepository {
     if (res != null) {
       final user = User(
         jwtToken: res.accessToken,
-        info: UserInfo(
+        info: UserProfile(
           documentId: res.idToken,
           username: res.idToken,
           email: res.idToken,
