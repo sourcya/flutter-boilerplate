@@ -689,4 +689,8 @@ class AppController extends SuperController {
       );
     }
   }
+
+  void registerInstance() {
+    getIt.registerSingleton(this);
+  }
 }

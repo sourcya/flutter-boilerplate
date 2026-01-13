@@ -1,38 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+    <base href="$FLUTTER_BASE_HREF">
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description" content="Sourcya: Professional App Solutions">
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Sourcya">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="$FLUTTER_BASE_HREF">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+    <title>Sourcya</title>
+    <link rel="manifest" href="manifest.json">
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Sourcya">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
-
-  <title>Sourcya</title>
-  <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" type="text/css" href="loader_styles.css">
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+
+<div id="app-loader">
+    <img src="icons/Icon-192.png" alt="Sourcya Logo" />
+
+    <div class="loading-text" id="loading-status">Getting things ready...</div>
+
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+</div>
+
+<script>
+    // 1. Localization Dictionary
+    const translations = {
+        'en': { preparing: "Preparing files...", warmingUp: "Warming up...", almostThere: "Almost there...", gettingReady: "Getting things ready..." },
+        'es': { preparing: "Preparando archivos...", warmingUp: "Poniendo en marcha...", almostThere: "Casi listo...", gettingReady: "Preparando las cosas..." },
+        'ar': { preparing: "جارٍ إعداد الملفات...", warmingUp: "جارٍ التحميل...", almostThere: "أوشكنا على الانتهاء...", gettingReady: "جارٍ تجهيز التطبيق..." }
+    };
+
+    function getLanguageCode() {
+        const locale = navigator.language || navigator.userLanguage;
+        return locale.split('-')[0];
+    }
+
+    const lang = getLanguageCode();
+    const messages = translations[lang] || translations['en'];
+    const isRTL = lang === 'ar';
+
+    // 2. Load Flutter Engine and App
+    {{flutter_js}}
+    {{flutter_build_config}}
+
+    const loadingStatus = document.getElementById('loading-status');
+
+    if (loadingStatus) {
+      if (isRTL) {
+          loadingStatus.style.direction = 'rtl';
+          loadingStatus.style.textAlign = 'right';
+      }
+      loadingStatus.textContent = messages.gettingReady;
+    }
+
+    _flutter.loader.load({
+      onEntrypointLoaded: async function(engineInitializer) {
+        if (loadingStatus) loadingStatus.textContent = messages.preparing;
+
+        const appRunner = await engineInitializer.initializeEngine();
+
+        if (loadingStatus) loadingStatus.textContent = messages.warmingUp;
+
+        await appRunner.runApp();
+
+        // Smoothly fade out the loader once the app is ready
+        const loaderElement = document.getElementById('app-loader');
+        if (loaderElement) {
+          loaderElement.style.transition = 'opacity 0.4s ease-out';
+          loaderElement.style.opacity = '0';
+          setTimeout(() => loaderElement.remove(), 400);
+        }
+      }
+    });
+</script>
 </body>
 </html>

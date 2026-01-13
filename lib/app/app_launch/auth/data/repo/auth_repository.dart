@@ -1,6 +1,7 @@
 import 'package:flutter_boilerplate/app/app_launch/auth/data/data_sources/auth0_auth_data_source.dart';
 import 'package:flutter_boilerplate/app/app_launch/auth/data/data_sources/remote_auth_data_source.dart';
 import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart';
+import 'package:flutter_boilerplate/core/config/app_config.dart';
 import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
@@ -81,6 +82,7 @@ class AuthRepository {
       );
       return _handleSavingUser(result: result, loginMethod: LoginMethod.email);
     } catch (e) {
+      myLogger.e('ERROR ', error: e);
       Sentry.captureException(e);
       return const NetworkResult<User>.error(
         UnableToProcessException(
@@ -106,6 +108,7 @@ class AuthRepository {
       );
       return _handleSavingUser(result: res, loginMethod: LoginMethod.email);
     } catch (e) {
+      myLogger.e('ERROR ', error: e);
       Sentry.captureException(e);
       return const NetworkResult<User>.error(
         UnableToProcessException(
@@ -172,6 +175,7 @@ class AuthRepository {
         );
       }
     } catch (e) {
+      myLogger.e('ERROR ', error: e);
       Sentry.captureException(e);
       return const NetworkResult<User>.error(
         UnableToProcessException(

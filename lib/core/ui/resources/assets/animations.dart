@@ -16,10 +16,24 @@ class Animations {
   final String firstBoardingAnimation = "assets/animation/boarding.json";
   final String secondBoardingAnimation = "assets/animation/boarding.json";
   final String thirdBoardingAnimation = "assets/animation/boarding.json";
+  final String boardingAnimation = "assets/animation/boarding.json";
+
   final String otpAnimation = 'assets/animation/otp-verification.json';
   final String loading = 'assets/animation/loading.json';
 
-  String get logout => 'assets/animations/logout.json';
+  final String closeApp = 'assets/animation/close_app.json';
+  final String delete = 'assets/animation/delete.json';
+  final String forgotPassword = 'assets/animation/forgot-password.json';
+  final String language = 'assets/animation/language.json';
+  final String noConnection = 'assets/animation/no-connection.json';
+  final String resetPasswords = 'assets/animation/reset-passwords.json';
+  final String reset = 'assets/animation/reset.json';
+  final String subscriptionExpired =
+      'assets/animation/subscription_expired.json';
+  final String theme = 'assets/animation/theme.json';
+  final String update = 'assets/animation/update.json';
 
-  String get support => 'assets/animations/support.json';
+  String get logout => 'assets/animation/logout.json';
+
+  String get support => 'assets/animation/support.json';
 }

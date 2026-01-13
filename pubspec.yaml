@@ -107,7 +107,10 @@ flutter:
     - assets/env/
     - assets/fonts/cairo/
     - assets/fonts/poppins/
-    - assets/icons/
+    - assets/images/
+    - assets/images/logo/
+    - assets/images/icons/
+
   fonts:
     - family: Poppins
       fonts:

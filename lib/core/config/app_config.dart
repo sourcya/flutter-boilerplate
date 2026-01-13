@@ -13,6 +13,7 @@ import 'package:flutter_boilerplate/core/database/app_database.dart';
 import 'package:flutter_boilerplate/core/network/network.dart';
 import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
 import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
+import 'package:flutter_boilerplate/core/preferences/secure_storage_manager.dart';
 import 'package:playx/playx.dart';
 
 late PlayxBaseLogger myLogger;
@@ -67,14 +68,14 @@ class AppConfig extends PlayXAppConfig {
     final AppRepository appRepository =
         AppRepository(dataSource: AppDatasource());
 
-    Get.put<AppController>(
-      AppController(
-        authRepository: authRepository,
-        repository: appRepository,
-      ),
-    );
+    AppController(
+      authRepository: authRepository,
+      repository: appRepository,
+    ).registerInstance();
   }
 
   @override
-  Future<void> asyncBoot() async {}
+  Future<void> asyncBoot() async {
+    await SecureStorageManager.init();
+  }
 }

@@ -3,14 +3,30 @@ class Assets {
   Assets._();
 
   static const String animationBoarding = 'assets/animation/boarding.json';
+  static const String animationCloseApp = 'assets/animation/close_app.json';
+  static const String animationDelete = 'assets/animation/delete.json';
   static const String animationError = 'assets/animation/error.json';
+  static const String animationForgotPassword =
+      'assets/animation/forgot-password.json';
+  static const String animationLanguage = 'assets/animation/language.json';
   static const String animationLoading = 'assets/animation/loading.json';
   static const String animationLogin = 'assets/animation/login.json';
+  static const String animationLogout = 'assets/animation/logout.json';
+  static const String animationNoConnection =
+      'assets/animation/no-connection.json';
   static const String animationNoData = 'assets/animation/no_data.json';
   static const String animationNoInternet = 'assets/animation/no_internet.json';
   static const String animationOtpVerification =
       'assets/animation/otp-verification.json';
   static const String animationRegister = 'assets/animation/register.json';
+  static const String animationReset = 'assets/animation/reset.json';
+  static const String animationResetPasswords =
+      'assets/animation/reset-passwords.json';
+  static const String animationSubscriptionExpired =
+      'assets/animation/subscription_expired.json';
+  static const String animationSupport = 'assets/animation/support.json';
+  static const String animationTheme = 'assets/animation/theme.json';
+  static const String animationUpdate = 'assets/animation/update.json';
   static const String cairoCairoBlack = 'assets/fonts/cairo/Cairo-Black.ttf';
   static const String cairoCairoBold = 'assets/fonts/cairo/Cairo-Bold.ttf';
   static const String cairoCairoExtraBold =

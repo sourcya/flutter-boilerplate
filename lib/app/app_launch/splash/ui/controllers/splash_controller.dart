@@ -35,10 +35,14 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
       if (doesAppNeedUpdate) return;
     }
 
-    await isAnimationCompleted.future;
+    await Playx.asyncBootFuture();
+    if (!kIsWeb) {
+      await isAnimationCompleted.future;
+    }
+    final isLandscape = ScreenUtil().orientation == Orientation.landscape;
     final isOnBoardingShown =
         await MyPreferenceManger.instance.isOnBoardingShown;
-    if (!isOnBoardingShown) {
+    if (!isOnBoardingShown && !isLandscape) {
       AppNavigation.navigateFromSplashToOnBoarding();
       return;
     }
@@ -49,13 +53,12 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
       AppNavigation.navigateFormSplashToLogin();
       return;
     }
-
     AppNavigation.navigateFormSplashToHome();
   }
 
   Future<void> handleAppUpdate() async {
     // final result = await PlayxVersionUpdate.showUpdateDialog(
-    //   context: Get.context!,
+    //   context: PlayxNavigation.navigationContext!,
     //   forceUpdate: false,
     //   googlePlayId: Constants.playStoreId,
     //   country: Constants.storeCountry,

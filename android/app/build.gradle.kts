@@ -17,7 +17,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "io.sourcya.app"
     compileSdk = 36
-    ndkVersion = "27.0.12077973"
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -98,7 +98,7 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
     val multidex_version = "2.0.1"
     implementation("androidx.multidex:multidex:$multidex_version")
-    debugImplementation("io.objectbox:objectbox-android-objectbrowser:4.3.0")
+    debugImplementation("io.objectbox:objectbox-android-objectbrowser:5.0.1")
 }
 
 flutter {

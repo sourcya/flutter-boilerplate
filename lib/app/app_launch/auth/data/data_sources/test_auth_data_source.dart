@@ -14,6 +14,7 @@ class TestAuthDataSource extends RemoteAuthDataSource {
     required String password,
   }) async {
     await Future.delayed(const Duration(seconds: 3));
+
     return NetworkResult.success(
       ApiUser(
         jwt: 'sasdfasfafa',
