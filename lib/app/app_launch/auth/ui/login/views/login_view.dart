@@ -27,8 +27,8 @@ class LoginView extends GetView<LoginController> {
                     duration: const Duration(milliseconds: 350),
                     child:
                         controller.currentLoginMethod.value == LoginMethod.email
-                            ? const BuildLoginWithEmailWidget()
-                            : const BuildChooseLoginMethodWidget(),
+                        ? const BuildLoginWithEmailWidget()
+                        : const BuildChooseLoginMethodWidget(),
                   );
                 }),
                 SizedBox(height: 8.r),

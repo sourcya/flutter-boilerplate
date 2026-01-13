@@ -100,16 +100,16 @@ class _BuildSettingsPageState<T> extends State<BuildSettingsPage<T>> {
                                 ),
                               )
                             : widget.itemIconWidget != null
-                                ? Container(
-                                    width: 36.w,
-                                    height: 36.h,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 6.w,
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: widget.itemIconWidget!(item),
-                                  )
-                                : null,
+                            ? Container(
+                                width: 36.w,
+                                height: 36.h,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 6.w,
+                                ),
+                                alignment: Alignment.center,
+                                child: widget.itemIconWidget!(item),
+                              )
+                            : null,
                         title: Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: 8.r,

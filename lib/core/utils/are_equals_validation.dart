@@ -25,5 +25,4 @@ class AreEqual extends TextValidationRule {
 bool _match(
   String input,
   String other,
-) =>
-    input == other;
+) => input == other;

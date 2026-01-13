@@ -51,8 +51,9 @@ class AppDatabase {
       database.runTestWebApp();
     }
 
-    final localWishlistDataSource =
-        LocalWishlistDataSource(wishlistDao: database.wishlistDao);
+    final localWishlistDataSource = LocalWishlistDataSource(
+      wishlistDao: database.wishlistDao,
+    );
     getIt.registerSingleton<AppDatabase>(database);
     getIt.registerSingleton<LocalWishlistDataSource>(localWishlistDataSource);
   }

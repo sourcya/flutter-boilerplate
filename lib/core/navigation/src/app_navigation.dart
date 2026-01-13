@@ -9,10 +9,9 @@ abstract class AppNavigation {
     PlayxNavigation.offAllNamed(AppPages.homeRoute);
   }
 
-  static void navigateToHome  () {
+  static void navigateToHome() {
     PlayxNavigation.offAllNamed(AppPages.homeRoute);
   }
-
 
   static void navigateFormSplashToLogin() {
     PlayxNavigation.offAllNamed(Routes.login);
@@ -61,5 +60,4 @@ abstract class AppNavigation {
   static void navigateToLogin() {
     PlayxNavigation.offAllNamed(Routes.login);
   }
-
 }

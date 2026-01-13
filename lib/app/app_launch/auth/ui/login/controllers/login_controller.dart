@@ -40,13 +40,16 @@ class LoginController extends GetxController {
   }
 
   void listenToValidationState() {
-    _validationWorker = everAll([
-      isEmailValid,
-      isPasswordValid,
-    ], (callback) {
-      final isValid = isEmailValid.value && isPasswordValid.value;
-      isFormValid.value = isValid;
-    });
+    _validationWorker = everAll(
+      [
+        isEmailValid,
+        isPasswordValid,
+      ],
+      (callback) {
+        final isValid = isEmailValid.value && isPasswordValid.value;
+        isFormValid.value = isValid;
+      },
+    );
   }
 
   Future<void> loginBy({required LoginMethod method}) async {

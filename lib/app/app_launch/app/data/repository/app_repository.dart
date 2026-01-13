@@ -14,33 +14,33 @@ class AppRepository {
   static AppRepository get instance => getIt.get<AppRepository>();
 
   List<CustomNavigationDestinationItem> get mainDrawerItems => [
-        CustomNavigationDestinationItem(
-          icon: IconInfo.svg(Assets.icons.dashboard),
-          label: AppTrans.dashboard,
-          navigationIndex: 0,
-        ),
-        CustomNavigationDestinationItem(
-          icon: IconInfo.icon(Icons.favorite_border),
-          label: AppTrans.wishlist,
-          navigationIndex: 1,
-        ),
-        CustomNavigationDestinationItem(
-          icon: IconInfo.svg(Assets.icons.settings),
-          label: AppTrans.settings,
-          navigationIndex: 2,
-        ),
-      ];
+    CustomNavigationDestinationItem(
+      icon: IconInfo.svg(Assets.icons.dashboard),
+      label: AppTrans.dashboard,
+      navigationIndex: 0,
+    ),
+    CustomNavigationDestinationItem(
+      icon: IconInfo.icon(Icons.favorite_border),
+      label: AppTrans.wishlist,
+      navigationIndex: 1,
+    ),
+    CustomNavigationDestinationItem(
+      icon: IconInfo.svg(Assets.icons.settings),
+      label: AppTrans.settings,
+      navigationIndex: 2,
+    ),
+  ];
 
   List<CustomNavigationDestinationItem> get otherDrawerItems => [
-        CustomNavigationDestinationItem(
-          icon: IconInfo.icon(FontAwesomeIcons.whatsapp),
-          label: AppTrans.support,
-        ),
-        CustomNavigationDestinationItem(
-          icon: IconInfo.icon(Icons.logout),
-          label: AppTrans.logout,
-        ),
-      ];
+    CustomNavigationDestinationItem(
+      icon: IconInfo.icon(FontAwesomeIcons.whatsapp),
+      label: AppTrans.support,
+    ),
+    CustomNavigationDestinationItem(
+      icon: IconInfo.icon(Icons.logout),
+      label: AppTrans.logout,
+    ),
+  ];
 
   // List<CustomNavigationDestinationItem> get popupDrawerItems => [
   //   CustomNavigationDestinationItem(

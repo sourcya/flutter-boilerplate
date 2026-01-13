@@ -30,24 +30,24 @@ class ApiRole {
   });
 
   factory ApiRole.fromJson(dynamic json) => ApiRole(
-        id: asIntOrNull(json as Map<String, dynamic>, 'id')!,
-        documentId: asStringOrNull(json, 'documentId')!,
-        name: asStringOrNull(json, 'name')!,
-        description: asStringOrNull(json, 'description'),
-        type: asStringOrNull(json, 'type')!,
-        createdAt: asStringOrNull(json, 'createdAt'),
-        updatedAt: asStringOrNull(json, 'updatedAt'),
-        publishedAt: asStringOrNull(json, 'publishedAt'),
-      );
+    id: asIntOrNull(json as Map<String, dynamic>, 'id')!,
+    documentId: asStringOrNull(json, 'documentId')!,
+    name: asStringOrNull(json, 'name')!,
+    description: asStringOrNull(json, 'description'),
+    type: asStringOrNull(json, 'type')!,
+    createdAt: asStringOrNull(json, 'createdAt'),
+    updatedAt: asStringOrNull(json, 'updatedAt'),
+    publishedAt: asStringOrNull(json, 'publishedAt'),
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'documentId': documentId,
-        'name': name,
-        'description': description,
-        'type': type,
-        'createdAt': createdAt,
-        'updatedAt': updatedAt,
-        'publishedAt': publishedAt,
-      };
+    'id': id,
+    'documentId': documentId,
+    'name': name,
+    'description': description,
+    'type': type,
+    'createdAt': createdAt,
+    'updatedAt': updatedAt,
+    'publishedAt': publishedAt,
+  };
 }

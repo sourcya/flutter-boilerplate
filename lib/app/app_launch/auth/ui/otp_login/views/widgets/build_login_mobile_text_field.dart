@@ -33,8 +33,9 @@ class BuildMobileLoginTextField extends GetView<OtpLoginController> {
               hint: AppTrans.phoneNumberHint.tr(context: context),
               controller: controller.phoneController,
               type: TextInputType.phone,
-              scrollPadding:
-                  EdgeInsets.symmetric(vertical: context.height * .3),
+              scrollPadding: EdgeInsets.symmetric(
+                vertical: context.height * .3,
+              ),
               autoFillHints: const [AutofillHints.telephoneNumber],
               validator: qValidator([
                 IsRequired(

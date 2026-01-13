@@ -73,18 +73,18 @@ class CustomScaffold extends StatelessWidget {
           child: PlatformScaffold(
             appBar: includeAppBar
                 ? appBar ??
-                    buildAppBar(
-                      title: title ?? AppTrans.appName,
-                      titleWidget: titleWidget,
-                      context: context,
-                      leading: leading,
-                      leadingWidget: leadingWidget,
-                      actions: actions,
-                      titleSpacing: titleSpacing,
-                      attachBreadcrumb: attachBreadcrumb,
-                      breadcrumbs: breadcrumbs,
-                      showWhatsAppSupport: showWhatsAppSupport,
-                    )
+                      buildAppBar(
+                        title: title ?? AppTrans.appName,
+                        titleWidget: titleWidget,
+                        context: context,
+                        leading: leading,
+                        leadingWidget: leadingWidget,
+                        actions: actions,
+                        titleSpacing: titleSpacing,
+                        attachBreadcrumb: attachBreadcrumb,
+                        breadcrumbs: breadcrumbs,
+                        showWhatsAppSupport: showWhatsAppSupport,
+                      )
                 : null,
             body: useSafeArea
                 ? SafeArea(

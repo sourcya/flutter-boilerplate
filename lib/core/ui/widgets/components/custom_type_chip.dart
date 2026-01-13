@@ -55,17 +55,22 @@ class CustomTypeChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final child = Container(
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 10.0.r, vertical: 5.0.r),
+      padding:
+          padding ?? EdgeInsets.symmetric(horizontal: 10.0.r, vertical: 5.0.r),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16.0.r),
-        border: (addBorderSide == true || (addBorderSide == null && borderColor != null))
+        border:
+            (addBorderSide == true ||
+                (addBorderSide == null && borderColor != null))
             ? Border.all(color: borderColor ?? color, width: 0.8.r)
             : null,
         color: backgroundColor,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: isCenter ? MainAxisAlignment.center : MainAxisAlignment.start,
+        mainAxisAlignment: isCenter
+            ? MainAxisAlignment.center
+            : MainAxisAlignment.start,
         spacing: !isFlat ? 0 : 4.r,
         children: [
           if (text.length <= 2 && !isFlat) 6.boxW,
@@ -74,7 +79,9 @@ class CustomTypeChip extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: [icon!.buildIconWidget(color: color, size: icon?.size ?? 16.0.r)],
+              children: [
+                icon!.buildIconWidget(color: color, size: icon?.size ?? 16.0.r),
+              ],
             ),
             if (!isFlat) SizedBox(width: 5.0.r),
           ],

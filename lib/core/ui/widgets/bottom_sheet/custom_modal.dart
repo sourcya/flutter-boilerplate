@@ -21,7 +21,8 @@ class CustomModal {
   /// Show only page modal
   static Future<void> showPageModal({
     required BuildContext context,
-    required SliverWoltModalSheetPage Function(BuildContext context) pageBuilder,
+    required SliverWoltModalSheetPage Function(BuildContext context)
+    pageBuilder,
     VoidCallback? onModalDismissedWithBarrierTap,
     ValueNotifier<bool>? showModalTopBar,
     bool barrierDismissible = true,

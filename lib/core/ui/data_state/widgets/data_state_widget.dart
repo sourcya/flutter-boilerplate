@@ -45,19 +45,22 @@ class DataStateWidget<T> extends StatelessWidget {
         final message = error.message;
         switch (error) {
           case EmptyDataError _:
-            widget = onEmpty?.call(message) ??
+            widget =
+                onEmpty?.call(message) ??
                 EmptyDataWidget(
                   error: message,
                   onRetryClicked: onRetryClicked,
                 );
           case NoInternetError _:
-            widget = noInternetConnection?.call(message) ??
+            widget =
+                noInternetConnection?.call(message) ??
                 NoInternetWidget(
                   error: message,
                   onRetryClicked: onNoInternetRetryClicked,
                 );
           case DefaultDataError _:
-            widget = onError?.call(message) ??
+            widget =
+                onError?.call(message) ??
                 ErrorDataWidget(
                   error: message,
                   onRetryClicked: onRetryClicked,

@@ -42,8 +42,10 @@ class BuildSettingsDialog<T> extends StatelessWidget {
             children: items
                 .map(
                   (item) => CustomCard(
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 3.w, vertical: 4.h),
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 3.w,
+                      vertical: 4.h,
+                    ),
                     padding: EdgeInsets.symmetric(
                       horizontal: 2.w,
                       vertical: 2.h,
@@ -73,16 +75,16 @@ class BuildSettingsDialog<T> extends StatelessWidget {
                                 ),
                               )
                             : itemIconWidget != null
-                                ? Container(
-                                    width: 36.w,
-                                    height: 36.h,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 6.w,
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: itemIconWidget!(item),
-                                  )
-                                : null,
+                            ? Container(
+                                width: 36.w,
+                                height: 36.h,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 6.w,
+                                ),
+                                alignment: Alignment.center,
+                                child: itemIconWidget!(item),
+                              )
+                            : null,
                         title: Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: 4.w,

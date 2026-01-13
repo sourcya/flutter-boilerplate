@@ -48,7 +48,7 @@ class CustomDrawerBody extends StatelessWidget {
           Expanded(
             child: Obx(() {
               final mainItems = controller.mainDrawerItems.toList();
-              final moduleItems = controller.moduleDrawerItems.toList();
+              // final moduleItems = controller.moduleDrawerItems.toList();
 
               return CustomScrollView(
                 physics: const BouncingScrollPhysics(),
@@ -62,7 +62,8 @@ class CustomDrawerBody extends StatelessWidget {
                       return BuildDrawerItemWidget(
                         item: item,
                         isExpanded: isExpanded,
-                        isSelected: navigationShell.currentIndex ==
+                        isSelected:
+                            navigationShell.currentIndex ==
                             item.navigationIndex,
                         onTap: () {
                           controller.handleDrawerMainItemClicked(
@@ -121,11 +122,11 @@ class CustomDrawerBody extends StatelessWidget {
           ),
 
           // Support Button
-          SupportButton(
-            size: isExpanded ? 40 : 36,
-            isShowLabel: true,
-            isExpanded: isExpanded,
-          ),
+          // SupportButton(
+          //   size: isExpanded ? 40 : 36,
+          //   isShowLabel: true,
+          //   isExpanded: isExpanded,
+          // ),
 
           // Column(
           //   children: List.generate(controller.otherDrawerItems.length, (
@@ -148,8 +149,7 @@ class CustomDrawerBody extends StatelessWidget {
           //     );
           //   }),
           // ),
-          _buildUserProfileSection(context, isExpanded),
-
+          // _buildUserProfileSection(context, isExpanded),
           if (isExpanded)
             Container(
               padding: EdgeInsets.all(isExpanded ? 8.r : 2.r),

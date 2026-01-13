@@ -16,12 +16,16 @@ class BuildDrawerItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final contentColor = isSelected ? context.colors.onPrimary : context.colors.onSurface;
+    final contentColor = isSelected
+        ? context.colors.onPrimary
+        : context.colors.onSurface;
 
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: isExpanded ? 8.r : 6.r,
-        vertical: isExpanded ? dimens.drawerItemTileVerticalContentPadding : 2.r,
+        vertical: isExpanded
+            ? dimens.drawerItemTileVerticalContentPadding
+            : 2.r,
       ),
       child: InkWell(
         onTap: onTap,
@@ -43,7 +47,9 @@ class BuildDrawerItemWidget extends StatelessWidget {
           ),
           child: ClipRect(
             child: Row(
-              mainAxisAlignment: isExpanded ? MainAxisAlignment.start : MainAxisAlignment.center,
+              mainAxisAlignment: isExpanded
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.center,
               children: [
                 // ICON
                 item.icon.buildIconWidget(

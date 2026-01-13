@@ -4,15 +4,15 @@ class NavigationUtils {
   NavigationUtils._();
 
   static List<String> get mainRoutes => [
-        Routes.dashboard,
-        Routes.settings,
-      ];
+    Routes.dashboard,
+    Routes.settings,
+  ];
 
   static List<String> get routesBottomNav => [
-        Routes.dashboard,
-        Routes.settings,
-        Routes.wishlist,
-      ];
+    Routes.dashboard,
+    Routes.settings,
+    Routes.wishlist,
+  ];
 
   static bool get showBottomNav =>
       routesBottomNav.contains(PlayxNavigation.currentRouteName);

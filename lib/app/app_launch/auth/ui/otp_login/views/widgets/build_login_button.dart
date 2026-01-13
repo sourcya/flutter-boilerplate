@@ -12,8 +12,9 @@ class BuildLoginButton extends GetView<OtpLoginController> {
       child: Obx(() {
         return CustomElevatedButton(
           label: AppTrans.loginText.tr(context: context),
-          onPressed:
-              controller.isPhoneNumberValid.value ? controller.login : null,
+          onPressed: controller.isPhoneNumberValid.value
+              ? controller.login
+              : null,
           isLoading: controller.isLoading.value,
         );
       }),

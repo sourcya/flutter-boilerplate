@@ -1,10 +1,6 @@
 part of '../imports/settings_imports.dart';
 
-enum SettingsPage {
-  settings,
-  language,
-  theme;
-}
+enum SettingsPage { settings, language, theme }
 
 class SettingsController extends GetxController {
   Rxn<XLocale> currentLocale = Rxn(PlayxLocalization.currentXLocale);

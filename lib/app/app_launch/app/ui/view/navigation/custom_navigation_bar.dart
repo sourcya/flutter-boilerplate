@@ -25,7 +25,8 @@ PlatformNavBar buildCustomNavigationBar({
         items: controller.bottomNavItems
             .mapWithIndex(
               (index, item) => CustomNavigationDestination(
-                icon: item.iconWidget ??
+                icon:
+                    item.iconWidget ??
                     item.icon.buildIconWidget(
                       color: controller.currentBottomNavIndex == index
                           ? context.colors.onSecondaryContainer
@@ -46,7 +47,8 @@ PlatformNavBar buildCustomNavigationBar({
         items: controller.bottomNavItems
             .mapWithIndex(
               (index, item) => BottomNavigationBarItem(
-                icon: item.iconWidget ??
+                icon:
+                    item.iconWidget ??
                     item.icon.buildIconWidget(
                       color: controller.currentBottomNavIndex == index
                           ? context.colors.primary

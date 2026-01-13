@@ -12,8 +12,10 @@ class ResponsiveConfig {
   static const double tabletBreakpoint = 840.0;
   static const double desktopBreakpoint = 1024.0;
 
-  static double railWidth = PlayxNavigation.navigationContext?.railWidth ?? 80.0;
-  static double extendedRailWidth = PlayxNavigation.navigationContext?.extendedRailWidth ?? 256.0;
+  static double railWidth =
+      PlayxNavigation.navigationContext?.railWidth ?? 80.0;
+  static double extendedRailWidth =
+      PlayxNavigation.navigationContext?.extendedRailWidth ?? 256.0;
   static const double drawerWidth = 320.0;
 
   static const Duration animationDuration = Duration(milliseconds: 300);
@@ -75,10 +77,12 @@ class DeviceInfo {
           isDarkTheme == other.isDarkTheme;
 
   @override
-  int get hashCode => type.hashCode ^ orientation.hashCode ^ isDarkTheme.hashCode;
+  int get hashCode =>
+      type.hashCode ^ orientation.hashCode ^ isDarkTheme.hashCode;
 
   @override
-  String toString() => 'DeviceInfo(type: $type, orientation: $orientation, isDark: $isDarkTheme)';
+  String toString() =>
+      'DeviceInfo(type: $type, orientation: $orientation, isDark: $isDarkTheme)';
 }
 
 typedef ResponsiveBuilder =
@@ -256,8 +260,12 @@ double _getRadius(DeviceType deviceType, bool isIOS) {
   }) {
     return valueWhen(
       mobile: mobile ?? screenWidth,
-      tablet: tablet ?? math.min(ResponsiveConfig.tabletBreakpoint, screenWidth * 0.9),
-      desktop: desktop ?? math.min(ResponsiveConfig.desktopBreakpoint, screenWidth * 0.8),
+      tablet:
+          tablet ??
+          math.min(ResponsiveConfig.tabletBreakpoint, screenWidth * 0.9),
+      desktop:
+          desktop ??
+          math.min(ResponsiveConfig.desktopBreakpoint, screenWidth * 0.8),
     );
   }
 }

@@ -68,8 +68,9 @@ class _ToggleButton extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(8.0.r),
         decoration: ShapeDecoration(
-          color:
-              isSelected ? context.colors.primaryContainer : Colors.transparent,
+          color: isSelected
+              ? context.colors.primaryContainer
+              : Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.r),
           ),

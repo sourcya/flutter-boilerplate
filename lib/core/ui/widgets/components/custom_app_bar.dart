@@ -58,7 +58,8 @@ PlatformAppBar buildAppBar({
   bool? attachBreadcrumb,
   bool? showWhatsAppSupport,
 }) {
-  final includeBreadcrumb = (attachBreadcrumb ?? context.isLandscape) &&
+  final includeBreadcrumb =
+      (attachBreadcrumb ?? context.isLandscape) &&
       breadcrumbs?.isNotEmpty == true;
   return PlatformAppBar(
     automaticallyImplyLeading: false,
@@ -66,7 +67,8 @@ PlatformAppBar buildAppBar({
       context: context,
       removeLeft: true,
       removeRight: true,
-      child: leadingWidget ??
+      child:
+          leadingWidget ??
           (includeBreadcrumb
               ? AppBarLeadingType.drawer.buildWidget(context)
               : leading.buildWidget(context)),
@@ -77,8 +79,9 @@ PlatformAppBar buildAppBar({
       if (showWhatsAppSupport ??
           NavigationUtils.canShowDrawer || includeBreadcrumb)
         Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: PlayxPlatform.isIOS ? 0 : 8.r),
+          padding: EdgeInsets.symmetric(
+            horizontal: PlayxPlatform.isIOS ? 0 : 8.r,
+          ),
           child: const Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -91,7 +94,7 @@ PlatformAppBar buildAppBar({
       children: [
         // 3. The Vertical Divider (matches image)
         SizedBox(
-          height: (context.isMobile ? kToolbarHeight: kToolbarHeight.r) - 20.r,
+          height: (context.isMobile ? kToolbarHeight : kToolbarHeight.r) - 20.r,
           child: VerticalDivider(
             color: context.colors.borderColor,
             thickness: 1.r,
@@ -107,13 +110,13 @@ PlatformAppBar buildAppBar({
           child: includeBreadcrumb
               ? BreadcrumbHeader(items: breadcrumbs ?? [])
               : titleWidget ??
-                  CustomText(
-                    title ?? '',
-                    fontSize: context.isMobile ? 16 : 16.sp,
-                    color: context.colors.onAppBar,
-                    fontWeight: FontWeight.w400,
-                    font: fontFamilyBasedOnText(title ?? ''),
-                  ),
+                    CustomText(
+                      title ?? '',
+                      fontSize: context.isMobile ? 16 : 16.sp,
+                      color: context.colors.onAppBar,
+                      fontWeight: FontWeight.w400,
+                      font: fontFamilyBasedOnText(title ?? ''),
+                    ),
         ),
       ],
     ),

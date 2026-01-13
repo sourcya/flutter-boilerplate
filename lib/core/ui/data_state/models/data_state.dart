@@ -45,9 +45,11 @@ sealed class DataState<T> {
 
   factory DataState.fromNetworkError(NetworkException error) = NetworkFailure;
 
-  factory DataState.fromEmptyError({String? error}) => Failure(DataError.empty(error: error));
+  factory DataState.fromEmptyError({String? error}) =>
+      Failure(DataError.empty(error: error));
 
-  factory DataState.fromDefaultError({String? error}) => Failure(DataError.error(error: error));
+  factory DataState.fromDefaultError({String? error}) =>
+      Failure(DataError.error(error: error));
 
   factory DataState.fromNoInternetError({String? error}) =>
       Failure(DataError.noInternetError(error: error));

@@ -1,4 +1,5 @@
 part of '../ui.dart';
+
 @immutable
 class SliverGroupedGridView<T, E> extends StatefulWidget {
   final List<T> elements;
@@ -8,7 +9,8 @@ class SliverGroupedGridView<T, E> extends StatefulWidget {
   final Widget Function(E value)? groupSeparatorBuilder;
   final Widget Function(T element)? groupHeaderBuilder;
   final Widget Function(BuildContext context, T element)? itemBuilder;
-  final Widget Function(BuildContext context, T element, int index)? indexedItemBuilder;
+  final Widget Function(BuildContext context, T element, int index)?
+  indexedItemBuilder;
   final GroupedListOrder order;
   final bool sort;
   final Widget separator;
@@ -44,10 +46,12 @@ class SliverGroupedGridView<T, E> extends StatefulWidget {
        assert(groupSeparatorBuilder != null || groupHeaderBuilder != null);
 
   @override
-  State<SliverGroupedGridView<T, E>> createState() => _SliverGroupedGridViewState<T, E>();
+  State<SliverGroupedGridView<T, E>> createState() =>
+      _SliverGroupedGridViewState<T, E>();
 }
 
-class _SliverGroupedGridViewState<T, E> extends State<SliverGroupedGridView<T, E>> {
+class _SliverGroupedGridViewState<T, E>
+    extends State<SliverGroupedGridView<T, E>> {
   final LinkedHashMap<String, GlobalKey> _keys = LinkedHashMap();
   List<T> _sortedElements = [];
 
@@ -122,7 +126,10 @@ class _SliverGroupedGridViewState<T, E> extends State<SliverGroupedGridView<T, E
       elements.sort((e1, e2) {
         int? compareResult;
         if (widget.groupComparator != null) {
-          compareResult = widget.groupComparator!(widget.groupBy(e1), widget.groupBy(e2));
+          compareResult = widget.groupComparator!(
+            widget.groupBy(e1),
+            widget.groupBy(e2),
+          );
         } else if (widget.groupBy(e1) is Comparable) {
           compareResult = (widget.groupBy(e1) as Comparable).compareTo(
             widget.groupBy(e2) as Comparable,

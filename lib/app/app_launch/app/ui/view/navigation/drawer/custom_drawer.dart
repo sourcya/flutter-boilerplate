@@ -18,8 +18,13 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     // Define dimensions for the Rail
     final double railCollapsedWidth =
-        48.r + (context.isLtr ? context.mediaQueryPadding.left : context.mediaQueryPadding.right);
-    final double railExpandedWidth = context.isMobile ? context.width * .3 : context.width * .25;
+        48.r +
+        (context.isLtr
+            ? context.mediaQueryPadding.left
+            : context.mediaQueryPadding.right);
+    final double railExpandedWidth = context.isMobile
+        ? context.width * .3
+        : context.width * .25;
 
     return AdvancedCustomDrawer(
       // Trigger rail mode when screen is wide enough (Tablet/Web/Landscape)

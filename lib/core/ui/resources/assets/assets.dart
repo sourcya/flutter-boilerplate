@@ -11,5 +11,4 @@ abstract class Assets {
   static asset.Icons get icons => asset.Icons();
 
   static asset.Logo get logos => asset.Logo();
-
 }

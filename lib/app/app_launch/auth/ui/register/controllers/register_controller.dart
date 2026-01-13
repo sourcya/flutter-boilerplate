@@ -51,22 +51,26 @@ class RegisterController extends GetxController {
   }
 
   void listenToValidationState() {
-    _validationWorker = everAll([
-      agreeToTerms,
-      isFirstNameValid,
-      isLastNameValid,
-      isEmailValid,
-      isPasswordValid,
-      isConfirmPasswordValid,
-    ], (callback) {
-      final isValid = agreeToTerms.value &&
-          isFirstNameValid.value &&
-          isLastNameValid.value &&
-          isEmailValid.value &&
-          isPasswordValid.value &&
-          isConfirmPasswordValid.value;
-      isFormValid.value = isValid;
-    });
+    _validationWorker = everAll(
+      [
+        agreeToTerms,
+        isFirstNameValid,
+        isLastNameValid,
+        isEmailValid,
+        isPasswordValid,
+        isConfirmPasswordValid,
+      ],
+      (callback) {
+        final isValid =
+            agreeToTerms.value &&
+            isFirstNameValid.value &&
+            isLastNameValid.value &&
+            isEmailValid.value &&
+            isPasswordValid.value &&
+            isConfirmPasswordValid.value;
+        isFormValid.value = isValid;
+      },
+    );
   }
 
   Future<void> registerBy({required LoginMethod method}) async {

@@ -20,12 +20,12 @@ class AppLocaleConfig {
   );
 
   static PlayxLocaleConfig createLocaleConfig() => PlayxLocaleConfig(
-        supportedLocales: [
-          englishLocale,
-          arabicLocale,
-        ],
-        fallbackLocale: englishLocale,
-      );
+    supportedLocales: [
+      englishLocale,
+      arabicLocale,
+    ],
+    fallbackLocale: englishLocale,
+  );
 }
 
 String get currentLanguageCode =>
@@ -46,5 +46,5 @@ String fontFamily({BuildContext? context}) {
 
 String fontFamilyBasedOnText(String? text, {bool isTranslatable = true}) =>
     (isTranslatable ? text?.tr() : text)?.isArabic == true
-        ? AppLocaleConfig.arabicFontFamily
-        : AppLocaleConfig.englishFontFamily;
+    ? AppLocaleConfig.arabicFontFamily
+    : AppLocaleConfig.englishFontFamily;

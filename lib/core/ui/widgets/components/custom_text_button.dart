@@ -37,7 +37,8 @@ class CustomTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: margin ??
+      padding:
+          margin ??
           EdgeInsets.only(
             right: 14.r,
             left: 14.r,
@@ -47,7 +48,8 @@ class CustomTextButton extends StatelessWidget {
       width: width ?? double.infinity,
       child: PlatformTextButton(
         onPressed: onPressed,
-        padding: padding ??
+        padding:
+            padding ??
             EdgeInsets.symmetric(
               horizontal: 8.r,
               vertical: 16.r,
@@ -55,7 +57,8 @@ class CustomTextButton extends StatelessWidget {
         material: (ctx, _) => MaterialTextButtonData(
           style: ElevatedButton.styleFrom(
             disabledBackgroundColor: disabledBackground,
-            padding: padding ??
+            padding:
+                padding ??
                 EdgeInsets.symmetric(
                   horizontal: 8.r,
                   vertical: 18.r,
@@ -67,7 +70,8 @@ class CustomTextButton extends StatelessWidget {
         ),
         cupertino: (ctx, _) => CupertinoTextButtonData(
           disabledColor: disabledBackground,
-          padding: padding ??
+          padding:
+              padding ??
               EdgeInsets.symmetric(
                 horizontal: 8.r,
                 vertical: 18.r,

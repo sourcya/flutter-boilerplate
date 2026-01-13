@@ -50,12 +50,12 @@ class CustomText extends StatelessWidget {
     this.shadows,
     this.translationContext,
     this.softWrap,
-  })  : icon = null,
-        iconColor = null,
-        iconSpacing = null,
-        iconSize = null,
-        strokeColor = null,
-        strokeWidth = null;
+  }) : icon = null,
+       iconColor = null,
+       iconSpacing = null,
+       iconSize = null,
+       strokeColor = null,
+       strokeWidth = null;
 
   const CustomText.icon(
     this.text, {
@@ -107,17 +107,19 @@ class CustomText extends StatelessWidget {
     this.shadows,
     this.translationContext,
     this.softWrap,
-  })  : icon = null,
-        iconColor = null,
-        iconSpacing = null,
-        iconSize = null;
+  }) : icon = null,
+       iconColor = null,
+       iconSpacing = null,
+       iconSize = null;
 
   @override
   Widget build(BuildContext context) {
-    final translatedText =
-        isTranslatable ? text.tr(context: translationContext ?? context) : text;
+    final translatedText = isTranslatable
+        ? text.tr(context: translationContext ?? context)
+        : text;
 
-    final effectiveTextStyle = textStyle?.copyWith(
+    final effectiveTextStyle =
+        textStyle?.copyWith(
           color: color,
           fontSize: fontSize,
           fontWeight: fontWeight,
@@ -158,30 +160,30 @@ class CustomText extends StatelessWidget {
             ),
           )
         : isSelectable
-            ? SelectableText(
-                translatedText,
-                style: effectiveTextStyle,
-                maxLines: maxLines,
-                textAlign: textAlign,
-              )
-            : strokeColor != null
-                ? StrokeText(
-                    text: translatedText,
-                    strokeColor: strokeColor ?? Colors.black,
-                    strokeWidth: strokeWidth ?? 3,
-                    textStyle: effectiveTextStyle,
-                    maxLines: maxLines,
-                    textAlign: textAlign,
-                    overflow: textOverflow,
-                  )
-                : Text(
-                    translatedText,
-                    style: effectiveTextStyle,
-                    maxLines: maxLines,
-                    textAlign: textAlign,
-                    overflow: textOverflow,
-                    softWrap: softWrap,
-                  );
+        ? SelectableText(
+            translatedText,
+            style: effectiveTextStyle,
+            maxLines: maxLines,
+            textAlign: textAlign,
+          )
+        : strokeColor != null
+        ? StrokeText(
+            text: translatedText,
+            strokeColor: strokeColor ?? Colors.black,
+            strokeWidth: strokeWidth ?? 3,
+            textStyle: effectiveTextStyle,
+            maxLines: maxLines,
+            textAlign: textAlign,
+            overflow: textOverflow,
+          )
+        : Text(
+            translatedText,
+            style: effectiveTextStyle,
+            maxLines: maxLines,
+            textAlign: textAlign,
+            overflow: textOverflow,
+            softWrap: softWrap,
+          );
 
     if (icon == null) {
       return textWidget;
@@ -204,6 +206,7 @@ class CustomText extends StatelessWidget {
     );
   }
 }
+
 /// Predefined text styles for commonly used text categories.
 class CustomTextStyles {
   const CustomTextStyles._();

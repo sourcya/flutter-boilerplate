@@ -8,12 +8,12 @@ class ApiMeta {
   });
 
   factory ApiMeta.fromJson(Map<String, dynamic>? json) => ApiMeta(
-        pagination: Pagination.fromJson(asMap(json, 'pagination')),
-      );
+    pagination: Pagination.fromJson(asMap(json, 'pagination')),
+  );
 
   Map<String, dynamic> toJson() => {
-        'pagination': pagination.toJson(),
-      };
+    'pagination': pagination.toJson(),
+  };
 }
 
 class Pagination {
@@ -30,16 +30,16 @@ class Pagination {
   });
 
   factory Pagination.fromJson(Map<String, dynamic>? json) => Pagination(
-        page: asInt(json, 'page'),
-        pageSize: asInt(json, 'pageSize'),
-        pageCount: asInt(json, 'pageCount'),
-        total: asInt(json, 'total'),
-      );
+    page: asInt(json, 'page'),
+    pageSize: asInt(json, 'pageSize'),
+    pageCount: asInt(json, 'pageCount'),
+    total: asInt(json, 'total'),
+  );
 
   Map<String, dynamic> toJson() => {
-        'page': page,
-        'pageSize': pageSize,
-        'pageCount': pageCount,
-        'total': total,
-      };
+    'page': page,
+    'pageSize': pageSize,
+    'pageCount': pageCount,
+    'total': total,
+  };
 }

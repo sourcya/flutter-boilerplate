@@ -39,18 +39,21 @@ class CustomCard extends StatelessWidget {
       margin: margin ?? EdgeInsets.symmetric(horizontal: 8.r, vertical: 4.r),
       shouldShowCustomShadow: false,
       elevation: elevation ?? (context.isDark ? 4 : 0),
-      color: color ??
+      color:
+          color ??
           (context.isDark
               ? isChild
-                  ? context.colors.surfaceContainerHighest
-                  : context.colors.surfaceContainerHigh
+                    ? context.colors.surfaceContainerHighest
+                    : context.colors.surfaceContainerHigh
               : Colors.white),
       innerCardShadowMargin: innerCardShadowMargin,
       shadowBorderRadius: shadowBorderRadius,
-      shape: shape ??
+      shape:
+          shape ??
           RoundedRectangleBorder(
-              borderRadius: borderRadius ?? BorderRadius.circular(8.r),
-              side: BorderSide(color: context.colors.borderColor)),
+            borderRadius: borderRadius ?? BorderRadius.circular(8.r),
+            side: BorderSide(color: context.colors.borderColor),
+          ),
       borderRadius: borderRadius ?? BorderRadius.circular(8.r),
       child: Padding(
         padding:

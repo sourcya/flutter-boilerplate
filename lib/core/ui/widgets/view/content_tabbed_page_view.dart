@@ -45,7 +45,8 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
   tablePagingBuilder;
 
   /// Builds the list/grid view for a tab given an item
-  final Widget Function(BuildContext context, dynamic item, int index)? itemPagingBuilder;
+  final Widget Function(BuildContext context, dynamic item, int index)?
+  itemPagingBuilder;
 
   final Widget? topWidget;
 
@@ -92,7 +93,8 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final toggleWidgetChild =
-        customToggleBuilder?.call(context) ?? (showTabToggle ? _buildTabsToggle(context) : null);
+        customToggleBuilder?.call(context) ??
+        (showTabToggle ? _buildTabsToggle(context) : null);
 
     final toggleWidget = toggleWidgetChild != null
         ? toggleSwitchDecorator?.call(toggleWidgetChild) ?? toggleWidgetChild
@@ -125,7 +127,8 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
                       ResponsivePagedSliverView(
                         pagingController: pc,
                         itemBuilder: itemPagingBuilder!,
-                        emptyDataMessage: emptyMessageBuilder?.call(tab) ?? emptyMessage,
+                        emptyDataMessage:
+                            emptyMessageBuilder?.call(tab) ?? emptyMessage,
                       ),
                     ],
                   )
@@ -160,7 +163,8 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
                 );
               },
             ),
-            if (togglePosition == TogglePosition.belowHeader && toggleWidget != null)
+            if (togglePosition == TogglePosition.belowHeader &&
+                toggleWidget != null)
               Padding(
                 padding: EdgeInsets.only(left: 8.r),
                 child: toggleWidget,
@@ -170,7 +174,9 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
                   ? TabBarView(controller: tabController, children: tabsContent)
                   : Obx(() {
                       final selected = selectedTabRx?.value;
-                      final selectedIndex = selected != null ? tabs.indexOf(selected) : -1;
+                      final selectedIndex = selected != null
+                          ? tabs.indexOf(selected)
+                          : -1;
                       if (selectedIndex < 0) {
                         return const SizedBox.shrink();
                       }
@@ -202,7 +208,9 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
     final isDrawerOpen = drawerControllerValue.visible;
 
     // Drawer takes 25% of screen width when open
-    final double availableWidth = isDrawerOpen ? context.width * 0.75 : context.width;
+    final double availableWidth = isDrawerOpen
+        ? context.width * 0.75
+        : context.width;
     const breakpointWidth = 1100;
     final isNarrow = availableWidth < breakpointWidth;
 
@@ -265,7 +273,10 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
           children: [
             Row(children: leftWidgets),
             SizedBox(height: 4.r),
-            Row(mainAxisAlignment: MainAxisAlignment.end, children: rightWidgets),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: rightWidgets,
+            ),
           ],
         ),
       );

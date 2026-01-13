@@ -77,14 +77,14 @@ class GenericPagedView<T> extends StatelessWidget {
     this.counterWidget,
     this.titleFontWeight = FontWeight.w500,
     this.titleFontSize = 20,
-  })  : pagingController = controller.pagingController,
-        searchController = controller.searchController,
-        onRefresh = onRefresh ?? controller.refreshData,
-        onSearchChanged = onSearchChanged ?? controller.updateSearch,
-        emptyMessage = emptyMessage ?? AppTrans.emptyResponse,
-        isTableView = (initialTableView != null
-            ? initialTableView.obs
-            : controller.isTableView);
+  }) : pagingController = controller.pagingController,
+       searchController = controller.searchController,
+       onRefresh = onRefresh ?? controller.refreshData,
+       onSearchChanged = onSearchChanged ?? controller.updateSearch,
+       emptyMessage = emptyMessage ?? AppTrans.emptyResponse,
+       isTableView = (initialTableView != null
+           ? initialTableView.obs
+           : controller.isTableView);
 
   @override
   Widget build(BuildContext context) {
@@ -99,8 +99,9 @@ class GenericPagedView<T> extends StatelessWidget {
         Obx(() {
           return SliverAnimatedSwitcher(
             duration: 300.ms,
-            child:
-                isTableView.value ? _buildTable(context) : _buildGrid(context),
+            child: isTableView.value
+                ? _buildTable(context)
+                : _buildGrid(context),
           );
         }),
         SliverToBoxAdapter(
@@ -187,18 +188,18 @@ class GenericPagedView<T> extends StatelessWidget {
           valueListenable: searchController,
           builder:
               (BuildContext context, TextEditingValue value, Widget? child) {
-            return AnimatedVisibility(
-              duration: 250.ms,
-              isVisible: value.text.isNotEmpty,
-              child: IconButton(
-                onPressed: () {
-                  searchController.clear();
-                  onSearchChanged?.call('');
-                },
-                icon: const Icon(Icons.close),
-              ),
-            );
-          },
+                return AnimatedVisibility(
+                  duration: 250.ms,
+                  isVisible: value.text.isNotEmpty,
+                  child: IconButton(
+                    onPressed: () {
+                      searchController.clear();
+                      onSearchChanged?.call('');
+                    },
+                    icon: const Icon(Icons.close),
+                  ),
+                );
+              },
         ),
         fillColor: context.colors.cardColor,
         hint: AppTrans.search.tr(context: context),

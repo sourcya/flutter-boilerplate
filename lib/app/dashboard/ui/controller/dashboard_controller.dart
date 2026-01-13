@@ -3,7 +3,7 @@ part of '../imports/dashboard_imports.dart';
 class DashboardController extends GetxController {
   final WishlistRepository _wishlistRepository;
   DashboardController({required WishlistRepository wishlistRepository})
-      : _wishlistRepository = wishlistRepository;
+    : _wishlistRepository = wishlistRepository;
 
   final List<DashboardItem> _items = List.generate(
     20,
@@ -17,8 +17,9 @@ class DashboardController extends GetxController {
     ),
   );
 
-  final dataState =
-      Rx<DataState<List<DashboardItem>>>(const DataState.initial());
+  final dataState = Rx<DataState<List<DashboardItem>>>(
+    const DataState.initial(),
+  );
 
   @override
   void onInit() {

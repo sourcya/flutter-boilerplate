@@ -45,19 +45,21 @@ class FeatureChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final label =
-        isLabelTranslatable ? this.label?.tr(context: context) : this.label;
+    final label = isLabelTranslatable
+        ? this.label?.tr(context: context)
+        : this.label;
     double labelFontSize =
         fontSize ?? (PlayxLocalization.isCurrentLocaleArabic() ? 14.sp : 15.sp);
     final labelLength = label?.length ?? 0;
 
     if (decreaseFontSizeByLength && labelLength > 10) {
-      labelFontSize = labelFontSize -
+      labelFontSize =
+          labelFontSize -
           (labelLength > 35
                   ? 2
                   : labelLength > 20
-                      ? 1
-                      : 0)
+                  ? 1
+                  : 0)
               .sp;
     }
 
@@ -84,13 +86,15 @@ class FeatureChip extends StatelessWidget {
         color: backgroundColor ?? context.colors.chipBackgroundColor,
         elevation: elevation ?? (context.isDark ? 2 : 0),
         shadowColor: isCupertino(context) ? Colors.black : null,
-        shape: shape ??
+        shape:
+            shape ??
             RoundedRectangleBorder(
               side: borderSide ?? BorderSide(color: context.colors.onSurface),
               borderRadius: BorderRadius.circular(16.r),
             ),
         child: Container(
-          padding: contentPadding ??
+          padding:
+              contentPadding ??
               padding ??
               EdgeInsets.symmetric(
                 vertical: (label?.length ?? 10) > 28
@@ -100,8 +104,9 @@ class FeatureChip extends StatelessWidget {
               ),
           child: icon != null
               ? Row(
-                  mainAxisSize:
-                      isMaxWidth ? MainAxisSize.max : MainAxisSize.min,
+                  mainAxisSize: isMaxWidth
+                      ? MainAxisSize.max
+                      : MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     icon!.buildIconWidget(

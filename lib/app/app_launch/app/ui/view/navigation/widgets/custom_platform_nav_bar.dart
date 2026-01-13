@@ -26,7 +26,8 @@ class CustomPlatformNavBar extends PlatformNavBar {
   Widget _createMaterial3Widget(BuildContext context) {
     final data = material3?.call(context, platform(context));
     final selectedIndex = data?.selectedIndex ?? currentIndex ?? 0;
-    final destinations = data?.items ??
+    final destinations =
+        data?.items ??
         items?.map(
           (item) {
             return CustomNavigationDestination(

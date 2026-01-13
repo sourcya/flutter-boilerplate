@@ -18,13 +18,14 @@ class WishlistRepository {
 
   Stream<List<WishlistItem>> watchAllWishlistItems() {
     return _localDatasource.watchAllWishlistItems().map(
-          (event) => event.map((e) => e.toWishlistItem()).toList(),
-        );
+      (event) => event.map((e) => e.toWishlistItem()).toList(),
+    );
   }
 
   Future<int> insertWishlistItem(WishlistItem wishlist) {
-    return _localDatasource
-        .insertWishlistItem(wishlist.toDatabaseWishlistItem());
+    return _localDatasource.insertWishlistItem(
+      wishlist.toDatabaseWishlistItem(),
+    );
   }
 
   void deleteWishlistItem(WishlistItem wishlist) {

@@ -15,7 +15,10 @@ class ColumnHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (icon != null) ...[
-            icon!.buildIconWidget(size: 14.0.r, color: context.colors.subtitleTextColor),
+            icon!.buildIconWidget(
+              size: 14.0.r,
+              color: context.colors.subtitleTextColor,
+            ),
             SizedBox(width: 4.0.r),
           ],
           Flexible(

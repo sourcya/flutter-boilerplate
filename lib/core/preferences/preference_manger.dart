@@ -10,8 +10,8 @@ import 'package:playx/playx.dart';
 class MyPreferenceManger {
   static final MyPreferenceManger instance =
       getIt.isRegistered<MyPreferenceManger>()
-          ? getIt.get<MyPreferenceManger>()
-          : MyPreferenceManger();
+      ? getIt.get<MyPreferenceManger>()
+      : MyPreferenceManger();
 
   void registerInstance() {
     getIt.registerSingleton<MyPreferenceManger>(MyPreferenceManger());

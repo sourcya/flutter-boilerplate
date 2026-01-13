@@ -6,9 +6,11 @@ class LoginBinding extends PlayxBinding {
   Future<void> onEnter(BuildContext context, GoRouterState state) async {
     final authRepository = AuthRepository.instance;
     if (!Get.isRegistered<LoginController>()) {
-      Get.put(LoginController(
-        authRepository: authRepository,
-      ));
+      Get.put(
+        LoginController(
+          authRepository: authRepository,
+        ),
+      );
     }
   }
 

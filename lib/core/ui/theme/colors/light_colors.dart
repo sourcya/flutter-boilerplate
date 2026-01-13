@@ -7,10 +7,9 @@ class LightColors extends AppColors {
 
   static final ColorScheme scheme = SeedColorScheme.fromSeeds(
     primaryKey: Colors.black,
-    tones: FlexTones.chroma(Brightness.light)
-        .onMainsUseBW()
-        .onSurfacesUseBW()
-        .surfacesUseBW(),
+    tones: FlexTones.chroma(
+      Brightness.light,
+    ).onMainsUseBW().onSurfacesUseBW().surfacesUseBW(),
     primary: Colors.black,
   );
 

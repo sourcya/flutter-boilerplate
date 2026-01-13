@@ -83,12 +83,12 @@ class IconInfo {
 
 extension IconInfoStringExtensions on String {
   IconInfo toSvgIconInfo({Color? color, double? size}) {
-    return IconInfo.svg(this, color: color,size:size);
+    return IconInfo.svg(this, color: color, size: size);
   }
 }
 
 extension IconInfoIconExtensions on IconData {
   IconInfo toIconInfo({Color? color, double? size}) {
-    return IconInfo.icon(this, color: color,size:size);
+    return IconInfo.icon(this, color: color, size: size);
   }
 }

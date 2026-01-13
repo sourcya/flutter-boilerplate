@@ -117,11 +117,14 @@ class SecureStorageManager {
 
       // Step 5: Register the singleton instance.
       getIt.registerSingleton<SecureStorageManager>(
-          SecureStorageManager._(activeType));
+        SecureStorageManager._(activeType),
+      );
       await instance._ensureFreshInstallHandled();
     } catch (e) {
-      myLogger.e('CRITICAL: Failed to initialize SecureStorageManager. ',
-          error: e);
+      myLogger.e(
+        'CRITICAL: Failed to initialize SecureStorageManager. ',
+        error: e,
+      );
       rethrow;
     }
   }
@@ -130,10 +133,12 @@ class SecureStorageManager {
   static Future<void> _initializeKeys() async {
     try {
       encryptionKey = await SimpleSecureStorage.read(_encryptionKeyStorageKey);
-      webKeyPassword =
-          await SimpleSecureStorage.read(_webKeyPasswordStorageKey);
-      webEncryptionSalt =
-          await SimpleSecureStorage.read(_webEncryptionSaltStorageKey);
+      webKeyPassword = await SimpleSecureStorage.read(
+        _webKeyPasswordStorageKey,
+      );
+      webEncryptionSalt = await SimpleSecureStorage.read(
+        _webEncryptionSaltStorageKey,
+      );
 
       if (encryptionKey == null ||
           webKeyPassword == null ||
@@ -168,7 +173,9 @@ class SecureStorageManager {
     await SimpleSecureStorage.write(_encryptionKeyStorageKey, encryptionKey!);
     await SimpleSecureStorage.write(_webKeyPasswordStorageKey, webKeyPassword!);
     await SimpleSecureStorage.write(
-        _webEncryptionSaltStorageKey, webEncryptionSalt!);
+      _webEncryptionSaltStorageKey,
+      webEncryptionSalt!,
+    );
   }
 
   /// Assigns hardcoded, insecure keys as a last resort if device storage fails.
@@ -183,8 +190,10 @@ class SecureStorageManager {
     final random = Random.secure();
     const chars =
         'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-    return List.generate(length, (index) => chars[random.nextInt(chars.length)])
-        .join();
+    return List.generate(
+      length,
+      (index) => chars[random.nextInt(chars.length)],
+    ).join();
   }
 
   /// Internal initializer for `simple_secure_storage`.
@@ -227,8 +236,11 @@ class SecureStorageManager {
         await _setWithPrefs(key, value);
       }
     } catch (e, s) {
-      myLogger.e('SECURE STORAGE: Failed to set key "$key"',
-          error: e, stackTrace: s);
+      myLogger.e(
+        'SECURE STORAGE: Failed to set key "$key"',
+        error: e,
+        stackTrace: s,
+      );
       Sentry.captureException(e, stackTrace: s);
     }
   }
@@ -241,8 +253,11 @@ class SecureStorageManager {
         return await _getWithPrefs(key);
       }
     } catch (e, s) {
-      myLogger.e('SECURE STORAGE: Failed to get key "$key"',
-          error: e, stackTrace: s);
+      myLogger.e(
+        'SECURE STORAGE: Failed to get key "$key"',
+        error: e,
+        stackTrace: s,
+      );
       Sentry.captureException(e, stackTrace: s);
       return null;
     }
@@ -256,15 +271,20 @@ class SecureStorageManager {
         await _removeWithPrefs(key);
       }
     } catch (e, s) {
-      myLogger.e('SECURE STORAGE: Failed to remove key "$key"',
-          error: e, stackTrace: s);
+      myLogger.e(
+        'SECURE STORAGE: Failed to remove key "$key"',
+        error: e,
+        stackTrace: s,
+      );
       Sentry.captureException(e, stackTrace: s);
     }
   }
 
   Future<void> clearAll() async {
     myLogger.w(
-        tag: 'SECURE STORAGE', 'Clearing all data from $_activeStorageType');
+      tag: 'SECURE STORAGE',
+      'Clearing all data from $_activeStorageType',
+    );
     try {
       if (_activeStorageType == StorageType.simple) {
         await SimpleSecureStorage.clear();
@@ -272,8 +292,11 @@ class SecureStorageManager {
         await PlayxAsyncPrefs.clear();
       }
     } catch (e, s) {
-      myLogger.e('SECURE STORAGE: Failed to clear storage',
-          error: e, stackTrace: s);
+      myLogger.e(
+        'SECURE STORAGE: Failed to clear storage',
+        error: e,
+        stackTrace: s,
+      );
       Sentry.captureException(e, stackTrace: s);
     }
   }
@@ -318,7 +341,9 @@ class SecureStorageManager {
       );
       if (isFirstInstall) {
         myLogger.i(
-            tag: 'SECURE STORAGE', 'First install detected. Clearing storage.');
+          tag: 'SECURE STORAGE',
+          'First install detected. Clearing storage.',
+        );
         await clearAll();
         await PlayxAsyncPrefs.setBool(_installFlagKey, false);
       }

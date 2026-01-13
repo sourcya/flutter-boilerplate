@@ -66,7 +66,9 @@ class CustomTableView<T> extends StatelessWidget {
       dataRowHeight: 65.h,
       headingRowHeight: 55.h,
       border: TableBorder(
-        bottom: BorderSide(color: context.colors.borderColor.withValues(alpha: .7)),
+        bottom: BorderSide(
+          color: context.colors.borderColor.withValues(alpha: .7),
+        ),
         horizontalInside: BorderSide(
           color: context.colors.borderColor.withValues(alpha: .7),
         ),
@@ -81,7 +83,9 @@ class CustomTableView<T> extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 4.h, horizontal: 12.h),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24.h),
-        side: BorderSide(color: context.colors.borderColor.withValues(alpha: .7)),
+        side: BorderSide(
+          color: context.colors.borderColor.withValues(alpha: .7),
+        ),
       ),
       child: table,
     );

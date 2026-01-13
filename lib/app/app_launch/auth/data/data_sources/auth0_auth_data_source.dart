@@ -153,7 +153,8 @@ class Auth0AuthDataSource {
             user.firstName!.isEmpty ||
             user.lastName == null ||
             user.lastName!.isEmpty) {
-          final firstName = user.firstName ??
+          final firstName =
+              user.firstName ??
               credentials.user.givenName ??
               credentials.user.name;
           final lastName = user.lastName ?? credentials.user.familyName;

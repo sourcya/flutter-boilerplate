@@ -62,8 +62,9 @@ class _ConnectionStatusWidgetState extends State<ConnectionStatusWidget> {
 
   void showConnectionRestoredBanner() {
     Alert.showBanner(
-      message:
-          AppTrans.internetConnectionRestoredBannerMsg.tr(context: context),
+      message: AppTrans.internetConnectionRestoredBannerMsg.tr(
+        context: context,
+      ),
       color: Colors.green,
       actions: [
         TextButton(

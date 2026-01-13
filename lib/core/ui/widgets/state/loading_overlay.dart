@@ -34,7 +34,10 @@ class LoadingOverlay extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 16.r),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0.r,
+                      vertical: 16.r,
+                    ),
                     child: const CenterLoading.adaptive(
                       color: Colors.white,
                     ),
@@ -94,7 +97,10 @@ class AnimatedDottedText extends StatefulWidget {
 
 class _AnimatedDottedTextState extends State<AnimatedDottedText>
     with SingleTickerProviderStateMixin {
-  late final controller = AnimationController(vsync: this, duration: widget.duration);
+  late final controller = AnimationController(
+    vsync: this,
+    duration: widget.duration,
+  );
   late final animation = CurvedAnimation(
     parent: controller,
     curve: Curves.easeInOut,

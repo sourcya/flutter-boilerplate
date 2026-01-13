@@ -19,8 +19,8 @@ abstract class Constants {
   static String storeUrl = Platform.isAndroid
       ? playStoreUrl
       : Platform.isIOS
-          ? iosStoreUrl
-          : '';
+      ? iosStoreUrl
+      : '';
 
   static const String storeCountry = 'sa';
   static String storeLanguage = PlayxLocalization.currentLocale.languageCode;

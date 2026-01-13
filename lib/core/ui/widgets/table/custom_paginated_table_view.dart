@@ -138,8 +138,9 @@ class _CustomPagingTableViewState<T> extends State<CustomPagingTableView<T>> {
       margin: EdgeInsets.symmetric(vertical: 4.r, horizontal: 12.r),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24.r),
-        side:
-            BorderSide(color: context.colors.borderColor.withValues(alpha: .7)),
+        side: BorderSide(
+          color: context.colors.borderColor.withValues(alpha: .7),
+        ),
       ),
       child: ValueListenableBuilder(
         valueListenable: widget.pagingController,
@@ -185,7 +186,8 @@ class _CustomPagingTableViewState<T> extends State<CustomPagingTableView<T>> {
             // }),
             border: TableBorder(
               bottom: BorderSide(
-                  color: context.colors.borderColor.withValues(alpha: .7)),
+                color: context.colors.borderColor.withValues(alpha: .7),
+              ),
               horizontalInside: BorderSide(
                 color: context.colors.borderColor.withValues(alpha: .7),
               ),
@@ -194,7 +196,8 @@ class _CustomPagingTableViewState<T> extends State<CustomPagingTableView<T>> {
             // sortAscending: _sortAscending,
             sortArrowAnimationDuration: const Duration(milliseconds: 200),
             // generic error handling
-            empty: widget.emptyBuilder ??
+            empty:
+                widget.emptyBuilder ??
                 Center(
                   child: CustomText(
                     AppTrans.emptyResponse,

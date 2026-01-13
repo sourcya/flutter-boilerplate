@@ -87,7 +87,8 @@ class ToggleSwitch<T> extends StatefulWidget {
   final Widget Function(T?)? itemLabelBuilder;
   final bool isScrollable;
 
-  final Widget Function(BuildContext context, Widget child, T? tab)? childWrapper;
+  final Widget Function(BuildContext context, Widget child, T? tab)?
+  childWrapper;
 
   const ToggleSwitch({
     super.key,
@@ -195,7 +196,9 @@ class _ToggleSwitchState<T> extends State<ToggleSwitch<T>> {
         side: BorderSide(
           color:
               widget.borderColor ??
-              (widget.useNewStyle ? Colors.transparent : context.colors.onSurface),
+              (widget.useNewStyle
+                  ? Colors.transparent
+                  : context.colors.onSurface),
         ),
       ),
       color: widget.useNewStyle
@@ -203,17 +206,22 @@ class _ToggleSwitchState<T> extends State<ToggleSwitch<T>> {
           : widget.backgroundColor,
       padding: widget.useNewStyle
           ? EdgeInsets.symmetric(horizontal: 2.r, vertical: 2.r)
-          : widget.padding ?? EdgeInsets.symmetric(horizontal: 4.r, vertical: 4.r),
+          : widget.padding ??
+                EdgeInsets.symmetric(horizontal: 4.r, vertical: 4.r),
       child: widget.isScrollable
           ? SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                mainAxisSize: widget.isMaxWidth ? MainAxisSize.max : MainAxisSize.min,
+                mainAxisSize: widget.isMaxWidth
+                    ? MainAxisSize.max
+                    : MainAxisSize.min,
                 children: children,
               ),
             )
           : Row(
-              mainAxisSize: widget.isMaxWidth ? MainAxisSize.max : MainAxisSize.min,
+              mainAxisSize: widget.isMaxWidth
+                  ? MainAxisSize.max
+                  : MainAxisSize.min,
               children: children,
             ),
     );
@@ -244,7 +252,9 @@ class _ToggleSwitchState<T> extends State<ToggleSwitch<T>> {
         duration: 200.milliseconds,
         padding: widget.useNewStyle
             ? EdgeInsets.symmetric(
-                horizontal: (suffix != null ? 12.r : 4.r) + (widget.isScrollable ? 6.r : 0),
+                horizontal:
+                    (suffix != null ? 12.r : 4.r) +
+                    (widget.isScrollable ? 6.r : 0),
                 vertical: suffix != null ? 4.r : 8.r,
               )
             : EdgeInsets.symmetric(
@@ -256,7 +266,9 @@ class _ToggleSwitchState<T> extends State<ToggleSwitch<T>> {
             : EdgeInsets.symmetric(horizontal: 2.r, vertical: 2.r),
         decoration: BoxDecoration(
           borderRadius: baseRadius,
-          color: isSelected ? widget.selectedColor ?? context.colors.primary : null,
+          color: isSelected
+              ? widget.selectedColor ?? context.colors.primary
+              : null,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -277,7 +289,8 @@ class _ToggleSwitchState<T> extends State<ToggleSwitch<T>> {
                   CustomText(
                     label,
                     textAlign: TextAlign.center,
-                    fontSize: widget.fontSize ?? (widget.isCompact ? 11.sp : 12.sp),
+                    fontSize:
+                        widget.fontSize ?? (widget.isCompact ? 11.sp : 12.sp),
                     color: isSelected
                         ? (widget.onSelectedColor ?? context.colors.onPrimary)
                         : (widget.color ?? context.colors.onSurface),
@@ -297,7 +310,8 @@ class _ToggleSwitchState<T> extends State<ToggleSwitch<T>> {
                 labelPadding: EdgeInsets.symmetric(horizontal: 4.r),
                 label: CustomText(
                   suffix,
-                  fontSize: widget.fontSize ?? (widget.isCompact ? 11.sp : 12.sp),
+                  fontSize:
+                      widget.fontSize ?? (widget.isCompact ? 11.sp : 12.sp),
                   fontWeight: FontWeight.w500,
                   color: context.colors.onSecondaryContainer,
                 ),

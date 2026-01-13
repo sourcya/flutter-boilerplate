@@ -4,10 +4,9 @@ class DarkColors extends AppColors {
   static final ColorScheme scheme = SeedColorScheme.fromSeeds(
     primaryKey: Colors.black,
     brightness: Brightness.dark,
-    tones: FlexTones.chroma(Brightness.dark)
-        .onMainsUseBW()
-        .onSurfacesUseBW()
-        .surfacesUseBW(),
+    tones: FlexTones.chroma(
+      Brightness.dark,
+    ).onMainsUseBW().onSurfacesUseBW().surfacesUseBW(),
   );
 
   DarkColors() : super(colorScheme: scheme);

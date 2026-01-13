@@ -7,8 +7,9 @@ class BuildRegisterBackButton extends GetView<RegisterController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return AnimatedOpacity(
-        opacity:
-            controller.currentLoginMethod.value == LoginMethod.email ? 1 : 0,
+        opacity: controller.currentLoginMethod.value == LoginMethod.email
+            ? 1
+            : 0,
         duration: const Duration(milliseconds: 500),
 
         /// Back button

@@ -11,10 +11,10 @@ class BuildBottomNavProfileImageWidget extends StatelessWidget {
       radius: PlayxPlatform.isCupertino ? 11 : 14,
       backgroundColor:
           controller.currentBottomNavIndex == controller.bottomNavItems.length
-              ? PlayxPlatform.isIOS
-                  ? context.colors.primary
-                  : context.colors.onSecondaryContainer
-              : context.colors.onSurface,
+          ? PlayxPlatform.isIOS
+                ? context.colors.primary
+                : context.colors.onSecondaryContainer
+          : context.colors.onSurface,
       child: CircleAvatar(
         radius: PlayxPlatform.isCupertino ? 10 : 14,
         backgroundColor: context.colors.surface,
@@ -30,21 +30,21 @@ class BuildBottomNavProfileImageWidget extends StatelessWidget {
             }
             return ImageViewer.cachedNetwork(
               imageUrl,
-              errorBuilder: (
-                context,
-                error,
-              ) =>
-                  PlaceholderImageWidget(
-                path: Assets.images.profilePlaceholder,
-                padding: EdgeInsets.zero,
-              ),
-              placeholderBuilder: (
-                context,
-              ) =>
-                  PlaceholderImageWidget(
-                path: Assets.images.profilePlaceholder,
-                padding: EdgeInsets.zero,
-              ),
+              errorBuilder:
+                  (
+                    context,
+                    error,
+                  ) => PlaceholderImageWidget(
+                    path: Assets.images.profilePlaceholder,
+                    padding: EdgeInsets.zero,
+                  ),
+              placeholderBuilder:
+                  (
+                    context,
+                  ) => PlaceholderImageWidget(
+                    path: Assets.images.profilePlaceholder,
+                    padding: EdgeInsets.zero,
+                  ),
             );
           }),
         ),

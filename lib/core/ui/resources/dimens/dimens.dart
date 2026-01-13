@@ -35,6 +35,6 @@ Dimens get dimens {
   return isTablet
       ? TabletDimens()
       : isSmallMobile
-          ? SmallMobileDimens()
-          : MobileDimens();
+      ? SmallMobileDimens()
+      : MobileDimens();
 }

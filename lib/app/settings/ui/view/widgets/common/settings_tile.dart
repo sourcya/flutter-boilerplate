@@ -35,7 +35,8 @@ class BuildSettingsTile extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
         isChild: true,
         child: Padding(
-          padding: padding ??
+          padding:
+              padding ??
               EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 12.0.h),
           child: Row(
             children: [

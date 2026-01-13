@@ -13,7 +13,9 @@ class MenuIconButton extends StatelessWidget {
         valueListenable: AppController.instance.drawerController,
         builder: (_, value, __) {
           return AnimatedRotation(
-            turns: value.visible ? (context.isRtl ? 0 : .5) : (context.isRtl ? .5 : 0),
+            turns: value.visible
+                ? (context.isRtl ? 0 : .5)
+                : (context.isRtl ? .5 : 0),
             duration: const Duration(milliseconds: 200),
             child: ImageViewer.svgAsset(
               Assets.icons.expand,

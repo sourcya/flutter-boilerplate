@@ -81,7 +81,9 @@ class _CounterWidgetState extends State<CounterWidget> {
 
   void _updateTextControllerFromCount() {
     final formattedValue = toLocalizedEnglishNumber(
-        _count, widget.allowDecimal ? widget.decimalPlaces : 0);
+      _count,
+      widget.allowDecimal ? widget.decimalPlaces : 0,
+    );
     textController.value = TextEditingValue(
       text: formattedValue,
       selection: TextSelection.collapsed(offset: formattedValue.length),
@@ -128,10 +130,13 @@ class _CounterWidgetState extends State<CounterWidget> {
   }
 
   TextEditingValue formatNumber(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     if (newValue.text.isEmpty) {
-      updateValue(widget
-          .minValue); // Or 0, depending on desired behavior for empty input
+      updateValue(
+        widget.minValue,
+      ); // Or 0, depending on desired behavior for empty input
       return newValue;
     }
     if (newValue.text == "-") {
@@ -156,14 +161,17 @@ class _CounterWidgetState extends State<CounterWidget> {
       return oldValue;
     }
 
-    updateValue(parsedValue.toDouble(),
-        updateController:
-            false); // Don't update controller, it will be newValue
+    updateValue(
+      parsedValue.toDouble(),
+      updateController: false,
+    ); // Don't update controller, it will be newValue
     return newValue; // Return newValue as it has passed filters and basic parsing
   }
 
   TextEditingValue formatDecimalNumber(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     if (!widget.enabled) return oldValue;
 
     // 1. Normalize incoming newValue: replace Arabic decimal '٫' with period '.'
@@ -210,7 +218,8 @@ class _CounterWidgetState extends State<CounterWidget> {
         final beforeDot = westernText.substring(0, westernText.length - 1);
         // Check if the part before the dot is a valid number and within bounds (optional for intermediate state)
         final tempParse = double.tryParse(
-            beforeDot.isEmpty ? "0" : beforeDot); // For ".", tempParse is 0
+          beforeDot.isEmpty ? "0" : beforeDot,
+        ); // For ".", tempParse is 0
         if (tempParse != null) {
           // Optional: Check bounds even for intermediate "123."
           // if (tempParse >= widget.minValue && tempParse <= widget.maxValue) {
@@ -250,8 +259,9 @@ class _CounterWidgetState extends State<CounterWidget> {
 
     // Handle cases like ".", "-", or empty string if they are still in the field
     if (currentText.isEmpty || currentText == "." || currentText == "-") {
-      updateValue(widget.minValue
-          .clamp(widget.minValue, widget.maxValue)); // Or some other default
+      updateValue(
+        widget.minValue.clamp(widget.minValue, widget.maxValue),
+      ); // Or some other default
       _updateTextControllerFromCount();
       return;
     }
@@ -276,10 +286,12 @@ class _CounterWidgetState extends State<CounterWidget> {
       // Clamp and format properly
       finalValue = finalValue.clamp(widget.minValue, widget.maxValue);
       // Ensure correct number of decimal places after editing complete
-      final String formattedFinalValue = finalValue
-          .toStringAsFixed(widget.allowDecimal ? widget.decimalPlaces : 0);
+      final String formattedFinalValue = finalValue.toStringAsFixed(
+        widget.allowDecimal ? widget.decimalPlaces : 0,
+      );
       finalValue = double.parse(
-          formattedFinalValue); // re-parse to avoid precision issues from toStringAsFixed
+        formattedFinalValue,
+      ); // re-parse to avoid precision issues from toStringAsFixed
 
       updateValue(finalValue); // This will call _updateTextControllerFromCount
     }
@@ -305,9 +317,11 @@ class _CounterWidgetState extends State<CounterWidget> {
             FilteringTextInputFormatter.allow(
               // Allow optional "-", digits (Arabic or Eng), optional [.\٫] (period OR Arabic decimal separator),
               // and 0 to X decimal places
-              RegExp(r'^-?[٠-٩\d]*[.\٫]?[٠-٩\d]{0,'
-                  '${widget.decimalPlaces}'
-                  r'}$'),
+              RegExp(
+                r'^-?[٠-٩\d]*[.\٫]?[٠-٩\d]{0,'
+                '${widget.decimalPlaces}'
+                r'}$',
+              ),
             ),
             TextInputFormatter.withFunction(formatDecimalNumber),
           ]
@@ -333,8 +347,8 @@ class _CounterWidgetState extends State<CounterWidget> {
         fontFamily: fontFamily(context: context),
         color: widget.enabled
             ? (widget.isPlainStyle
-                ? context.colors.onSurface
-                : context.colors.onPrimaryContainer)
+                  ? context.colors.onSurface
+                  : context.colors.onPrimaryContainer)
             : Colors.grey,
       ),
       inputFormatters: inputFormatters,
@@ -353,8 +367,8 @@ class _CounterWidgetState extends State<CounterWidget> {
           fontWeight: FontWeight.w500,
           color: widget.enabled
               ? (widget.isPlainStyle
-                  ? context.colors.onSurface
-                  : context.colors.onPrimaryContainer)
+                    ? context.colors.onSurface
+                    : context.colors.onPrimaryContainer)
               : Colors.grey,
           fontFamily: fontFamily(context: context),
         ),
@@ -415,8 +429,9 @@ class _CounterWidgetState extends State<CounterWidget> {
             ),
           Container(
             decoration: BoxDecoration(
-              borderRadius:
-                  widget.isPlainStyle ? null : BorderRadius.circular(36.r),
+              borderRadius: widget.isPlainStyle
+                  ? null
+                  : BorderRadius.circular(36.r),
               color: widget.isPlainStyle
                   ? null
                   : context.colors.primary.withValues(alpha: .4),
@@ -448,8 +463,10 @@ class _CounterWidgetState extends State<CounterWidget> {
                           padding: widget.visualDensity == VisualDensity.compact
                               ? EdgeInsets.zero
                               : widget.labelPadding ??
-                                  EdgeInsets.symmetric(
-                                      horizontal: 4.0.r, vertical: 4.r),
+                                    EdgeInsets.symmetric(
+                                      horizontal: 4.0.r,
+                                      vertical: 4.r,
+                                    ),
                           child: fieldWidget,
                         ),
                       ),
@@ -470,8 +487,9 @@ class _CounterWidgetState extends State<CounterWidget> {
                   )
                 : Row(
                     // Not including text field
-                    mainAxisSize:
-                        widget.isMaxWidth ? MainAxisSize.max : MainAxisSize.min,
+                    mainAxisSize: widget.isMaxWidth
+                        ? MainAxisSize.max
+                        : MainAxisSize.min,
                     mainAxisAlignment: widget.isMaxWidth
                         ? MainAxisAlignment.spaceEvenly
                         : MainAxisAlignment.start,
@@ -490,13 +508,18 @@ class _CounterWidgetState extends State<CounterWidget> {
                               },
                       ),
                       Padding(
-                        padding: widget.labelPadding ??
+                        padding:
+                            widget.labelPadding ??
                             EdgeInsets.symmetric(
-                                vertical: 4.r, horizontal: 8.r),
+                              vertical: 4.r,
+                              horizontal: 8.r,
+                            ),
                         // Increased horizontal padding
                         child: CustomText(
-                          toLocalizedEnglishNumber(_count,
-                              widget.allowDecimal ? widget.decimalPlaces : 0),
+                          toLocalizedEnglishNumber(
+                            _count,
+                            widget.allowDecimal ? widget.decimalPlaces : 0,
+                          ),
                         ),
                       ),
                       _buildIconButton(
@@ -538,7 +561,9 @@ class _CounterWidgetState extends State<CounterWidget> {
           ? ButtonStyle(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               padding: WidgetStatePropertyAll(
-                  EdgeInsets.symmetric(horizontal: 8.r, vertical: 4.r)))
+                EdgeInsets.symmetric(horizontal: 8.r, vertical: 4.r),
+              ),
+            )
           : null, // And this sstyle
       icon: icon.buildIconWidget(
         color: widget.isPlainStyle ? context.colors.onSurface : null,
@@ -599,26 +624,27 @@ String toLocalizedEnglishNumber(double value, int decimalPlaces) {
   // to prevent too many or too few based on NumberFormat's own rounding.
   final String fixedValueString = value.toStringAsFixed(decimalPlaces);
   final double valueToFormat = double.parse(
-      fixedValueString); // Convert back to double to avoid parsing issues in NumberFormat
+    fixedValueString,
+  ); // Convert back to double to avoid parsing issues in NumberFormat
 
   if (decimalPlaces == 0) {
     return NumberFormat(
-            '0', // No decimal places
-            locale)
-        .format(valueToFormat);
+      '0', // No decimal places
+      locale,
+    ).format(valueToFormat);
   }
 
   if (locale == 'ar') {
     return NumberFormat(
-            '#.#' * decimalPlaces + '0' * (decimalPlaces == 0 ? 1 : 0),
-            // Ensures correct decimal display for Arabic
-            locale)
-        .format(valueToFormat);
+      '#.#' * decimalPlaces + '0' * (decimalPlaces == 0 ? 1 : 0),
+      // Ensures correct decimal display for Arabic
+      locale,
+    ).format(valueToFormat);
   } else {
     return NumberFormat(
-            '0.${'#' * decimalPlaces}',
-            // Ensures correct decimal display for English
-            locale)
-        .format(valueToFormat);
+      '0.${'#' * decimalPlaces}',
+      // Ensures correct decimal display for English
+      locale,
+    ).format(valueToFormat);
   }
 }

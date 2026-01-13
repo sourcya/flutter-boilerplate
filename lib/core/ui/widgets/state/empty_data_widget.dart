@@ -25,7 +25,9 @@ class EmptyDataWidget extends OrientationWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = context.height < 600;
-    return context.isLandscape && isMobile ? buildLandscape(context) : buildPortrait(context);
+    return context.isLandscape && isMobile
+        ? buildLandscape(context)
+        : buildPortrait(context);
   }
 
   @override

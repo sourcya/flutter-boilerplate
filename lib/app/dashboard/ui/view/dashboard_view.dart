@@ -60,8 +60,9 @@ class DashboardView extends GetView<DashboardController> {
                           mini: true,
                           onPressed: null,
                           heroTag: null,
-                          backgroundColor:
-                              context.colors.surface.withOpacity(.85),
+                          backgroundColor: context.colors.surface.withOpacity(
+                            .85,
+                          ),
                           child: FavoriteButton(
                             isInFavorite: item.isFavorite,
                             onFavoriteChanged: (isFavorite) {

@@ -3,7 +3,7 @@ import 'package:playx/playx.dart';
 
 class AppDatasource {
   AppDatasource({PlayxNetworkClient? apiClient})
-      : _apiClient = apiClient ?? ApiClient.client;
+    : _apiClient = apiClient ?? ApiClient.client;
 
   final PlayxNetworkClient _apiClient;
 }

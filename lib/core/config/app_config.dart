@@ -65,8 +65,9 @@ class AppConfig extends PlayXAppConfig {
     );
     getIt.registerSingleton<WishlistRepository>(wishlistRepository);
 
-    final AppRepository appRepository =
-        AppRepository(dataSource: AppDatasource());
+    final AppRepository appRepository = AppRepository(
+      dataSource: AppDatasource(),
+    );
 
     AppController(
       authRepository: authRepository,

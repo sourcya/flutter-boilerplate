@@ -6,12 +6,12 @@ class _BuildSplashLogoWidget extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: context.width * .6,
-      height: context.height * .6,
-      child: SvgPicture.asset(
-        Assets.icons.logo,
-      ),
-    )
+          width: context.width * .6,
+          height: context.height * .6,
+          child: SvgPicture.asset(
+            Assets.icons.logo,
+          ),
+        )
         .animate(
           delay: const Duration(milliseconds: 300),
           onComplete: controller.handleAnimationCompleted,

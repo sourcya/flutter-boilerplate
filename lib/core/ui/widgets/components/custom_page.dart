@@ -60,7 +60,7 @@ class CustomPageScaffold extends StatelessWidget {
               navigationShell: navigationShell!,
               disabledGestures:
                   AppController.instance.disableDrawerGestures.value ||
-                      disabledGestures,
+                  disabledGestures,
               child: scaffoldChild,
             );
           })

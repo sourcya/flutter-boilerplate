@@ -10,7 +10,7 @@ class SidePanelLayoutView<T> extends StatelessWidget {
   // Builders
   final Widget Function(BuildContext context, T item) contentBuilder;
   final Widget Function(BuildContext context, T item, bool selected)?
-      sideItemBuilder;
+  sideItemBuilder;
 
   // Header
   final bool showSearch;
@@ -21,7 +21,7 @@ class SidePanelLayoutView<T> extends StatelessWidget {
 
   // Optional Sidebar Widget (like stepper)
   final Widget Function(BuildContext context, T selectedItem, List<T> items)?
-      sidebarBuilder;
+  sidebarBuilder;
 
   final List<BreadcrumbItem> breadcrumbs;
 
@@ -133,43 +133,46 @@ class SidePanelLayoutView<T> extends StatelessWidget {
           final index = entry.key;
           final item = entry.value;
           return AnimatedContainer(
-            duration: 250.ms,
-            margin: EdgeInsets.only(bottom: 14.r),
-            child: Obx(() {
-              final isSelected = selectedItem.value == item;
-              return InkWell(
-                borderRadius: BorderRadius.circular(9999),
-                onTap: () => selectedItem.value = item,
-                child: sideItemBuilder != null
-                    ? sideItemBuilder!(context, item, isSelected)
-                    : Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 12.r,
-                          horizontal: 12.r,
-                        ),
-                        decoration: BoxDecoration(
-                          color: isSelected ? context.colors.primary : null,
-                          borderRadius: BorderRadius.circular(
-                            isSelected ? 9999 : 8.r,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.circle,
-                              size: 16.r,
-                              color: isSelected
-                                  ? Colors.white
-                                  : context.colors.onSurface,
+                duration: 250.ms,
+                margin: EdgeInsets.only(bottom: 14.r),
+                child: Obx(() {
+                  final isSelected = selectedItem.value == item;
+                  return InkWell(
+                    borderRadius: BorderRadius.circular(9999),
+                    onTap: () => selectedItem.value = item,
+                    child: sideItemBuilder != null
+                        ? sideItemBuilder!(context, item, isSelected)
+                        : Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 12.r,
+                              horizontal: 12.r,
                             ),
-                            SizedBox(width: 8.r),
-                            Expanded(child: Text(item.toString())),
-                          ],
-                        ),
-                      ),
-              );
-            }),
-          ).animate().fadeIn(duration: 250.ms).slideX(
+                            decoration: BoxDecoration(
+                              color: isSelected ? context.colors.primary : null,
+                              borderRadius: BorderRadius.circular(
+                                isSelected ? 9999 : 8.r,
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.circle,
+                                  size: 16.r,
+                                  color: isSelected
+                                      ? Colors.white
+                                      : context.colors.onSurface,
+                                ),
+                                SizedBox(width: 8.r),
+                                Expanded(child: Text(item.toString())),
+                              ],
+                            ),
+                          ),
+                  );
+                }),
+              )
+              .animate()
+              .fadeIn(duration: 250.ms)
+              .slideX(
                 begin: -0.1,
                 end: 0,
                 duration: 250.ms,
@@ -197,7 +200,7 @@ class SidePanelLayoutView<T> extends StatelessWidget {
             alignment: Alignment.topCenter,
             children: [
               ...previousChildren,
-              if (currentChild != null) currentChild
+              if (currentChild != null) currentChild,
             ],
           );
         },

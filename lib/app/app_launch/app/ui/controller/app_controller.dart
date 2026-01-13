@@ -6,8 +6,8 @@ class AppController extends SuperController {
   AppController({
     required AuthRepository authRepository,
     AppRepository? repository,
-  })  : _authRepository = authRepository,
-        _repository = repository ?? AppRepository.instance;
+  }) : _authRepository = authRepository,
+       _repository = repository ?? AppRepository.instance;
 
   static AppController get instance => getIt.get<AppController>();
 
@@ -248,7 +248,6 @@ class AppController extends SuperController {
   //     Sentry.captureException(e);
   //   }
   // }
-
 
   void handleDrawerModuleItemClicked({
     required int index,

@@ -21,7 +21,9 @@ class BuildModalPreviousButton extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 8.r),
               visualDensity: VisualDensity.comfortable,
               icon: Icon(
-                PlayxPlatform.isCupertino ? CupertinoIcons.back : Icons.arrow_back,
+                PlayxPlatform.isCupertino
+                    ? CupertinoIcons.back
+                    : Icons.arrow_back,
                 color: context.colors.onSurface,
               ),
               onPressed: onPressed,

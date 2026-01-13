@@ -56,6 +56,7 @@ String generateSecurePassword({int length = 12}) {
       lower[random.nextInt(lower.length)] +
       digits[random.nextInt(digits.length)] +
       List.generate(
-              length - 3, (index) => allChars[random.nextInt(allChars.length)])
-          .join();
+        length - 3,
+        (index) => allChars[random.nextInt(allChars.length)],
+      ).join();
 }

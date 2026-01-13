@@ -8,7 +8,7 @@ import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
-const enableDevicePreview = true;
+const enableDevicePreviewOnWeb = true;
 
 void main() {
   Playx.runPlayx(
@@ -27,7 +27,7 @@ void main() {
       options.attachScreenshot = true;
       options.captureFailedRequests = true;
     },
-    app: kIsWeb && enableDevicePreview
+    app: kIsWeb && enableDevicePreviewOnWeb
         ? DevicePreview(builder: (context) => const MyApp())
         : const MyApp(),
   );
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
               ),
               navigationSettings: PlayxNavigationSettings.goRouter(
                 goRouter: AppPages.router,
-                builder: kIsWeb && enableDevicePreview
+                builder: kIsWeb && enableDevicePreviewOnWeb
                     ? DevicePreview.appBuilder
                     : null,
               ),

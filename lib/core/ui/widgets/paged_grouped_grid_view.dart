@@ -154,66 +154,65 @@ class PagedSliverGroupedGrid<PageKeyType, ItemType, SortType>
       IndexedWidgetBuilder itemBuilder,
       int itemCount, {
       WidgetBuilder? statusIndicatorBuilder,
-    }) =>
-        MultiSliver(
-          children: [
-            SliverGroupedGridView<ItemType, SortType>(
-              elements: pagingController.itemList ?? [],
-              groupBy: groupBy,
-              groupComparator: groupComparator,
-              groupSeparatorBuilder: groupSeparatorBuilder,
-              groupHeaderBuilder: groupHeaderBuilder,
-              indexedItemBuilder: (context, item, index) =>
-                  builderDelegate.itemBuilder(context, item, index),
-              itemComparator: itemComparator,
-              order: order,
-              sort: sort,
-            ),
-            if (statusIndicatorBuilder != null)
-              SliverToBoxAdapter(
-                child: statusIndicatorBuilder(context),
-              ),
-          ],
-        );
+    }) => MultiSliver(
+      children: [
+        SliverGroupedGridView<ItemType, SortType>(
+          elements: pagingController.itemList ?? [],
+          groupBy: groupBy,
+          groupComparator: groupComparator,
+          groupSeparatorBuilder: groupSeparatorBuilder,
+          groupHeaderBuilder: groupHeaderBuilder,
+          indexedItemBuilder: (context, item, index) =>
+              builderDelegate.itemBuilder(context, item, index),
+          itemComparator: itemComparator,
+          order: order,
+          sort: sort,
+        ),
+        if (statusIndicatorBuilder != null)
+          SliverToBoxAdapter(
+            child: statusIndicatorBuilder(context),
+          ),
+      ],
+    );
 
     return PagedLayoutBuilder<PageKeyType, ItemType>(
       layoutProtocol: PagedLayoutProtocol.sliver,
       pagingController: pagingController,
       builderDelegate: builderDelegate,
       shrinkWrapFirstPageIndicators: shrinkWrapFirstPageIndicators,
-      completedListingBuilder: (
-        context,
-        itemBuilder,
-        itemCount,
-        noMoreItemsIndicatorBuilder,
-      ) =>
-          buildLayout(
-        itemBuilder,
-        itemCount,
-        statusIndicatorBuilder: noMoreItemsIndicatorBuilder,
-      ),
-      loadingListingBuilder: (
-        context,
-        itemBuilder,
-        itemCount,
-        progressIndicatorBuilder,
-      ) =>
-          buildLayout(
-        itemBuilder,
-        itemCount,
-        statusIndicatorBuilder: progressIndicatorBuilder,
-      ),
-      errorListingBuilder: (
-        context,
-        itemBuilder,
-        itemCount,
-        errorIndicatorBuilder,
-      ) =>
-          buildLayout(
-        itemBuilder,
-        itemCount,
-        statusIndicatorBuilder: errorIndicatorBuilder,
-      ),
+      completedListingBuilder:
+          (
+            context,
+            itemBuilder,
+            itemCount,
+            noMoreItemsIndicatorBuilder,
+          ) => buildLayout(
+            itemBuilder,
+            itemCount,
+            statusIndicatorBuilder: noMoreItemsIndicatorBuilder,
+          ),
+      loadingListingBuilder:
+          (
+            context,
+            itemBuilder,
+            itemCount,
+            progressIndicatorBuilder,
+          ) => buildLayout(
+            itemBuilder,
+            itemCount,
+            statusIndicatorBuilder: progressIndicatorBuilder,
+          ),
+      errorListingBuilder:
+          (
+            context,
+            itemBuilder,
+            itemCount,
+            errorIndicatorBuilder,
+          ) => buildLayout(
+            itemBuilder,
+            itemCount,
+            statusIndicatorBuilder: errorIndicatorBuilder,
+          ),
     );
   }
 }

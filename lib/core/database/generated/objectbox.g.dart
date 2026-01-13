@@ -121,10 +121,12 @@ obx_int.ModelDefinition getObjectBoxModel() {
         object.id = id;
       },
       objectToFB: (DatabaseWishlistItem object, fb.Builder fbb) {
-        final nameOffset =
-            object.name == null ? null : fbb.writeString(object.name!);
-        final imageUrlOffset =
-            object.imageUrl == null ? null : fbb.writeString(object.imageUrl!);
+        final nameOffset = object.name == null
+            ? null
+            : fbb.writeString(object.name!);
+        final imageUrlOffset = object.imageUrl == null
+            ? null
+            : fbb.writeString(object.imageUrl!);
         fbb.startTable(5);
         fbb.addInt64(0, object.id);
         fbb.addOffset(1, nameOffset);

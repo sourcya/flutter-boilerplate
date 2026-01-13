@@ -43,7 +43,9 @@ class CustomDropDown<T> extends StatelessWidget {
     return DropdownButtonHideUnderline(
       child: DropdownButton2<T>(
         isExpanded: true,
-        hint: hintWidget ?? CustomText(hint ?? '', fontSize: 14.sp, color: Colors.grey),
+        hint:
+            hintWidget ??
+            CustomText(hint ?? '', fontSize: 14.sp, color: Colors.grey),
         items: [
           ..._itemsWidgets(context),
           if (bottomWidget != null)

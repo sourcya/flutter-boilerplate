@@ -30,10 +30,12 @@ class FilterMultipleChipSelector<T> extends StatefulWidget {
   });
 
   @override
-  State<FilterMultipleChipSelector<T>> createState() => _FilterMultiChipSelectorState<T>();
+  State<FilterMultipleChipSelector<T>> createState() =>
+      _FilterMultiChipSelectorState<T>();
 }
 
-class _FilterMultiChipSelectorState<T> extends State<FilterMultipleChipSelector<T>> {
+class _FilterMultiChipSelectorState<T>
+    extends State<FilterMultipleChipSelector<T>> {
   List<T> currentSelectedItems = <T>[];
   bool isAllSelected = false;
 
@@ -62,7 +64,9 @@ class _FilterMultiChipSelectorState<T> extends State<FilterMultipleChipSelector<
     // Initial Cleanup:
     // If default mode (selectAllOnAll=false) and we determined "All" is selected,
     // ensure internal list is empty to match "Empty=All" convention.
-    if (isAllSelected && currentSelectedItems.isNotEmpty && !widget.selectAllOnAll) {
+    if (isAllSelected &&
+        currentSelectedItems.isNotEmpty &&
+        !widget.selectAllOnAll) {
       currentSelectedItems.clear();
     }
   }
@@ -77,9 +81,14 @@ class _FilterMultiChipSelectorState<T> extends State<FilterMultipleChipSelector<
     );
     final itemsChanged = !listEquals(widget.items, oldWidget.items);
     final styleChanged = widget.useNewStyle != oldWidget.useNewStyle;
-    final selectAllOptionChanged = widget.selectAllOnAll != oldWidget.selectAllOnAll;
+    final selectAllOptionChanged =
+        widget.selectAllOnAll != oldWidget.selectAllOnAll;
 
-    if (!selectedChanged && !itemsChanged && !styleChanged && !selectAllOptionChanged) return;
+    if (!selectedChanged &&
+        !itemsChanged &&
+        !styleChanged &&
+        !selectAllOptionChanged)
+      return;
 
     // Start from the incoming selected items
     currentSelectedItems.assignAll(widget.selectedItems);
@@ -148,10 +157,14 @@ class _FilterMultiChipSelectorState<T> extends State<FilterMultipleChipSelector<
   }) {
     // ... (This section remains unchanged from your previous provided code)
     if (widget.useNewStyle) {
-      final selectedColor = widget.selectedColor ?? context.colors.primaryContainer;
-      final backgroundColor = widget.backgroundColor ?? context.colors.cardColor;
-      final onSelectedColor = widget.onSelectedColor ?? context.colors.onPrimary;
-      final onBackgroundColor = widget.onBackgroundColor ?? context.colors.onSurface;
+      final selectedColor =
+          widget.selectedColor ?? context.colors.primaryContainer;
+      final backgroundColor =
+          widget.backgroundColor ?? context.colors.cardColor;
+      final onSelectedColor =
+          widget.onSelectedColor ?? context.colors.onPrimary;
+      final onBackgroundColor =
+          widget.onBackgroundColor ?? context.colors.onSurface;
 
       return InkWell(
         onTap: onTap,
@@ -161,7 +174,9 @@ class _FilterMultiChipSelectorState<T> extends State<FilterMultipleChipSelector<
             color: isSelected ? selectedColor : backgroundColor,
             borderRadius: BorderRadius.circular(12.r),
             border: Border.all(
-              color: isSelected ? context.colors.primary : context.colors.borderColor,
+              color: isSelected
+                  ? context.colors.primary
+                  : context.colors.borderColor,
             ),
           ),
           padding: EdgeInsets.symmetric(
@@ -175,7 +190,9 @@ class _FilterMultiChipSelectorState<T> extends State<FilterMultipleChipSelector<
                 child: CustomText(
                   label,
                   fontSize: 14.sp,
-                  color: isSelected ? context.colors.primary : onBackgroundColor,
+                  color: isSelected
+                      ? context.colors.primary
+                      : onBackgroundColor,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                   font: fontFamilyBasedOnText(label),
                 ),
@@ -225,7 +242,8 @@ class _FilterMultiChipSelectorState<T> extends State<FilterMultipleChipSelector<
                       size: 16.r,
                       color: isSelected
                           ? widget.onSelectedColor ?? context.colors.onPrimary
-                          : widget.onBackgroundColor ?? context.colors.onSurface,
+                          : widget.onBackgroundColor ??
+                                context.colors.onSurface,
                     ),
                   ),
                 SizedBox(width: icon != null ? 4.r : 0),

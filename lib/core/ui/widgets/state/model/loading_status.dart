@@ -40,7 +40,7 @@ sealed class LoadingStatus {
 
 class LoadingStatusLoading extends LoadingStatus {
   const LoadingStatusLoading({String? displayName})
-      : super(displayName: displayName ?? AppTrans.loadingStatusLoading);
+    : super(displayName: displayName ?? AppTrans.loadingStatusLoading);
 
   @override
   String toShortString() => 'loading';
@@ -48,7 +48,7 @@ class LoadingStatusLoading extends LoadingStatus {
 
 class LoadingStatusLogin extends LoadingStatus {
   const LoadingStatusLogin({String? displayName})
-      : super(displayName: displayName ?? AppTrans.loadingStatusLogin);
+    : super(displayName: displayName ?? AppTrans.loadingStatusLogin);
 
   @override
   String toShortString() => 'login';
@@ -56,7 +56,7 @@ class LoadingStatusLogin extends LoadingStatus {
 
 class LoadingStatusRegister extends LoadingStatus {
   const LoadingStatusRegister({String? displayName})
-      : super(displayName: displayName ?? AppTrans.loadingStatusRegister);
+    : super(displayName: displayName ?? AppTrans.loadingStatusRegister);
 
   @override
   String toShortString() => 'register';
@@ -64,7 +64,7 @@ class LoadingStatusRegister extends LoadingStatus {
 
 class LoadingStatusLogout extends LoadingStatus {
   const LoadingStatusLogout({String? displayName})
-      : super(displayName: displayName ?? AppTrans.loadingStatusLogout);
+    : super(displayName: displayName ?? AppTrans.loadingStatusLogout);
 
   @override
   String toShortString() => 'logout';
@@ -72,7 +72,7 @@ class LoadingStatusLogout extends LoadingStatus {
 
 class LoadingStatusIdle extends LoadingStatus {
   const LoadingStatusIdle({String? displayName})
-      : super(displayName: displayName ?? '');
+    : super(displayName: displayName ?? '');
 
   @override
   String toShortString() => 'idle';

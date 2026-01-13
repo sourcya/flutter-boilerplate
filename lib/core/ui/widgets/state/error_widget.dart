@@ -20,7 +20,9 @@ class ErrorDataWidget extends OrientationWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = context.height < 600;
-    return context.isLandscape && isMobile ? buildLandscape(context) : buildPortrait(context);
+    return context.isLandscape && isMobile
+        ? buildLandscape(context)
+        : buildPortrait(context);
   }
 
   @override
@@ -66,7 +68,10 @@ class ErrorDataWidget extends OrientationWidget {
               ),
             ),
             SizedBox(height: 6.r),
-            if (!isScrollable) column else Expanded(child: OptimizedScrollView(child: column)),
+            if (!isScrollable)
+              column
+            else
+              Expanded(child: OptimizedScrollView(child: column)),
           ],
         ),
       ),

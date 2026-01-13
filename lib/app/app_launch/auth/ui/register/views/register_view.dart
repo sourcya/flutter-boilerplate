@@ -50,19 +50,21 @@ class RegisterView extends GetView<RegisterController> {
                             child: Obx(() {
                               return AnimatedSwitcher(
                                 duration: const Duration(milliseconds: 500),
-                                transitionBuilder: (
-                                  Widget child,
-                                  Animation<double> animation,
-                                ) {
-                                  return SlideTransition(
-                                    position: Tween<Offset>(
-                                      begin: const Offset(1, 0),
-                                      end: Offset.zero,
-                                    ).animate(animation),
-                                    child: child,
-                                  );
-                                },
-                                child: controller.currentLoginMethod.value ==
+                                transitionBuilder:
+                                    (
+                                      Widget child,
+                                      Animation<double> animation,
+                                    ) {
+                                      return SlideTransition(
+                                        position: Tween<Offset>(
+                                          begin: const Offset(1, 0),
+                                          end: Offset.zero,
+                                        ).animate(animation),
+                                        child: child,
+                                      );
+                                    },
+                                child:
+                                    controller.currentLoginMethod.value ==
                                         LoginMethod.email
                                     ? const BuildRegisterWithEmailWidget()
                                     : const BuildChooseRegisterMethodWidget(),

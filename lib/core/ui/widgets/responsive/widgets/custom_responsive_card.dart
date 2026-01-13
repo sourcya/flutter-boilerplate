@@ -42,7 +42,8 @@ class CustomResponsiveCard extends StatefulWidget {
   State<CustomResponsiveCard> createState() => _CustomResponsiveCardState();
 }
 
-class _CustomResponsiveCardState extends State<CustomResponsiveCard> with TickerProviderStateMixin {
+class _CustomResponsiveCardState extends State<CustomResponsiveCard>
+    with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
@@ -78,19 +79,26 @@ class _CustomResponsiveCardState extends State<CustomResponsiveCard> with Ticker
     final deviceType = context.deviceType();
 
     //  colors
-    final cardColor = widget.color ?? _getDefaultColor(context, isDark, widget.isChild);
+    final cardColor =
+        widget.color ?? _getDefaultColor(context, isDark, widget.isChild);
 
     // Responsive border radius, adaptive for iOS (slightly larger for Apple design language)
-    final radius = widget.borderRadius ?? BorderRadius.circular(context.getDefaultRadius());
+    final radius =
+        widget.borderRadius ??
+        BorderRadius.circular(context.getDefaultRadius());
 
     // Responsive padding, adaptive for platform (compact on Android mobile)
-    final cardPadding = widget.padding ?? context.getDefaultPadding(widget.isChild);
+    final cardPadding =
+        widget.padding ?? context.getDefaultPadding(widget.isChild);
 
     // Responsive margin
-    final cardMargin = widget.margin ?? context.getDefaultMargin(widget.isChild);
+    final cardMargin =
+        widget.margin ?? context.getDefaultMargin(widget.isChild);
 
     // Shadow color
-    final shadowColor = isDark ? const Color(0x89000000) : const Color(0x42000000);
+    final shadowColor = isDark
+        ? const Color(0x89000000)
+        : const Color(0x42000000);
 
     // Responsive blur and offset based on device type, theme, and hover
     final normalBlur = _getNormalBlur(deviceType, widget.isChild, isDark) * .5;
@@ -104,10 +112,18 @@ class _CustomResponsiveCardState extends State<CustomResponsiveCard> with Ticker
         : context.colors.borderColor;
 
     // Optional: Use widget.elevation if provided to override base blur/offset
-    final baseBlur = widget.elevation != null ? widget.elevation! * 4.0 : normalBlur;
-    final baseOffset = widget.elevation != null ? widget.elevation! * 2.0 : normalOffset;
-    final baseHoveredBlur = widget.elevation != null ? widget.elevation! * 8.0 : hoveredBlur;
-    final baseHoveredOffset = widget.elevation != null ? widget.elevation! * 5.0 : hoveredOffset;
+    final baseBlur = widget.elevation != null
+        ? widget.elevation! * 4.0
+        : normalBlur;
+    final baseOffset = widget.elevation != null
+        ? widget.elevation! * 2.0
+        : normalOffset;
+    final baseHoveredBlur = widget.elevation != null
+        ? widget.elevation! * 8.0
+        : hoveredBlur;
+    final baseHoveredOffset = widget.elevation != null
+        ? widget.elevation! * 5.0
+        : hoveredOffset;
 
     // Constraints for compact layouts on small screens (mobile)
     // BoxConstraints? constraints;
@@ -139,7 +155,9 @@ class _CustomResponsiveCardState extends State<CustomResponsiveCard> with Ticker
                     if (widget.enableDefShadow || _isHovered)
                       BoxShadow(
                         color: shadowColor,
-                        blurRadius: _isHovered ? baseHoveredBlur : baseBlur * .5,
+                        blurRadius: _isHovered
+                            ? baseHoveredBlur
+                            : baseBlur * .5,
                         offset: Offset(
                           0,
                           _isHovered ? baseHoveredOffset : baseOffset * .5,
@@ -198,9 +216,13 @@ class _CustomResponsiveCardState extends State<CustomResponsiveCard> with Ticker
 
   Color _getDefaultColor(BuildContext context, bool isDark, bool isChild) {
     if (isChild) {
-      return isDark ? context.colors.surfaceContainer : context.colors.cardColor;
+      return isDark
+          ? context.colors.surfaceContainer
+          : context.colors.cardColor;
     }
 
-    return isDark ? context.colors.surfaceContainerHigh : context.colors.cardColor;
+    return isDark
+        ? context.colors.surfaceContainerHigh
+        : context.colors.cardColor;
   }
 }

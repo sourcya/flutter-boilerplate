@@ -102,7 +102,8 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return OptimizedTextField(
       hint: hint?.tr(context: context),
-      hintStyle: hintStyle ??
+      hintStyle:
+          hintStyle ??
           TextStyle(
             fontSize: 13.sp,
             color: hintColor ?? const Color(0xFF707B81),
@@ -176,7 +177,8 @@ class CustomTextField extends StatelessWidget {
         fontSize: 15.sp,
         fontFamily: fontFamily(context: context),
       ),
-      contentPadding: contentPadding ??
+      contentPadding:
+          contentPadding ??
           EdgeInsets.only(
             top: 12.0.r,
             bottom: 12.0.r,
@@ -186,10 +188,12 @@ class CustomTextField extends StatelessWidget {
       hintColor: hintColor ?? PlayxColors.grey,
       enabledBorder: OutlineInputBorder(
         borderRadius: borderRadius ?? Style.fieldBorderRadius,
-        borderSide: enabledBorderSide ??
+        borderSide:
+            enabledBorderSide ??
             BorderSide(
-                color: borderColor ?? const Color(0xFFC0C0C0),
-                width: borderWidth ?? 1),
+              color: borderColor ?? const Color(0xFFC0C0C0),
+              width: borderWidth ?? 1,
+            ),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
@@ -199,10 +203,12 @@ class CustomTextField extends StatelessWidget {
         borderRadius: borderRadius ?? Style.fieldBorderRadius,
       ),
       border: OutlineInputBorder(
-        borderSide: enabledBorderSide ??
+        borderSide:
+            enabledBorderSide ??
             BorderSide(
-                color: borderColor ?? const Color(0xFFC0C0C0),
-                width: borderWidth ?? 1),
+              color: borderColor ?? const Color(0xFFC0C0C0),
+              width: borderWidth ?? 1,
+            ),
         borderRadius: borderRadius ?? Style.fieldBorderRadius,
       ),
       errorBorder: OutlineInputBorder(

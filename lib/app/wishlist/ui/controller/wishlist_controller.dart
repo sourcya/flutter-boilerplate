@@ -3,10 +3,11 @@ part of '../imports/wishlist_imports.dart';
 class WishlistController extends GetxController {
   final WishlistRepository _repository;
   WishlistController({required WishlistRepository repository})
-      : _repository = repository;
+    : _repository = repository;
 
-  final dataState =
-      Rx<DataState<List<WishlistItem>>>(const DataState.initial());
+  final dataState = Rx<DataState<List<WishlistItem>>>(
+    const DataState.initial(),
+  );
 
   StreamSubscription<List<WishlistItem>>? _watchWishlistItemsSub;
 
@@ -22,8 +23,9 @@ class WishlistController extends GetxController {
     _watchWishlistItemsSub?.cancel();
     _watchWishlistItemsSub = _repository.watchAllWishlistItems().listen((data) {
       if (data.isEmpty) {
-        dataState.value =
-            const DataState<List<WishlistItem>>.error(DataError.empty());
+        dataState.value = const DataState<List<WishlistItem>>.error(
+          DataError.empty(),
+        );
         return;
       }
       dataState.value = DataState.success(data);
