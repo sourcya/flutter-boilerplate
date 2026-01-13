@@ -6,19 +6,18 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
+  auth0_flutter: ^1.14.0
+  dots_indicator: ^4.0.1
+  dropdown_button2: ^2.3.9
   flutter:
     sdk: flutter
-  playx: ^1.6.0
-  playx_version_update: ^1.0.1
-  dots_indicator: ^4.0.1
-  pinput: ^6.0.1
   objectbox: ^5.1.0
   objectbox_flutter_libs: any
-  path_provider: ^2.1.5
   path: ^1.9.1
-  auth0_flutter: ^1.14.0
-  dropdown_button2: ^2.3.9
-
+  path_provider: ^2.1.5
+  pinput: ^6.0.1
+  playx: ^1.6.0
+  playx_version_update: ^1.0.1
 
 dependency_overrides:
   playx_core: ^1.0.0-beta.6
@@ -27,67 +26,63 @@ dependency_overrides:
       url: https://github.com/easyhour/flutter-geolocator.git
       path: geolocator_linux
 
-
-
 dev_dependencies:
   build_runner: ^2.10.5
+  flutter_launcher_icons: ^0.14.4
+  flutter_project_name_changer: ^1.0.5
   flutter_test:
     sdk: flutter
   lint: ^2.8.0
   objectbox_generator: ^5.1.0
   package_rename: ^1.10.1
-  flutter_launcher_icons: ^0.14.4
-  flutter_project_name_changer: ^1.0.5
 
-
+# Scripts
+# You can run these scripts using rps (Runtime Project Scripts).
+# 1. To run a script: dart run rps <command_name> (e.g., dart run rps gen)
+# 2. To list all scripts: dart run rps ls
 scripts:
   setup:
     $before: echo Setting up project...
-    $script:
+    $script: >-
       flutter pub get &&
-      dart run package_rename &&
+      dart run package_rename --path="package_rename_config.yaml" &&
       flutter pub run flutter_project_name_changer:main sourcya &&
       flutter pub run flutter_launcher_icons
       && dart run scripts/generate_keystore.dart
     $after: echo Project setup complete.
-
-
-package_rename_config:
-  android:
-    app_name: Sourcya
-    package_name: io.sourcya.app
-  ios:
-    app_name: Sourcya
-    bundle_name: sonbol
-    package_name: io.sourcya.app
-  web:
-    app_name: Sourcya
-    description: Sourcya App.
-
-
-flutter_launcher_icons:
-  image_path_android: "assets/images/logo.png"
-  image_path_ios: "assets/images/logo.png"
-  android: "ic_launcher"
-  ios: true
-  min_sdk_android: 21
-  remove_alpha_ios: true
-  adaptive_icon_background: "#FFFFFF"  # only available for Android 8.0 devices and above
-  adaptive_icon_foreground: "assets/images/logo.png" # only available for Android 8.0 devices and above
-  adaptive_icon_monochrome: "assets/images/logo.png" # only available for Android 13 devices and above
-  image_path_ios_dark_transparent: "assets/images/logo.png"
-  image_path_ios_tinted_grayscale: "assets/images/logo.png"
-  desaturate_tinted_to_grayscale_ios: true
-  web:
-    generate: true
-    image_path: "assets/images/logo.png"
-    background_color: "#FFFFFF"
-    theme_color: "#FFFFFF"
-
+  icons:
+    $before: echo Generating launcher icons...
+    $script: flutter pub run flutter_launcher_icons
+    $after: echo Launcher icons generated.
+  rename:
+    $before: echo Renaming package...
+    $script: dart run package_rename --path="package_rename_config.yaml"
+    $after: echo Package renamed.
+  gen:
+    $before: echo Running build_runner...
+    $script: dart run build_runner build --delete-conflicting-outputs
+    $after: echo Code generation complete.
+  watch:
+    $before: echo Watching for changes...
+    $script: dart run build_runner watch --delete-conflicting-outputs
+  clean:
+    $before: echo Cleaning project...
+    $script: flutter clean
+    $after: echo Project cleaned.
 
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/
+    - assets/animation/
+    - assets/images/
+    - assets/translations/
+    - assets/fonts/
+    - assets/env/
+    - assets/fonts/cairo/
+    - assets/fonts/poppins/
+    - assets/icons/
   fonts:
     - family: Poppins
       fonts:
@@ -109,7 +104,6 @@ flutter:
           weight: 200
         - asset: assets/fonts/poppins/Poppins-Thin.ttf
           weight: 100
-
     - family: Cairo
       fonts:
         - asset: assets/fonts/cairo/Cairo-Black.ttf
@@ -128,14 +122,3 @@ flutter:
           weight: 300
         - asset: assets/fonts/cairo/Cairo-ExtraLight.ttf
           weight: 200
-
-  assets:
-    - assets/
-    - assets/animation/
-    - assets/images/
-    - assets/translations/
-    - assets/fonts/
-    - assets/env/
-    - assets/fonts/cairo/
-    - assets/fonts/poppins/
-    - assets/icons/

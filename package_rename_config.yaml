@@ -1,0 +1,11 @@
+package_rename_config:
+  android:
+    app_name: Sourcya
+    package_name: io.sourcya.app
+  ios:
+    app_name: Sourcya
+    bundle_name: Sourcya
+    package_name: io.sourcya.app
+  web:
+    app_name: Sourcya
+    description: Sourcya App.
