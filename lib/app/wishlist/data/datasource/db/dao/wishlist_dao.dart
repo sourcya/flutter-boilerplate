@@ -1,5 +1,5 @@
 import 'package:flutter_boilerplate/app/wishlist/data/model/db/database_wishlist_item.dart';
-import 'package:flutter_boilerplate/core/database/objectbox.g.dart';
+import 'package:objectbox/objectbox.dart';
 
 class WishlistDao {
   final Box<DatabaseWishlistItem> box;
@@ -17,7 +17,7 @@ class WishlistDao {
         .asyncMap((query) => query.findAsync());
   }
 
-  Future<int> insertWishlistItem(DatabaseWishlistItem wishlist) async {
+  Future<int> insertWishlistItem(DatabaseWishlistItem wishlist) {
     return box.putAsync(wishlist);
   }
 
@@ -31,7 +31,7 @@ class WishlistDao {
     return box.remove(wishlist.id);
   }
 
-  Future<int> deleteAllWishlistItems() async {
+  Future<int> deleteAllWishlistItems() {
     return box.removeAllAsync();
   }
 }
