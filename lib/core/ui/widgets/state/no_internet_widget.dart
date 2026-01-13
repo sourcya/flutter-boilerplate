@@ -1,18 +1,27 @@
 part of '../../ui.dart';
 
 /// Widget for showing there's no internet connection.
-class NoInternetWidget extends OrientationWidget {
-  final String error;
+class NoInternetWidget extends StatelessWidget {
+  final String? error;
+  final TextStyle? textStyle;
+  final TextStyle? retryTextStyle;
+  final ButtonStyle? retryButtonStyle;
   final VoidCallback? onRetryClicked;
 
-  const NoInternetWidget({required this.error, this.onRetryClicked});
+  const NoInternetWidget({
+    this.error,
+    this.textStyle,
+    this.retryTextStyle,
+    this.retryButtonStyle,
+    required this.onRetryClicked,
+  });
 
   @override
-  Widget buildLandscape(BuildContext context) {
+  Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(4.0.r),
+      padding: const EdgeInsets.all(8.0),
       child: Center(
-        child: Row(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
@@ -21,87 +30,31 @@ class NoInternetWidget extends OrientationWidget {
               ),
             ),
             SizedBox(
-              height: 6.r,
+              height: 20.r,
             ),
-            Expanded(
-              child: OptimizedScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(4.0.r),
-                      child: CustomText(
-                        error,
-                        textAlign: TextAlign.center,
-                        fontWeight: FontWeight.w400,
-                        fontSize: AppUtils.isMobile() ? 16.sp : 20.sp,
-                      ),
-                    ),
-                    if (onRetryClicked != null) ...[
-                      SizedBox(
-                        height: AppUtils.isMobile() ? 8.r : 15.r,
-                      ),
-                      CustomElevatedButton(
-                        color: context.colors.primary,
-                        onPressed: onRetryClicked,
-                        label: AppTrans.retryText.tr(context: context),
-                      ),
-                    ],
-                    SizedBox(
-                      height: AppUtils.isMobile() ? 4.r : 15.r,
-                    ),
-                  ],
-                ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomText(
+                error ?? AppTrans.noInternetConnection,
+                textAlign: TextAlign.center,
+                fontWeight: FontWeight.w600,
+                fontSize: 20.sp,
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget buildPortrait(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(4.0.r),
-      child: OptimizedScrollView(
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
+            if (onRetryClicked != null) ...[
               SizedBox(
-                child: Lottie.asset(
-                  Assets.animations.noInternetAnimation,
-                ),
+                height: 15.r,
               ),
-              SizedBox(
-                height: 6.r,
-              ),
-              Padding(
-                padding: EdgeInsets.all(4.0.r),
-                child: CustomText(
-                  error,
-                  textAlign: TextAlign.center,
-                  fontWeight: FontWeight.w400,
-                  fontSize: AppUtils.isMobile() ? 16.sp : 20.sp,
-                ),
-              ),
-              if (onRetryClicked != null) ...[
-                SizedBox(
-                  height: AppUtils.isMobile() ? 8.r : 15.r,
-                ),
-                CustomElevatedButton(
-                  color: context.colors.primary,
-                  onPressed: onRetryClicked,
-                  label: AppTrans.retryText.tr(context: context),
-                ),
-              ],
-              SizedBox(
-                height: AppUtils.isMobile() ? 4.r : 15.r,
+              CustomElevatedButton(
+                backgroundColor: context.colors.primary,
+                onPressed: onRetryClicked,
+                label: AppTrans.retryText,
               ),
             ],
-          ),
+            SizedBox(
+              height: 20.r + 56,
+            ),
+          ],
         ),
       ),
     );

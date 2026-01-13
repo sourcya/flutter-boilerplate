@@ -39,7 +39,7 @@ class SettingsController extends GetxController {
   }
 
   Future<void> handleLogOutTap() async {
-    AppController.instance.handleLogout();
+    AppController.instance.logout();
   }
 
   Future<void> showSettingsModalSheet(

@@ -6,7 +6,10 @@ abstract class Assets {
 
   static Animations get animations => Animations();
 
-  static Images get images => Images();
+  static asset.Images get images => asset.Images();
 
   static asset.Icons get icons => asset.Icons();
+
+  static asset.Logo get logos => asset.Logo();
+
 }

@@ -13,25 +13,30 @@ class LoadingOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = loadingText ?? loadingStatus.displayName;
-    return Material(
-      color: Colors.transparent,
-      child: AnimatedVisibility(
-        isVisible: loadingStatus is! LoadingStatusIdle,
-        child: Container(
-          color: Colors.black.withValues(alpha: .5),
-          height: double.infinity,
-          child: Center(
+    return AnimatedVisibility(
+      isVisible: loadingStatus is! LoadingStatusIdle,
+      child: Container(
+        color: Colors.black.withValues(alpha: .5),
+        height: double.infinity,
+        child: Center(
+          child: Container(
+            width: context.width > 600
+                ? context.width * .5
+                : context.width > 900
+                ? context.width * .35
+                : context.width > 1200
+                ? context.width * .25
+                : double.infinity,
+            margin: EdgeInsets.symmetric(horizontal: 32.r),
             child: Card(
-              color: context.colors.surfaceContainer.withValues(alpha: .7),
-              margin: EdgeInsets.symmetric(horizontal: 40.r),
+              color: Colors.black.withValues(alpha: .55),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 16.r),
-                    child: CenterLoading.adaptive(
-                      color: context.colors.primary,
+                    padding: EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 16.r),
+                    child: const CenterLoading.adaptive(
+                      color: Colors.white,
                     ),
                   ),
                   if (text.isNotEmpty) ...[
@@ -45,10 +50,10 @@ class LoadingOverlay extends StatelessWidget {
                         text: text,
                         style: TextStyle(
                           fontSize: 16.sp,
-                          color: context.colors.onSurface,
+                          color: Colors.white,
                           fontFamily: fontFamily(context: context),
                         ),
-                        color: context.colors.onSurface,
+                        color: Colors.white,
                       ),
                     ),
                     SizedBox(height: 16.r),
@@ -89,8 +94,7 @@ class AnimatedDottedText extends StatefulWidget {
 
 class _AnimatedDottedTextState extends State<AnimatedDottedText>
     with SingleTickerProviderStateMixin {
-  late final controller =
-      AnimationController(vsync: this, duration: widget.duration);
+  late final controller = AnimationController(vsync: this, duration: widget.duration);
   late final animation = CurvedAnimation(
     parent: controller,
     curve: Curves.easeInOut,

@@ -5,14 +5,12 @@ class BuildModalNextButton extends StatelessWidget {
   final Rx<StickyActionBarStatus> status;
   final VoidCallback? onPressed;
   final String? label;
-  final bool hideOnKeyboardVisible;
 
   const BuildModalNextButton({
     required this.status,
     this.label,
     this.onPressed,
     this.listenToUpdates = true,
-    this.hideOnKeyboardVisible = true,
   });
 
   @override
@@ -31,22 +29,17 @@ class BuildModalNextButton extends StatelessWidget {
             onPressed: onPressed,
           );
 
-    return hideOnKeyboardVisible
-        ? KeyboardVisibilityBuilder(
-            builder: (context, isKeyboardVisible) {
-              if (isKeyboardVisible) {
-                return const SizedBox.shrink();
-              }
-              return Padding(
-                padding: EdgeInsets.only(bottom: 4.0.r),
-                child: button,
-              );
-            },
-          )
-        : Padding(
-            padding: EdgeInsets.only(bottom: 4.0.r),
-            child: button,
-          );
+    return KeyboardVisibilityBuilder(
+      builder: (context, isKeyboardVisible) {
+        if (isKeyboardVisible) {
+          return const SizedBox.shrink();
+        }
+        return Padding(
+          padding: EdgeInsets.only(bottom: 4.0.r),
+          child: button,
+        );
+      },
+    );
   }
 
   Widget _buildButton({
@@ -66,8 +59,8 @@ class BuildModalNextButton extends StatelessWidget {
       onPressed: isEnabled ? onPressed : null,
       isLoading: isLoading,
       margin: EdgeInsets.symmetric(
-        horizontal: 8.w,
-        vertical: 12.h,
+        horizontal: 8.r,
+        vertical: 12.r,
       ),
       label: btnLabel,
     );

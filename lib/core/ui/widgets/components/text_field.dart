@@ -48,6 +48,7 @@ class CustomTextField extends StatelessWidget {
   final void Function(String?)? onSubmitted;
   final Duration? debounceDuration;
   final bool debounceValidation;
+  final BorderSide? enabledBorderSide;
 
   const CustomTextField({
     this.hint,
@@ -75,7 +76,7 @@ class CustomTextField extends StatelessWidget {
     this.shouldAutoValidate = false,
     this.padding,
     this.margin,
-    this.errorMaxLines = 1,
+    this.errorMaxLines = 2,
     this.textColor,
     this.hintColor,
     this.labelColor,
@@ -94,6 +95,7 @@ class CustomTextField extends StatelessWidget {
     this.onSubmitted,
     this.debounceDuration,
     this.debounceValidation = false,
+    this.enabledBorderSide,
   });
 
   @override
@@ -103,7 +105,7 @@ class CustomTextField extends StatelessWidget {
       hintStyle: hintStyle ??
           TextStyle(
             fontSize: 13.sp,
-            color: hintColor ?? PlayxColors.grey,
+            color: hintColor ?? const Color(0xFF707B81),
             fontFamily: fontFamily(context: context),
           ),
       maxLines: maxLines,
@@ -122,7 +124,7 @@ class CustomTextField extends StatelessWidget {
       prefix: prefixIcon != null
           ? Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: 8.0.r,
+                horizontal: 2.0.r,
               ),
               child: Icon(
                 prefixIcon,
@@ -134,7 +136,7 @@ class CustomTextField extends StatelessWidget {
       suffix: suffixIcon != null
           ? Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: 8.0.r,
+                horizontal: 2.0.r,
               ),
               child: Icon(
                 suffixIcon,
@@ -157,8 +159,8 @@ class CustomTextField extends StatelessWidget {
       errorMaxLines: errorMaxLines,
       textColor: textColor,
       labelColor: labelColor ?? context.colors.onSurface,
-      borderColor: borderColor,
       focusedBorderColor: focusedBorderColor,
+      borderColor: borderColor,
       formKey: formKey,
       debounceDuration: debounceDuration,
       debounceValidation: debounceValidation,
@@ -171,36 +173,36 @@ class CustomTextField extends StatelessWidget {
       ),
       labelStyle: TextStyle(
         color: labelColor ?? context.colors.onSurface,
-        fontSize: Dimens.fieldTextSize,
+        fontSize: 15.sp,
         fontFamily: fontFamily(context: context),
       ),
       contentPadding: contentPadding ??
           EdgeInsets.only(
-            top: 15.0.r,
-            bottom: 15.0.r,
+            top: 12.0.r,
+            bottom: 12.0.r,
             right: 15.0.r,
             left: 15.0.r,
           ),
       hintColor: hintColor ?? PlayxColors.grey,
       enabledBorder: OutlineInputBorder(
         borderRadius: borderRadius ?? Style.fieldBorderRadius,
-        borderSide: BorderSide(
-          color: borderColor ?? PlayxColors.grey,
-          width: borderWidth ?? 1,
-        ),
+        borderSide: enabledBorderSide ??
+            BorderSide(
+                color: borderColor ?? const Color(0xFFC0C0C0),
+                width: borderWidth ?? 1),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: focusedBorderColor ?? PlayxColors.grey,
+          color: focusedBorderColor ?? context.colors.primary,
           width: borderWidth ?? 1,
         ),
         borderRadius: borderRadius ?? Style.fieldBorderRadius,
       ),
       border: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: borderColor ?? PlayxColors.grey,
-          width: borderWidth ?? 1,
-        ),
+        borderSide: enabledBorderSide ??
+            BorderSide(
+                color: borderColor ?? const Color(0xFFC0C0C0),
+                width: borderWidth ?? 1),
         borderRadius: borderRadius ?? Style.fieldBorderRadius,
       ),
       errorBorder: OutlineInputBorder(

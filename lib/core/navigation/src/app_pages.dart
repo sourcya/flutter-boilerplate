@@ -23,7 +23,6 @@ class AppPages {
         navigationShell: navigationShell,
         showBottomNav: NavigationUtils.showBottomNav,
         canShowDrawer: NavigationUtils.canShowDrawer,
-        canShowNavigationRail: NavigationUtils.showNavigationRail,
       );
     },
     branches: [

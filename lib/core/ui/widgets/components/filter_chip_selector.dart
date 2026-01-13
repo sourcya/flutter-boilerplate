@@ -95,9 +95,7 @@ class _FilterChipSelectorState<T> extends State<FilterChipSelector<T>> {
                 child: CustomText(
                   label,
                   fontSize: 14.sp,
-                  color: isSelected
-                      ? context.colors.primary
-                      : context.colors.onSurface,
+                  color: isSelected ? context.colors.primary : context.colors.onSurface,
                   font: fontFamilyBasedOnText(label),
                 ),
               ),

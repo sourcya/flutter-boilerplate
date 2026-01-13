@@ -1,16 +1,31 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide NavigationDestination;
+import 'package:flutter/services.dart';
+import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_boilerplate/app/app_launch/app/data/model/custom_navigation_destination_item.dart';
+import 'package:flutter_boilerplate/app/app_launch/app/data/repository/app_repository.dart';
 import 'package:flutter_boilerplate/app/app_launch/app/ui/view/navigation/widgets/custom_navigation_bar.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/data/repo/auth_repository.dart';
+import 'package:flutter_boilerplate/core/config/app_config.dart';
 import 'package:flutter_boilerplate/core/models/models.dart';
 import 'package:flutter_boilerplate/core/navigation/navigation.dart';
-import 'package:flutter_boilerplate/core/network/src/helper/api_helper.dart';
+import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
+import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
+import 'package:flutter_boilerplate/core/ui/resources/style/app_text_style.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
+import 'package:flutter_boilerplate/core/ui/widgets/responsive/responsive_navigation_config.dart';
+import 'package:flutter_boilerplate/core/utils/app_utils.dart';
 import 'package:playx/playx.dart';
 
 part '../controller/app_controller.dart';
 part '../view/app_view.dart';
 part '../view/navigation/custom_navigation_bar.dart';
-part '../view/navigation/custom_navigation_drawer.dart';
-part '../view/navigation/custom_navigation_rail.dart';
+part '../view/navigation/drawer/custom_drawer.dart';
+part '../view/navigation/drawer/widgets/advanced_custom_drawer.dart';
+part '../view/navigation/drawer/widgets/build_drawer_item_widget.dart';
+part '../view/navigation/drawer/widgets/drawer_body.dart';
 part '../view/navigation/widgets/build_bottom_nav_profile_image_widget.dart';
 part '../view/navigation/widgets/custom_platform_nav_bar.dart';

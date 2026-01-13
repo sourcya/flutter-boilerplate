@@ -33,4 +33,6 @@ abstract class Constants {
   static String auth0Domain = 'sourcya.eu.auth0.com';
 
   static String auth0WebClientId = '';
+
+  static String whatsappNumber = '';
 }

@@ -18,4 +18,8 @@ class Animations {
   final String thirdBoardingAnimation = "assets/animation/boarding.json";
   final String otpAnimation = 'assets/animation/otp-verification.json';
   final String loading = 'assets/animation/loading.json';
+
+  String get logout => 'assets/animations/logout.json';
+
+  String get support => 'assets/animations/support.json';
 }

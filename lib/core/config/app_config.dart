@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_boilerplate/app/app_launch/app/data/datasource/app_datasource.dart';
+import 'package:flutter_boilerplate/app/app_launch/app/data/repository/app_repository.dart';
 import 'package:flutter_boilerplate/app/app_launch/app/ui/imports/app_imports.dart';
 import 'package:flutter_boilerplate/app/app_launch/auth/data/data_sources/auth0_auth_data_source.dart';
 import 'package:flutter_boilerplate/app/app_launch/auth/data/data_sources/test_auth_data_source.dart';
@@ -62,8 +64,14 @@ class AppConfig extends PlayXAppConfig {
     );
     getIt.registerSingleton<WishlistRepository>(wishlistRepository);
 
+    final AppRepository appRepository =
+        AppRepository(dataSource: AppDatasource());
+
     Get.put<AppController>(
-      AppController(),
+      AppController(
+        authRepository: authRepository,
+        repository: appRepository,
+      ),
     );
   }
 

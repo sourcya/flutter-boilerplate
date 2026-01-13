@@ -76,7 +76,7 @@ class _BuildSettingsPageState<T> extends State<BuildSettingsPage<T>> {
                             : BorderSide.none,
                       ),
                       isChild: true,
-                      elevation: AppUtils.isDarkMode() ? 12 : 0,
+                      elevation: context.isDark ? 12 : 0,
                       child: ListTile(
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: 6.w,

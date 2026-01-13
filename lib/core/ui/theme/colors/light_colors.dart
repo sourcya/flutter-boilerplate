@@ -51,4 +51,9 @@ class LightColors extends AppColors {
 
   @override
   Color get onBackgroundGradient => onSurface;
+
+  @override
+  Color get cardColor => Colors.white;
+  @override
+  Color get borderColor => Colors.blueGrey;
 }

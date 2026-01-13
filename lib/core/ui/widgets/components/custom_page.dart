@@ -7,12 +7,11 @@ class CustomPageScaffold extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final PlatformAppBar? appBar;
   final bool canShowDrawer;
-  final bool canShowNavigationRail;
+  final bool disabledGestures;
 
   /// Decides whether to show bottom navigation bar or not
   final bool showBottomNav;
 
-  final bool disabledGestures;
   final GoRouterState state;
 
   const CustomPageScaffold({
@@ -22,7 +21,6 @@ class CustomPageScaffold extends StatelessWidget {
     this.appBar,
     this.canShowDrawer = false,
     this.disabledGestures = true,
-    this.canShowNavigationRail = false,
     this.showBottomNav = false,
     required this.state,
   }) : navigationShell = null;
@@ -34,101 +32,47 @@ class CustomPageScaffold extends StatelessWidget {
     this.appBar,
     this.canShowDrawer = false,
     this.disabledGestures = true,
-    this.canShowNavigationRail = false,
     this.showBottomNav = false,
     required this.state,
   }) : child = null;
 
   @override
   Widget build(BuildContext context) {
-    final scaffoldChild = buildScaffoldChild(context);
+    final appController = AppController.instance;
 
-    final canPop = !(NavigationUtils.mainRoutes
-            .contains(PlayxNavigation.currentRouteName) &&
-        PlayxNavigation.currentRouteName != AppPages.homeRoute);
-
-    // Manage back button press for home routes
-    // As it should navigate to home when pressed back button pressed on home routes
-    // Then it can exit the app
-    return PopScope(
-      canPop: canPop,
-      onPopInvokedWithResult: (didPop, _) {
-        if (didPop) {
-          return;
-        }
-        PlayxNavigation.offAllNamed(AppPages.homeRoute);
-      },
-      child: Obx(() {
-        final appController = AppController.instance;
-        return Stack(
-          children: [
-            PlatformScaffold(
-              body: scaffoldChild,
-              key: navigationShell != null
-                  ? ValueKey(navigationShell!.currentIndex)
-                  : null,
-              backgroundColor: context.colors.surface,
-              bottomNavBar: appController.showBottomNav.value &&
-                      showBottomNav &&
-                      navigationShell != null
-                  ? buildCustomNavigationBar(
-                      navigationShell: navigationShell!,
-                      context: context,
-                    )
-                  : null,
-            ),
-            Obx(() {
-              return LoadingOverlay(
-                loadingStatus: appController.loadingStatus.value,
-              );
-            }),
-          ],
-        );
-      }),
-    );
-  }
-
-  Widget buildScaffoldChild(BuildContext context) {
-    final drawer = canShowDrawer && navigationShell != null
-        ? CustomNavigationDrawer(
-            navigationShell: navigationShell!,
-          )
-        : null;
-    final navigationRail = canShowNavigationRail && navigationShell != null
-        ? CustomNavigationRail(
-            navigationShell: navigationShell!,
-          )
-        : null;
-
-    if (navigationRail != null) {
-      return Row(
+    final scaffoldChild = PlatformScaffold(
+      backgroundColor: context.colors.surface,
+      body: Stack(
         children: [
-          navigationRail,
-          Expanded(
-            child: Scaffold(
-              body: navigationShell ?? child,
-              drawer: drawer,
-            ),
-          ),
+          navigationShell ?? child ?? const SizedBox.shrink(),
+          Obx(() {
+            return LoadingOverlay(
+              loadingStatus: appController.loadingStatus.value,
+            );
+          }),
         ],
-      );
-    } else if (drawer != null) {
-      return Scaffold(
-        body: navigationShell ?? child,
-        drawer: drawer,
-      );
-    } else {
-      return navigationShell ?? child ?? const SizedBox.shrink();
-    }
+      ),
+    );
+
+    return navigationShell != null && canShowDrawer
+        ? Obx(() {
+            return CustomDrawer(
+              navigationShell: navigationShell!,
+              disabledGestures:
+                  AppController.instance.disableDrawerGestures.value ||
+                      disabledGestures,
+              child: scaffoldChild,
+            );
+          })
+        : scaffoldChild;
   }
 
   static Page<dynamic> buildNavigationShellPage({
     required GoRouterState state,
     required StatefulNavigationShell navigationShell,
     bool canShowDrawer = true,
-    bool showBottomNav = true,
-    bool canShowNavigationRail = true,
     bool disabledGestures = true,
+    bool showBottomNav = true,
   }) {
     return CupertinoPage(
       child: Builder(
@@ -136,9 +80,8 @@ class CustomPageScaffold extends StatelessWidget {
           return CustomPageScaffold.navigationShell(
             navigationShell: navigationShell,
             canShowDrawer: canShowDrawer,
-            disabledGestures: disabledGestures,
-            canShowNavigationRail: canShowNavigationRail,
             showBottomNav: showBottomNav,
+            disabledGestures: disabledGestures,
             state: state,
           );
         },
@@ -153,14 +96,13 @@ class CustomPageScaffold extends StatelessWidget {
     required Widget child,
     bool showBottomNav = true,
     bool canShowDrawer = true,
-    bool canShowNavigationRail = true,
   }) {
     return CupertinoPage(
       child: Builder(
         builder: (context) {
           return CustomPageScaffold(
-            showBottomNav: showBottomNav,
             canShowDrawer: canShowDrawer,
+            showBottomNav: showBottomNav,
             state: state,
             child: child,
           );

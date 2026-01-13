@@ -19,8 +19,6 @@ class NavigationUtils {
 
   static bool get canShowDrawer => AppUtils.isMobile();
 
-  static bool get showNavigationRail => !AppUtils.isMobile();
-
   static GlobalKey<NavigatorState> get navigatorKey =>
       AppPages.router.routerDelegate.navigatorKey;
 

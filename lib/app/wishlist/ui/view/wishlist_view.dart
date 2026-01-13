@@ -5,7 +5,7 @@ class WishlistView extends GetView<WishlistController> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: AppTrans.wishlist,
-      leading: AppBarLeadingType.drawerOrRail,
+      leading: AppBarLeadingType.drawer,
       child: RxDataStateWidget(
         rxData: controller.dataState,
         onSuccess: (data) {

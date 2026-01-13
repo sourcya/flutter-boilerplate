@@ -43,12 +43,7 @@ class CustomDropDown<T> extends StatelessWidget {
     return DropdownButtonHideUnderline(
       child: DropdownButton2<T>(
         isExpanded: true,
-        hint: hintWidget ??
-            CustomText(
-              hint ?? '',
-              fontSize: 14.sp,
-              color: Colors.grey,
-            ),
+        hint: hintWidget ?? CustomText(hint ?? '', fontSize: 14.sp, color: Colors.grey),
         items: [
           ..._itemsWidgets(context),
           if (bottomWidget != null)
@@ -76,7 +71,8 @@ class CustomDropDown<T> extends StatelessWidget {
         buttonStyleData: ButtonStyleData(
           // height: 50,
           // width: 100.r,
-          padding: padding ??
+          padding:
+              padding ??
               EdgeInsetsDirectional.only(
                 start: 4.r,
                 end: 14.r,
@@ -85,23 +81,22 @@ class CustomDropDown<T> extends StatelessWidget {
               ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: color ?? Colors.grey,
-            ),
-            color: context.colors.surface,
+            border: Border.all(color: color ?? context.colors.borderColor),
+            color: context.colors.cardColor,
           ),
           // elevation: 2,
         ),
         iconStyleData: IconStyleData(
-          iconEnabledColor: context.colors.primary,
+          iconEnabledColor: context.colors.onSurface,
           iconDisabledColor: Colors.grey,
+          icon: const Icon(Icons.keyboard_arrow_down),
         ),
         dropdownStyleData: DropdownStyleData(
           maxHeight: 400.r,
           offset: offset,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
-            color: context.colors.surface,
+            color: context.colors.cardColor,
           ),
           // offset: const Offset(-20, 0),
           scrollbarTheme: ScrollbarThemeData(
@@ -121,7 +116,8 @@ class CustomDropDown<T> extends StatelessWidget {
     return items.map(
       (T item) => DropdownMenuItem<T>(
         value: item,
-        child: itemBuilder?.call(item) ??
+        child:
+            itemBuilder?.call(item) ??
             Row(
               children: [
                 if (iconUrlBuilder != null) ...[
@@ -149,7 +145,7 @@ class CustomDropDown<T> extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 4.r),
+                      // SizedBox(height: 4.r),
                       CustomText(
                         labelBuilder?.call(item) ?? '',
                         fontSize: 14.sp,

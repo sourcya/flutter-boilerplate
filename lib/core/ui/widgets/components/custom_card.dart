@@ -33,32 +33,29 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = AppUtils.isDarkMode();
     return OptimizedCard(
       width: width,
       height: height,
-      margin: margin ??
-          (isDarkMode
-              ? EdgeInsets.symmetric(horizontal: 8.r, vertical: 4.h)
-              : EdgeInsets.symmetric(horizontal: 6.r, vertical: 4.h)),
-      shouldShowCustomShadow: shouldShowCustomShadow ?? !isDarkMode,
-      elevation: elevation ?? (isDarkMode ? 4 : 0),
-      color: color ??
-          (isDarkMode
+      margin: margin ?? EdgeInsets.symmetric(horizontal: 8.r, vertical: 4.r),
+      shouldShowCustomShadow: false,
+      elevation: elevation ?? (context.isDark ? 4 : 0),
+      color:
+          color ??
+          (context.isDark
               ? isChild
-                  ? context.colors.surfaceContainerHighest
-                  : context.colors.surfaceContainerHigh
-              : context.colors.surface),
+                    ? context.colors.surfaceContainerHighest
+                    : context.colors.surfaceContainerHigh
+              : Colors.white),
       innerCardShadowMargin: innerCardShadowMargin,
       shadowBorderRadius: shadowBorderRadius,
-      shape: shape ??
+      shape:
+          shape ??
           RoundedRectangleBorder(
             borderRadius: borderRadius ?? BorderRadius.circular(8.r),
           ),
       borderRadius: borderRadius ?? BorderRadius.circular(8.r),
       child: Padding(
-        padding:
-            padding ?? EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 8.0.h),
+        padding: padding ?? EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 8.0.h),
         child: child,
       ),
     );

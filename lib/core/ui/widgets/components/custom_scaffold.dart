@@ -15,6 +15,13 @@ class CustomScaffold extends StatelessWidget {
   final bool includeBottomSafeArea;
   final bool includeAppBar;
   final Color? backgroundColor;
+
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
+  final List<BreadcrumbItem>? breadcrumbs;
+  final bool? attachBreadcrumb;
+  final bool addPopScope;
+  final bool? showWhatsAppSupport;
+
   final bool includeLoadingOverlay;
 
   const CustomScaffold({
@@ -24,7 +31,7 @@ class CustomScaffold extends StatelessWidget {
     this.padding,
     this.appBar,
     this.floatingActionButton,
-    this.leading = AppBarLeadingType.none,
+    this.leading = AppBarLeadingType.drawer,
     this.leadingWidget,
     this.actions,
     this.useSafeArea = true,
@@ -32,6 +39,11 @@ class CustomScaffold extends StatelessWidget {
     this.includeBottomSafeArea = false,
     this.backgroundColor,
     this.titleSpacing,
+    this.floatingActionButtonLocation,
+    this.breadcrumbs,
+    this.attachBreadcrumb,
+    this.addPopScope = false,
+    this.showWhatsAppSupport,
     this.includeLoadingOverlay = false,
     super.key,
   });
@@ -44,39 +56,51 @@ class CustomScaffold extends StatelessWidget {
       child: PlayxPlatform.isIOS
           ? Scaffold(
               floatingActionButton: floatingActionButton,
-              backgroundColor: context.colors.surface,
+              floatingActionButtonLocation: floatingActionButtonLocation,
               body: child,
             )
-          : child,
+          : Scaffold(
+              // floatingActionButton: floatingActionButton,
+              // floatingActionButtonLocation: floatingActionButtonLocation,
+              body: child,
+            ),
     );
 
     final scaffold = Stack(
+      fit: StackFit.expand,
       children: [
-        PlatformScaffold(
-          appBar: includeAppBar
-              ? appBar ??
-                  buildAppBar(
-                    title: title,
-                    titleWidget: titleWidget,
-                    context: context,
-                    leadingType: leading,
-                    leadingWidget: leadingWidget,
-                    actions: actions,
-                    titleSpacing: 0,
+        PlayxThemeSwitchingArea(
+          child: PlatformScaffold(
+            appBar: includeAppBar
+                ? appBar ??
+                    buildAppBar(
+                      title: title ?? AppTrans.appName,
+                      titleWidget: titleWidget,
+                      context: context,
+                      leading: leading,
+                      leadingWidget: leadingWidget,
+                      actions: actions,
+                      titleSpacing: titleSpacing,
+                      attachBreadcrumb: attachBreadcrumb,
+                      breadcrumbs: breadcrumbs,
+                      showWhatsAppSupport: showWhatsAppSupport,
+                    )
+                : null,
+            body: useSafeArea
+                ? SafeArea(
+                    bottom: includeBottomSafeArea,
+                    right: context.isPortrait || (context.isLtr),
+                    left: context.isPortrait || (context.isRtl),
+                    child: scaffoldChild,
                   )
-              : null,
-          body: useSafeArea
-              ? SafeArea(
-                  bottom: includeBottomSafeArea,
-                  right: context.isPortrait,
-                  child: scaffoldChild,
-                )
-              : scaffoldChild,
-          material: (context, platform) => MaterialScaffoldData(
-            floatingActionButton: floatingActionButton,
+                : scaffoldChild,
+            material: (context, platform) => MaterialScaffoldData(
+              floatingActionButton: floatingActionButton,
+              floatingActionButtonLocation: floatingActionButtonLocation,
+            ),
+            cupertino: (ctx, p) => CupertinoPageScaffoldData(),
+            backgroundColor: backgroundColor ?? context.colors.surface,
           ),
-          cupertino: (ctx, p) => CupertinoPageScaffoldData(),
-          backgroundColor: backgroundColor ?? context.colors.surface,
         ),
         if (includeLoadingOverlay)
           Obx(
@@ -87,6 +111,19 @@ class CustomScaffold extends StatelessWidget {
       ],
     );
 
-    return scaffold;
+    return addPopScope
+        ? PopScope(
+            canPop: false,
+            onPopInvokedWithResult: (didPop, r) {
+              if (didPop || kIsWeb) return;
+              if (Navigator.of(context).canPop()) {
+                Navigator.of(context).pop();
+              }
+              AppNavigation.navigateToHome();
+              return;
+            },
+            child: scaffold,
+          )
+        : scaffold;
   }
 }

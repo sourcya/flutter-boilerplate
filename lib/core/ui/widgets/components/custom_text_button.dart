@@ -14,7 +14,7 @@ class CustomTextButton extends StatelessWidget {
   final Color? disabledBackground;
   final Widget? child;
   final BorderRadius? borderRadius;
-  final IconData? icon;
+  final IconInfo? icon;
 
   final double? width;
 

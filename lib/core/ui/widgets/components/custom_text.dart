@@ -13,7 +13,7 @@ class CustomText extends StatelessWidget {
   final TextAlign textAlign;
   final TextStyle? textStyle;
   final String? font;
-  final IconData? icon;
+  final IconInfo? icon;
   final Color? iconColor;
   final double? iconSize;
   final bool isTranslatable;
@@ -25,6 +25,10 @@ class CustomText extends StatelessWidget {
   final List<Shadow>? shadows;
   final Color? strokeColor;
   final double? strokeWidth;
+
+  final bool? softWrap;
+  final double? iconSpacing;
+  final BuildContext? translationContext;
 
   const CustomText(
     this.text, {
@@ -44,8 +48,11 @@ class CustomText extends StatelessWidget {
     this.isSelectable = false,
     this.readMoreTextLength,
     this.shadows,
+    this.translationContext,
+    this.softWrap,
   })  : icon = null,
         iconColor = null,
+        iconSpacing = null,
         iconSize = null,
         strokeColor = null,
         strokeWidth = null;
@@ -73,6 +80,9 @@ class CustomText extends StatelessWidget {
     this.shadows,
     this.strokeColor,
     this.strokeWidth,
+    this.translationContext,
+    this.softWrap,
+    this.iconSpacing,
   });
 
   const CustomText.stroke(
@@ -95,13 +105,17 @@ class CustomText extends StatelessWidget {
     this.isSelectable = false,
     this.readMoreTextLength,
     this.shadows,
+    this.translationContext,
+    this.softWrap,
   })  : icon = null,
         iconColor = null,
+        iconSpacing = null,
         iconSize = null;
 
   @override
   Widget build(BuildContext context) {
-    final translatedText = isTranslatable ? text.tr(context: context) : text;
+    final translatedText =
+        isTranslatable ? text.tr(context: translationContext ?? context) : text;
 
     final effectiveTextStyle = textStyle?.copyWith(
           color: color,
@@ -110,19 +124,23 @@ class CustomText extends StatelessWidget {
           fontStyle: fontStyle,
           overflow: textOverflow,
           fontFamily: font,
-          decoration: decoration,
+          decoration: decoration ?? TextDecoration.none,
           letterSpacing: letterSpacing,
           height: height,
           shadows: shadows,
         ) ??
-        CustomTextStyles.label(context).copyWith(
+        TextStyle(
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w400,
+          fontFamily: fontFamily(context: context),
+        ).copyWith(
           color: color ?? context.colors.onSurface,
           fontSize: fontSize,
           fontWeight: fontWeight,
           fontStyle: fontStyle,
           overflow: textOverflow,
           fontFamily: font,
-          decoration: decoration,
+          decoration: decoration ?? TextDecoration.none,
           letterSpacing: letterSpacing,
           height: height,
           shadows: shadows,
@@ -162,6 +180,7 @@ class CustomText extends StatelessWidget {
                     maxLines: maxLines,
                     textAlign: textAlign,
                     overflow: textOverflow,
+                    softWrap: softWrap,
                   );
 
     if (icon == null) {
@@ -171,70 +190,70 @@ class CustomText extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          icon,
-          color: iconColor ?? color ?? context.colors.onSurface,
-          size: iconSize ?? 20.r,
-        ),
-        SizedBox(width: 4.0.r),
-        Flexible(
-          child: textWidget,
-        ),
+        if (icon != null) ...[
+          icon!
+              .copyWith(
+                color: iconColor ?? color ?? context.colors.onSurface,
+                size: iconSize ?? 20.r,
+              )
+              .buildIconWidget(),
+          SizedBox(width: iconSpacing ?? 4.0.r),
+        ],
+        Flexible(child: textWidget),
       ],
     );
   }
 }
-
 /// Predefined text styles for commonly used text categories.
 class CustomTextStyles {
   const CustomTextStyles._();
 
   static TextStyle headline(BuildContext context) => TextStyle(
-        fontSize: 32.sp,
-        fontWeight: FontWeight.bold,
-        fontFamily: fontFamily(context: context),
-        color: context.colors.onSurface,
-      );
+    fontSize: 32.sp,
+    fontWeight: FontWeight.bold,
+    fontFamily: fontFamily(context: context),
+    color: context.colors.onSurface,
+  );
 
   static TextStyle title(BuildContext context) => TextStyle(
-        fontSize: 24.sp,
-        fontWeight: FontWeight.w600,
-        fontFamily: fontFamily(context: context),
-        color: context.colors.onSurface,
-      );
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w600,
+    fontFamily: fontFamily(context: context),
+    color: context.colors.onSurface,
+  );
 
   static TextStyle subtitle(BuildContext context) => TextStyle(
-        fontSize: 18.sp,
-        fontWeight: FontWeight.w500,
-        fontFamily: fontFamily(context: context),
-        color: context.colors.onSurface,
-      );
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w500,
+    fontFamily: fontFamily(context: context),
+    color: context.colors.onSurface,
+  );
 
   static TextStyle body(BuildContext context) => TextStyle(
-        fontSize: 16.sp,
-        fontWeight: FontWeight.normal,
-        fontFamily: fontFamily(context: context),
-        color: context.colors.onSurface,
-      );
+    fontSize: 16.sp,
+    fontWeight: FontWeight.normal,
+    fontFamily: fontFamily(context: context),
+    color: context.colors.onSurface,
+  );
 
   static TextStyle label(BuildContext context) => TextStyle(
-        fontSize: 14.sp,
-        fontWeight: FontWeight.w400,
-        fontFamily: fontFamily(context: context),
-        color: context.colors.onSurface,
-      );
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+    fontFamily: fontFamily(context: context),
+    color: context.colors.onSurface,
+  );
 
   static TextStyle caption(BuildContext context) => TextStyle(
-        fontSize: 12.sp,
-        fontWeight: FontWeight.normal,
-        fontFamily: fontFamily(context: context),
-        color: context.colors.onSurface,
-      );
+    fontSize: 12.sp,
+    fontWeight: FontWeight.normal,
+    fontFamily: fontFamily(context: context),
+    color: context.colors.onSurface,
+  );
 
   static TextStyle description(BuildContext context) => TextStyle(
-        fontSize: 14.sp,
-        fontWeight: FontWeight.w400,
-        fontFamily: fontFamily(context: context),
-        color: context.colors.subtitleTextColor,
-      );
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w400,
+    fontFamily: fontFamily(context: context),
+    color: context.colors.subtitleTextColor,
+  );
 }

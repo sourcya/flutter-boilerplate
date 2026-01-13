@@ -26,7 +26,7 @@ class BuildMobileLoginTextField extends GetView<OtpLoginController> {
           ),
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: 10.w,
+              horizontal: 10.r,
             ),
             child: CustomTextField(
               // label: AppTrans.phoneNumberLabel.tr,

@@ -200,4 +200,14 @@ abstract class AppTrans {
   static const minText = 'minText';
   static const secondText = 'secondText';
   static const km = 'km';
+
+  static const notLoggedIn = 'notLoggedIn';
+  static const whatsappContactMsg = 'whatsappContactMsg';
+  static const whatsappNotFoundMsg = 'whatsappNotFoundMsg';
+  static const support = 'support';
+  static const search = 'search';
+
+  static const logoutDialogTitle = 'logoutDialogTitle';
+
+  static const logoutDialogMessage = 'logoutDialogMessage';
 }

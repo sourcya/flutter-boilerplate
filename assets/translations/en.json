@@ -145,5 +145,12 @@
   "verifyPhoneSubtitle": "Enter the 4 digits code sent to your phone number.",
   "verifyPhoneTitle": "Verify your mobile number",
   "verifyPhoneValidOtpError": "Pin is not a valid number",
-  "wishlist": "Wishlist"
+  "wishlist": "Wishlist",
+  "notLoggedIn": "Not Logged In",
+  "whatsappContactMsg": "How can we help you?",
+  "whatsappNotFoundMsg": "WhatsApp app is not installed",
+  "support": "Support",
+  "search": "Search",
+  "logoutDialogTitle": "Logout",
+  "logoutDialogMessage": "Are you sure you want to logout?"
 }

@@ -5,7 +5,6 @@ class DashboardView extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: AppTrans.dashboard,
-      leading: AppBarLeadingType.drawerOrRail,
       child: RxDataStateWidget(
         rxData: controller.dataState,
         onSuccess: (items) => ListView.builder(

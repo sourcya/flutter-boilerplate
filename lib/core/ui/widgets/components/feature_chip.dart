@@ -20,6 +20,8 @@ class FeatureChip extends StatelessWidget {
   final bool? isMaxWidth;
   final ShapeBorder? shape;
 
+  final double? elevation;
+
   const FeatureChip({
     this.label,
     this.color = Colors.black,
@@ -38,6 +40,7 @@ class FeatureChip extends StatelessWidget {
     this.isMaxWidth,
     this.margin,
     this.shape,
+    this.elevation,
   });
 
   @override
@@ -45,12 +48,12 @@ class FeatureChip extends StatelessWidget {
     final label =
         isLabelTranslatable ? this.label?.tr(context: context) : this.label;
     double labelFontSize =
-        fontSize ?? (PlayxLocalization.isCurrentLocaleArabic() ? 13.sp : 14.sp);
+        fontSize ?? (PlayxLocalization.isCurrentLocaleArabic() ? 14.sp : 15.sp);
     final labelLength = label?.length ?? 0;
 
     if (decreaseFontSizeByLength && labelLength > 10) {
       labelFontSize = labelFontSize -
-          (labelLength > 25
+          (labelLength > 35
                   ? 2
                   : labelLength > 20
                       ? 1
@@ -78,13 +81,13 @@ class FeatureChip extends StatelessWidget {
     return Container(
       margin: margin,
       child: Material(
-        color: backgroundColor ?? context.colors.surfaceContainer,
-        elevation: 2,
+        color: backgroundColor ?? context.colors.chipBackgroundColor,
+        elevation: elevation ?? (context.isDark ? 2 : 0),
         shadowColor: isCupertino(context) ? Colors.black : null,
         shape: shape ??
             RoundedRectangleBorder(
               side: borderSide ?? BorderSide(color: context.colors.onSurface),
-              borderRadius: BorderRadius.circular(8.r),
+              borderRadius: BorderRadius.circular(16.r),
             ),
         child: Container(
           padding: contentPadding ??
@@ -102,7 +105,7 @@ class FeatureChip extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     icon!.buildIconWidget(
-                      size: iconSize ?? 20.r,
+                      size: iconSize ?? icon!.size ?? 20.r,
                       color: color,
                     ),
                     SizedBox(

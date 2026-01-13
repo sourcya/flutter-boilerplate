@@ -145,5 +145,12 @@
   "verifyPhoneSubtitle": "أدخل الكود المكون من 4 أرقام الذي تم إرساله إلي هاتفك.",
   "verifyPhoneTitle": "تأكيد رقم الهاتف",
   "verifyPhoneValidOtpError": "الكود ليس رقم صحيح",
-  "wishlist": "قائمة الأمنيات"
+  "wishlist": "قائمة الأمنيات",
+  "notLoggedIn": "لم يتم تسجيل الدخول",
+  "whatsappContactMsg": "كيف يمكننا مساعدتك؟",
+  "whatsappNotFoundMsg": "تطبيق الواتساب غير مثبت",
+  "support": "الدعم",
+  "search": "بحث",
+  "logoutDialogTitle": "تسجيل الخروج",
+  "logoutDialogMessage": "هل أنت متأكد من رغبتك في تسجيل الخروج؟"
 }

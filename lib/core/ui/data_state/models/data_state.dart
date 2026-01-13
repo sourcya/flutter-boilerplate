@@ -1,32 +1,19 @@
 part of '../../ui.dart';
 
 class Initial<T> extends DataState<T> {
-  /// If you want to init ui with initial data
-  @override
-  final T? data;
-
-  const Initial({this.data});
+  const Initial({super.data, super.error});
 }
 
 class Loading<T> extends DataState<T> {
-  /// If you want to show data while loading
-  @override
-  final T? data;
-
-  const Loading({this.data});
+  const Loading({super.data}) : super(error: null);
 }
 
 class Success<T> extends DataState<T> {
-  @override
-  final T data;
-
-  const Success(this.data);
+  const Success(T data) : super(data: data, error: null);
 }
 
 class Failure<T> extends DataState<T> {
-  final DataError error;
-
-  const Failure(this.error);
+  const Failure(DataError error) : super(data: null, error: error);
 }
 
 class NetworkFailure<T> extends Failure<T> {
@@ -37,7 +24,11 @@ class NetworkFailure<T> extends Failure<T> {
 
 /// Generic Wrapper class for the result of any type.
 sealed class DataState<T> {
-  const DataState();
+  final T? data;
+
+  final DataError? error;
+
+  const DataState({this.data, this.error});
 
   const factory DataState.initial({T? data}) = Initial;
 
@@ -48,39 +39,28 @@ sealed class DataState<T> {
   const factory DataState.error(DataError error) = Failure;
 
   factory DataState.fromNetworkResult(NetworkResult<T> result) => result.map(
-        success: (success) => Success(success.data),
-        error: (error) => NetworkFailure(error.error),
-      );
+    success: (success) => Success(success.data),
+    error: (error) => NetworkFailure(error.error),
+  );
 
   factory DataState.fromNetworkError(NetworkException error) = NetworkFailure;
 
-  factory DataState.fromEmptyError({String? error}) =>
-      Failure(DataError.empty(error: error));
+  factory DataState.fromEmptyError({String? error}) => Failure(DataError.empty(error: error));
 
-  factory DataState.fromDefaultError({String? error}) =>
-      Failure(DataError.error(error: error));
+  factory DataState.fromDefaultError({String? error}) => Failure(DataError.error(error: error));
 
   factory DataState.fromNoInternetError({String? error}) =>
       Failure(DataError.noInternetError(error: error));
 
-  bool get isSuccess => this is Success;
+  bool get isSuccess => this is Success<T>;
 
-  bool get isLoading => this is Loading;
+  bool get isLoading => this is Loading<T>;
+
+  bool get isInitial => this is Initial<T>;
+
+  bool get isError => this is Failure<T>;
 
   bool hasError() => this is Failure;
-
-  T? get data {
-    if (this is Initial<T>) {
-      return this.data;
-    }
-    if (this is Loading<T>) {
-      return this.data;
-    }
-    if (this is Success<T>) {
-      return this.data;
-    }
-    return null;
-  }
 
   void when({
     Function(T? data)? initial,
@@ -96,25 +76,25 @@ sealed class DataState<T> {
         final data = (this as Loading<T>).data;
         loading?.call(data);
       case Success _:
-        final data = (this as Success<T>).data;
+        final data = this.data as T;
         success?.call(data);
       case Failure _:
-        final exception = (this as Failure<T>).error;
+        final exception = error!;
         failure?.call(exception);
     }
   }
 
   DataState<S> map<S>({
-    required DataState<S> Function(Initial<T> initial) initial,
-    required DataState<S> Function(Loading<T> loading) loading,
+    DataState<S> Function(Initial<T> initial)? initial,
+    DataState<S> Function(Loading<T> loading)? loading,
     required DataState<S> Function(Success<T> success) success,
     required DataState<S> Function(Failure<T> error) error,
   }) {
     switch (this) {
       case Initial _:
-        return initial(this as Initial<T>);
+        return initial?.call(this as Initial<T>) ?? const Initial();
       case Loading _:
-        return loading(this as Loading<T>);
+        return loading?.call(this as Loading<T>) ?? const Loading();
       case Success _:
         return success(this as Success<T>);
       case Failure _:
@@ -123,16 +103,16 @@ sealed class DataState<T> {
   }
 
   Future<DataState<S>> asyncMap<S>({
-    required Future<DataState<S>> Function(Initial<T> initial) initial,
-    required Future<DataState<S>> Function(Loading<T> loading) loading,
+    Future<DataState<S>> Function(Initial<T> initial)? initial,
+    Future<DataState<S>> Function(Loading<T> loading)? loading,
     required Future<DataState<S>> Function(Success<T> success) success,
     required Future<DataState<S>> Function(Failure<T> error) error,
   }) async {
     switch (this) {
       case Initial _:
-        return await initial(this as Initial<T>);
+        return await initial?.call(this as Initial<T>) ?? const Initial();
       case Loading _:
-        return await loading(this as Loading<T>);
+        return await loading?.call(this as Loading<T>) ?? const Loading();
       case Success _:
         return await success(this as Success<T>);
       case Failure _:
@@ -145,9 +125,9 @@ sealed class DataState<T> {
   }) {
     switch (this) {
       case Success _:
-        return Success(dataMapper((this as Success<T>).data));
+        return Success(dataMapper(data as T));
       case Failure _:
-        return Failure((this as Failure<T>).error);
+        return Failure(error!);
       case Loading _:
         final data = (this as Loading<T>).data;
         return Loading(data: data == null ? null : dataMapper(data));
@@ -162,9 +142,9 @@ sealed class DataState<T> {
   }) async {
     switch (this) {
       case Success _:
-        return Success(await dataMapper((this as Success<T>).data));
+        return Success(await dataMapper(data as T));
       case Failure _:
-        return Failure((this as Failure<T>).error);
+        return Failure(error!);
       case Loading _:
         final oldData = (this as Loading<T>).data;
         return Loading(

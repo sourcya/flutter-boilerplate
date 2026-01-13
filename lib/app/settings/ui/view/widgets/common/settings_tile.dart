@@ -29,7 +29,7 @@ class BuildSettingsTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: CustomCard(
-        margin: AppUtils.isDarkMode()
+        margin: context.isDark
             ? EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h)
             : EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
         padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),

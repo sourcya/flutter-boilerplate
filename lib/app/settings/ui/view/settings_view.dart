@@ -8,7 +8,6 @@ class SettingsView extends GetView<SettingsController> {
     return PlayxThemeSwitchingArea(
       child: CustomScaffold(
         title: AppTrans.settings,
-        leading: AppBarLeadingType.drawerOrRail,
         backgroundColor: context.colors.surface,
         child: CustomScrollView(
           slivers: [

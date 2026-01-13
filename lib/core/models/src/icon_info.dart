@@ -50,8 +50,8 @@ class IconInfo {
   }
 
   Widget buildIconWidget({Color? color, double? size}) {
-    final iconSize = size ?? this.size;
     final iconColor = color ?? this.color;
+    final iconSize = size ?? this.size;
     if (icon != null) {
       return Icon(icon, color: iconColor, size: iconSize);
     } else if (svgIcon != null) {
@@ -78,5 +78,17 @@ class IconInfo {
     } else {
       return const SizedBox.shrink();
     }
+  }
+}
+
+extension IconInfoStringExtensions on String {
+  IconInfo toSvgIconInfo({Color? color, double? size}) {
+    return IconInfo.svg(this, color: color,size:size);
+  }
+}
+
+extension IconInfoIconExtensions on IconData {
+  IconInfo toIconInfo({Color? color, double? size}) {
+    return IconInfo.icon(this, color: color,size:size);
   }
 }

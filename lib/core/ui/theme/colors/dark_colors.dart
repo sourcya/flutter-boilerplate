@@ -47,4 +47,10 @@ class DarkColors extends AppColors {
 
   @override
   Color get onBackgroundGradient => onSurface;
+
+  @override
+  Color get cardColor => surfaceContainer;
+
+  @override
+  Color get borderColor => Colors.blueGrey;
 }

@@ -195,6 +195,11 @@ class AuthRepository {
     return _handleSavingUser(result: result, loginMethod: LoginMethod.email);
   }
 
+  static Future<void> handleSignOut() async {
+    // stop events background service
+    await MyPreferenceManger.instance.signOut();
+  }
+
   // Future<void> saveLoginInfo({
   //   required String email,
   //   required String password,
