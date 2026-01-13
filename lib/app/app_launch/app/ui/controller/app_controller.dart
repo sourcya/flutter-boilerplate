@@ -249,10 +249,6 @@ class AppController extends SuperController {
   //   }
   // }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void handleDrawerModuleItemClicked({
     required int index,

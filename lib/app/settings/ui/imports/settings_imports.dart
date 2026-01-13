@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/app/app_launch/app/ui/imports/app_imports.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
-import 'package:flutter_boilerplate/core/utils/app_utils.dart';
 import 'package:playx/playx.dart';
 
 part '../binding/settings_binding.dart';

@@ -11,14 +11,14 @@ class DarkTheme {
         brightness: Brightness.dark,
         appBarTheme: AppBarTheme(
           centerTitle: true,
-          color: colors.appBar,
+          backgroundColor: colors.appBar,
           scrolledUnderElevation: 2,
           elevation: 2,
         ),
         useMaterial3: true,
         colorScheme: colors.colorScheme,
         sliderTheme: const SliderThemeData(
-          showValueIndicator: ShowValueIndicator.always,
+          showValueIndicator: ShowValueIndicator.onDrag,
         ),
         cupertinoOverrideTheme: CupertinoThemeData(
           barBackgroundColor: colors.primary.withValues(alpha: .93),

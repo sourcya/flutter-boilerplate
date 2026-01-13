@@ -1,3 +1,5 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_boilerplate/core/config/app_config.dart';
@@ -6,19 +8,18 @@ import 'package:flutter_boilerplate/core/preferences/env_manger.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
+const enableDevicePreview = true;
+
 void main() {
   Playx.runPlayx(
     appConfigBuilder: () => AppConfig(),
     themeConfigBuilder: () => AppThemeConfig.createThemeConfig(),
     localeConfigBuilder: () => AppLocaleConfig.createLocaleConfig(),
-    envSettingsBuilder: () => const PlayxEnvSettings(
-      fileName: 'assets/env/keys.env',
-    ),
+    envSettingsBuilder: () =>
+        const PlayxEnvSettings(fileName: 'assets/env/keys.env'),
     securePrefsSettings: const PlayxSecurePrefsSettings(
-      androidOptions: AndroidOptions(
-        encryptedSharedPreferences: true,
-        resetOnError: true,
-      ),
+      createSecurePrefs: false,
+      androidOptions: AndroidOptions.defaultOptions,
     ),
     sentryOptions: (options) async {
       options.dsn = await EnvManger.instance.sentryKey;
@@ -26,7 +27,9 @@ void main() {
       options.attachScreenshot = true;
       options.captureFailedRequests = true;
     },
-    app: const MyApp(),
+    app: kIsWeb && enableDevicePreview
+        ? DevicePreview(builder: (context) => const MyApp())
+        : const MyApp(),
   );
 }
 
@@ -38,21 +41,32 @@ class MyApp extends StatelessWidget {
     return ScaffoldMessenger(
       child: Builder(
         builder: (context) {
-          return PlayxPlatformApp(
-            preferredOrientations: const [
-              DeviceOrientation.landscapeRight,
-              DeviceOrientation.landscapeLeft,
-              DeviceOrientation.portraitUp,
-            ],
-            navigationSettings: PlayxNavigationSettings.goRouter(
-              goRouter: AppPages.router,
-            ),
-            screenSettings: const PlayxScreenSettings(
-              fontSizeResolver: FontSizeResolvers.radius,
-            ),
-            appSettings: PlayxAppSettings(
-              title: AppTrans.appName.tr(),
-              scrollBehavior: DefaultAppScrollBehavior(),
+          return Center(
+            child: PlayxPlatformApp(
+              preferredOrientations: const [
+                DeviceOrientation.landscapeRight,
+                DeviceOrientation.landscapeLeft,
+                DeviceOrientation.portraitUp,
+              ],
+              themeSettings: PlayxThemeSettings(
+                theme: ThemeData(fontFamily: fontFamily(context: context)),
+              ),
+              navigationSettings: PlayxNavigationSettings.goRouter(
+                goRouter: AppPages.router,
+                builder: kIsWeb && enableDevicePreview
+                    ? DevicePreview.appBuilder
+                    : null,
+              ),
+              screenSettings: const PlayxScreenSettings(
+                ensureScreenSize: true,
+                fontSizeResolver: FontSizeResolvers.radius,
+                designSize: Size(430.0, 932.0),
+                useInheritedMediaQuery: true,
+              ),
+              appSettings: PlayxAppSettings(
+                title: AppTrans.appName.tr(),
+                scrollBehavior: DefaultAppScrollBehavior(),
+              ),
             ),
           );
         },
