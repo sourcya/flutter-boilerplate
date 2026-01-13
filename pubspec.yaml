@@ -95,6 +95,10 @@ scripts:
     $before: echo Cleaning project...
     $script: flutter clean
     $after: echo Project cleaned.
+  format:
+    $before: echo Formatting code...
+    $script: dart format .
+    $after: echo Code formatted.
 
 
 flutter:
