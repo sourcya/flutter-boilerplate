@@ -33,7 +33,7 @@ class AppConfig extends PlayXAppConfig {
   }
 
   Future<void> bootDependencies() async {
-    getIt.registerSingleton<MyPreferenceManger>(MyPreferenceManger());
+    MyPreferenceManger().registerInstance();
     getIt.registerSingleton<EnvManger>(EnvManger());
     await ApiClient.init();
 
