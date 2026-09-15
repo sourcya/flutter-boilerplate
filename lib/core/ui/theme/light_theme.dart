@@ -1,7 +1,8 @@
 part of '../ui.dart';
 
-// ignore: avoid_classes_with_only_static_members
 class LightTheme {
+  LightTheme._();
+
   static const String lightThemeId = 'light';
   static const String lightThemeName = AppTrans.lightTheme;
 
@@ -11,7 +12,7 @@ class LightTheme {
         brightness: Brightness.light,
         appBarTheme: AppBarTheme(
           centerTitle: true,
-          color: colors.appBar,
+          backgroundColor: colors.appBar,
         ),
         cupertinoOverrideTheme: CupertinoThemeData(
           barBackgroundColor: colors.primary.withValues(alpha: .93),
@@ -26,7 +27,7 @@ class LightTheme {
         useMaterial3: true,
         colorScheme: colors.colorScheme,
         sliderTheme: const SliderThemeData(
-          showValueIndicator: ShowValueIndicator.always,
+          showValueIndicator: ShowValueIndicator.onDrag,
         ),
         fontFamily: fontFamily(),
         textTheme: const TextTheme().apply(fontFamily: fontFamily()),

@@ -26,12 +26,12 @@ void main() {
       options.attachScreenshot = true;
       options.captureFailedRequests = true;
     },
-    app: const MyApp(),
+    app: const AppView(),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class AppView extends StatelessWidget {
+  const AppView({super.key});
 
   @override
   Widget build(BuildContext context) {
