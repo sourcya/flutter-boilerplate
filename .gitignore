@@ -12,6 +12,7 @@
 .history
 .svn/
 *.env
+/.docs
 
 
 # IntelliJ related
