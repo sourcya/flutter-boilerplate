@@ -1,89 +1,116 @@
 part of '../imports/app_imports.dart';
 
-class AppController extends GetxController {
+class AppController extends GetxController with AppAuthMixin, AppDrawerMixin {
   static AppController get instance => Get.find<AppController>();
 
-  int currentDrawerIndex = 0;
-  int currentBottomNavIndex = 0;
-
-  final showBottomNav = true.obs;
   final loadingStatus = Rx(const LoadingStatus.idle());
+  final RxBool showVersionCode = RxBool(false);
+  final activeAppModules = <AppModule>[].obs;
 
-  late final List<CustomNavigationDestinationItem> bottomNavItems = [
+  late final List<CustomNavigationDestinationItem> drawerNavItems = [
     CustomNavigationDestinationItem(
-      icon: IconInfo(
-        icon: Icons.home_outlined,
-      ),
-      label: AppTrans.home,
+      icon: IconInfo.svg(Assets.icons.icDashboard),
+      label: AppTrans.dashboard,
       navigationIndex: 0,
-    ),
-    CustomNavigationDestinationItem(
-      icon: IconInfo(
-        icon: Icons.favorite_border,
-      ),
-      label: AppTrans.wishlist,
-      navigationIndex: 1,
-    ),
-    CustomNavigationDestinationItem(
-      icon: IconInfo(
-        icon: Icons.settings,
-      ),
-      label: AppTrans.settings,
-      navigationIndex: 2,
+      route: Routes.dashboard,
     ),
   ];
 
-  void updateBottomNavIndex(int index) {
-    if (index < 3) {
-      currentBottomNavIndex = index;
-    } else if (index < 0) {
-      currentBottomNavIndex = 0;
+  late final List<CustomNavigationDestinationItem> otherDrawerItems = [
+    CustomNavigationDestinationItem(
+      icon: IconInfo.svg(Assets.icons.icSupport),
+      label: AppTrans.support,
+    ),
+    CustomNavigationDestinationItem(
+      icon: IconInfo.svg(Assets.icons.icLogout),
+      label: AppTrans.logout,
+    ),
+  ];
+
+  @override
+  void onInit() {
+    super.onInit();
+    initDrawerState();
+    unawaited(setupSettings());
+    unawaited(updateCurrentUser());
+  }
+
+  Future<void> setupSettings() async {
+    try {
+      showVersionCode.value = await EnvManger.instance.showVersionCode;
+      await updateAppModules();
+    } on Object catch (e, st) {
+      debugPrint('Error in setupSettings: $e\n$st');
+      showVersionCode.value = false;
     }
   }
 
-  void handleBottomNavItemChanged({
-    required int index,
-    required StatefulNavigationShell navigationShell,
-  }) {
-    PlayxNavigation.goToBranch(index: index, navigationShell: navigationShell);
-  }
+  Future<void> updateAppModules({List<AppModule>? modules}) async {
+    try {
+      final appModules =
+          modules ?? await MyPreferenceManger.instance.getActiveAppModules();
+      activeAppModules.assignAll(appModules);
+      await MyPreferenceManger.instance.saveActiveAppModules(appModules);
 
-  void updateDrawerIndex(int index) {
-    if (index < 3) {
-      currentDrawerIndex = index;
-    } else if (index < 0) {
-      currentDrawerIndex = 0;
+      final enabledTypes = appModules.map((module) => module.type).toSet();
+      final drawerItems = allModuleDrawerItems.where((item) {
+        final module = item.module;
+        if (module == null) return true;
+        return enabledTypes.contains(module.type);
+      }).toList();
+
+      moduleDrawerItems.assignAll(drawerItems);
+      moduleDrawerItems.refresh();
+
+      final currentRoute = PlayxNavigation.currentRouteName;
+      final moduleRoutes = allModuleDrawerItems
+          .map((item) => item.route)
+          .whereType<String>()
+          .toSet();
+      final enabledRoutes = drawerItems
+          .map((item) => item.route)
+          .whereType<String>()
+          .toSet();
+      if (currentRoute != null &&
+          moduleRoutes.contains(currentRoute) &&
+          !enabledRoutes.contains(currentRoute)) {
+        AppNavigation.navigateToHome();
+      }
+    } on Object catch (e, st) {
+      debugPrint('Error in updateAppModules: $e\n$st');
     }
   }
 
-  void handleDrawerItemChanged({
-    required int index,
-    required StatefulNavigationShell navigationShell,
-  }) {
-    if (index == 3) {
-      handleLogout();
-      return;
-    }
-    PlayxNavigation.goToBranch(index: index, navigationShell: navigationShell);
+  @override
+  void onClose() {
+    disposeDrawerState();
+    super.onClose();
   }
 
-  Future<void> handleLogout(
-      {bool showLoadingOverlay = true, bool navigateToLogin = true}) async {
+  Future<void> handleLogout({
+    bool showLoadingOverlay = true,
+    bool navigateToLogin = true,
+    BuildContext? context,
+    bool showConfirmation = true,
+  }) async {
+    if (showConfirmation) {
+      final ctx = context ?? NavigationUtils.navigationContext;
+      if (ctx != null) {
+        final isConfirmed = await showLogoutConfirmDialog(context: ctx);
+        if (!isConfirmed) return;
+      }
+    }
+    unawaited(closeDrawer());
     if (showLoadingOverlay) {
-      _updateLoginStatus(isLoggingOut: true);
+      loadingStatus.value = const LoadingStatus.logout();
     }
     await ApiHelper.instance.logout();
+    currentUser.value = null;
+    currentSubscription.value = null;
     await Future.delayed(const Duration(milliseconds: 200));
-    _updateLoginStatus(isLoggingOut: false);
+    loadingStatus.value = const LoadingStatus.idle();
     if (navigateToLogin) {
       AppNavigation.navigateToLogin();
     }
-  }
-
-  void _updateLoginStatus({required bool isLoggingOut}) {
-    loadingStatus.value = isLoggingOut
-        ? const LoadingStatus.logout()
-        : const LoadingStatus.idle();
-    showBottomNav.value = !isLoggingOut;
   }
 }

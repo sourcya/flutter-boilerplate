@@ -18,4 +18,12 @@ class Animations {
   final String thirdBoardingAnimation = "assets/animation/boarding.json";
   final String otpAnimation = 'assets/animation/otp-verification.json';
   final String loading = 'assets/animation/loading.json';
+  final String support = 'assets/animation/support.json';
+  final String forgotPassword = 'assets/animation/forgot-password.json';
+  final String resetPasswords = 'assets/animation/reset-passwords.json';
+  final String logout = 'assets/animation/logout.json';
+
+  String get icForgetPassword => forgotPassword;
+  String get passwordOtp => otpAnimation;
+  String get resetPassword => resetPasswords;
 }

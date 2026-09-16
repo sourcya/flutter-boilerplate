@@ -6,9 +6,7 @@ class BuildRegisterHaveAccountWidget extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 5.h,
-      ),
+      padding: context.paddingSymmetric(vertical: 5),
       child: InkWell(
         onTap: controller.navigateToLogin,
         child: RichText(

@@ -12,24 +12,25 @@ class LoadingOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isVisible = loadingStatus is! LoadingStatusIdle;
     final text = loadingText ?? loadingStatus.displayName;
-    return Material(
-      color: Colors.transparent,
+    return IgnorePointer(
+      ignoring: !isVisible,
       child: AnimatedVisibility(
-        isVisible: loadingStatus is! LoadingStatusIdle,
+        isVisible: isVisible,
         child: Container(
-          color: Colors.black.withValues(alpha: .5),
+          color: context.colors.black.withValues(alpha: .5),
           height: double.infinity,
           child: Center(
             child: Card(
               color: context.colors.surfaceContainer.withValues(alpha: .7),
-              margin: EdgeInsets.symmetric(horizontal: 40.r),
+              margin: context.paddingSymmetric(horizontal: 40),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 16.r),
+                        context.paddingSymmetric(horizontal: 8.0, vertical: 16),
                     child: CenterLoading.adaptive(
                       color: context.colors.primary,
                     ),
@@ -37,10 +38,7 @@ class LoadingOverlay extends StatelessWidget {
                   if (text.isNotEmpty) ...[
                     Container(
                       width: double.infinity,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 8.0.r,
-                        vertical: 8.r,
-                      ),
+                      padding: context.paddingSymmetric(horizontal: 8.0, vertical: 8),
                       child: AnimatedDottedText(
                         text: text,
                         style: TextStyle(
@@ -79,7 +77,7 @@ class AnimatedDottedText extends StatefulWidget {
     this.duration = const Duration(milliseconds: 1000),
     this.style,
     this.dotsCount = 3,
-    this.color = Colors.black,
+    this.color = AppColors.baseblack,
     this.isTranslatable = true,
   });
 

@@ -6,10 +6,11 @@ class BuildSettingsThemeWidget extends GetView<SettingsController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return BuildSettingsTile(
+      return SettingsTile(
         title: AppTrans.theme,
         subtitle: controller.currentTheme.value.name,
         icon: Icons.dark_mode_rounded,
+        showDivider: true,
         onTap: () {
           controller.showSettingsModalPageSheet(
             context,

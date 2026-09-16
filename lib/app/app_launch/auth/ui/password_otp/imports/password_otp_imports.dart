@@ -1,0 +1,30 @@
+import 'dart:async';
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/app/app_launch/auth/data/repo/auth_repository.dart';
+import 'package:flutter_boilerplate/core/config/app_config.dart';
+import 'package:flutter_boilerplate/core/navigation/navigation.dart';
+import 'package:flutter_boilerplate/core/ui/ui.dart';
+import 'package:pinput/pinput.dart';
+import 'package:playx/playx.dart';
+
+part '../binding/password_otp_binding.dart';
+part '../controller/password_otp_controller.dart';
+part '../view/components/password_otp_action.dart';
+part '../view/components/password_otp_body.dart';
+part '../view/components/password_otp_body_wrapper.dart';
+part '../view/components/password_otp_box.dart';
+part '../view/components/password_otp_code_not_received.dart';
+part '../view/components/password_otp_code_remaining_time.dart';
+part '../view/components/password_otp_confirm_button.dart';
+part '../view/components/password_otp_expired_banner.dart';
+part '../view/components/password_otp_footer.dart';
+part '../view/components/password_otp_form_body.dart';
+part '../view/components/password_otp_hero_panel.dart';
+part '../view/components/password_otp_pin_field.dart';
+part '../view/components/password_otp_sent_section.dart';
+part '../view/components/password_otp_shell.dart';
+part '../view/components/password_otp_wide_layout.dart';
+part '../view/password_otp_view.dart';

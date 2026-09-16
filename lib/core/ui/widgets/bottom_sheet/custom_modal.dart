@@ -59,7 +59,7 @@ class CustomModal {
       },
       modalTypeBuilder: typeBuilder ??
           (context) {
-            return context.isLandscape || !AppUtils.isMobile()
+            return context.isAppLandscape || !AppUtils.isMobile()
                 ? WoltModalType.dialog()
                 : WoltModalType.bottomSheet();
           },

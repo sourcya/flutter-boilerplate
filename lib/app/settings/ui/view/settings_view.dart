@@ -1,31 +1,37 @@
 part of '../imports/settings_imports.dart';
 
-class SettingsView extends GetView<SettingsController> {
-  const SettingsView({super.key});
+class SettingsView extends CustomOrientationWidget {
+  const SettingsView({super.isInitialized, super.key});
+
+  SettingsController get controller => Get.find<SettingsController>();
+
+  void _onPop(BuildContext context, bool didPop) {
+    if (didPop || kIsWeb) return;
+    if (controller.selectedSettingsTab.value != SettingsTabs.account) {
+      controller.selectedSettingsTab.value = SettingsTabs.account;
+      return;
+    }
+    if (Navigator.of(context).canPop()) {
+      Navigator.of(context).pop();
+    }
+    AppNavigation.navigateToHome();
+  }
 
   @override
-  Widget build(BuildContext context) {
-    return PlayxThemeSwitchingArea(
-      child: CustomScaffold(
-        title: AppTrans.settings,
-        leading: AppBarLeadingType.drawerOrRail,
-        backgroundColor: context.colors.surface,
-        child: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  SizedBox(height: 8.0.r),
-                  const BuildSettingsLanguageWidget(),
-                  const BuildSettingsThemeWidget(),
-                  const BuildSettingsLogOutWidget(),
-                  SizedBox(height: 16.0.r),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+  Widget buildPortrait(BuildContext context) {
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) => _onPop(context, didPop),
+      child: SettingsMobileView(isInitialized: isInitialized),
+    );
+  }
+
+  @override
+  Widget buildLandscape(BuildContext context) {
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) => _onPop(context, didPop),
+      child: SettingsWebLayout(isInitialized: isInitialized),
     );
   }
 
@@ -35,7 +41,7 @@ class SettingsView extends GetView<SettingsController> {
   ) {
     return CustomModal.buildCustomModalPage(
       title: AppTrans.settings,
-      body: const SettingsView(),
+      body: const SettingsMobileView(),
       onClosePressed: controller.closeSettingsModalSheet,
       context: context,
     );

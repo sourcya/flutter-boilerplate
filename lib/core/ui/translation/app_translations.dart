@@ -69,12 +69,19 @@ abstract class AppTrans {
   static const privacyPolicyText = 'privacyPolicyText';
 
   static const loggingInText = 'loggingInText';
-  static const loginWithAuth0Label = 'loginWithAuth0Label';
   static const loginWithEmailLabel = 'loginWithEmailLabel';
   static const loginWithGoogleLabel = 'loginWithGoogleLabel';
   static const loginWithAppleLabel = 'loginWithAppleLabel';
   static const emailOrPasswordIncorrect = 'emailOrPasswordIncorrect';
   static const loginPrompt = 'loginPrompt';
+  static const welcomeTitle = 'welcomeTitle';
+  static const welcomeFirstPart = 'welcomeFirstPart';
+  static const welcomeBackSecondPart = 'welcomeBackSecondPart';
+  static const welcomeSubtitle = 'welcomeSubtitle';
+  static const signInAccessSubtitle = 'signInAccessSubtitle';
+  static const rememberMe = 'rememberMe';
+  static const emailLabelWideLandscape = 'emailLabelWideLandscape';
+  static const poweredBy = 'poweredBy';
 
   static const continueWithSocial = 'continueWithSocial';
 
@@ -111,19 +118,83 @@ abstract class AppTrans {
   //onBoarding
   static const firstBoardingTitle = 'firstBoardingTitle';
   static const firstBoardingSubTitle = 'firstBoardingSubTitle';
+  static const firstBoardingTitleAccent = 'firstBoardingTitleAccent';
+  static const firstBoardingTitleTrailing = 'firstBoardingTitleTrailing';
   static const secondBoardingTitle = 'secondBoardingTitle';
   static const secondBoardingSubTitle = 'secondBoardingSubTitle';
+  static const secondBoardingTitleAccent = 'secondBoardingTitleAccent';
+  static const secondBoardingTitleTrailing = 'secondBoardingTitleTrailing';
   static const thirdBoardingTitle = 'thirdBoardingTitle';
   static const thirdBoardingSubTitle = 'thirdBoardingSubTitle';
+  static const thirdBoardingTitleAccent = 'thirdBoardingTitleAccent';
+  static const thirdBoardingTitleTrailing = 'thirdBoardingTitleTrailing';
   static const loremIpsum = 'loremIpsum';
 
   static const skip = 'skip';
   static const next = 'next';
+  static const back = 'back';
+  static const getStarted = 'getStarted';
+  static const main = 'main';
+  static const account = 'account';
+  static const accountInformation = 'accountInformation';
+  static const accountSubtitle = 'accountSubtitle';
+  static const preferences = 'preferences';
+  static const preferencesSubtitle = 'preferencesSubtitle';
+  static const username = 'username';
+  static const usernameSubtitle = 'usernameSubtitle';
+  static const email = 'email';
+  static const emailSubtitle = 'emailSubtitle';
+  static const phoneTitle = 'phoneTitle';
+  static const phoneNumberSubtitle = 'phoneNumberSubtitle';
+  static const password = 'password';
+  static const passwordSubtitle = 'passwordSubtitle';
+  static const change = 'change';
+  static const changePasswordTitle = 'changePasswordTitle';
+  static const changePasswordCurrentPasswordText =
+      'changePasswordCurrentPasswordText';
+  static const changePasswordNewPasswordText = 'changePasswordNewPasswordText';
+  static const changePasswordOldPasswordHint = 'changePasswordOldPasswordHint';
+  static const changePasswordNewPasswordHint = 'changePasswordNewPasswordHint';
+  static const changePasswordConfirmPasswordHint =
+      'changePasswordConfirmPasswordHint';
+  static const changeOldPasswordRequired = 'changeOldPasswordRequired';
+  static const oldPasswordAndNewMatchError = 'oldPasswordAndNewMatchError';
+  static const confirmPasswordTitle = 'confirmPasswordTitle';
+  static const confirmPasswordNotMatchError = 'confirmPasswordNotMatchError';
+  static const changePasswordSuccessMessage = 'changePasswordSuccessMessage';
+  static const invalidCurrentPasswordError = 'invalidCurrentPasswordError';
+  static const notificationsSubtitle = 'notificationsSubtitle';
+  static const browserNotifications = 'browserNotifications';
+  static const browserNotificationsSubtitle = 'browserNotificationsSubtitle';
+  static const soundAlerts = 'soundAlerts';
+  static const soundAlertsSubtitle = 'soundAlertsSubtitle';
+  static const activeModulesTitle = 'activeModulesTitle';
+  static const activeModulesDescription = 'activeModulesDescription';
+  static const reportsModuleTitle = 'reportsModuleTitle';
+  static const reportsModuleSubtitle = 'reportsModuleSubtitle';
+  static const analyticsModuleTitle = 'analyticsModuleTitle';
+  static const analyticsModuleSubtitle = 'analyticsModuleSubtitle';
+  static const general = 'general';
+  static const interfaceTheme = 'interfaceTheme';
+  static const themeSubtitle = 'themeSubtitle';
+  static const languageSubtitle = 'languageSubtitle';
+  static const system = 'system';
+  static const failedToUpdateTheme = 'failedToUpdateTheme';
+  static const contactSupport = 'contactSupport';
 
   static const lightTheme = 'lightTheme';
   static const darkTheme = 'darkTheme';
+  static const lightThemeShortLabel = 'lightThemeShortLabel';
+  static const darkThemeShortLabel = 'darkThemeShortLabel';
+  static const continueSetupLabel = 'continueSetupLabel';
 
   static const logout = 'logout';
+  static const logoutDialogTitle = 'logoutDialogTitle';
+  static const logoutDialogMessage = 'logoutDialogMessage';
+  static const sessionExpiredTitle = 'sessionExpiredTitle';
+  static const sessionExpiredMessage = 'sessionExpiredMessage';
+  static const goBack = 'goBack';
+  static const na = 'na';
 
   static const phoneNumberLabel = 'phoneNumberLabel';
 
@@ -148,7 +219,6 @@ abstract class AppTrans {
   static const mobileNumberRequiredErrMsg = 'mobileNumberRequiredErrMsg';
 
   static const dashboard = 'dashboard';
-  static const wishlist = 'wishlist';
   static const validNumberMinLength = 'validNumberMinLength';
 
   static const noInternetConnectionBannerMsg = 'noInternetConnectionBannerMsg';
@@ -200,4 +270,66 @@ abstract class AppTrans {
   static const minText = 'minText';
   static const secondText = 'secondText';
   static const km = 'km';
+  static const chooseLanguage = 'chooseLanguage';
+  static const continueText = 'continueText';
+  static const searchHint = 'searchHint';
+  static const clear = 'clear';
+  static const quickActions = 'quickActions';
+  static const appVersion = 'appVersion';
+  static const nameLabel = 'nameLabel';
+  static const descriptionLabel = 'descriptionLabel';
+  static const search = 'search';
+  static const showing = 'showing';
+  static const of = 'of';
+  static const page = 'page';
+  static const rowsPerPage = 'rowsPerPage';
+  static const viewDetails = 'viewDetails';
+  static const edit = 'edit';
+  static const delete = 'delete';
+  static const save = 'save';
+  static const subscription = 'subscription';
+  static const subscriptionSubtitle = 'subscriptionSubtitle';
+  static const expiryDate = 'expiryDate';
+  static const expired = 'expired';
+  static const active = 'active';
+  static const privilegesTitle = 'privilegesTitle';
+  static const standardPlan = 'standardPlan';
+  static const expirationDateError = 'expirationDateError';
+  static const noExpiryDateText = 'noExpiryDateText';
+  static const subscriptionExpiredAtText = 'subscriptionExpiredAtText';
+  static const subscriptionValidUntilText = 'subscriptionValidUntilText';
+  static const previous = 'previous';
+  static const shareReportText = 'shareReportText';
+  static const setAsTemplate = 'setAsTemplate';
+  static const forgetPasswordText = 'forgetPasswordText';
+  static const forgetPasswordSubtitle = 'forgetPasswordSubtitle';
+  static const forgetPasswordSuccessMessage = 'forgetPasswordSuccessMessage';
+  static const submit = 'submit';
+  static const invalidEmailAddress = 'invalidEmailAddress';
+  static const invalidOtpCodeError = 'invalidOtpCodeError';
+  static const invalidToken = 'invalidToken';
+  static const passwordOtpTitle = 'passwordOtpTitle';
+  static const passwordOtpSubtitle = 'passwordOtpSubtitle';
+  static const passwordOtpVerify = 'passwordOtpVerify';
+  static const passwordOtpResendCode = 'passwordOtpResendCode';
+  static const passwordOtpResendCodeSuccess = 'passwordOtpResendCodeSuccess';
+  static const passwordOtpCodeNotReceived = 'passwordOtpCodeNotReceived';
+  static const passwordOtpExpiredMessage = 'passwordOtpExpiredMessage';
+  static const remainingOtpCodeTimeValidMessage =
+      'remainingOtpCodeTimeValidMessage';
+  static const resetPasswordTitle = 'resetPasswordTitle';
+  static const resetPasswordSubtitle = 'resetPasswordSubtitle';
+  static const resetPasswordButtonText = 'resetPasswordButtonText';
+  static const resetPasswordSuccessMessage = 'resetPasswordSuccessMessage';
+  static const signInLabel = 'signInLabel';
+  static const helpSupport = 'helpSupport';
+  static const support = 'support';
+  static const installMobileApp = 'installMobileApp';
+  static const viewWebDashboard = 'viewWebDashboard';
+  static const ios = 'ios';
+  static const android = 'android';
+  static const appStore = 'appStore';
+  static const googlePlayStore = 'googlePlayStore';
+  static const whatsappContactMsg = 'whatsappContactMsg';
+  static const whatsappNotFoundMsg = 'whatsappNotFoundMsg';
 }

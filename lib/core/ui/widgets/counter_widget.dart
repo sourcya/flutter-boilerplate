@@ -402,7 +402,7 @@ class _CounterWidgetState extends State<CounterWidget> {
     );
 
     return Container(
-      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 12.0.r),
+      padding: widget.padding ?? context.paddingSymmetric(horizontal: 12.0),
       // Original padding from question
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -410,7 +410,7 @@ class _CounterWidgetState extends State<CounterWidget> {
         children: [
           if (widget.label != null)
             Padding(
-              padding: EdgeInsets.only(bottom: 4.0.r),
+              padding: context.paddingOnly(bottom: 4.0),
               child: CustomText(widget.label!),
             ),
           Container(
@@ -448,8 +448,7 @@ class _CounterWidgetState extends State<CounterWidget> {
                           padding: widget.visualDensity == VisualDensity.compact
                               ? EdgeInsets.zero
                               : widget.labelPadding ??
-                                  EdgeInsets.symmetric(
-                                      horizontal: 4.0.r, vertical: 4.r),
+                                  context.paddingSymmetric(horizontal: 4.0, vertical: 4),
                           child: fieldWidget,
                         ),
                       ),
@@ -491,8 +490,7 @@ class _CounterWidgetState extends State<CounterWidget> {
                       ),
                       Padding(
                         padding: widget.labelPadding ??
-                            EdgeInsets.symmetric(
-                                vertical: 4.r, horizontal: 8.r),
+                            context.paddingSymmetric(vertical: 4, horizontal: 8),
                         // Increased horizontal padding
                         child: CustomText(
                           toLocalizedEnglishNumber(_count,
@@ -517,7 +515,7 @@ class _CounterWidgetState extends State<CounterWidget> {
           ),
           if (error != null && error!.isNotEmpty)
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0.r, vertical: 4.r),
+              padding: context.paddingSymmetric(horizontal: 8.0, vertical: 4),
               alignment: AlignmentDirectional.centerStart,
               child: CustomText(
                 error!,
@@ -538,7 +536,7 @@ class _CounterWidgetState extends State<CounterWidget> {
           ? ButtonStyle(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               padding: WidgetStatePropertyAll(
-                  EdgeInsets.symmetric(horizontal: 8.r, vertical: 4.r)))
+                  context.paddingSymmetric(horizontal: 8, vertical: 4)))
           : null, // And this sstyle
       icon: icon.buildIconWidget(
         color: widget.isPlainStyle ? context.colors.onSurface : null,

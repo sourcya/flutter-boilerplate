@@ -32,6 +32,7 @@ class LightTheme {
         fontFamily: fontFamily(),
         textTheme: const TextTheme().apply(fontFamily: fontFamily()),
         splashColor: colors.primary.withValues(alpha: .5),
+        hoverColor: colors.primary.withValues(alpha: .02),
       );
 
   static XTheme get theme => XTheme.builder(

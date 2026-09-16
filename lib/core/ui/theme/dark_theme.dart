@@ -31,6 +31,7 @@ class DarkTheme {
           textTheme: CupertinoTextThemeData(primaryColor: colors.primary),
         ),
         splashColor: colors.primary.withValues(alpha: .5),
+        hoverColor: colors.primary.withValues(alpha: .02),
         applyElevationOverlayColor: true,
         fontFamily: fontFamily(),
         textTheme: const TextTheme().apply(fontFamily: fontFamily()),

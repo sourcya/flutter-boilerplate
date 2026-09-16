@@ -22,6 +22,26 @@ class AreEqual extends TextValidationRule {
   }
 }
 
+/// Checks that the input does not match another string.
+class AreNotEqual extends TextValidationRule {
+  final String Function() other;
+  bool caseSensitive;
+  String errorMsg;
+
+  AreNotEqual({
+    required this.other,
+    this.errorMsg = 'Values must be different',
+    this.caseSensitive = true,
+  }) : super(errorMsg);
+
+  @override
+  bool isValid(String input) {
+    return caseSensitive
+        ? !_match(input, other())
+        : !_match(input.toLowerCase(), other().toLowerCase());
+  }
+}
+
 bool _match(
   String input,
   String other,

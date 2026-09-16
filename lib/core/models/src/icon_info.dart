@@ -55,11 +55,15 @@ class IconInfo {
     if (icon != null) {
       return Icon(icon, color: iconColor, size: iconSize);
     } else if (svgIcon != null) {
-      return ImageViewer.svgAsset(
-        svgIcon!,
-        color: iconColor,
+      return SizedBox(
         width: iconSize,
         height: iconSize,
+        child: ImageViewer.svgAsset(
+          svgIcon!,
+          color: iconColor,
+          width: iconSize,
+          height: iconSize,
+        ),
       );
     } else if (assetIcon != null) {
       return ImageViewer.asset(
@@ -78,5 +82,17 @@ class IconInfo {
     } else {
       return const SizedBox.shrink();
     }
+  }
+}
+
+extension IconInfoStringExtensions on String {
+  IconInfo toSvgIconInfo({Color? color, double? size}) {
+    return IconInfo.svg(this, color: color, size: size);
+  }
+}
+
+extension IconInfoIconExtensions on IconData {
+  IconInfo toIconInfo({Color? color, double? size}) {
+    return IconInfo.icon(this, color: color, size: size);
   }
 }

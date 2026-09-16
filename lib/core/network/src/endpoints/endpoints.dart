@@ -4,12 +4,15 @@ part of '../../network.dart';
 abstract class Endpoints {
   static const baseUrl = "https://sourcya-connect.herokuapp.com";
 
-  /// `POST`
-  static const loginViaAuth0 = '/auth/auth0/callback';
   static const login = '/auth/local';
   static const register = '/auth/local/register';
   static const upload = '/upload';
 
   static const profile = '/users/me';
   static const updateUser = '/users/edit-profile';
+
+  static const forgetPassword = '/auth/forgot-password';
+  static const verifyForgetPasswordOtpCode = '/auth/verify-otp';
+  static const resetPassword = '/auth/reset-password';
+  static const changePassword = '/auth/change-password';
 }

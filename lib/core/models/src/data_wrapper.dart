@@ -8,4 +8,6 @@ class DataWrapper<T> {
     required this.data,
     this.pagination,
   });
+
+  bool get isLastPage => pagination?.isLastPage ?? true;
 }

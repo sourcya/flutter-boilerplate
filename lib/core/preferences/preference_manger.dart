@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart';
+import 'package:flutter_boilerplate/app/settings/data/models/app_module.dart';
 import 'package:flutter_boilerplate/core/models/models.dart';
 import 'package:flutter_boilerplate/core/network/src/helper/api_helper.dart';
 import 'package:playx/playx.dart';
@@ -13,7 +14,14 @@ class MyPreferenceManger {
   final String _userKey = 'logged_in_user';
   final String _loginMethodKey = 'login_method';
   final String _onBoardingKey = 'onboarding_key';
+  final String _appSetupDoneKey = 'app_setup_done_key';
   final String _userRoleTypeKey = 'user_role_type';
+  final String _rememberMeKey = 'remember_me';
+  final String _savedUsernameKey = 'saved_username';
+  final String _savedPasswordKey = 'saved_password';
+  final String _notificationsEnabledKey = 'notifications_enabled';
+  final String _soundAlertsEnabledKey = 'sound_alerts_enabled';
+  final String _activeModulesKey = 'active_modules';
 
   Future<bool> get isLoggedIn async =>
       (await PlayxSecurePrefs.getString(_tokenKey)).isNotEmpty;
@@ -85,5 +93,91 @@ class MyPreferenceManger {
 
   Future<void> saveOnBoardingShown() async {
     return PlayxPrefs.setBool(_onBoardingKey, true);
+  }
+
+  Future<bool> get isAppSetupDone async =>
+      PlayxPrefs.getBool(_appSetupDoneKey);
+
+  Future<void> saveAppSetupCompleted() async {
+    return PlayxPrefs.setBool(_appSetupDoneKey, true);
+  }
+
+  Future<bool> get shouldRememberUser async =>
+      PlayxPrefs.getBool(_rememberMeKey);
+
+  Future<void> saveRememberMe(bool value) async {
+    return PlayxPrefs.setBool(_rememberMeKey, value);
+  }
+
+  Future<String?> getSavedUsername() =>
+      PlayxSecurePrefs.maybeGetString(_savedUsernameKey);
+
+  Future<String?> getSavedPassword() =>
+      PlayxSecurePrefs.maybeGetString(_savedPasswordKey);
+
+  Future<void> saveUserCredentials({
+    required String username,
+    required String password,
+  }) async {
+    await PlayxSecurePrefs.setString(_savedUsernameKey, username);
+    await PlayxSecurePrefs.setString(_savedPasswordKey, password);
+  }
+
+  Future<void> forgetUsernameAndPassword() async {
+    await PlayxSecurePrefs.remove(_savedUsernameKey);
+    await PlayxSecurePrefs.remove(_savedPasswordKey);
+  }
+
+  Future<bool> isNotificationsEnabled() async =>
+      PlayxPrefs.getBool(_notificationsEnabledKey, fallback: true);
+
+  Future<void> saveNotificationsEnabled(bool value) =>
+      PlayxPrefs.setBool(_notificationsEnabledKey, value);
+
+  Future<bool> isSoundAlertsEnabled() async =>
+      PlayxPrefs.getBool(_soundAlertsEnabledKey, fallback: true);
+
+  Future<void> saveSoundAlertsEnabled(bool value) =>
+      PlayxPrefs.setBool(_soundAlertsEnabledKey, value);
+
+  Future<List<String>> getActiveModuleTypes() async {
+    final raw = PlayxPrefs.maybeGetString(_activeModulesKey);
+    if (raw == null) {
+      return AppModules.getInitialActiveAppModules()
+          .map((module) => module.type)
+          .toList();
+    }
+    if (raw.isEmpty) return const [];
+    return raw.split(',').where((type) => type.isNotEmpty).toList();
+  }
+
+  Future<void> saveActiveModuleTypes(List<String> types) async {
+    if (types.isEmpty) {
+      await PlayxPrefs.setString(_activeModulesKey, '');
+      return;
+    }
+    await PlayxPrefs.setString(_activeModulesKey, types.join(','));
+  }
+
+  Future<List<AppModule>> getActiveAppModules() async {
+    final types = await getActiveModuleTypes();
+    final modules = <AppModule>[];
+    for (final type in types) {
+      final module = AppModules.findByType(type);
+      if (module != null && !modules.any((item) => item.type == module.type)) {
+        modules.add(module);
+      }
+    }
+    return modules;
+  }
+
+  Future<void> saveActiveAppModules(List<AppModule> modules) {
+    final types = <String>[];
+    for (final module in modules) {
+      if (!types.contains(module.type)) {
+        types.add(module.type);
+      }
+    }
+    return saveActiveModuleTypes(types);
   }
 }

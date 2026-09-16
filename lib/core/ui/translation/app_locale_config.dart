@@ -4,7 +4,7 @@ class AppLocaleConfig {
   const AppLocaleConfig._();
 
   static const String arabicFontFamily = 'Cairo';
-  static const String englishFontFamily = 'Poppins';
+  static const String englishFontFamily = 'Segoe';
 
   static const arabicLocale = XLocale(
     id: 'ar',

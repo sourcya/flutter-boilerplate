@@ -10,7 +10,7 @@ class NoInternetWidget extends OrientationWidget {
   @override
   Widget buildLandscape(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(4.0.r),
+      padding: context.paddingAll(4.0),
       child: Center(
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -30,7 +30,7 @@ class NoInternetWidget extends OrientationWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(4.0.r),
+                      padding: context.paddingAll(4.0),
                       child: CustomText(
                         error,
                         textAlign: TextAlign.center,
@@ -64,7 +64,7 @@ class NoInternetWidget extends OrientationWidget {
   @override
   Widget buildPortrait(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(4.0.r),
+      padding: context.paddingAll(4.0),
       child: OptimizedScrollView(
         child: Center(
           child: Column(
@@ -79,7 +79,7 @@ class NoInternetWidget extends OrientationWidget {
                 height: 6.r,
               ),
               Padding(
-                padding: EdgeInsets.all(4.0.r),
+                padding: context.paddingAll(4.0),
                 child: CustomText(
                   error,
                   textAlign: TextAlign.center,

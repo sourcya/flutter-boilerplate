@@ -38,28 +38,17 @@ class CustomTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: margin ??
-          EdgeInsets.only(
-            right: 14.r,
-            left: 14.r,
-            top: 11.r,
-            bottom: 11.r,
-          ),
+          context.paddingOnly(end: 14, start: 14, top: 11, bottom: 11),
       width: width ?? double.infinity,
       child: PlatformTextButton(
         onPressed: onPressed,
         padding: padding ??
-            EdgeInsets.symmetric(
-              horizontal: 8.r,
-              vertical: 16.r,
-            ),
+            context.paddingSymmetric(horizontal: 8, vertical: 16),
         material: (ctx, _) => MaterialTextButtonData(
           style: ElevatedButton.styleFrom(
             disabledBackgroundColor: disabledBackground,
             padding: padding ??
-                EdgeInsets.symmetric(
-                  horizontal: 8.r,
-                  vertical: 18.r,
-                ),
+                context.paddingSymmetric(horizontal: 8, vertical: 18),
             shape: RoundedRectangleBorder(
               borderRadius: borderRadius ?? Style.buttonBorderRadius,
             ),
@@ -68,10 +57,7 @@ class CustomTextButton extends StatelessWidget {
         cupertino: (ctx, _) => CupertinoTextButtonData(
           disabledColor: disabledBackground,
           padding: padding ??
-              EdgeInsets.symmetric(
-                horizontal: 8.r,
-                vertical: 18.r,
-              ),
+              context.paddingSymmetric(horizontal: 8, vertical: 18),
           borderRadius: borderRadius ?? Style.buttonBorderRadius,
         ),
         child: _buildChildWidget(

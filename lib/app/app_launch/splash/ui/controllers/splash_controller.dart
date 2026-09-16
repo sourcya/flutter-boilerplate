@@ -1,93 +1,101 @@
 part of '../imports/splash_imports.dart';
 
 class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
-  final isBiometricAuthEnabled = false;
-  final Completer<bool> shouldUpdateApp = Completer();
   final Completer<bool> isAnimationCompleted = Completer();
+  final Completer<bool> isAppSetupCompleted = Completer();
   final RxBool showVersionCode = false.obs;
+  final RxBool showAppSetupCard = false.obs;
+
+  bool logoAnimationPlayed = false;
+
+  Timer? _animationTimer;
 
   @override
   void onInit() {
-    // handleAppUpdate();
     super.onInit();
+    unawaited(_runSplashBootstrap());
     updateAppVersion();
-    _checkAnimationCompleted();
     checkAppVersionAndNavigateToNextPage();
   }
 
-  void _checkAnimationCompleted() {
-    Future.delayed(const Duration(seconds: 5), () {
+  Future<void> get appSetupFuture async {
+    await Playx.asyncBootFuture();
+  }
+
+  Future<void> _runSplashBootstrap() async {
+    final isAppSetupDone =
+        kIsWeb || await MyPreferenceManger.instance.isAppSetupDone;
+
+    _animationTimer?.cancel();
+    _animationTimer = Timer(const Duration(seconds: 5), () {
       if (!isAnimationCompleted.isCompleted) {
         isAnimationCompleted.complete(true);
       }
     });
+
+    if (isAppSetupDone) {
+      showAppSetupCard.value = false;
+      if (!isAppSetupCompleted.isCompleted) {
+        isAppSetupCompleted.complete(true);
+      }
+    } else {
+      await isAnimationCompleted.future;
+      showAppSetupCard.value = true;
+    }
   }
 
   Future<void> updateAppVersion() async {
     showVersionCode.value = await EnvManger.instance.showVersionCode;
   }
 
-  Future<void> checkAppVersionAndNavigateToNextPage({
-    bool shouldCheckVersion = false,
-  }) async {
-    if (shouldCheckVersion) {
-      final doesAppNeedUpdate = await shouldUpdateApp.future;
-      if (doesAppNeedUpdate) return;
+  Future<void> checkAppVersionAndNavigateToNextPage() async {
+    await Playx.asyncBootFuture();
+    if (PlayxNavigation.navigationContext?.isAppPortrait ?? true) {
+      await isAnimationCompleted.future;
     }
+    await isAppSetupCompleted.future;
 
-    await isAnimationCompleted.future;
+    final isLandscape =
+        PlayxNavigation.navigationContext?.isAppLandscape ?? false;
     final isOnBoardingShown =
         await MyPreferenceManger.instance.isOnBoardingShown;
-    if (!isOnBoardingShown) {
+    if (!isOnBoardingShown && !isLandscape) {
       AppNavigation.navigateFromSplashToOnBoarding();
       return;
     }
 
-    final isUserLoggedIn =
-        await ApiHelper.instance.isLoggedIn(checkAuth0: false);
+    final isUserLoggedIn = await ApiHelper.instance.isLoggedIn();
     if (!isUserLoggedIn) {
       AppNavigation.navigateFormSplashToLogin();
       return;
     }
 
+    await AppController.instance.updateCurrentUser();
+
+    final sessionStatus = await AppController.instance.checkSessionStatus();
+    switch (sessionStatus) {
+      case AppSessionStatus.active:
+        break;
+      case AppSessionStatus.sessionExpired:
+        await SessionManager.instance.showSessionExpiredDialog();
+        return;
+    }
+
     AppNavigation.navigateFormSplashToHome();
   }
 
-  Future<void> handleAppUpdate() async {
-    // final result = await PlayxVersionUpdate.showUpdateDialog(
-    //   context: Get.context!,
-    //   forceUpdate: false,
-    //   googlePlayId: Constants.playStoreId,
-    //   country: Constants.storeCountry,
-    //   language: Constants.storeLanguage,
-    //   onCancel: (info) {
-    //     if (info.forceUpdate) {
-    //       exit(0);
-    //     } else {
-    //       checkAppVersionAndNavigateToNextPage(shouldCheckVersion: false);
-    //     }
-    //   },
-    //   onUpdate: (info, mode) {
-    //     PlayxVersionUpdate.openStore(
-    //       storeUrl: Constants.storeUrl,
-    //       launchMode: mode,
-    //     );
-    //     checkAppVersionAndNavigateToNextPage(shouldCheckVersion: false);
-    //   },
-    //   title: (info) => AppTrans.updateTitle.tr(),
-    //   description: (info) => AppTrans.updateDescription.tr(),
-    //   releaseNotesTitle: (info) => AppTrans.updateReleaseNotesTitle.tr(),
-    //   updateActionTitle: AppTrans.updateConfirmActionTitle.tr(),
-    //   dismissActionTitle: AppTrans.updateDismissActionTitle.tr(),
-    // );
-    // result.when(
-    //   success: (canUpdate) {
-    //     shouldUpdateApp.complete(canUpdate);
-    //   },
-    //   error: (error) {
-    //     shouldUpdateApp.complete(false);
-    //   },
-    // );
+  void handleAnimationCompleted(AnimationController controller) {
+    logoAnimationPlayed = true;
+    if (!isAnimationCompleted.isCompleted) {
+      isAnimationCompleted.complete(true);
+    }
+  }
+
+  Future<void> handleOnContinueTap() async {
+    await MyPreferenceManger.instance.saveAppSetupCompleted();
+    if (!isAppSetupCompleted.isCompleted) {
+      isAppSetupCompleted.complete(true);
+    }
   }
 
   @override
@@ -100,16 +108,14 @@ class SplashController extends FullLifeCycleController with FullLifeCycleMixin {
   void onPaused() {}
 
   @override
-  void onResumed() {
-    // checkAppVersionAndNavigateToNextPage();
-  }
+  void onResumed() {}
 
   @override
   void onHidden() {}
 
-  void handleAnimationCompleted(AnimationController controller) {
-    if (!isAnimationCompleted.isCompleted) {
-      isAnimationCompleted.complete(true);
-    }
+  @override
+  void onClose() {
+    _animationTimer?.cancel();
+    super.onClose();
   }
 }

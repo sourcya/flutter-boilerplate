@@ -22,7 +22,7 @@ class FeatureChip extends StatelessWidget {
 
   const FeatureChip({
     this.label,
-    this.color = Colors.black,
+    this.color = AppColors.baseblack,
     this.icon,
     this.backgroundColor,
     this.padding,
@@ -80,7 +80,7 @@ class FeatureChip extends StatelessWidget {
       child: Material(
         color: backgroundColor ?? context.colors.surfaceContainer,
         elevation: 2,
-        shadowColor: isCupertino(context) ? Colors.black : null,
+        shadowColor: isCupertino(context) ? context.colors.black : null,
         shape: shape ??
             RoundedRectangleBorder(
               side: borderSide ?? BorderSide(color: context.colors.onSurface),
@@ -89,11 +89,11 @@ class FeatureChip extends StatelessWidget {
         child: Container(
           padding: contentPadding ??
               padding ??
-              EdgeInsets.symmetric(
+              context.paddingSymmetric(
                 vertical: (label?.length ?? 10) > 28
-                    ? 10.r
-                    : defaultVerticalPadding.r,
-                horizontal: (label?.length ?? 10) > 5 ? 12.r : 24.r,
+                    ? 10
+                    : defaultVerticalPadding,
+                horizontal: (label?.length ?? 10) > 5 ? 12 : 24,
               ),
           child: icon != null
               ? Row(

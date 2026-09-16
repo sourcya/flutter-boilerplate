@@ -6,10 +6,7 @@ class BuildRegisterTermsAndConditionsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 4.r,
-        horizontal: 10.r,
-      ),
+      padding: context.paddingSymmetric(vertical: 4, horizontal: 10),
       child: RichText(
         maxLines: 2,
         text: TextSpan(

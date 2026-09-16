@@ -6,7 +6,7 @@ class BuildRegisterContinueWithSocial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 4.0.r),
+      padding: context.paddingSymmetric(vertical: 4.0),
       width: double.infinity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

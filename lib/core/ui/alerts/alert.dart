@@ -26,7 +26,7 @@ abstract class Alert {
   }) {
     showSnackBar(
       message: message,
-      color: Colors.black54,
+      color: AppColors.baseblack.withValues(alpha: 0.54),
       duration: duration,
       isMessageTranslatable: isMessageTranslatable,
     );
@@ -86,6 +86,14 @@ abstract class Alert {
     if (context != null) {
       ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
     }
+  }
+
+  static void dismissAll() {
+    final context = NavigationUtils.navigationContext ?? Get.context;
+    if (context == null) return;
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    messenger?.hideCurrentMaterialBanner();
+    messenger?.removeCurrentSnackBar();
   }
 
   static void showSnackBar({

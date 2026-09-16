@@ -15,10 +15,7 @@ class BuildRegisterBackButton extends GetView<RegisterController> {
         child: Container(
           width: double.infinity,
           alignment: AlignmentDirectional.centerStart,
-          padding: EdgeInsets.symmetric(
-            vertical: 4.r,
-            horizontal: 4.r,
-          ),
+          padding: context.paddingSymmetric(vertical: 4, horizontal: 4),
           child: IconButton(
             onPressed: () {
               controller.currentLoginMethod.value = null;

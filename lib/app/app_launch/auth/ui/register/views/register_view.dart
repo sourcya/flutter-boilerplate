@@ -26,10 +26,7 @@ class RegisterView extends GetView<RegisterController> {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 4.r,
-                        horizontal: 4.r,
-                      ),
+                      padding: context.paddingSymmetric(vertical: 4, horizontal: 4),
                       alignment: Alignment.center,
                       child: Column(
                         children: [
@@ -37,9 +34,7 @@ class RegisterView extends GetView<RegisterController> {
                             children: [
                               Align(
                                 child: Padding(
-                                  padding: EdgeInsets.only(
-                                    top: 16.0.r,
-                                  ),
+                                  padding: context.paddingOnly(top: 16.0),
                                   child: const BuildRegisterLottieAnimation(),
                                 ),
                               ),

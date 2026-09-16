@@ -47,8 +47,9 @@ class AppView extends StatelessWidget {
             navigationSettings: PlayxNavigationSettings.goRouter(
               goRouter: AppPages.router,
             ),
-            screenSettings: const PlayxScreenSettings(
+            screenSettings: PlayxScreenSettings(
               fontSizeResolver: FontSizeResolvers.radius,
+              designSize: context.currentDesignSize,
             ),
             appSettings: PlayxAppSettings(
               title: AppTrans.appName.tr(),

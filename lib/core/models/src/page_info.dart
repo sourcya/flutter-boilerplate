@@ -13,5 +13,5 @@ class PageInfo {
     required this.total,
   });
 
-  bool get isLastPage => page >= pageSize;
+  bool get isLastPage => page >= pageCount;
 }

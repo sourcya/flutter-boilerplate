@@ -6,10 +6,7 @@ class BuildVerifyButton extends GetView<VerifyPhoneController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 10.w,
-        vertical: 5.h,
-      ),
+      padding: context.paddingSymmetric(horizontal: 10, vertical: 5),
       child: Obx(() {
         return CustomElevatedButton(
           label: AppTrans.verifyPhoneBtnText,

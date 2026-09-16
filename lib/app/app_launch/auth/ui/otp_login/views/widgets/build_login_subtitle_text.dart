@@ -6,12 +6,7 @@ class BuildLoginSubtitleText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-        top: 10.h,
-        right: 10.w,
-        left: 10.w,
-        bottom: 10.h,
-      ),
+      padding: context.paddingOnly(top: 10, end: 10, start: 10, bottom: 10),
       width: double.infinity,
       child: CustomText(
         AppTrans.loginSubtitle,

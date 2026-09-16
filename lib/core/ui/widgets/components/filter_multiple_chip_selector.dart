@@ -50,7 +50,7 @@ class _FilterMultiChipSelectorState<T>
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: Style.mediumPadding,
+      padding: Style.mediumPadding(context),
       child: Wrap(
         spacing: 6.r,
         runSpacing: 6.r,
@@ -89,7 +89,7 @@ class _FilterMultiChipSelectorState<T>
       onTap: onTap,
       borderRadius: Style.featureChipBorderRadius,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.0.r),
+        padding: context.paddingSymmetric(horizontal: 4.0),
         child: Chip(
           label: Row(
             mainAxisSize: MainAxisSize.min,
@@ -97,7 +97,7 @@ class _FilterMultiChipSelectorState<T>
             children: [
               if (icon != null)
                 Padding(
-                  padding: EdgeInsets.all(6.0.r),
+                  padding: context.paddingAll(6.0),
                   child: Icon(
                     icon.icon,
                     size: 16.r,
@@ -125,7 +125,7 @@ class _FilterMultiChipSelectorState<T>
                 ),
             ],
           ),
-          padding: EdgeInsets.symmetric(horizontal: 4.0.r, vertical: 8.r),
+          padding: context.paddingSymmetric(horizontal: 4.0, vertical: 8),
           shape: Style.featureChipRoundedRectangleBorder,
           backgroundColor: isSelected
               ? widget.selectedColor ?? context.colors.primary
