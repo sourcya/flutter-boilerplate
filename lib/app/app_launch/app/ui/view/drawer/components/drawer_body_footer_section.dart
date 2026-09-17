@@ -26,9 +26,11 @@ class _DrawerFooterActionTile extends StatelessWidget {
 class BuildDrawerFooterWidget extends StatelessWidget {
   final bool isWideWeb;
   final bool showExpandedProfile;
+  final StatefulNavigationShell navigationShell;
   const BuildDrawerFooterWidget({
     super.key,
     required this.showExpandedProfile,
+    required this.navigationShell,
     this.isWideWeb = false,
   });
 
@@ -53,19 +55,21 @@ class BuildDrawerFooterWidget extends StatelessWidget {
                   size: 40,
                   isShowLabel: true,
                 ),
-                8.hBox,
-                if (controller.otherDrawerItems.length > 1)
+                for (final item in controller.otherDrawerItems.skip(1)) ...[
+                  8.hBox,
                   _DrawerFooterActionTile(
-                    item: controller.otherDrawerItems[1],
-                    color: AppColors.destructive,
+                    item: item,
+                    color: item.label == AppTrans.logout ? AppColors.destructive : null,
                     onTap: (anchorContext) {
                       controller.handleDrawerOtherItemClicked(
-                        index: 1,
+                        item: item,
                         context: anchorContext,
+                        navigationShell: navigationShell,
                       );
                       HapticFeedback.selectionClick();
                     },
                   ),
+                ],
                 const _DrawerBodyVersionFooter(isExpanded: true),
               ],
             ),
@@ -110,19 +114,21 @@ class BuildDrawerFooterWidget extends StatelessWidget {
                 isShowLabel: isExpanded,
                 isExpanded: isExpanded,
               ).paddingOnly(top: 8.0.r),
-              if (!isWideWeb && controller.otherDrawerItems.length > 1)
-                BuildDrawerItemWidget(
-                  item: controller.otherDrawerItems[1],
-                  isExpanded: isExpanded,
-                  color: context.colors.statusInactiveColor,
-                  onTap: () {
-                    controller.handleDrawerOtherItemClicked(
-                      index: 1,
-                      context: context,
-                    );
-                    HapticFeedback.selectionClick();
-                  },
-                ),
+              if (!isWideWeb)
+                for (final item in controller.otherDrawerItems.skip(1))
+                  BuildDrawerItemWidget(
+                    item: item,
+                    isExpanded: isExpanded,
+                    color: context.colors.statusInactiveColor,
+                    onTap: () {
+                      controller.handleDrawerOtherItemClicked(
+                        item: item,
+                        context: context,
+                        navigationShell: navigationShell,
+                      );
+                      HapticFeedback.selectionClick();
+                    },
+                  ),
               (isWideWeb ? 8.0 : 24.0).hBox,
             ],
           ],

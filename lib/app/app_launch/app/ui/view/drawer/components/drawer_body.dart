@@ -79,6 +79,7 @@ class CustomDrawerBody extends StatelessWidget {
                         BuildDrawerFooterWidget(
                           isWideWeb: isWideWeb,
                           showExpandedProfile: showExpandedProfile,
+                          navigationShell: navigationShell,
                         ),
                       ],
                     ),
@@ -97,6 +98,7 @@ class CustomDrawerBody extends StatelessWidget {
                       BuildDrawerFooterWidget(
                         isWideWeb: isWideWeb,
                         showExpandedProfile: showExpandedProfile,
+                        navigationShell: navigationShell,
                       ),
                     ],
                   ),

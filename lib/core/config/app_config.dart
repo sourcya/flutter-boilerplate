@@ -52,6 +52,10 @@ class AppConfig extends PlayXAppConfig {
       );
     }
 
+    // Note: Products is a route-scoped feature - its datasource/repository
+    // are registered lazily by `ProductsBinding.onInitApp()`, not here. See
+    // `.agent/skills/dependency-injection/SKILL.md`.
+
     Get.put<AppController>(
       AppController(),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/app/dashboard/data/repository/dashboard_repository.dart';
+import 'package:flutter_boilerplate/core/navigation/navigation.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 

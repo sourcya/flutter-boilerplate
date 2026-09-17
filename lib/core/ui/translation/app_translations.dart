@@ -331,4 +331,10 @@ abstract class AppTrans {
   static const googlePlayStore = 'googlePlayStore';
   static const whatsappContactMsg = 'whatsappContactMsg';
   static const whatsappNotFoundMsg = 'whatsappNotFoundMsg';
+
+  static const productsTitle = 'productsTitle';
+  static const productsSubtitle = 'productsSubtitle';
+  static const dashboardWelcomeTitle = 'dashboardWelcomeTitle';
+  static const dashboardWelcomeSubtitle = 'dashboardWelcomeSubtitle';
+  static const viewProducts = 'viewProducts';
 }

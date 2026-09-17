@@ -31,7 +31,7 @@ class LoginWideLayout extends GetView<LoginController> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  spacing: 40.0.r,
+                  spacing: 24.0.r,
                   children: [
                     SizedBox(
                       height: 100.r,

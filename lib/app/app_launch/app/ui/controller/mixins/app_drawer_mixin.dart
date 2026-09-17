@@ -208,14 +208,20 @@ mixin AppDrawerMixin on GetxController {
   }
 
   void handleDrawerOtherItemClicked({
-    required int index,
+    required CustomNavigationDestinationItem item,
     required BuildContext context,
+    required StatefulNavigationShell navigationShell,
   }) {
-    switch (index) {
-      case 0:
-        navigateToSupport(context: context);
-      case 1:
-        unawaited(app.handleLogout(context: context));
+    if (item.route != null || item.navigationIndex != null) {
+      handleDrawerNavigation(
+        navigationShell: navigationShell,
+        navigationIndex: item.navigationIndex,
+        route: item.navigationIndex == null ? item.route : null,
+      );
+    } else if (item.label == AppTrans.logout) {
+      unawaited(app.handleLogout(context: context));
+    } else {
+      navigateToSupport(context: context);
     }
   }
 

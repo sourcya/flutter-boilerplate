@@ -275,5 +275,10 @@
   "appStore": "App Store",
   "googlePlayStore": "Google Play",
   "whatsappContactMsg": "Hello, I need help with the app.",
-  "whatsappNotFoundMsg": "WhatsApp is not available on this device."
+  "whatsappNotFoundMsg": "WhatsApp is not available on this device.",
+  "productsTitle": "Products",
+  "productsSubtitle": "Live data from a public API, demonstrating fetching and DataState.",
+  "dashboardWelcomeTitle": "Welcome back",
+  "dashboardWelcomeSubtitle": "Here's a quick look at what you can build with this boilerplate.",
+  "viewProducts": "View Products"
 }

@@ -5,19 +5,22 @@ class LoginRememberMeSection extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Obx(
-            () => _RememberMeCheckboxRow(
-              value: controller.rememberMe.value,
-              onChanged: controller.onRememberMeChanged,
-              onLabelTap: controller.toggleRememberMe,
+    return Padding(
+      padding: context.paddingOnly(start: 4),
+      child: Row(
+        children: [
+          Expanded(
+            child: Obx(
+              () => _RememberMeCheckboxRow(
+                value: controller.rememberMe.value,
+                onChanged: controller.onRememberMeChanged,
+                onLabelTap: controller.toggleRememberMe,
+              ),
             ),
           ),
-        ),
-        const LoginForgotPassword(),
-      ],
+          const LoginForgotPassword(),
+        ],
+      ),
     );
   }
 }

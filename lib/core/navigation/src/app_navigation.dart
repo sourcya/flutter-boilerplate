@@ -88,6 +88,11 @@ abstract class AppNavigation {
     PlayxNavigation.offAllNamed(AppPages.homeRoute);
   }
 
+  /// Extension point: reference/demo feature showcasing fetching + DataState.
+  static void navigateToProducts() {
+    PlayxNavigation.toNamed(Routes.products);
+  }
+
   /// Extension point: register is not part of the boilerplate shell.
   static void navigateFromLoginToRegister() {}
 

@@ -32,6 +32,15 @@ class AppPages {
             builder: (ctx, state) => const DashboardView(),
             binding: DashboardBinding(),
           ),
+          // Extension point: reference/demo feature showcasing this boilerplate's
+          // fetching + DataState conventions. Pushed as a simple top-level route,
+          // not part of the home navigation shell.
+          PlayxRoute(
+            path: Paths.products,
+            name: Routes.products,
+            builder: (context, state) => const ProductsView(),
+            binding: ProductsBinding(),
+          ),
         ],
       ),
       StatefulShellBranch(
@@ -106,6 +115,7 @@ class AppPages {
       builder: (context, state) => const OnBoardingView(),
       binding: OnBoardingBinding(),
     ),
+
     _homeNavigationRoutes,
   ];
 }

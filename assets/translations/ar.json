@@ -275,5 +275,10 @@
   "appStore": "آب ستور",
   "googlePlayStore": "جوجل بلاي",
   "whatsappContactMsg": "مرحباً، أحتاج مساعدة في التطبيق.",
-  "whatsappNotFoundMsg": "واتساب غير متوفر على هذا الجهاز."
+  "whatsappNotFoundMsg": "واتساب غير متوفر على هذا الجهاز.",
+  "productsTitle": "المنتجات",
+  "productsSubtitle": "بيانات حية من واجهة برمجة تطبيقات عامة، توضح آلية الجلب وحالة البيانات.",
+  "dashboardWelcomeTitle": "مرحبًا بعودتك",
+  "dashboardWelcomeSubtitle": "إليك نظرة سريعة على ما يمكنك بناءه باستخدام هذا القالب.",
+  "viewProducts": "عرض المنتجات"
 }

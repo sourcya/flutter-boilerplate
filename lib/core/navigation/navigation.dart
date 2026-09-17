@@ -6,6 +6,7 @@ import 'package:flutter_boilerplate/app/app_launch/auth/ui/reset_password/import
 import 'package:flutter_boilerplate/app/app_launch/onboarding/ui/imports/onboarding_imports.dart';
 import 'package:flutter_boilerplate/app/app_launch/splash/ui/imports/splash_imports.dart';
 import 'package:flutter_boilerplate/app/dashboard/ui/imports/dashboard_imports.dart';
+import 'package:flutter_boilerplate/app/products/ui/imports/products_imports.dart';
 import 'package:flutter_boilerplate/app/settings/data/models/settings_tabs.dart';
 import 'package:flutter_boilerplate/app/settings/ui/imports/settings_imports.dart';
 import 'package:flutter_boilerplate/core/network/network.dart';

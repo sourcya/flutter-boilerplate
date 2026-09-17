@@ -11,6 +11,7 @@ abstract class Routes {
   static const dashboard = 'dashboard';
   static const reports = 'reports';
   static const analytics = 'analytics';
+  static const products = 'products';
 }
 
 abstract class Paths {
@@ -24,4 +25,5 @@ abstract class Paths {
   static const dashboard = '/dashboard';
   static const reports = '/reports';
   static const analytics = '/analytics';
+  static const products = '/products';
 }
