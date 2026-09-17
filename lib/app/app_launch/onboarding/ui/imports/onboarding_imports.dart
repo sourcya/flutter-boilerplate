@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:playx/playx.dart';
 import 'package:flutter_boilerplate/app/app_launch/onboarding/data/model/onboarding.dart';
 import 'package:flutter_boilerplate/app/app_launch/onboarding/ui/view/widgets/onboarding_heading_rich_text_widget.dart';
 import 'package:flutter_boilerplate/core/config/constant.dart';
@@ -10,7 +9,7 @@ import 'package:flutter_boilerplate/core/models/models.dart';
 import 'package:flutter_boilerplate/core/navigation/navigation.dart';
 import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
-import 'package:flutter_boilerplate/core/utils/extensions.dart';
+import 'package:playx/playx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 part '../../data/model/onboarding_pages.dart';

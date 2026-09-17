@@ -3,7 +3,6 @@ part of '../ui.dart';
 /// App Translation keys for every word that need to be translated
 /// This key can be used to provide the right translation
 /// for example we can get app name by using AppTrans.appName.tr
-// ignore: avoid_classes_with_only_static_members
 abstract class AppTrans {
   const AppTrans._();
 

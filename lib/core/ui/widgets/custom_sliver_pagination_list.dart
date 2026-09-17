@@ -182,7 +182,7 @@ class _ResponsiveNormalListOrGridSliver<P, T> extends StatelessWidget {
       return PagedSliverList.separated(
         pagingController: pagingController,
         builderDelegate: delegate,
-        separatorBuilder: (_, __) {
+        separatorBuilder: (_, _) {
           if (!separated) return const SizedBox.shrink();
           return gridMainAxisSpacing.hBox;
         },

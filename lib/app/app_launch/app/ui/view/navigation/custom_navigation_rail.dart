@@ -9,7 +9,7 @@ class CustomNavigationRail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.updateDrawerIndex(navigationShell.currentIndex);
+    controller.drawerIndex = navigationShell.currentIndex;
     return NavigationRail(
       selectedIndex: navigationShell.currentIndex,
       onDestinationSelected: (index) {

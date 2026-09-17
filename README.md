@@ -65,19 +65,20 @@ This guide explains how to rename the app, change the bundle ID, update launcher
 
 ### 📌 Prerequisites
 
-Ensure you have Flutter installed, then install **rps** globally:
+Ensure Flutter is installed, then fetch the project dependencies. The repository
+includes `rps` as a development dependency, so no global install is required:
 
-```sh  
-flutter pub global activate rps  
-```  
+```sh
+flutter pub get
+```
 
 ### 📦 Setup and Run Configuration
 
 Run the following command to apply all necessary configurations:
 
-```sh  
-flutter pub global run rps setup  
-```  
+```sh
+dart run rps setup
+```
 
 This command updates the package name, project name, icons, and keystore settings.
   
@@ -85,7 +86,7 @@ This command updates the package name, project name, icons, and keystore setting
 
 ## 🏷 Changing App Name and Bundle ID
 
-Modify the `package_rename_config` section in `pubspec.yaml`:
+Modify `package_rename_config.yaml`:
 
 ```yaml  
 package_rename_config:  
@@ -108,7 +109,7 @@ package_rename_config:
 ## 🎨 Updating App Launcher Icon
 
 1. Replace `logo.png` in `assets/images/`.
-2. Update `pubspec.yaml` under `flutter_launcher_icons`:
+2. Update `flutter_launcher_icons.yaml`:
 
 ```yaml  
 flutter_launcher_icons:  
@@ -126,7 +127,7 @@ flutter_launcher_icons:
 Run:
 
 ```sh  
-flutter pub run flutter_launcher_icons:main  
+dart run rps icons
 ```  
   
 ---  
@@ -168,11 +169,11 @@ Environment variables help store sensitive information securely without pushing 
 
 ### 📝 Usage
 
-1. Create a `.env` file in the root directory:
+1. Copy `assets/env/keys.env.example` to `assets/env/keys.env`:
 
 ```sh  
-API_KEY=your_api_key  
-SECRET_KEY=your_secret_key  
+SENTRY_KEY=your_sentry_dsn
+SHOW_VERSION_CODE=false
 ```  
 
 2. Add `.env` to `.gitignore`:
@@ -183,21 +184,11 @@ SECRET_KEY=your_secret_key
 
 ### 🚀 Loading `.env` in Flutter
 
-Modify `main.dart`:
+The bootstrap loads this file automatically when it exists and falls back to the
+safe checked-in example when it does not. Access values through Playx:
 
 ```dart  
-import 'package:flutter_dotenv/flutter_dotenv.dart';  
-  
-Future main() async {  
-  await dotenv.load(fileName: "assets/env/.env");  
-  runApp(MyApp());  
-}  
-```  
-
-Access variables anywhere:
-
-```dart  
-String apiKey = dotenv.env['API_KEY'] ?? '';  
+final sentryDsn = await PlayxEnv.getString('SENTRY_KEY');
 ```  
   
 ---  
@@ -222,6 +213,21 @@ Codemagic automates Flutter builds, tests, and deployments.
 - **Build automation** for Android & iOS.
 - **Testing** integration.
 - **Deployments** to stores or distribution services.
+
+### Web build and deployment
+
+The web target includes a responsive English/Arabic loading experience, PWA
+metadata, accessible reduced-motion behavior, and SPA route rewrites.
+
+```sh
+dart run rps build-web
+```
+
+For Vercel, `vercel.json` invokes `scripts/vercel_build.sh` and publishes
+`build/web`. Configure `ENVIRONMENT_KEY` with the contents of your environment
+file; the legacy `ENVIROMENT_KEY` spelling is also accepted. Codemagic includes
+a separate `web-workflow` with analysis, conditional tests, and release build
+artifacts.
 
 ---  
 

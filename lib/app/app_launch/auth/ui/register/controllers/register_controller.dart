@@ -49,22 +49,26 @@ class RegisterController extends GetxController {
   }
 
   void listenToValidationState() {
-    _validationWorker = everAll([
-      agreeToTerms,
-      isFirstNameValid,
-      isLastNameValid,
-      isEmailValid,
-      isPasswordValid,
-      isConfirmPasswordValid,
-    ], (callback) {
-      final isValid = agreeToTerms.value &&
-          isFirstNameValid.value &&
-          isLastNameValid.value &&
-          isEmailValid.value &&
-          isPasswordValid.value &&
-          isConfirmPasswordValid.value;
-      isFormValid.value = isValid;
-    });
+    _validationWorker = everAll(
+      [
+        agreeToTerms,
+        isFirstNameValid,
+        isLastNameValid,
+        isEmailValid,
+        isPasswordValid,
+        isConfirmPasswordValid,
+      ],
+      (callback) {
+        final isValid =
+            agreeToTerms.value &&
+            isFirstNameValid.value &&
+            isLastNameValid.value &&
+            isEmailValid.value &&
+            isPasswordValid.value &&
+            isConfirmPasswordValid.value;
+        isFormValid.value = isValid;
+      },
+    );
   }
 
   Future<void> registerBy({required LoginMethod method}) async {
@@ -82,8 +86,8 @@ class RegisterController extends GetxController {
       password: passwordController.text,
     );
     result.when(
-      success: (User user) async {
-        _navigateToHome();
+      success: (User user) {
+        unawaited(_navigateToHome());
       },
       error: (NetworkException exception) {
         Alert.error(message: exception.message);

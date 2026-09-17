@@ -23,14 +23,12 @@ class MyPreferenceManger {
   final String _soundAlertsEnabledKey = 'sound_alerts_enabled';
   final String _activeModulesKey = 'active_modules';
 
-  Future<bool> get isLoggedIn async =>
-      (await PlayxSecurePrefs.getString(_tokenKey)).isNotEmpty;
+  Future<bool> get isLoggedIn async => (await PlayxSecurePrefs.getString(_tokenKey)).isNotEmpty;
 
   Future<bool> get isLoggedOut async => !(await isLoggedIn);
 
   Future<LoginMethod?> get loginMethod async {
-    final String? value =
-        await PlayxSecurePrefs.maybeGetString(_loginMethodKey);
+    final String? value = await PlayxSecurePrefs.maybeGetString(_loginMethodKey);
     return LoginMethod.fromValue(value);
   }
 
@@ -38,7 +36,7 @@ class MyPreferenceManger {
     await PlayxSecurePrefs.setString(_loginMethodKey, method.value);
   }
 
-  Future<String?> get token async => PlayxSecurePrefs.maybeGetString(_tokenKey);
+  Future<String?> get token => PlayxSecurePrefs.maybeGetString(_tokenKey);
 
   Future<void> saveToken(String jwt) async {
     await PlayxSecurePrefs.setString(_tokenKey, jwt);
@@ -49,7 +47,7 @@ class MyPreferenceManger {
     return role == null ? null : UserRoleType.fromString(role);
   }
 
-  Future<void> saveUserRoleType(UserRoleType? role) async {
+  Future<void> saveUserRoleType(UserRoleType? role) {
     final value = role?.value;
     if (value == null) {
       return PlayxSecurePrefs.remove(_userRoleTypeKey);
@@ -88,32 +86,21 @@ class MyPreferenceManger {
     return PlayxSecurePrefs.remove(_tokenKey);
   }
 
-  Future<bool> get isOnBoardingShown async =>
-      PlayxPrefs.getBool(_onBoardingKey);
+  Future<bool> get isOnBoardingShown async => PlayxPrefs.getBool(_onBoardingKey);
 
-  Future<void> saveOnBoardingShown() async {
-    return PlayxPrefs.setBool(_onBoardingKey, true);
-  }
+  Future<void> saveOnBoardingShown() => PlayxPrefs.setBool(_onBoardingKey, true);
 
-  Future<bool> get isAppSetupDone async =>
-      PlayxPrefs.getBool(_appSetupDoneKey);
+  Future<bool> get isAppSetupDone async => PlayxPrefs.getBool(_appSetupDoneKey);
 
-  Future<void> saveAppSetupCompleted() async {
-    return PlayxPrefs.setBool(_appSetupDoneKey, true);
-  }
+  Future<void> saveAppSetupCompleted() => PlayxPrefs.setBool(_appSetupDoneKey, true);
 
-  Future<bool> get shouldRememberUser async =>
-      PlayxPrefs.getBool(_rememberMeKey);
+  Future<bool> get shouldRememberUser async => PlayxPrefs.getBool(_rememberMeKey);
 
-  Future<void> saveRememberMe(bool value) async {
-    return PlayxPrefs.setBool(_rememberMeKey, value);
-  }
+  Future<void> saveRememberMe(bool value) => PlayxPrefs.setBool(_rememberMeKey, value);
 
-  Future<String?> getSavedUsername() =>
-      PlayxSecurePrefs.maybeGetString(_savedUsernameKey);
+  Future<String?> getSavedUsername() => PlayxSecurePrefs.maybeGetString(_savedUsernameKey);
 
-  Future<String?> getSavedPassword() =>
-      PlayxSecurePrefs.maybeGetString(_savedPasswordKey);
+  Future<String?> getSavedPassword() => PlayxSecurePrefs.maybeGetString(_savedPasswordKey);
 
   Future<void> saveUserCredentials({
     required String username,
@@ -143,9 +130,7 @@ class MyPreferenceManger {
   Future<List<String>> getActiveModuleTypes() async {
     final raw = PlayxPrefs.maybeGetString(_activeModulesKey);
     if (raw == null) {
-      return AppModules.getInitialActiveAppModules()
-          .map((module) => module.type)
-          .toList();
+      return AppModules.getInitialActiveAppModules().map((module) => module.type).toList();
     }
     if (raw.isEmpty) return const [];
     return raw.split(',').where((type) => type.isNotEmpty).toList();

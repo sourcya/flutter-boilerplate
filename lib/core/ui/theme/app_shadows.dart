@@ -123,7 +123,6 @@ final class AppShadows {
   /// Primary selection ring on map type thumbnails (black + white halo).
   static const List<BoxShadow> mapTypeSelectionRing = [
     BoxShadow(
-      color: AppColors.baseblack,
       spreadRadius: 3,
     ),
     BoxShadow(

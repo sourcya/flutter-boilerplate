@@ -1,13 +1,8 @@
 part of '../imports/settings_imports.dart';
 
-enum SettingsPage {
-  settings,
-  language,
-  theme;
-}
+enum SettingsPage { settings, language, theme }
 
-class SettingsController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class SettingsController extends GetxController with GetSingleTickerProviderStateMixin {
   SettingsController({SettingsTabs? initialTab}) {
     if (initialTab != null) {
       selectedSettingsTab.value = initialTab;
@@ -24,8 +19,7 @@ class SettingsController extends GetxController
 
   Rxn<UserInfo> get signedInUser => AppController.instance.currentUser;
 
-  Subscription? get currentSubscription =>
-      AppController.instance.currentSubscription.value;
+  Subscription? get currentSubscription => AppController.instance.currentSubscription.value;
 
   final isNotificationsEnabled = true.obs;
   final soundAlertsEnabled = true.obs;
@@ -134,11 +128,12 @@ class SettingsController extends GetxController
     XTheme theme, {
     BuildContext? context,
   }) async {
+    final animation = PlayxThemeClipperAnimation(context: context);
     AppNavigation.pop();
     await Future.delayed(const Duration(milliseconds: 500));
     await PlayxTheme.updateTo(
       theme,
-      animation: PlayxThemeClipperAnimation(context: context),
+      animation: animation,
     );
     currentTheme.value = theme;
   }
@@ -153,7 +148,7 @@ class SettingsController extends GetxController
 
   Future<void> showSettingsModalSheet(
     BuildContext context,
-  ) async {
+  ) {
     final List<SliverWoltModalSheetPage> settingsPages = [
       SettingsView.buildSettingsModalSheetPage(this, context),
       BuildSettingsLanguageWidget.buildModalPage(
@@ -179,7 +174,7 @@ class SettingsController extends GetxController
   Future<void> showSettingsModalPageSheet(
     BuildContext context,
     SliverWoltModalSheetPage page,
-  ) async {
+  ) {
     return CustomModal.showPageModal(
       context: context,
       pageBuilder: (context) => page,

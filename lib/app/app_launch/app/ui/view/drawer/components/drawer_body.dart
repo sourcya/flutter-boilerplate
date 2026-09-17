@@ -29,7 +29,7 @@ class CustomDrawerBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppController.instance.updateDrawerIndex(navigationShell.currentIndex);
+    AppController.instance.drawerIndex = navigationShell.currentIndex;
     final isPortraitDrawer = !isWideWeb && context.isAppPortrait;
 
     return LayoutBuilder(

@@ -626,7 +626,6 @@ class PagingTableSource<T> extends AsyncDataTableSource {
     _requestedPageKey = nextKey;
     _itemCountAtFetchStart = controller.itemList?.length ?? 0;
     _isFetchingNextPage = true;
-    // ignore: invalid_use_of_protected_member
     controller.notifyPageRequestListeners(nextKey);
   }
 
@@ -807,7 +806,6 @@ class PagingTableSource<T> extends AsyncDataTableSource {
         _requestedPageKey = nextKey;
         _itemCountAtFetchStart = items?.length ?? 0;
         _isFetchingNextPage = true;
-        // ignore: invalid_use_of_protected_member
         controller.notifyPageRequestListeners(nextKey);
       }
     }

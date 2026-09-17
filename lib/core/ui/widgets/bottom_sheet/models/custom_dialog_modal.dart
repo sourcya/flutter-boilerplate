@@ -10,16 +10,16 @@ class CustomDialogModal extends WoltModalType {
 
   /// Creates a [WoltDialogType] with specified styles and behaviors.
   const CustomDialogModal({
-    super.shapeBorder,
+    super.shapeBorder = _defaultShapeBorder,
     super.forceMaxHeight,
-    super.transitionDuration,
+    super.transitionDuration = _defaultEnterDuration,
     super.reverseTransitionDuration = _defaultExitDuration,
     super.barrierDismissible,
     this.maxHeightFactor = 0.9,
     this.maxWidth,
   }) : super(
-          showDragHandle: false,
-        );
+         showDragHandle: false,
+       );
 
   static const Duration _defaultEnterDuration = Duration(milliseconds: 300);
   static const Duration _defaultExitDuration = Duration(milliseconds: 250);
@@ -35,8 +35,7 @@ class CustomDialogModal extends WoltModalType {
   ///
   /// Returns a localized description of the dialog, typically "dialog".
   @override
-  String routeLabel(BuildContext context) =>
-      MaterialLocalizations.of(context).dialogLabel;
+  String routeLabel(BuildContext context) => MaterialLocalizations.of(context).dialogLabel;
 
   /// Specifies the size constraints for the dialog based on the available space.
   ///
@@ -87,10 +86,8 @@ class CustomDialogModal extends WoltModalType {
   /// Returns an [Offset] that centers the dialog within the available space.
   @override
   Offset positionModal(Size availableSize, Size modalContentSize, _) {
-    final xOffset =
-        max(0.0, (availableSize.width - modalContentSize.width) / 2);
-    final yOffset =
-        max(0.0, (availableSize.height - modalContentSize.height) / 2);
+    final xOffset = max(0.0, (availableSize.width - modalContentSize.width) / 2);
+    final yOffset = max(0.0, (availableSize.height - modalContentSize.height) / 2);
     return Offset(xOffset, yOffset);
   }
 
@@ -123,24 +120,26 @@ class CustomDialogModal extends WoltModalType {
     final cubic = isClosing ? exitingCubic : enteringCubic;
     final reverseCubic = isClosing ? enteringCubic : exitingCubic;
 
-    final alphaAnimation =
-        Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: animation,
-      curve: interval,
-      reverseCurve: reverseInterval,
-    ));
-
-    // Position animation for entering (96px upwards) and exiting (96px downwards)
-    final positionAnimation = Tween<Offset>(
-      end: const Offset(0.0, 0.0),
-      begin: Offset(0.0, isClosing ? 0.05 : 0.1),
-    ).animate(
+    final alphaAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: animation,
-        curve: cubic,
-        reverseCurve: reverseCubic,
+        curve: interval,
+        reverseCurve: reverseInterval,
       ),
     );
+
+    // Position animation for entering (96px upwards) and exiting (96px downwards)
+    final positionAnimation =
+        Tween<Offset>(
+          end: Offset.zero,
+          begin: Offset(0.0, isClosing ? 0.05 : 0.1),
+        ).animate(
+          CurvedAnimation(
+            parent: animation,
+            curve: cubic,
+            reverseCurve: reverseCubic,
+          ),
+        );
 
     return FadeTransition(
       opacity: alphaAnimation,
@@ -163,8 +162,7 @@ class CustomDialogModal extends WoltModalType {
       shapeBorder: shapeBorder ?? this.shapeBorder,
       forceMaxHeight: forceMaxHeight ?? this.forceMaxHeight,
       transitionDuration: transitionDuration ?? this.transitionDuration,
-      reverseTransitionDuration:
-          reverseTransitionDuration ?? this.reverseTransitionDuration,
+      reverseTransitionDuration: reverseTransitionDuration ?? this.reverseTransitionDuration,
       barrierDismissible: barrierDismissible ?? this.barrierDismissible,
     );
   }
@@ -172,8 +170,7 @@ class CustomDialogModal extends WoltModalType {
   /// We don't need to fill the safe area for the dialog because it's centered in the screen
   /// regardless.
   @override
-  Widget decorateModal(BuildContext context, Widget modal, bool useSafeArea) =>
-      modal;
+  Widget decorateModal(BuildContext context, Widget modal, bool useSafeArea) => modal;
 
   /// We don't need to fill the safe area for the dialog because it's centered in the screen
   /// regardless.
@@ -182,6 +179,5 @@ class CustomDialogModal extends WoltModalType {
     BuildContext context,
     Widget child,
     bool useSafeArea,
-  ) =>
-      child;
+  ) => child;
 }

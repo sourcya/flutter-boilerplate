@@ -48,13 +48,7 @@ class _AdvancedDrawerState extends State<AdvancedCustomDrawer> with TickerProvid
   final _spareController = AdvancedDrawerController();
   late AnimationController _spareAnimationController;
   late AnimationController _animationController;
-  late Animation<double> _drawerScaleAnimation;
-  late Animation<Offset> _childSlideAnimation;
-  late Animation<double> _childScaleAnimation;
-  late Animation<Decoration> _childDecorationAnimation;
   late double _offsetValue;
-  late Offset _freshPosition;
-  bool _captured = false;
   Offset? _startPosition;
 
   @override
@@ -275,34 +269,6 @@ class _AdvancedDrawerState extends State<AdvancedCustomDrawer> with TickerProvid
     _animationController = widget.animationController ?? _spareAnimationController;
 
     _animationController.reverseDuration = _animationController.duration = widget.animationDuration;
-
-    final parentAnimation = widget.animationCurve == null
-        ? _animationController
-        : CurvedAnimation(
-            curve: widget.animationCurve!,
-            reverseCurve: widget.animationCurve,
-            parent: _animationController,
-          );
-
-    _drawerScaleAnimation = Tween<double>(
-      begin: 0.75,
-      end: 1.0,
-    ).animate(parentAnimation);
-
-    _childSlideAnimation = Tween<Offset>(
-      begin: Offset.zero,
-      end: Offset(widget.openRatio, 0),
-    ).animate(parentAnimation);
-
-    _childScaleAnimation = Tween<double>(
-      begin: 1.0,
-      end: widget.openScale,
-    ).animate(parentAnimation);
-
-    _childDecorationAnimation = DecorationTween(
-      begin: const BoxDecoration(),
-      end: widget.childDecoration,
-    ).animate(parentAnimation);
   }
 
   void _handleControllerChanged() {
@@ -312,24 +278,23 @@ class _AdvancedDrawerState extends State<AdvancedCustomDrawer> with TickerProvid
   }
 
   void _handleDragStart(DragStartDetails details) {
-    _captured = true;
     _startPosition = details.globalPosition;
     _offsetValue = _animationController.value;
   }
 
   void _handleDragUpdate(DragUpdateDetails details) {
-    if (!_captured) return;
+    final startPosition = _startPosition;
+    if (startPosition == null) return;
     final screenSize = MediaQuery.sizeOf(context);
-    _freshPosition = details.globalPosition;
-    final diff = (_freshPosition - _startPosition!).dx;
+    final diff = (details.globalPosition - startPosition).dx;
     _animationController.value =
         _offsetValue +
         (diff / (screenSize.width * widget.openRatio)) * (widget.rtlOpening ? -1 : 1);
   }
 
   void _handleDragEnd(DragEndDetails details) {
-    if (!_captured) return;
-    _captured = false;
+    if (_startPosition == null) return;
+    _startPosition = null;
     if (_animationController.value >= 0.5) {
       if (_controller.value.visible) {
         _animationController.forward();
@@ -346,7 +311,7 @@ class _AdvancedDrawerState extends State<AdvancedCustomDrawer> with TickerProvid
   }
 
   void _handleDragCancel() {
-    _captured = false;
+    _startPosition = null;
   }
 
   @override

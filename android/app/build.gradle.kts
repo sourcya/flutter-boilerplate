@@ -16,8 +16,8 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "io.sourcya.app"
-    compileSdk = 36
-    ndkVersion = "27.0.12077973"
+    compileSdk = flutter.sdkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -33,7 +33,7 @@ android {
 
     defaultConfig {
         applicationId = "io.sourcya.app"
-        minSdk = 23
+        minSdk = flutter.minSdkVersion
         targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName

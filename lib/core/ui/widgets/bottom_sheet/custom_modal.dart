@@ -6,13 +6,14 @@ enum StickyActionBarStatus {
   confirm,
   disabled,
   retry,
-  loading;
+  loading
+  ;
 
   String get label => switch (this) {
-        retry => AppTrans.retryText,
-        confirm => AppTrans.confirm,
-        _ => AppTrans.next,
-      };
+    retry => AppTrans.retryText,
+    confirm => AppTrans.confirm,
+    _ => AppTrans.next,
+  };
 }
 
 class CustomModal {
@@ -33,7 +34,8 @@ class CustomModal {
       pageListBuilder: (ctx) {
         return pageListBuilder(ctx);
       },
-      modalTypeBuilder: typeBuilder ??
+      modalTypeBuilder:
+          typeBuilder ??
           (context) {
             return WoltModalType.dialog();
           },
@@ -44,8 +46,7 @@ class CustomModal {
 
   static Future<void> showPageModal({
     required BuildContext context,
-    required SliverWoltModalSheetPage Function(BuildContext context)
-        pageBuilder,
+    required SliverWoltModalSheetPage Function(BuildContext context) pageBuilder,
     VoidCallback? onModalDismissedWithBarrierTap,
     ValueNotifier<bool>? showModalTopBar,
     bool barrierDismissible = true,
@@ -57,7 +58,8 @@ class CustomModal {
       pageListBuilder: (ctx) {
         return [pageBuilder(ctx)];
       },
-      modalTypeBuilder: typeBuilder ??
+      modalTypeBuilder:
+          typeBuilder ??
           (context) {
             return context.isAppLandscape || !AppUtils.isMobile()
                 ? WoltModalType.dialog()
@@ -93,7 +95,7 @@ class CustomModal {
     final modalBody = PopScope(
       canPop: onPreviousPressed == null,
       onPopInvokedWithResult: onPreviousPressed != null
-          ? (_, __) {
+          ? (_, _) {
               onPreviousPressed.call();
             }
           : null,
@@ -104,7 +106,8 @@ class CustomModal {
         ? SliverWoltModalSheetPage(
             hasSabGradient: hasSabGradient,
             sabGradientColor: context.colors.surface.withValues(alpha: .95),
-            backgroundColor: backgroundColor ??
+            backgroundColor:
+                backgroundColor ??
                 (AppUtils.isDarkMode()
                     ? context.colors.surface
                     : context.colors.surfaceContainerHigh),
@@ -123,7 +126,8 @@ class CustomModal {
             navBarHeight: navBarHeight ?? (AppUtils.isMobile() ? 48.r : null),
             hasTopBarLayer: showTopBar,
             isTopBarLayerAlwaysVisible: showTopBar,
-            trailingNavBarWidget: trailingNavBarWidget ??
+            trailingNavBarWidget:
+                trailingNavBarWidget ??
                 (onClosePressed == null
                     ? null
                     : BuildModalCloseButton(
@@ -135,35 +139,38 @@ class CustomModal {
                     onPressed: onPreviousPressed,
                     showPreviousButton: showPreviousButton,
                   ),
-            mainContentSliversBuilder: mainContentSliversBuilder ??
+            mainContentSliversBuilder:
+                mainContentSliversBuilder ??
                 (ctx) => [
-                      modalBody,
-                      if (actionBarStatus != null && onNextPressed != null)
-                        SliverToBoxAdapter(
-                          child: Opacity(
-                            opacity: 0,
-                            child: _buildNextButton(
-                              listenToUpdates: false,
-                              status: actionBarStatus,
-                              onPressed: onNextPressed,
-                              label: nextLabel,
-                              hideOnKeyboardVisible: hideOnKeyboardVisible,
-                            ),
-                          ),
+                  modalBody,
+                  if (actionBarStatus != null && onNextPressed != null)
+                    SliverToBoxAdapter(
+                      child: Opacity(
+                        opacity: 0,
+                        child: _buildNextButton(
+                          listenToUpdates: false,
+                          status: actionBarStatus,
+                          onPressed: onNextPressed,
+                          label: nextLabel,
+                          hideOnKeyboardVisible: hideOnKeyboardVisible,
                         ),
-                    ],
+                      ),
+                    ),
+                ],
           )
         : WoltModalSheetPage(
             hasSabGradient: hasSabGradient,
             sabGradientColor: context.colors.surface.withValues(alpha: .95),
-            backgroundColor: backgroundColor ??
+            backgroundColor:
+                backgroundColor ??
                 (AppUtils.isDarkMode()
                     ? context.colors.surface
                     : context.colors.surfaceContainerHigh),
             navBarHeight: navBarHeight ?? (AppUtils.isMobile() ? 48.r : null),
             hasTopBarLayer: showTopBar,
             isTopBarLayerAlwaysVisible: showTopBar,
-            trailingNavBarWidget: trailingNavBarWidget ??
+            trailingNavBarWidget:
+                trailingNavBarWidget ??
                 (onClosePressed == null
                     ? null
                     : BuildModalCloseButton(

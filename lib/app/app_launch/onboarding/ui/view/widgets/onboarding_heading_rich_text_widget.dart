@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:playx/playx.dart';
 import 'package:flutter_boilerplate/app/app_launch/onboarding/data/model/onboarding.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
+import 'package:playx/playx.dart';
 
 class OnboardingHeadingRichTextWidget extends StatelessWidget {
   final OnboardingTitleParts parts;

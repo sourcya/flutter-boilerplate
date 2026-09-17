@@ -2,8 +2,7 @@ part of '../network.dart';
 
 abstract class ApiClient {
   ApiClient._();
-  static Future<String?> get apiToken async =>
-      MyPreferenceManger.instance.token;
+  static Future<String?> get apiToken => MyPreferenceManger.instance.token;
 
   static PlayxNetworkClient get client => getIt.get<PlayxNetworkClient>();
 
@@ -36,8 +35,7 @@ abstract class ApiClient {
       settings: const PlayxNetworkClientSettings(
         exceptionMessages: CustomExceptionMessage(),
       ),
-      onUnauthorizedRequestReceived: (res) =>
-          SessionManager.instance.handleUnauthorizedResponse(),
+      onUnauthorizedRequestReceived: (res) => SessionManager.instance.handleUnauthorizedResponse(),
     );
   }
 

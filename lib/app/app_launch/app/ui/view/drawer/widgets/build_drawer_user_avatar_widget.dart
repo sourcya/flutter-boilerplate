@@ -20,7 +20,7 @@ class BuildDrawerUserAvatarWidget extends StatelessWidget {
     if (showUserImg && !isExpanded) {
       return Container(
         decoration: ShapeDecoration(
-          color: context.colors.mutedForeground.withOpacity(0.1),
+          color: context.colors.mutedForeground.withValues(alpha: 0.1),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.r),
           ),

@@ -13,13 +13,10 @@ class CustomFilterIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selected = isSelected?.call() == true;
-    final backgroundColor =
-        selected ? context.colors.primaryContainer : context.colors.cardColor;
-    final foregroundColor =
-        selected ? context.colors.onPrimaryContainer : context.colors.primary;
+    final backgroundColor = selected ? context.colors.primaryContainer : context.colors.cardColor;
+    final foregroundColor = selected ? context.colors.onPrimaryContainer : context.colors.primary;
 
     return ActionButton.outlined(
-      title: '',
       onPressed: onPressed,
       backgroundColor: backgroundColor,
       foregroundColor: foregroundColor,
@@ -30,9 +27,7 @@ class CustomFilterIconButton extends StatelessWidget {
       icon: IconInfo.svg(
         Asset.icons.icFilter,
         color: foregroundColor,
-        size: context.isAppPortrait
-            ? (context.isMobile ? 16 : 20).r
-            : 18.r,
+        size: context.isAppPortrait ? (context.isMobile ? 16 : 20).r : 18.r,
       ).buildIconWidget(),
     );
   }

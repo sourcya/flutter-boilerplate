@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:flutter_boilerplate/core/ui/widgets/sliver_grouped_grid_view.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class PagedGroupedGridView<PageKeyType, ItemType, SortType> extends BoxScrollView {

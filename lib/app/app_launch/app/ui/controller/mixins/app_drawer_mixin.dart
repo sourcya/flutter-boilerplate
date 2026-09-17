@@ -15,29 +15,28 @@ mixin AppDrawerMixin on GetxController {
   late final moduleDrawerItems = RxList<CustomNavigationDestinationItem>();
 
   List<CustomNavigationDestinationItem> get allModuleDrawerItems => [
-        CustomNavigationDestinationItem(
-          icon: IconInfo.svg(Assets.icons.icTable),
-          label: AppTrans.reportsModuleTitle,
-          navigationIndex: 2,
-          route: Routes.reports,
-          module: const DrawerAppModule(AppModules.reports),
-        ),
-        CustomNavigationDestinationItem(
-          icon: IconInfo.svg(Assets.icons.icLayoutGrid),
-          label: AppTrans.analyticsModuleTitle,
-          navigationIndex: 3,
-          route: Routes.analytics,
-          module: const DrawerAppModule(AppModules.analytics),
-        ),
-      ];
+    CustomNavigationDestinationItem(
+      icon: IconInfo.svg(Assets.icons.icTable),
+      label: AppTrans.reportsModuleTitle,
+      navigationIndex: 2,
+      route: Routes.reports,
+      module: const DrawerAppModule(AppModules.reports),
+    ),
+    CustomNavigationDestinationItem(
+      icon: IconInfo.svg(Assets.icons.icLayoutGrid),
+      label: AppTrans.analyticsModuleTitle,
+      navigationIndex: 3,
+      route: Routes.analytics,
+      module: const DrawerAppModule(AppModules.analytics),
+    ),
+  ];
 
   int currentBottomNavIndex = 0;
   final showBottomNav = true.obs;
 
   late final List<CustomNavigationDestinationItem> bottomNavItems = [];
 
-  ValueListenable<AdvancedDrawerValue> get drawerStateListenable =>
-      drawerController;
+  ValueListenable<AdvancedDrawerValue> get drawerStateListenable => drawerController;
   bool get isDrawerVisible => isDrawerExpanded.value;
 
   void initDrawerState() {
@@ -47,9 +46,7 @@ mixin AppDrawerMixin on GetxController {
     _syncDrawerState();
   }
 
-  void updateDrawerIndex(int index) {
-    currentDrawerIndex.value = index;
-  }
+  set drawerIndex(int index) => currentDrawerIndex.value = index;
 
   void disposeDrawerState() {
     drawerController.removeListener(_syncDrawerState);
@@ -131,15 +128,13 @@ mixin AppDrawerMixin on GetxController {
     CustomNavigationDestinationItem item,
     StatefulNavigationShell navigationShell,
   ) {
-    if (item.navigationIndex != null &&
-        item.navigationIndex == navigationShell.currentIndex) {
+    if (item.navigationIndex != null && item.navigationIndex == navigationShell.currentIndex) {
       return true;
     }
     if (item.isExpandable) {
       return item.subItems.any(isSubItemSelected);
     }
-    if (item.navigationIndex != null &&
-        item.navigationIndex == currentDrawerIndex.value) {
+    if (item.navigationIndex != null && item.navigationIndex == currentDrawerIndex.value) {
       return true;
     }
     return item.route != null && PlayxNavigation.currentRouteName == item.route;
@@ -251,9 +246,7 @@ mixin AppDrawerMixin on GetxController {
     await closeDrawer();
   }
 
-  void updateBottomNavIndex(int index) {
-    currentBottomNavIndex = index;
-  }
+  set bottomNavIndex(int index) => currentBottomNavIndex = index;
 
   void handleBottomNavItemChanged({
     required int index,
@@ -345,9 +338,7 @@ mixin AppDrawerMixin on GetxController {
                   child: Row(
                     children: [
                       IconInfo.svg(
-                        isDark
-                            ? Assets.icons.icLightMode
-                            : Assets.icons.icDarkMode,
+                        isDark ? Assets.icons.icLightMode : Assets.icons.icDarkMode,
                       ).buildIconWidget(
                         color: sheetContext.colors.onSurface,
                         size: 16.r,
@@ -444,8 +435,7 @@ mixin AppDrawerMixin on GetxController {
     }
 
     final double top = position.dy + size.height + verticalOffset;
-    final double bottom =
-        (screenSize.height - top).clamp(0.0, screenSize.height);
+    final double bottom = (screenSize.height - top).clamp(0.0, screenSize.height);
     final double right = (screenSize.width - (left + menuWidth)).clamp(
       0.0,
       screenSize.width,

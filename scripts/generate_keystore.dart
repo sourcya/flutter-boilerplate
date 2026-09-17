@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 import 'dart:math';
 
@@ -55,7 +57,5 @@ String generateSecurePassword({int length = 12}) {
   return upper[random.nextInt(upper.length)] +
       lower[random.nextInt(lower.length)] +
       digits[random.nextInt(digits.length)] +
-      List.generate(
-              length - 3, (index) => allChars[random.nextInt(allChars.length)])
-          .join();
+      List.generate(length - 3, (index) => allChars[random.nextInt(allChars.length)]).join();
 }
