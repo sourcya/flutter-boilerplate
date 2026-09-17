@@ -291,7 +291,7 @@ class _SidePanelDefaultSidebar<T> extends StatelessWidget {
                                             : context.colors.onSurface,
                                       ),
                                       maxLines: 1,
-                                      textOverflow: TextOverflow.ellipsis,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                 ],

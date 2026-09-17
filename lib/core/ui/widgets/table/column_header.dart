@@ -72,7 +72,7 @@ class ColumnHeader extends StatelessWidget {
               height: lineHeight ?? 1.67,
             ),
             maxLines: 1,
-            textOverflow: TextOverflow.ellipsis,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         if (isSortable) ...[

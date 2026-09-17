@@ -70,7 +70,7 @@ class FeatureChip extends StatelessWidget {
       ),
       textAlign: textAlign ?? TextAlign.center,
       maxLines: maxLines,
-      textOverflow: TextOverflow.ellipsis,
+      overflow: TextOverflow.ellipsis,
     );
 
     final isMaxWidth = this.isMaxWidth ?? (context.width <= 600);

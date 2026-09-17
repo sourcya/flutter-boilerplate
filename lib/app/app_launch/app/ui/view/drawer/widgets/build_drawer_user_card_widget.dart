@@ -101,7 +101,7 @@ class BuildDrawerUserCardWidget extends StatelessWidget {
                                 color: foregroundColor,
                               ),
                               maxLines: 1,
-                              textOverflow: TextOverflow.ellipsis,
+                              overflow: TextOverflow.ellipsis,
                               isTranslatable: false,
                             ),
                             if (email.isNotEmpty)

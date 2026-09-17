@@ -10,6 +10,8 @@ class SliverDataStateWidget<T> extends StatelessWidget {
   final ErrorCallback<T>? noInternetConnection;
   final VoidCallback? onNoInternetRetryClicked;
   final VoidCallback? onRetryClicked;
+  final bool enableCheckingInternet;
+  final bool retryOnConnectionRestored;
 
   const SliverDataStateWidget({
     required this.data,
@@ -21,6 +23,8 @@ class SliverDataStateWidget<T> extends StatelessWidget {
     this.onError,
     this.onNoInternetRetryClicked,
     this.onRetryClicked,
+    this.enableCheckingInternet = true,
+    this.retryOnConnectionRestored = true,
   });
 
   @override
@@ -28,28 +32,20 @@ class SliverDataStateWidget<T> extends StatelessWidget {
     Widget widget = const SliverToBoxAdapter(child: SizedBox.shrink());
     data.when(
       initial: (data) {
-        widget = onInitial?.call(data) ??
-            const SliverToBoxAdapter(
-              child: SizedBox.shrink(),
-            );
+        widget = onInitial?.call(data) ?? const SliverToBoxAdapter(child: SizedBox.shrink());
       },
       loading: (data) {
-        widget = onLoading?.call(data) ??
-            const SliverFillRemaining(
-              child: CustomLoading(),
-            );
+        widget = onLoading?.call(data) ?? const SliverFillRemaining(child: CustomLoading());
       },
       success: (data) {
-        widget = onSuccess?.call(data) ??
-            const SliverToBoxAdapter(
-              child: SizedBox.shrink(),
-            );
+        widget = onSuccess?.call(data) ?? const SliverToBoxAdapter(child: SizedBox.shrink());
       },
       failure: (error) {
         final message = error.message;
         switch (error) {
           case EmptyDataError _:
-            widget = onEmpty?.call(message) ??
+            widget =
+                onEmpty?.call(message) ??
                 SliverFillRemaining(
                   child: EmptyDataWidget(
                     error: message,
@@ -57,7 +53,8 @@ class SliverDataStateWidget<T> extends StatelessWidget {
                   ),
                 );
           case NoInternetError _:
-            widget = noInternetConnection?.call(message) ??
+            widget =
+                noInternetConnection?.call(message) ??
                 SliverFillRemaining(
                   child: NoInternetWidget(
                     error: message,
@@ -65,7 +62,8 @@ class SliverDataStateWidget<T> extends StatelessWidget {
                   ),
                 );
           case DefaultDataError _:
-            widget = onError?.call(message) ??
+            widget =
+                onError?.call(message) ??
                 SliverFillRemaining(
                   child: ErrorDataWidget(
                     error: message,
@@ -75,6 +73,7 @@ class SliverDataStateWidget<T> extends StatelessWidget {
         }
       },
     );
+
     return widget;
   }
 }

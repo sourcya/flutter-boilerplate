@@ -31,7 +31,7 @@ class DrawerBodyUserProfileAvatar extends StatelessWidget {
           color: context.colors.onPrimaryFixed,
           isTranslatable: false,
           maxLines: 1,
-          textOverflow: TextOverflow.clip,
+          overflow: TextOverflow.clip,
         ),
       ),
     );

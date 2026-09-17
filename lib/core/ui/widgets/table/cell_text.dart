@@ -115,7 +115,7 @@ class CellText extends StatelessWidget {
         fullText,
         isSelectable: true,
         maxLines: maxLines,
-        textOverflow: textOverflow,
+        overflow: textOverflow,
         textAlign: isStart ? TextAlign.start : TextAlign.center,
         height: resolvedStyle.lineHeight,
         fontWeight: resolvedStyle.fontWeight,

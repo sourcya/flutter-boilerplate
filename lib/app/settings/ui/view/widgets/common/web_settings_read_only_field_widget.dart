@@ -30,7 +30,7 @@ class WebSettingsReadOnlyFieldWidget extends StatelessWidget {
         child: CustomText(
           value,
           maxLines: 1,
-          textOverflow: TextOverflow.ellipsis,
+          overflow: TextOverflow.ellipsis,
           textStyle: context.bodyMediumTS.copyWith(
             fontSize: 14.sp,
             fontWeight: FontWeight.w400,

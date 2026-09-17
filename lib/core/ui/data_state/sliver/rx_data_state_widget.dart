@@ -10,6 +10,8 @@ class RxSliverDataStateWidget<T> extends StatelessWidget {
   final ErrorCallback<T>? noInternetConnection;
   final VoidCallback? onNoInternetRetryClicked;
   final VoidCallback? onRetryClicked;
+  final bool enableCheckingInternet;
+  final bool retryOnConnectionRestored;
 
   const RxSliverDataStateWidget({
     required this.rxData,
@@ -21,6 +23,8 @@ class RxSliverDataStateWidget<T> extends StatelessWidget {
     this.onError,
     this.onNoInternetRetryClicked,
     this.onRetryClicked,
+    this.enableCheckingInternet = true,
+    this.retryOnConnectionRestored = true,
   });
 
   @override
@@ -36,6 +40,8 @@ class RxSliverDataStateWidget<T> extends StatelessWidget {
         onError: onError,
         onNoInternetRetryClicked: onNoInternetRetryClicked,
         onRetryClicked: onRetryClicked,
+        enableCheckingInternet: enableCheckingInternet,
+        retryOnConnectionRestored: retryOnConnectionRestored,
       ),
     );
   }

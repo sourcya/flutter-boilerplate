@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:playx/playx.dart';
 
 abstract class Constants {
@@ -12,11 +10,11 @@ abstract class Constants {
       'https://play.google.com/store/apps/details?id=io.sourcya.app';
   static const String iosStoreUrl = '';
 
-  static String storeUrl = Platform.isAndroid
+  static String storeUrl = PlayxPlatform.isAndroid
       ? playStoreUrl
-      : Platform.isIOS
-          ? iosStoreUrl
-          : '';
+      : PlayxPlatform.isIOS
+      ? iosStoreUrl
+      : '';
 
   static const String storeCountry = 'sa';
   static String storeLanguage = PlayxLocalization.currentLocale.languageCode;

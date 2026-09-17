@@ -78,7 +78,7 @@ class _RememberMeCheckboxRow extends StatelessWidget {
                   child: CustomText(
                     AppTrans.rememberMe,
                     maxLines: 1,
-                    textOverflow: TextOverflow.ellipsis,
+                    overflow: TextOverflow.ellipsis,
                     textStyle: context.bodyMediumTS.copyWith(
                       color: c.foreground,
                       height: 1.43,

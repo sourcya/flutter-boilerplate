@@ -177,7 +177,7 @@ class CustomTypeChip extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                     font: fontFamilyBasedOnText(text),
                                     textAlign: TextAlign.center,
-                                    textOverflow: TextOverflow.ellipsis,
+                                    overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                   ),
                           ),

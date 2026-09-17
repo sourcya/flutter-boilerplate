@@ -8,7 +8,7 @@ class CustomText extends StatelessWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
   final FontStyle? fontStyle;
-  final TextOverflow textOverflow;
+  final TextOverflow overflow;
   final int? maxLines;
   final TextAlign textAlign;
   final TextStyle? textStyle;
@@ -36,7 +36,7 @@ class CustomText extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.fontStyle,
-    this.textOverflow = TextOverflow.visible,
+    this.overflow = TextOverflow.visible,
     this.maxLines,
     this.textAlign = TextAlign.start,
     this.textStyle,
@@ -65,7 +65,7 @@ class CustomText extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.fontStyle,
-    this.textOverflow = TextOverflow.visible,
+    this.overflow = TextOverflow.visible,
     this.maxLines,
     this.textAlign = TextAlign.start,
     this.textStyle,
@@ -95,7 +95,7 @@ class CustomText extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.fontStyle,
-    this.textOverflow = TextOverflow.visible,
+    this.overflow = TextOverflow.visible,
     this.maxLines,
     this.textAlign = TextAlign.start,
     this.textStyle,
@@ -126,7 +126,7 @@ class CustomText extends StatelessWidget {
           fontSize: fontSize,
           fontWeight: fontWeight,
           fontStyle: fontStyle,
-          overflow: textOverflow,
+          overflow: overflow,
           fontFamily: font,
           decoration: decoration,
           letterSpacing: letterSpacing,
@@ -138,7 +138,7 @@ class CustomText extends StatelessWidget {
           fontSize: fontSize,
           fontWeight: fontWeight,
           fontStyle: fontStyle,
-          overflow: textOverflow,
+          overflow: overflow,
           fontFamily: font,
           decoration: decoration,
           letterSpacing: letterSpacing,
@@ -172,14 +172,14 @@ class CustomText extends StatelessWidget {
                     textStyle: effectiveTextStyle,
                     maxLines: maxLines,
                     textAlign: textAlign,
-                    overflow: textOverflow,
+                    overflow: overflow,
                   )
                 : Text(
                     translatedText,
                     style: effectiveTextStyle,
                     maxLines: maxLines,
                     textAlign: textAlign,
-                    overflow: textOverflow,
+                    overflow: overflow,
                     softWrap: softWrap,
                   );
 

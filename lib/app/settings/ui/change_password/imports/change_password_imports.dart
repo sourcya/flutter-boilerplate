@@ -5,7 +5,6 @@ import 'package:flutter_boilerplate/core/navigation/navigation.dart';
 import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:flutter_boilerplate/core/utils/app_utils.dart';
-import 'package:flutter_boilerplate/core/utils/are_equals_validation.dart';
 import 'package:playx/playx.dart';
 
 part '../controller/change_password_controller.dart';

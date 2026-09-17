@@ -53,7 +53,7 @@ class RadioOptionChip<T> extends StatelessWidget {
                     child: CustomText(
                       label,
                       maxLines: 1,
-                      textOverflow: TextOverflow.ellipsis,
+                      overflow: TextOverflow.ellipsis,
                       font: font,
                       textStyle: context.bodyMediumTS.copyWith(
                         fontSize: 14.sp,

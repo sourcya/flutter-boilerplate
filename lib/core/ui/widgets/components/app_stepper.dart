@@ -88,7 +88,9 @@ class AppStepper extends StatelessWidget {
     final children = <Widget>[];
     for (int i = 0; i < steps.length; i++) {
       if (i > 0) {
-        final connectorColor = steps[i - 1].isCompleted ? activeColor : inactiveColor;
+        final connectorColor = steps[i - 1].isCompleted
+            ? activeColor
+            : inactiveColor;
 
         children.add(
           segment(
@@ -132,10 +134,9 @@ class AppStepper extends StatelessWidget {
           border: Border.all(color: stepColor, width: 1.r),
         ),
         child: step.isCompleted
-            ? IconInfo.icon(Icons.check).buildIconWidget(
-                size: 16.r,
-                color: completedIconColor,
-              )
+            ? IconInfo.icon(
+                Icons.check,
+              ).buildIconWidget(size: 16.r, color: completedIconColor)
             : CustomText(
                 '${step.number}',
                 fontSize: 14.sp,
@@ -152,7 +153,7 @@ class AppStepper extends StatelessWidget {
         color: stepColor,
         textAlign: isVertical ? TextAlign.start : TextAlign.center,
         maxLines: isVertical ? 3 : 2,
-        textOverflow: TextOverflow.ellipsis,
+        overflow: TextOverflow.ellipsis,
         isTranslatable: false,
       );
 

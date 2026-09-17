@@ -15,6 +15,8 @@ class DataStateWidget<T> extends StatelessWidget {
   final ErrorCallback<T>? noInternetConnection;
   final VoidCallback? onNoInternetRetryClicked;
   final VoidCallback? onRetryClicked;
+  final bool enableCheckingInternet;
+  final bool retryOnConnectionRestored;
 
   const DataStateWidget({
     required this.data,
@@ -26,11 +28,14 @@ class DataStateWidget<T> extends StatelessWidget {
     this.onError,
     this.onNoInternetRetryClicked,
     this.onRetryClicked,
+    this.enableCheckingInternet = false,
+    this.retryOnConnectionRestored = true,
   });
 
   @override
   Widget build(BuildContext context) {
     Widget widget = const SizedBox.shrink();
+    final onNoInternetRetry = onNoInternetRetryClicked ?? onRetryClicked;
     data.when(
       initial: (data) {
         widget = onInitial?.call(data) ?? const SizedBox.shrink();
@@ -45,19 +50,22 @@ class DataStateWidget<T> extends StatelessWidget {
         final message = error.message;
         switch (error) {
           case EmptyDataError _:
-            widget = onEmpty?.call(message) ??
+            widget =
+                onEmpty?.call(message) ??
                 EmptyDataWidget(
                   error: message,
                   onRetryClicked: onRetryClicked,
                 );
           case NoInternetError _:
-            widget = noInternetConnection?.call(message) ??
+            widget =
+                noInternetConnection?.call(message) ??
                 NoInternetWidget(
                   error: message,
-                  onRetryClicked: onNoInternetRetryClicked,
+                  onRetryClicked: onNoInternetRetry,
                 );
           case DefaultDataError _:
-            widget = onError?.call(message) ??
+            widget =
+                onError?.call(message) ??
                 ErrorDataWidget(
                   error: message,
                   onRetryClicked: onRetryClicked,

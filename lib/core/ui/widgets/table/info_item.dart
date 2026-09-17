@@ -37,7 +37,7 @@ class InfoItem extends StatelessWidget {
                   color: context.colors.onSurface,
                 ),
                 maxLines: 1,
-                textOverflow: TextOverflow.ellipsis,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
@@ -52,7 +52,7 @@ class InfoItem extends StatelessWidget {
             fontSize: 13.sp,
           ),
           maxLines: 2,
-          textOverflow: TextOverflow.ellipsis,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );

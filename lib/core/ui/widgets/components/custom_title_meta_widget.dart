@@ -37,7 +37,7 @@ class CustomTitleMetaWidget extends StatelessWidget {
           letterSpacing: titleLetterSpacing,
           height: 1,
           maxLines: 1,
-          textOverflow: TextOverflow.ellipsis,
+          overflow: TextOverflow.ellipsis,
           isTranslatable: false,
           font: useDynamicTitleFont ? fontFamilyBasedOnText(title) : null,
         ),

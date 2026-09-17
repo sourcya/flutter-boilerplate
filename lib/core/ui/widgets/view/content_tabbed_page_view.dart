@@ -306,7 +306,7 @@ class _ContentTabbedHeaderBar<S> extends StatelessWidget {
         page.title,
         fontSize: 24.sp,
         fontWeight: FontWeight.w600,
-        textOverflow: TextOverflow.ellipsis,
+        overflow: TextOverflow.ellipsis,
       ),
       if (page.togglePosition == TogglePosition.afterTitle && toggleWidget != null)
         Flexible(
@@ -412,7 +412,7 @@ class _ContentTabbedTabsToggleSection<S> extends StatelessWidget {
     return page.tabController != null
         ? ListenableBuilder(
             listenable: page.tabController!,
-            builder: (_, __) {
+            builder: (_, _) {
               final selectedIndex = page.tabController!.index;
               final S selectedItem = page.tabs[selectedIndex];
               return ToggleSwitch<S>(

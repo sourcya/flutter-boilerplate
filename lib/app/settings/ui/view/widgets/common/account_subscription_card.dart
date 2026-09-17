@@ -51,7 +51,7 @@ class AccountSubscriptionCard extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   color: colors.cardForeground,
                   height: 1.0,
-                  textOverflow: TextOverflow.ellipsis,
+                  overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
                 8.hBox,

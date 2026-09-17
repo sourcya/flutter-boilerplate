@@ -29,7 +29,7 @@ class PasswordOtpHeroPanel extends StatelessWidget {
           CustomText(
             AppTrans.passwordOtpSubtitle,
             maxLines: 3,
-            textOverflow: TextOverflow.ellipsis,
+            overflow: TextOverflow.ellipsis,
             textStyle: context.bodyLargeTS.copyWith(
               color: context.colors.mutedForeground,
               fontSize: 15.sp,

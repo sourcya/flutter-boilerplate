@@ -97,7 +97,7 @@ class CustomSearch extends StatelessWidget {
               CustomText(
                 title ?? "",
                 maxLines: 1,
-                textOverflow: TextOverflow.ellipsis,
+                overflow: TextOverflow.ellipsis,
                 color: context.colors.cardForeground,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600,

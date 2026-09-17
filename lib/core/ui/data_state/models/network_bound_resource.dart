@@ -15,20 +15,18 @@ class NetworkBoundResource<ResultType, RequestType> {
 
     if (await shouldFetch(dbResult)) {
       final networkResult = await fetch();
-      networkResult.when(
-        success: (data) async* {
+      switch (networkResult) {
+        case NetworkSuccess<RequestType>(:final data):
           try {
             await saveCallResult(data);
 
             yield* loadFromDb().asyncMap((data) => DataState.success(data));
-          } catch (e) {
+          } catch (_) {
             yield DataState.fromDefaultError();
           }
-        },
-        error: (error) async* {
+        case NetworkError<RequestType>(:final error):
           yield DataState.fromNetworkError(error);
-        },
-      );
+      }
     } else {
       yield* loadFromDb().asyncMap((data) => DataState.success(data));
     }
@@ -48,7 +46,7 @@ class NetworkBoundResource<ResultType, RequestType> {
       } else {
         initialDataResult = await loadFromDb();
       }
-    } catch (_) {
+    } on Object {
       initialDataResult = null;
     }
     if (await shouldFetch(initialDataResult)) {
@@ -61,7 +59,7 @@ class NetworkBoundResource<ResultType, RequestType> {
           try {
             await saveCallResult(data);
             return DataState.success(await loadFromDb());
-          } catch (e) {
+          } on Object {
             return DataState.fromDefaultError();
           }
         },

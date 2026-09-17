@@ -38,7 +38,7 @@ class CardInfoRow extends StatelessWidget {
                   color: context.colors.cardForeground,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w400,
-                  textOverflow: TextOverflow.ellipsis,
+                  overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.end,
                   isSelectable: valueSelectable,
                   font: fontFamilyBasedOnText(value),

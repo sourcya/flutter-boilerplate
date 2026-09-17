@@ -39,7 +39,7 @@ class DrawerExpandableSubItemRow extends StatelessWidget {
             fontSize: 14,
             isResponsive: false,
             maxLines: 1,
-            textOverflow: TextOverflow.ellipsis,
+            overflow: TextOverflow.ellipsis,
             softWrap: false,
           ),
         ),
