@@ -1,25 +1,25 @@
-import 'package:flutter/material.dart';
+part of '../ui.dart';
 
-/// OrientationWidget : Widget that can be used to build different widgets for different orientations.
+/// Builds portrait vs landscape UI using [BuildContext.isAppLandscape].
 abstract class CustomOrientationWidget extends StatelessWidget {
-  const CustomOrientationWidget({super.key});
+  final bool isInitialized;
+
+  const CustomOrientationWidget({
+    this.isInitialized = true,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final child = MediaQuery.of(context).orientation == Orientation.landscape
+    final child = context.isAppLandscape
         ? buildLandscape(context)
-        : buildPortrait(
-            context,
-          );
-    final widget = buildWidget(context, child);
-    return widget ?? child;
+        : buildPortrait(context);
+    return buildWidget(context, child) ?? child;
   }
 
   Widget? buildWidget(BuildContext context, Widget child) => null;
 
-  /// Builds the widget for portrait orientation.
   Widget buildPortrait(BuildContext context);
 
-  /// Builds the widget for landscape orientation.
   Widget buildLandscape(BuildContext context);
 }

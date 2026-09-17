@@ -26,7 +26,7 @@ class VerifyPhoneController extends GetxController {
     );
 
     result.when(
-      success: (user) async {
+      success: (user) {
         isLoading.value = false;
         AppNavigation.navigateFromVerifyOtpToHome();
       },

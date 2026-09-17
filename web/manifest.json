@@ -1,12 +1,14 @@
 {
-    "name": "flutter_boilerplate",
-    "short_name": "flutter_boilerplate",
-    "start_url": ".",
+    "id": "/",
+    "name": "Sourcya Flutter App",
+    "short_name": "Sourcya",
+    "description": "A production-ready Sourcya Flutter application.",
+    "start_url": "/",
+    "scope": "/",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#14213D",
+    "theme_color": "#14213D",
+    "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
         {

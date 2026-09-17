@@ -1,7 +1,9 @@
-part of '../ui.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/ui/widgets/sliver_grouped_grid_view.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
-class PagedGroupedGridView<PageKeyType, ItemType, SortType>
-    extends BoxScrollView {
+class PagedGroupedGridView<PageKeyType, ItemType, SortType> extends BoxScrollView {
   const PagedGroupedGridView({
     super.key,
     required this.pagingController,
@@ -12,7 +14,7 @@ class PagedGroupedGridView<PageKeyType, ItemType, SortType>
     this.groupSeparatorBuilder,
     this.groupHeaderBuilder,
     this.itemComparator,
-    this.order = GroupedListOrder.ASC,
+    this.order = GroupedListOrder.asc,
     this.sort = true,
     this.separator = const SizedBox.shrink(),
     super.scrollDirection,
@@ -90,8 +92,7 @@ class PagedGroupedGridView<PageKeyType, ItemType, SortType>
   }
 }
 
-class PagedSliverGroupedGrid<PageKeyType, ItemType, SortType>
-    extends StatelessWidget {
+class PagedSliverGroupedGrid<PageKeyType, ItemType, SortType> extends StatelessWidget {
   const PagedSliverGroupedGrid({
     required this.pagingController,
     required this.builderDelegate,
@@ -101,7 +102,7 @@ class PagedSliverGroupedGrid<PageKeyType, ItemType, SortType>
     this.groupSeparatorBuilder,
     this.groupHeaderBuilder,
     this.itemComparator,
-    this.order = GroupedListOrder.ASC,
+    this.order = GroupedListOrder.asc,
     this.sort = true,
     this.separator = const SizedBox.shrink(),
     this.crossAxisCount = 2,

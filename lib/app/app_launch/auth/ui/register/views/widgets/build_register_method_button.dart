@@ -11,37 +11,13 @@ class BuildRegisterMethodButton extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 8.r,
-        vertical: 4.r,
-      ),
+      padding: context.paddingSymmetric(horizontal: 8, vertical: 4),
       child: CustomElevatedButton(
         onPressed: () {
           controller.registerBy(method: method);
         },
         margin: EdgeInsets.zero,
-        color: context.colors.primary,
-        child: Row(
-          children: [
-            SizedBox(width: 16.r),
-            if (method.icon != null)
-              SizedBox(
-                width: 20.r,
-                height: 20.r,
-                child: method.icon?.buildIconWidget(
-                  color: method.iconColor(context),
-                ),
-              ),
-            SizedBox(width: 10.r),
-            CustomText(
-              method.loginLabel,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-              color: method.onBackground(context),
-            ),
-            SizedBox(width: 10.r),
-          ],
-        ),
+        label: method.loginLabel,
       ),
     );
   }

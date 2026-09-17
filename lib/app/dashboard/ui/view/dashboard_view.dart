@@ -1,82 +1,61 @@
 part of '../imports/dashboard_imports.dart';
 
 class DashboardView extends GetView<DashboardController> {
+  const DashboardView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: AppTrans.dashboard,
-      child: RxDataStateWidget(
-        rxData: controller.dataState,
-        onSuccess: (items) => ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            final item = items[index];
-            return InkWell(
-              onTap: () {},
-              child: CustomCard(
-                padding: EdgeInsets.zero,
-                child: Stack(
+      backgroundColor: context.isWideLayout
+          ? context.colors.surface
+          : context.colors.bgMuted50,
+      bodyAlignment: Alignment.topCenter,
+      isWideWeb: context.isWideLayout,
+      showWhatsAppSupport: true,
+      child: SingleChildScrollView(
+        padding: context.paddingAll(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomText(
+              AppTrans.dashboardWelcomeTitle,
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w700,
+            ),
+            8.hBox,
+            CustomText(
+              AppTrans.dashboardWelcomeSubtitle,
+              color: context.colors.mutedForeground,
+            ),
+            16.hBox,
+            CustomCard(
+              child: Padding(
+                padding: context.paddingAll(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 200,
-                          width: double.infinity,
-                          child: ImageViewer.cachedNetwork(
-                            item.imageUrl,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 12.0.w,
-                            vertical: 12.h,
-                          ),
-                          child: CustomText(
-                            item.name,
-                            textStyle: CustomTextStyles.title(context),
-                            color: context.colors.onSurface,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                            right: 12.0.w,
-                            left: 12.w,
-                            bottom: 8.h,
-                          ),
-                          child: CustomText(
-                            item.description,
-                            maxLines: 3,
-                            color: context.colors.onSurface,
-                          ),
-                        ),
-                      ],
+                    CustomText(
+                      AppTrans.productsTitle,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
                     ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0.r),
-                        child: FloatingActionButton(
-                          mini: true,
-                          onPressed: null,
-                          heroTag: null,
-                          backgroundColor: context.colors.surface.withOpacity(
-                            .85,
-                          ),
-                          child: FavoriteButton(
-                            isInFavorite: item.isFavorite,
-                            onFavoriteChanged: (isFavorite) {
-                              controller.onFavoriteChanged(isFavorite, item);
-                            },
-                          ),
-                        ),
-                      ),
+                    8.hBox,
+                    CustomText(
+                      AppTrans.productsSubtitle,
+                      color: context.colors.mutedForeground,
+                    ),
+                    16.hBox,
+                    const CustomElevatedButton(
+                      label: AppTrans.viewProducts,
+                      isMaxWidth: false,
+                      onPressed: AppNavigation.navigateToProducts,
                     ),
                   ],
                 ),
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );

@@ -10,7 +10,7 @@ class BuildModalCloseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      padding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 8.r),
+      padding: context.paddingSymmetric(horizontal: 8, vertical: 8),
       visualDensity: VisualDensity.comfortable,
       icon: Icon(
         Icons.close,

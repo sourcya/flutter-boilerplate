@@ -1,6 +1,5 @@
 part of '../navigation.dart';
 
-/// contains all possible routes for the application.
 class AppPages {
   AppPages._();
 
@@ -14,6 +13,7 @@ class AppPages {
     observers: [
       SentryNavigatorObserver(),
     ],
+    redirect: AuthGuard.redirect,
   );
 
   static final _homeNavigationRoutes = StatefulShellRoute.indexedStack(
@@ -21,8 +21,6 @@ class AppPages {
       return CustomPageScaffold.buildNavigationShellPage(
         state: state,
         navigationShell: navigationShell,
-        showBottomNav: NavigationUtils.showBottomNav,
-        canShowDrawer: NavigationUtils.canShowDrawer,
       );
     },
     branches: [
@@ -31,34 +29,17 @@ class AppPages {
           PlayxRoute(
             path: Paths.dashboard,
             name: Routes.dashboard,
-            builder: (ctx, state) => DashboardView(),
+            builder: (ctx, state) => const DashboardView(),
             binding: DashboardBinding(),
           ),
-        ],
-      ),
-      StatefulShellBranch(
-        routes: [
+          // Extension point: reference/demo feature showcasing this boilerplate's
+          // fetching + DataState conventions. Pushed as a simple top-level route,
+          // not part of the home navigation shell.
           PlayxRoute(
-            path: Paths.wishlist,
-            name: Routes.wishlist,
-            builder: (ctx, state) {
-              return WishlistView();
-            },
-            binding: WishlistBinding(),
-            routes: [
-              PlayxRoute(
-                path: Paths.wishlistDetails,
-                name: Routes.wishlistDetails,
-                builder: (ctx, state) {
-                  return const Scaffold(
-                    body: Center(
-                      child: Text('Wishlist Details'),
-                    ),
-                  );
-                },
-                binding: WishlistDetailsBinding(),
-              ),
-            ],
+            path: Paths.products,
+            name: Routes.products,
+            builder: (context, state) => const ProductsView(),
+            binding: ProductsBinding(),
           ),
         ],
       ),
@@ -69,6 +50,28 @@ class AppPages {
             name: Routes.settings,
             builder: (ctx, state) => const SettingsView(),
             binding: SettingsBinding(),
+          ),
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          PlayxRoute(
+            path: Paths.reports,
+            name: Routes.reports,
+            builder: (ctx, state) => const AppModulePage(
+              title: AppTrans.reportsModuleTitle,
+            ),
+          ),
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          PlayxRoute(
+            path: Paths.analytics,
+            name: Routes.analytics,
+            builder: (ctx, state) => const AppModulePage(
+              title: AppTrans.analyticsModuleTitle,
+            ),
           ),
         ],
       ),
@@ -89,17 +92,30 @@ class AppPages {
       binding: LoginBinding(),
     ),
     PlayxRoute(
-      path: Paths.register,
-      name: Routes.register,
-      builder: (context, state) => const RegisterView(),
-      binding: RegisterBinding(),
+      path: Paths.forgetPassword,
+      name: Routes.forgetPassword,
+      builder: (context, state) => const ForgetPasswordView(),
+      binding: ForgetPasswordBinding(),
+    ),
+    PlayxRoute(
+      path: Paths.passwordOtp,
+      name: Routes.passwordOtp,
+      builder: (context, state) => const PasswordOtpView(),
+      binding: PasswordOtpBinding(),
+    ),
+    PlayxRoute(
+      path: Paths.resetPassword,
+      name: Routes.resetPassword,
+      builder: (context, state) => const ResetPasswordView(),
+      binding: ResetPasswordBinding(),
     ),
     PlayxRoute(
       path: Paths.onboarding,
       name: Routes.onboarding,
-      builder: (context, state) => OnBoardingView(),
+      builder: (context, state) => const OnBoardingView(),
       binding: OnBoardingBinding(),
     ),
+
     _homeNavigationRoutes,
   ];
 }

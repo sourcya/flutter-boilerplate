@@ -8,12 +8,12 @@ class CustomText extends StatelessWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
   final FontStyle? fontStyle;
-  final TextOverflow textOverflow;
+  final TextOverflow overflow;
   final int? maxLines;
   final TextAlign textAlign;
   final TextStyle? textStyle;
   final String? font;
-  final IconInfo? icon;
+  final IconData? icon;
   final Color? iconColor;
   final double? iconSize;
   final bool isTranslatable;
@@ -23,11 +23,11 @@ class CustomText extends StatelessWidget {
   final bool isSelectable;
   final int? readMoreTextLength;
   final List<Shadow>? shadows;
+  final Color? firstWordColor;
   final Color? strokeColor;
   final double? strokeWidth;
-
+  final bool isResponsive;
   final bool? softWrap;
-  final double? iconSpacing;
   final BuildContext? translationContext;
 
   const CustomText(
@@ -36,7 +36,7 @@ class CustomText extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.fontStyle,
-    this.textOverflow = TextOverflow.visible,
+    this.overflow = TextOverflow.visible,
     this.maxLines,
     this.textAlign = TextAlign.start,
     this.textStyle,
@@ -48,14 +48,15 @@ class CustomText extends StatelessWidget {
     this.isSelectable = false,
     this.readMoreTextLength,
     this.shadows,
-    this.translationContext,
+    this.isResponsive = true,
     this.softWrap,
-  }) : icon = null,
-       iconColor = null,
-       iconSpacing = null,
-       iconSize = null,
-       strokeColor = null,
-       strokeWidth = null;
+    this.translationContext,
+    this.firstWordColor,
+  })  : icon = null,
+        iconColor = null,
+        iconSize = null,
+        strokeColor = null,
+        strokeWidth = null;
 
   const CustomText.icon(
     this.text, {
@@ -64,7 +65,7 @@ class CustomText extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.fontStyle,
-    this.textOverflow = TextOverflow.visible,
+    this.overflow = TextOverflow.visible,
     this.maxLines,
     this.textAlign = TextAlign.start,
     this.textStyle,
@@ -80,9 +81,10 @@ class CustomText extends StatelessWidget {
     this.shadows,
     this.strokeColor,
     this.strokeWidth,
-    this.translationContext,
+    this.isResponsive = true,
     this.softWrap,
-    this.iconSpacing,
+    this.translationContext,
+    this.firstWordColor,
   });
 
   const CustomText.stroke(
@@ -93,7 +95,7 @@ class CustomText extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.fontStyle,
-    this.textOverflow = TextOverflow.visible,
+    this.overflow = TextOverflow.visible,
     this.maxLines,
     this.textAlign = TextAlign.start,
     this.textStyle,
@@ -105,12 +107,13 @@ class CustomText extends StatelessWidget {
     this.isSelectable = false,
     this.readMoreTextLength,
     this.shadows,
-    this.translationContext,
+    this.isResponsive = true,
     this.softWrap,
-  }) : icon = null,
-       iconColor = null,
-       iconSpacing = null,
-       iconSize = null;
+    this.translationContext,
+    this.firstWordColor,
+  })  : icon = null,
+        iconColor = null,
+        iconSize = null;
 
   @override
   Widget build(BuildContext context) {
@@ -118,31 +121,26 @@ class CustomText extends StatelessWidget {
         ? text.tr(context: translationContext ?? context)
         : text;
 
-    final effectiveTextStyle =
-        textStyle?.copyWith(
+    final effectiveTextStyle = textStyle?.copyWith(
           color: color,
           fontSize: fontSize,
           fontWeight: fontWeight,
           fontStyle: fontStyle,
-          overflow: textOverflow,
+          overflow: overflow,
           fontFamily: font,
-          decoration: decoration ?? TextDecoration.none,
+          decoration: decoration,
           letterSpacing: letterSpacing,
           height: height,
           shadows: shadows,
         ) ??
-        TextStyle(
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w400,
-          fontFamily: fontFamily(context: context),
-        ).copyWith(
+        CustomTextStyles.label(context).copyWith(
           color: color ?? context.colors.onSurface,
           fontSize: fontSize,
           fontWeight: fontWeight,
           fontStyle: fontStyle,
-          overflow: textOverflow,
+          overflow: overflow,
           fontFamily: font,
-          decoration: decoration ?? TextDecoration.none,
+          decoration: decoration,
           letterSpacing: letterSpacing,
           height: height,
           shadows: shadows,
@@ -160,30 +158,30 @@ class CustomText extends StatelessWidget {
             ),
           )
         : isSelectable
-        ? SelectableText(
-            translatedText,
-            style: effectiveTextStyle,
-            maxLines: maxLines,
-            textAlign: textAlign,
-          )
-        : strokeColor != null
-        ? StrokeText(
-            text: translatedText,
-            strokeColor: strokeColor ?? Colors.black,
-            strokeWidth: strokeWidth ?? 3,
-            textStyle: effectiveTextStyle,
-            maxLines: maxLines,
-            textAlign: textAlign,
-            overflow: textOverflow,
-          )
-        : Text(
-            translatedText,
-            style: effectiveTextStyle,
-            maxLines: maxLines,
-            textAlign: textAlign,
-            overflow: textOverflow,
-            softWrap: softWrap,
-          );
+            ? SelectableText(
+                translatedText,
+                style: effectiveTextStyle,
+                maxLines: maxLines,
+                textAlign: textAlign,
+              )
+            : strokeColor != null
+                ? StrokeText(
+                    text: translatedText,
+                    strokeColor: strokeColor ?? AppColors.baseblack,
+                    strokeWidth: strokeWidth ?? 3,
+                    textStyle: effectiveTextStyle,
+                    maxLines: maxLines,
+                    textAlign: textAlign,
+                    overflow: overflow,
+                  )
+                : Text(
+                    translatedText,
+                    style: effectiveTextStyle,
+                    maxLines: maxLines,
+                    textAlign: textAlign,
+                    overflow: overflow,
+                    softWrap: softWrap,
+                  );
 
     if (icon == null) {
       return textWidget;
@@ -192,16 +190,15 @@ class CustomText extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (icon != null) ...[
-          icon!
-              .copyWith(
-                color: iconColor ?? color ?? context.colors.onSurface,
-                size: iconSize ?? 20.r,
-              )
-              .buildIconWidget(),
-          SizedBox(width: iconSpacing ?? 4.0.r),
-        ],
-        Flexible(child: textWidget),
+        Icon(
+          icon,
+          color: iconColor ?? color ?? context.colors.onSurface,
+          size: iconSize ?? 20.r,
+        ),
+        SizedBox(width: 4.0.r),
+        Flexible(
+          child: textWidget,
+        ),
       ],
     );
   }
@@ -212,51 +209,51 @@ class CustomTextStyles {
   const CustomTextStyles._();
 
   static TextStyle headline(BuildContext context) => TextStyle(
-    fontSize: 32.sp,
-    fontWeight: FontWeight.bold,
-    fontFamily: fontFamily(context: context),
-    color: context.colors.onSurface,
-  );
+        fontSize: 32.sp,
+        fontWeight: FontWeight.bold,
+        fontFamily: fontFamily(context: context),
+        color: context.colors.onSurface,
+      );
 
   static TextStyle title(BuildContext context) => TextStyle(
-    fontSize: 24.sp,
-    fontWeight: FontWeight.w600,
-    fontFamily: fontFamily(context: context),
-    color: context.colors.onSurface,
-  );
+        fontSize: 24.sp,
+        fontWeight: FontWeight.w600,
+        fontFamily: fontFamily(context: context),
+        color: context.colors.onSurface,
+      );
 
   static TextStyle subtitle(BuildContext context) => TextStyle(
-    fontSize: 18.sp,
-    fontWeight: FontWeight.w500,
-    fontFamily: fontFamily(context: context),
-    color: context.colors.onSurface,
-  );
+        fontSize: 18.sp,
+        fontWeight: FontWeight.w500,
+        fontFamily: fontFamily(context: context),
+        color: context.colors.onSurface,
+      );
 
   static TextStyle body(BuildContext context) => TextStyle(
-    fontSize: 16.sp,
-    fontWeight: FontWeight.normal,
-    fontFamily: fontFamily(context: context),
-    color: context.colors.onSurface,
-  );
+        fontSize: 16.sp,
+        fontWeight: FontWeight.normal,
+        fontFamily: fontFamily(context: context),
+        color: context.colors.onSurface,
+      );
 
   static TextStyle label(BuildContext context) => TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeight.w400,
-    fontFamily: fontFamily(context: context),
-    color: context.colors.onSurface,
-  );
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w400,
+        fontFamily: fontFamily(context: context),
+        color: context.colors.onSurface,
+      );
 
   static TextStyle caption(BuildContext context) => TextStyle(
-    fontSize: 12.sp,
-    fontWeight: FontWeight.normal,
-    fontFamily: fontFamily(context: context),
-    color: context.colors.onSurface,
-  );
+        fontSize: 12.sp,
+        fontWeight: FontWeight.normal,
+        fontFamily: fontFamily(context: context),
+        color: context.colors.onSurface,
+      );
 
   static TextStyle description(BuildContext context) => TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeight.w400,
-    fontFamily: fontFamily(context: context),
-    color: context.colors.subtitleTextColor,
-  );
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w400,
+        fontFamily: fontFamily(context: context),
+        color: context.colors.subtitleTextColor,
+      );
 }

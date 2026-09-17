@@ -56,7 +56,7 @@ class _BuildSettingsPageState<T> extends State<BuildSettingsPage<T>> {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: EdgeInsets.symmetric(vertical: 8.r, horizontal: 2.r),
+      padding: context.paddingSymmetric(vertical: 8, horizontal: 2),
       sliver: SliverList(
         delegate: SliverChildListDelegate(
           widget.items
@@ -76,12 +76,9 @@ class _BuildSettingsPageState<T> extends State<BuildSettingsPage<T>> {
                             : BorderSide.none,
                       ),
                       isChild: true,
-                      elevation: context.isDark ? 12 : 0,
+                      elevation: AppUtils.isDarkMode() ? 12 : 0,
                       child: ListTile(
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 6.w,
-                          vertical: 4.h,
-                        ),
+                        contentPadding: context.paddingSymmetric(horizontal: 6, vertical: 4),
                         trailing: widget.isItemSelected(item)
                             ? Icon(
                                 Icons.check,
@@ -93,28 +90,23 @@ class _BuildSettingsPageState<T> extends State<BuildSettingsPage<T>> {
                             ? Container(
                                 width: 36.w,
                                 height: 36.h,
-                                padding: EdgeInsets.symmetric(horizontal: 6.w),
+                                padding: context.paddingSymmetric(horizontal: 6),
                                 alignment: Alignment.center,
                                 child: ImageViewer.svgAsset(
                                   widget.itemIcon!(item),
                                 ),
                               )
                             : widget.itemIconWidget != null
-                            ? Container(
-                                width: 36.w,
-                                height: 36.h,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 6.w,
-                                ),
-                                alignment: Alignment.center,
-                                child: widget.itemIconWidget!(item),
-                              )
-                            : null,
+                                ? Container(
+                                    width: 36.w,
+                                    height: 36.h,
+                                    padding: context.paddingSymmetric(horizontal: 6),
+                                    alignment: Alignment.center,
+                                    child: widget.itemIconWidget!(item),
+                                  )
+                                : null,
                         title: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.r,
-                            vertical: 4.r,
-                          ),
+                          padding: context.paddingSymmetric(horizontal: 8, vertical: 4),
                           child: CustomText(
                             widget.itemName(item),
                             color: context.colors.primary,

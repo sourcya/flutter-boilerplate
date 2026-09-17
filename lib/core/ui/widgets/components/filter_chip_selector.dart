@@ -37,7 +37,7 @@ class _FilterChipSelectorState<T> extends State<FilterChipSelector<T>> {
     }
     return Container(
       width: double.infinity,
-      padding: Style.mediumPadding,
+      padding: Style.mediumPadding(context),
       child: Wrap(
         spacing: 4.r,
         runSpacing: 4.r,
@@ -71,14 +71,14 @@ class _FilterChipSelectorState<T> extends State<FilterChipSelector<T>> {
       onTap: onTap,
       borderRadius: Style.featureChipBorderRadius,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 4.0.r, horizontal: 4.r),
+        padding: context.paddingSymmetric(vertical: 4.0, horizontal: 4),
         child: Chip(
           label: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               if (icon != null) ...[
                 Padding(
-                  padding: EdgeInsets.all(6.0.r),
+                  padding: context.paddingAll(6.0),
                   child: Icon(
                     icon,
                     size: 20.r,
@@ -86,12 +86,12 @@ class _FilterChipSelectorState<T> extends State<FilterChipSelector<T>> {
                 ),
               ] else if (iconWidget != null) ...[
                 Padding(
-                  padding: EdgeInsets.all(6.0.r),
+                  padding: context.paddingAll(6.0),
                   child: iconWidget,
                 ),
               ],
               Padding(
-                padding: EdgeInsets.all(6.0.r),
+                padding: context.paddingAll(6.0),
                 child: CustomText(
                   label,
                   fontSize: 14.sp,
@@ -103,7 +103,7 @@ class _FilterChipSelectorState<T> extends State<FilterChipSelector<T>> {
               ),
               if (isSelected)
                 Padding(
-                  padding: EdgeInsets.all(6.0.r),
+                  padding: context.paddingAll(6.0),
                   child: Icon(
                     Icons.check,
                     size: 20.r,
@@ -112,10 +112,7 @@ class _FilterChipSelectorState<T> extends State<FilterChipSelector<T>> {
                 ),
             ],
           ),
-          padding: EdgeInsets.symmetric(
-            horizontal: 8.r,
-            vertical: 8.r,
-          ),
+          padding: context.paddingSymmetric(horizontal: 8, vertical: 8),
           shape: isSelected
               ? RoundedRectangleBorder(
                   borderRadius: Style.featureChipBorderRadius,

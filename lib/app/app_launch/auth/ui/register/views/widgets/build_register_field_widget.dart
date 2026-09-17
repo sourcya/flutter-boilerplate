@@ -12,16 +12,13 @@ class BuildRegisterFieldWidget extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 8.r,
-        vertical: 4.r,
-      ),
+      padding: context.paddingSymmetric(horizontal: 8, vertical: 4),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4.0.r),
+            padding: context.paddingSymmetric(horizontal: 4.0),
             child: CustomText(
               label,
               fontWeight: FontWeight.w700,

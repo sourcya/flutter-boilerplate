@@ -5,23 +5,31 @@ class InfoItem extends StatelessWidget {
   final IconData icon;
   final String label;
   final String value;
+  final CrossAxisAlignment alignment;
 
   const InfoItem({
     super.key,
     required this.icon,
     required this.label,
     required this.value,
+    this.alignment = CrossAxisAlignment.start,
   });
+  const InfoItem.center({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.value,
+  }) : alignment = CrossAxisAlignment.center;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: alignment,
       children: [
         Row(
           children: [
             Icon(icon, size: 14.0.r, color: context.colors.onSurface),
-            SizedBox(width: 4.0.r),
+            4.0.wBox,
             Flexible(
               child: CustomText(
                 label,
@@ -29,12 +37,12 @@ class InfoItem extends StatelessWidget {
                   color: context.colors.onSurface,
                 ),
                 maxLines: 1,
-                textOverflow: TextOverflow.ellipsis,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
         ),
-        SizedBox(height: 8.0.r),
+        8.0.hBox,
         CustomText(
           value,
           textStyle: context.titleMediumTS.copyWith(
@@ -44,7 +52,7 @@ class InfoItem extends StatelessWidget {
             fontSize: 13.sp,
           ),
           maxLines: 2,
-          textOverflow: TextOverflow.ellipsis,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );

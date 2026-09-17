@@ -18,7 +18,7 @@ class ContentLandscapeViewPage<T> extends StatelessWidget {
   final String title;
 
   /// Search controller (optional when using controller constructor).
-  final TextEditingController? searchController;
+  final TextEditingController searchController;
 
   /// Refresh callback triggered by [RefreshIndicator].
   final Future<void> Function()? onRefresh;
@@ -63,13 +63,15 @@ class ContentLandscapeViewPage<T> extends StatelessWidget {
   final Widget? topWidget;
 
   final bool addPopScope;
+  final bool isInitialized;
+
   ContentLandscapeViewPage({
     super.key,
     required this.title,
     required this.tableBuilder,
     required this.listBuilder,
     this.contentBuilder,
-    this.searchController,
+    required this.searchController,
     this.onRefresh,
     this.onSearchChanged,
     this.filterButton,
@@ -81,11 +83,8 @@ class ContentLandscapeViewPage<T> extends StatelessWidget {
     this.topWidget,
     RxBool? isTableView,
     this.addPopScope = false,
+    this.isInitialized = true,
   }) : isTableView = isTableView ?? false.obs;
-
-  // ---------------------------------------------------------------------------
-  // Controller-Based Constructor
-  // ---------------------------------------------------------------------------
 
   ContentLandscapeViewPage.withController({
     super.key,
@@ -104,6 +103,7 @@ class ContentLandscapeViewPage<T> extends StatelessWidget {
     this.responsiveCrossAxisCounts,
     this.topWidget,
     RxBool? isTableView,
+    this.isInitialized = true,
     this.addPopScope = false,
   }) : searchController = controller.searchController,
        onRefresh = onRefresh ?? controller.refreshData,
@@ -111,16 +111,13 @@ class ContentLandscapeViewPage<T> extends StatelessWidget {
        emptyMessage = emptyMessage ?? AppTrans.emptyResponse,
        isTableView = isTableView ?? controller.isTableView;
 
-  // ---------------------------------------------------------------------------
-  // Build
-  // ---------------------------------------------------------------------------
-
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      isInitialized: isInitialized,
       title: title,
       addPopScope: addPopScope,
-      child: RefreshIndicator(
+      childBuilder: (_) => RefreshIndicator.adaptive(
         onRefresh: onRefresh ?? () async {},
         child: CustomScrollView(
           slivers: [
@@ -128,8 +125,20 @@ class ContentLandscapeViewPage<T> extends StatelessWidget {
               SliverToBoxAdapter(
                 child: topWidget,
               ),
-            SliverToBoxAdapter(child: SizedBox(height: 12.r)),
-            _buildHeader(context),
+            SliverToBoxAdapter(child: 12.hBox),
+            SliverToBoxAdapter(
+              child: _ContentLandscapeHeader(
+                title: title,
+                showSearch: showSearch,
+                searchController: searchController,
+                onSearchChanged: onSearchChanged,
+                filterButton: filterButton,
+                endActionButton: endActionButton,
+                showTableToggle: showTableToggle,
+                contentBuilder: contentBuilder,
+                isTableView: isTableView,
+              ),
+            ),
             Obx(
               () => SliverAnimatedSwitcher(
                 duration: 300.ms,
@@ -138,8 +147,11 @@ class ContentLandscapeViewPage<T> extends StatelessWidget {
                         child: contentBuilder!(context),
                       )
                     : isTableView.value
-                    ? _buildTable(context)
-                    : _buildList(context),
+                    ? _ContentLandscapeTableSliver(
+                        heightFraction: 0.8,
+                        table: tableBuilder(context),
+                      )
+                    : listBuilder(context),
               ),
             ),
             SliverToBoxAdapter(
@@ -152,78 +164,83 @@ class ContentLandscapeViewPage<T> extends StatelessWidget {
       ),
     );
   }
+}
 
-  // ---------------------------------------------------------------------------
-  // Header
-  // ---------------------------------------------------------------------------
+class _ContentLandscapeHeader extends StatelessWidget {
+  final String title;
+  final bool showSearch;
+  final TextEditingController searchController;
+  final Function(String)? onSearchChanged;
+  final Widget? filterButton;
+  final Widget? endActionButton;
+  final bool showTableToggle;
+  final Widget Function(BuildContext context)? contentBuilder;
+  final RxBool isTableView;
 
-  Widget _buildHeader(BuildContext context) {
+  const _ContentLandscapeHeader({
+    required this.title,
+    required this.showSearch,
+    required this.searchController,
+    this.onSearchChanged,
+    this.filterButton,
+    this.endActionButton,
+    required this.showTableToggle,
+    this.contentBuilder,
+    required this.isTableView,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final showToggle = showTableToggle && contentBuilder == null;
 
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.r),
-        child: Row(
-          children: [
-            8.boxR,
-            CustomText(
-              title,
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w500,
+    return Padding(
+      padding: context.paddingSymmetric(horizontal: 8),
+      child: Row(
+        children: [
+          8.wBox,
+          CustomText(
+            title,
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+          ),
+          const Spacer(),
+          if (showSearch)
+            CustomSearch(
+              onChanged: onSearchChanged,
+              controller: searchController,
+              maxWidth: 300.r,
             ),
-            // Toggle here and maybe we can add new custom widget here
-            const Spacer(),
-            if (showSearch) _buildSearchBar(context),
-            if (filterButton != null) filterButton!,
-            if (showToggle)
-              Obx(
-                () => ViewToggle(
-                  isTableView: isTableView.value,
-                  onToggle: (value) => isTableView.value = value,
-                ),
+          if (filterButton != null) filterButton!,
+          if (showToggle)
+            Obx(
+              () => ViewToggle(
+                isTableView: isTableView.value,
+                onToggle: (value) => isTableView.value = value,
               ),
-            if (endActionButton != null) endActionButton!,
-          ],
-        ),
+            ),
+          if (endActionButton != null) endActionButton!,
+        ],
       ),
     );
   }
+}
 
-  Widget _buildSearchBar(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(maxWidth: 300.r),
-      child: CustomTextField(
-        controller: searchController,
-        onChanged: onSearchChanged,
-        prefix: IconInfo.svg(
-          Assets.icons.search,
-          color: context.colors.subtitleTextColor,
-          size: 18.r,
-        ).buildIconWidget(),
-        fillColor: context.colors.cardColor,
-        hint: AppTrans.search.tr(context: context),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 8.r,
-          vertical: 8.r,
-        ),
-      ),
-    );
-  }
+class _ContentLandscapeTableSliver extends StatelessWidget {
+  final double heightFraction;
+  final Widget table;
 
-  // ---------------------------------------------------------------------------
-  // Table & List Builders
-  // ---------------------------------------------------------------------------
+  const _ContentLandscapeTableSliver({
+    required this.heightFraction,
+    required this.table,
+  });
 
-  Widget _buildTable(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: context.height * 0.8,
-        child: tableBuilder(context),
+        height: context.height * heightFraction,
+        child: table,
       ),
     );
-  }
-
-  Widget _buildList(BuildContext context) {
-    return listBuilder(context);
   }
 }

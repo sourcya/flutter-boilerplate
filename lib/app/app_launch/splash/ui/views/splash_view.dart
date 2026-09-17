@@ -1,22 +1,23 @@
 part of '../imports/splash_imports.dart';
 
-//splash screen.
-class SplashView extends GetView<SplashController> {
-  const SplashView({super.key});
+class SplashView extends CustomOrientationWidget {
+  const SplashView({super.isInitialized = true, super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const PlatformScaffold(
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(child: _BuildSplashLogoWidget()),
-            BuildSplashAppTitleWidget(),
-            BuildSplashAppVersionWidget(),
-          ],
-        ),
+  Widget? buildWidget(BuildContext context, Widget child) {
+    return PlatformScaffold(
+      body: Container(
+        width: context.width,
+        height: context.height,
+        decoration: const BoxDecoration(color: AppColors.primaryKey),
+        child: child,
       ),
     );
   }
+
+  @override
+  Widget buildPortrait(BuildContext context) => const SplashPortraitBody();
+
+  @override
+  Widget buildLandscape(BuildContext context) => const SplashLandscapeBody();
 }

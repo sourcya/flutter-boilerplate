@@ -1,7 +1,4 @@
-import 'package:data_table_2/data_table_2.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/core/ui/ui.dart';
-import 'package:playx/playx.dart';
+part of '../../../ui/ui.dart';
 
 class CustomTableView<T> extends StatelessWidget {
   final List<T> items;
@@ -12,6 +9,8 @@ class CustomTableView<T> extends StatelessWidget {
   final bool wrapInCard;
   final double? checkboxHorizontalMargin;
   final double? minWidth;
+  final double horizontalMargin;
+  final EdgeInsets? margin;
 
   const CustomTableView({
     super.key,
@@ -23,6 +22,8 @@ class CustomTableView<T> extends StatelessWidget {
     this.wrapInCard = true,
     this.checkboxHorizontalMargin,
     this.minWidth,
+    this.horizontalMargin = 16,
+    this.margin,
   });
 
   @override
@@ -30,20 +31,18 @@ class CustomTableView<T> extends StatelessWidget {
     final finalColumns = [
       if (isShowIndexColumn)
         DataColumn2(
-          label: const ColumnHeader(label: "#"),
+          label: const ColumnHeader.start(label: "#"),
           size: ColumnSize.S,
-          fixedWidth: 20.h,
+          fixedWidth: 20.r,
         ),
       ...columns,
     ];
 
     if (items.isEmpty) {
       return emptyBuilder ??
-          Center(
-            child: CustomText(
-              AppTrans.emptyResponse,
-              color: context.colors.error,
-            ),
+          const EmptyDataWidget(
+            error: AppTrans.emptyResponse,
+            // animationHeight: context.height * .15,
           );
     }
 
@@ -58,36 +57,49 @@ class CustomTableView<T> extends StatelessWidget {
     final table = DataTable2(
       columns: finalColumns,
       rows: rows,
-      columnSpacing: 10,
-      horizontalMargin: 12.5.r,
+      columnSpacing: 16,
+      horizontalMargin: horizontalMargin.r,
       minWidth: minWidth,
       checkboxHorizontalMargin: checkboxHorizontalMargin,
       isHorizontalScrollBarVisible: false,
-      dataRowHeight: 65.h,
-      headingRowHeight: 55.h,
+      dataRowHeight: 72.r,
+      headingRowHeight: 48.r,
+      dataRowColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return context.colors.primary.withValues(alpha: 0.08);
+        }
+        if (states.contains(WidgetState.hovered)) {
+          return context.colors.primary.withValues(alpha: 0.04);
+        }
+        return AppColors.transparent;
+      }),
       border: TableBorder(
         bottom: BorderSide(
           color: context.colors.borderColor.withValues(alpha: .7),
+          width: 1.r,
         ),
         horizontalInside: BorderSide(
-          color: context.colors.borderColor.withValues(alpha: .7),
+          color: context.colors.borderColor,
+          width: 1.r,
         ),
       ),
     );
 
-    if (!wrapInCard) return table;
+    final selectableTable = WebBodySelectionArea(
+      child: WebTableSelectionScope(child: table),
+    );
+
+    if (!wrapInCard) return selectableTable;
 
     return Card(
       elevation: 0.0,
-      color: context.colors.cardColor,
-      margin: EdgeInsets.symmetric(vertical: 4.h, horizontal: 12.h),
+      color: context.colors.screenCardSurface,
+      margin: margin ?? context.paddingSymmetric(vertical: 4, horizontal: 12),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(24.h),
-        side: BorderSide(
-          color: context.colors.borderColor.withValues(alpha: .7),
-        ),
+        borderRadius: BorderRadius.circular(24.r),
+        side: BorderSide(color: context.colors.borderColor),
       ),
-      child: table,
+      child: selectableTable,
     );
   }
 
@@ -96,12 +108,16 @@ class CustomTableView<T> extends StatelessWidget {
     required DataRow2 original,
   }) {
     if (!isShowIndexColumn) return original;
-    return DataRow(
+    return DataRow2(
       key: original.key,
       selected: original.selected,
       onSelectChanged: original.onSelectChanged,
+      onTap: original.onTap,
+      onDoubleTap: original.onDoubleTap,
+      onLongPress: original.onLongPress,
+      color: original.color,
       cells: [
-        DataCell(CellText('${i + 1}')),
+        DataCell(CellText.start('${i + 1}')),
         ...original.cells,
       ],
     );

@@ -29,25 +29,6 @@ class ApiUser {
     return ApiUser.fromJson(json);
   }
 
-  factory ApiUser.fromJsonAndCredentials({
-    dynamic json,
-    required Credentials credentials,
-  }) {
-    final apiUser = ApiUser.fromJson(json);
-    final firstName = credentials.user.givenName ?? credentials.user.name;
-    final lastName = credentials.user.familyName;
-    final imageUrl = credentials.user.pictureUrl.toString();
-    final user = ApiUser(
-      jwt: apiUser.jwt,
-      userInfo: apiUser.userInfo.copyWith(
-        firstName: firstName,
-        lastName: lastName,
-        image: MediaItem(url: imageUrl),
-      ),
-    );
-    return user;
-  }
-
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['jwt'] = jwt;

@@ -4,7 +4,7 @@ class AppLocaleConfig {
   const AppLocaleConfig._();
 
   static const String arabicFontFamily = 'Cairo';
-  static const String englishFontFamily = 'Poppins';
+  static const String englishFontFamily = 'Segoe';
 
   static const arabicLocale = XLocale(
     id: 'ar',
@@ -28,18 +28,13 @@ class AppLocaleConfig {
   );
 }
 
-String get currentLanguageCode =>
-    PlayxLocalization.currentLocale.toStringWithSeparator();
+String get currentLanguageCode => PlayxLocalization.currentLocale.toStringWithSeparator();
 
 String fontFamily({BuildContext? context}) {
   try {
     final locale = context?.locale ?? PlayxLocalization.currentLocale;
-    return locale.isArabic
-        ? AppLocaleConfig.arabicFontFamily
-        : AppLocaleConfig.englishFontFamily;
-  }
-  // ignore: avoid_catches_without_on_clauses
-  catch (e) {
+    return locale.isArabic ? AppLocaleConfig.arabicFontFamily : AppLocaleConfig.englishFontFamily;
+  } on Object {
     return AppLocaleConfig.englishFontFamily;
   }
 }

@@ -8,10 +8,6 @@ class CustomPageScaffold extends StatelessWidget {
   final PlatformAppBar? appBar;
   final bool canShowDrawer;
   final bool disabledGestures;
-
-  /// Decides whether to show bottom navigation bar or not
-  final bool showBottomNav;
-
   final GoRouterState state;
 
   const CustomPageScaffold({
@@ -21,7 +17,6 @@ class CustomPageScaffold extends StatelessWidget {
     this.appBar,
     this.canShowDrawer = false,
     this.disabledGestures = true,
-    this.showBottomNav = false,
     required this.state,
   }) : navigationShell = null;
 
@@ -32,7 +27,6 @@ class CustomPageScaffold extends StatelessWidget {
     this.appBar,
     this.canShowDrawer = false,
     this.disabledGestures = true,
-    this.showBottomNav = false,
     required this.state,
   }) : child = null;
 
@@ -54,13 +48,12 @@ class CustomPageScaffold extends StatelessWidget {
       ),
     );
 
-    return navigationShell != null && canShowDrawer
+    return navigationShell != null
         ? Obx(() {
             return CustomDrawer(
               navigationShell: navigationShell!,
               disabledGestures:
-                  AppController.instance.disableDrawerGestures.value ||
-                  disabledGestures,
+                  AppController.instance.disableDrawerGestures.value || disabledGestures,
               child: scaffoldChild,
             );
           })
@@ -72,7 +65,6 @@ class CustomPageScaffold extends StatelessWidget {
     required StatefulNavigationShell navigationShell,
     bool canShowDrawer = true,
     bool disabledGestures = true,
-    bool showBottomNav = true,
   }) {
     return CupertinoPage(
       child: Builder(
@@ -80,7 +72,6 @@ class CustomPageScaffold extends StatelessWidget {
           return CustomPageScaffold.navigationShell(
             navigationShell: navigationShell,
             canShowDrawer: canShowDrawer,
-            showBottomNav: showBottomNav,
             disabledGestures: disabledGestures,
             state: state,
           );
@@ -94,15 +85,13 @@ class CustomPageScaffold extends StatelessWidget {
   static Page<dynamic> buildPage({
     required GoRouterState state,
     required Widget child,
-    bool showBottomNav = true,
-    bool canShowDrawer = true,
+    bool canShowDrawer = false,
   }) {
     return CupertinoPage(
       child: Builder(
         builder: (context) {
           return CustomPageScaffold(
             canShowDrawer: canShowDrawer,
-            showBottomNav: showBottomNav,
             state: state,
             child: child,
           );

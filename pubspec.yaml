@@ -3,140 +3,111 @@ version: 0.0.1+1
 publish_to: none
 description: A new Sourcya Flutter project.
 environment:
-  sdk: '>=3.9.2 <4.0.0'
+  sdk: '>=3.10.0 <4.0.0'
 
 dependencies:
-  auth0_flutter: ^1.14.0
+  data_table_2: ^2.7.2
   dots_indicator: ^4.0.1
-  dropdown_button2: ^2.3.9
+  dropdown_button2: ^3.1.0
   flutter:
     sdk: flutter
-  flutter_staggered_grid_view: ^0.7.0
-  objectbox: ^5.1.0
-  objectbox_flutter_libs: any
-  path: ^1.9.1
-  path_provider: ^2.1.5
-  pinput: ^6.0.1
-  playx: ^1.6.0
-  playx_version_update: ^1.0.1
-  simple_secure_storage: ^0.3.7
-  skeletonizer: ^2.1.2
-  share_plus: ^12.0.1
-  url_launcher: ^6.3.2
-  encrypter_plus: ^5.1.0
-  carousel_slider: ^5.1.1
-  data_table_2: ^2.7.2
-  grouped_list: ^6.0.0
-  haptic_feedback: ^0.6.4+3
-  sliver_tools: ^0.2.12
   flutter_advanced_drawer: ^1.5.0
-  device_preview: ^1.3.1
-
-
-
-
-
+  flutter_native_splash: ^2.4.7
+  flutter_speed_dial: ^7.0.0
+  flutter_staggered_grid_view: ^0.7.0
+  grouped_list: ^6.0.0
   infinite_scroll_pagination:
     git:
       url: https://github.com/basemosama/infinite_scroll_pagination.git
       ref: fix-paging-controller-refresh
-
-
-
-
+  path: ^1.9.1
+  path_provider: ^2.1.5
+  pinput: ^5.0.1
+  playx: ^2.1.2
+  playx_version_update: ^1.3.0
+  pointer_interceptor: ^0.10.1+3
+  pretty_qr_code: ^3.6.0
+  sliver_tools: ^0.2.12
+  url_launcher: ^6.3.2
+  web: ^1.1.1
 
 dependency_overrides:
-  playx_core: ^1.0.0-beta.6
-#  geolocator_linux:
-#    git:
-#      url: https://github.com/easyhour/flutter-geolocator.git
-#      path: geolocator_linux
+  # playx_network 1.0.0 does not yet handle Dio 5.10+'s transformTimeout case.
+  dio: 5.9.2
 
 dev_dependencies:
-  build_runner: ^2.10.5
+  build_runner: ^2.15.1
   flutter_launcher_icons: ^0.14.4
   flutter_project_name_changer: ^1.0.5
   flutter_test:
     sdk: flutter
   lint: ^2.8.0
-  objectbox_generator: ^5.1.0
   package_rename: ^1.10.1
+  rps:
 
-# Scripts
-# You can run these scripts using rps (Runtime Project Scripts).
-# 1. To run a script: dart run rps <command_name> (e.g., dart run rps gen)
-# 2. To list all scripts: dart run rps ls
+# Project scripts, powered by the `rps` dev dependency (no global install needed).
+# Run any script below with: dart run rps <script-name>
+# Example: dart run rps setup
 scripts:
+  # Renames the package/app, regenerates launcher icons, and creates a debug keystore.
+  # Run once when starting a new project from this boilerplate.
   setup:
     $before: echo Setting up project...
     $script: >-
       flutter pub get &&
       dart run package_rename --path="package_rename_config.yaml" &&
       flutter pub run flutter_project_name_changer:main sourcya &&
-      flutter pub run flutter_launcher_icons
-      && dart run scripts/generate_keystore.dart
+      dart run flutter_launcher_icons &&
+      dart run flutter_native_splash:create &&
+      dart run scripts/generate_keystore.dart
     $after: echo Project setup complete.
-  icons:
-    $before: echo Generating launcher icons...
-    $script: flutter pub run flutter_launcher_icons
-    $after: echo Launcher icons generated.
-  rename:
-    $before: echo Renaming package...
-    $script: dart run package_rename --path="package_rename_config.yaml"
-    $after: echo Package renamed.
-  gen:
-    $before: echo Running build_runner...
-    $script: dart run build_runner build --delete-conflicting-outputs
-    $after: echo Code generation complete.
-  watch:
-    $before: echo Watching for changes...
-    $script: dart run build_runner watch --delete-conflicting-outputs
+  # Runs `flutter analyze` over the project.
+  analyze:
+    $script: flutter analyze
+  # Builds the release web bundle (see README > Web build and deployment).
+  build-web:
+    $script: flutter build web --release
+  # Runs `flutter clean`.
   clean:
-    $before: echo Cleaning project...
     $script: flutter clean
-    $after: echo Project cleaned.
+  # Formats all Dart files with `dart format`.
   format:
-    $before: echo Formatting code...
     $script: dart format .
-    $after: echo Code formatted.
-
+  # Runs build_runner once to (re)generate code (e.g. asset/model generators).
+  gen:
+    $script: dart run build_runner build --delete-conflicting-outputs
+  # Regenerates launcher icons from `flutter_launcher_icons.yaml` after changing the logo.
+  icons:
+    $script: dart run flutter_launcher_icons
+  # Applies `package_rename_config.yaml` (app name, bundle/package id) to android/ios/web.
+  rename:
+    $script: dart run package_rename --path="package_rename_config.yaml"
+  # Regenerates native splash screens from the `flutter_native_splash` config below
+  # after changing the logo or splash colors.
+  splash:
+    $script: dart run flutter_native_splash:create
+  # Runs `flutter test` if a test/ directory exists, otherwise skips.
+  test:
+    $script: >-
+      if [ -d test ]; then flutter test; else echo "No test directory; skipping."; fi
+  # Watches for file changes and re-runs build_runner incrementally.
+  watch:
+    $script: dart run build_runner watch --delete-conflicting-outputs
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/
-    - assets/animation/
-    - assets/images/
-    - assets/translations/
-    - assets/fonts/
-    - assets/env/
-    - assets/fonts/cairo/
-    - assets/fonts/poppins/
-    - assets/images/
-    - assets/images/logo/
-    - assets/images/icons/
-
   fonts:
-    - family: Poppins
+    - family: Segoe
       fonts:
-        - asset: assets/fonts/poppins/Poppins-Black.ttf
-          weight: 900
-        - asset: assets/fonts/poppins/Poppins-ExtraBold.ttf
-          weight: 800
-        - asset: assets/fonts/poppins/Poppins-Bold.ttf
+        - asset: assets/fonts/segoe/Segoe-Bold.ttf
           weight: 700
-        - asset: assets/fonts/poppins/Poppins-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/poppins/Poppins-Medium.ttf
+        - asset: assets/fonts/segoe/Segoe-Medium.ttf
           weight: 500
-        - asset: assets/fonts/poppins/Poppins-Regular.ttf
+        - asset: assets/fonts/segoe/Segoe-Regular.ttf
           weight: 400
-        - asset: assets/fonts/poppins/Poppins-Light.ttf
+        - asset: assets/fonts/segoe/Segoe-Light.ttf
           weight: 300
-        - asset: assets/fonts/poppins/Poppins-ExtraLight.ttf
-          weight: 200
-        - asset: assets/fonts/poppins/Poppins-Thin.ttf
-          weight: 100
+
     - family: Cairo
       fonts:
         - asset: assets/fonts/cairo/Cairo-Black.ttf
@@ -155,3 +126,33 @@ flutter:
           weight: 300
         - asset: assets/fonts/cairo/Cairo-ExtraLight.ttf
           weight: 200
+
+  assets:
+    - assets/
+    - assets/animation/
+    - assets/images/
+    - assets/images/icons/
+    - assets/images/logo/
+    - assets/translations/
+    - assets/fonts/
+    - assets/env/
+    - assets/fonts/cairo/
+    - assets/fonts/segoe/
+
+# Regenerate with: dart run rps splash (after changing the logo or colors below).
+# Web is intentionally excluded: web/index.html already ships its own bespoke,
+# translated (en/ar) loading screen, so a native splash there would just be a
+# redundant, never-dismissed overlay underneath it.
+flutter_native_splash:
+  color: "#14213D"
+  color_dark: "#14213D"
+  image: assets/images/logo.png
+  android_12:
+    color: "#14213D"
+    color_dark: "#14213D"
+    image: assets/images/logo.png
+    icon_background_color: "#14213D"
+    icon_background_color_dark: "#14213D"
+  web: false
+  ios: true
+  android: true

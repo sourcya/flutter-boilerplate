@@ -6,15 +6,12 @@ class BuildLoginButton extends GetView<OtpLoginController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(
-        vertical: 8.h,
-      ),
+      margin: context.paddingSymmetric(vertical: 8),
       child: Obx(() {
         return CustomElevatedButton(
           label: AppTrans.loginText.tr(context: context),
-          onPressed: controller.isPhoneNumberValid.value
-              ? controller.login
-              : null,
+          onPressed:
+              controller.isPhoneNumberValid.value ? controller.login : null,
           isLoading: controller.isLoading.value,
         );
       }),

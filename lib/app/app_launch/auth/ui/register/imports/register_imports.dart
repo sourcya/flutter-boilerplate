@@ -8,7 +8,6 @@ import 'package:flutter_boilerplate/app/app_launch/auth/data/repo/auth_repositor
 import 'package:flutter_boilerplate/core/navigation/navigation.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:flutter_boilerplate/core/utils/app_utils.dart';
-import 'package:flutter_boilerplate/core/utils/are_equals_validation.dart';
 import 'package:playx/playx.dart';
 
 part '../bindings/register_binding.dart';

@@ -12,51 +12,41 @@ class LoadingOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isVisible = loadingStatus is! LoadingStatusIdle;
     final text = loadingText ?? loadingStatus.displayName;
-    return AnimatedVisibility(
-      isVisible: loadingStatus is! LoadingStatusIdle,
-      child: Container(
-        color: Colors.black.withValues(alpha: .5),
-        height: double.infinity,
-        child: Center(
-          child: Container(
-            width: context.width > 600
-                ? context.width * .5
-                : context.width > 900
-                ? context.width * .35
-                : context.width > 1200
-                ? context.width * .25
-                : double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 32.r),
+    return IgnorePointer(
+      ignoring: !isVisible,
+      child: AnimatedVisibility(
+        isVisible: isVisible,
+        child: Container(
+          color: context.colors.black.withValues(alpha: .5),
+          height: double.infinity,
+          child: Center(
             child: Card(
-              color: Colors.black.withValues(alpha: .55),
+              color: context.colors.surfaceContainer.withValues(alpha: .7),
+              margin: context.paddingSymmetric(horizontal: 40),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0.r,
-                      vertical: 16.r,
-                    ),
-                    child: const CenterLoading.adaptive(
-                      color: Colors.white,
+                    padding:
+                        context.paddingSymmetric(horizontal: 8.0, vertical: 16),
+                    child: CenterLoading.adaptive(
+                      color: context.colors.primary,
                     ),
                   ),
                   if (text.isNotEmpty) ...[
                     Container(
                       width: double.infinity,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 8.0.r,
-                        vertical: 8.r,
-                      ),
+                      padding: context.paddingSymmetric(horizontal: 8.0, vertical: 8),
                       child: AnimatedDottedText(
                         text: text,
                         style: TextStyle(
                           fontSize: 16.sp,
-                          color: Colors.white,
+                          color: context.colors.onSurface,
                           fontFamily: fontFamily(context: context),
                         ),
-                        color: Colors.white,
+                        color: context.colors.onSurface,
                       ),
                     ),
                     SizedBox(height: 16.r),
@@ -87,7 +77,7 @@ class AnimatedDottedText extends StatefulWidget {
     this.duration = const Duration(milliseconds: 1000),
     this.style,
     this.dotsCount = 3,
-    this.color = Colors.black,
+    this.color = AppColors.baseblack,
     this.isTranslatable = true,
   });
 
@@ -97,10 +87,8 @@ class AnimatedDottedText extends StatefulWidget {
 
 class _AnimatedDottedTextState extends State<AnimatedDottedText>
     with SingleTickerProviderStateMixin {
-  late final controller = AnimationController(
-    vsync: this,
-    duration: widget.duration,
-  );
+  late final controller =
+      AnimationController(vsync: this, duration: widget.duration);
   late final animation = CurvedAnimation(
     parent: controller,
     curve: Curves.easeInOut,

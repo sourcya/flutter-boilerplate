@@ -11,12 +11,28 @@ scripts:
   - &copy_env_file
     name: Copy Environment File
     script: |
-      mkdir -p $CM_BUILD_DIR/assets/env
-      echo "$ENVIROMENT_KEY" >> $CM_BUILD_DIR/assets/env/keys.env
+      mkdir -p "$CM_BUILD_DIR/assets/env"
+      ENV_FILE_CONTENT="${ENVIRONMENT_KEY:-${ENVIROMENT_KEY:-}}"
+      if [ -z "$ENV_FILE_CONTENT" ]; then
+        echo "Warning: ENVIRONMENT_KEY is not set; using an empty environment file."
+      fi
+      printf '%s' "$ENV_FILE_CONTENT" > "$CM_BUILD_DIR/assets/env/keys.env"
   - &get_flutter_packages
     name: Get Flutter packages
     script: |
-      flutter packages pub get
+      flutter pub get
+  - &analyze
+    name: Analyze Flutter project
+    script: |
+      flutter analyze
+  - &test
+    name: Run Flutter tests
+    script: |
+      if [ -d test ]; then
+        flutter test
+      else
+        echo "No test directory; skipping."
+      fi
   - &install_pods
     name: Install pods
     script: |
@@ -41,6 +57,23 @@ scripts:
 
 
 workflows:
+  web-workflow:
+    name: Web Workflow
+    instance_type: linux_x2
+    max_build_duration: 60
+    environment:
+      groups:
+        - environment_vars
+      flutter: stable
+    scripts:
+      - *copy_env_file
+      - *get_flutter_packages
+      - *analyze
+      - *test
+      - *build_web
+    artifacts:
+      - build/web/**
+
   build-workflow:
     name: Build Workflow
     instance_type: mac_mini_m1
@@ -51,7 +84,7 @@ workflows:
         - ssh_key
         - environment_vars
       android_signing:
-        - sonbol_keystore
+        - sourcya_keystore
       flutter: stable
       cocoapods: default
     scripts:
@@ -99,10 +132,10 @@ workflows:
       vars:
           GOOGLE_PLAY_TRACK: "internal"
       android_signing:
-        - sonbol_keystore
+        - sourcya_keystore
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: "io.sourcya.sonbol.app"  # Replace with your actual bundle ID
+        bundle_identifier: "io.sourcya.app"  # Replace with your actual bundle ID
       flutter: stable
       cocoapods: default
     scripts:
@@ -175,7 +208,7 @@ workflows:
            GOOGLE_PLAY_TRACK: "internal"
 
       android_signing:
-        - sonbol_keystore
+        - sourcya_keystore
       #      ios_signing :
       #        distribution_type: app_store
       flutter: stable
@@ -234,7 +267,7 @@ workflows:
         - ssh_key
         - environment_vars
       android_signing:
-        - sonbol_keystore
+        - sourcya_keystore
       flutter: stable
       cocoapods: default
     scripts:
@@ -263,7 +296,7 @@ workflows:
           - ssh_key
           - environment_vars
         android_signing:
-          - sonbol_keystore
+          - sourcya_keystore
         flutter: stable
         cocoapods: default
       scripts:
@@ -282,4 +315,3 @@ workflows:
         slack:
           channel: '#default-feed'
           notify_on_build_start: true
-

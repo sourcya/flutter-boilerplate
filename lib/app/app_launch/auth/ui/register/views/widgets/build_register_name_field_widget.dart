@@ -22,10 +22,7 @@ class BuildRegisterNameFieldWidget extends GetView<RegisterController> {
               validator: qValidator([
                 IsRequired(AppTrans.firstNameRequired.tr(context: context)),
               ]),
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 4.r,
-                vertical: 10.r,
-              ),
+              contentPadding: context.paddingSymmetric(horizontal: 4, vertical: 10),
               prefix: Icon(
                 Icons.person,
                 size: 18.r,
@@ -56,10 +53,7 @@ class BuildRegisterNameFieldWidget extends GetView<RegisterController> {
               validator: qValidator([
                 IsRequired(AppTrans.lastNameRequired.tr(context: context)),
               ]),
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 4.r,
-                vertical: 10.r,
-              ),
+              contentPadding: context.paddingSymmetric(horizontal: 4, vertical: 10),
               prefix: Icon(
                 Icons.person,
                 size: 18.r,

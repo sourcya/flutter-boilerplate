@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 abstract class Pick {
   Future<DateTime?> date(
     BuildContext context, {
-
     /// if null will use `DateTime.now()`
     DateTime? initialDate,
 
@@ -13,10 +12,11 @@ abstract class Pick {
 
     /// if null will use `DateTime.now()`
     DateTime? lDate,
-  }) => showDatePicker(
-    context: context,
-    initialDate: initialDate ?? DateTime.now(),
-    firstDate: fDate ?? DateTime(1950),
-    lastDate: lDate ?? DateTime.now(),
-  );
+  }) =>
+      showDatePicker(
+        context: context,
+        initialDate: initialDate ?? DateTime.now(),
+        firstDate: fDate ?? DateTime(1950),
+        lastDate: lDate ?? DateTime.now(),
+      );
 }

@@ -20,6 +20,8 @@ class ResponsivePagedSliverView<P, T> extends StatelessWidget {
     this.groupBy,
     this.groupSeparatorBuilder,
     this.sortGroups = false,
+    this.separated = false,
+    this.applySeparator = false,
   });
 
   final PagingController<P, T> pagingController;
@@ -44,16 +46,12 @@ class ResponsivePagedSliverView<P, T> extends StatelessWidget {
   /// ✨ NEW: Grouped List Properties
   final String Function(T item)? groupBy;
   final Widget Function(String group)? groupSeparatorBuilder;
+  final bool applySeparator;
   final bool sortGroups;
+  final bool separated;
 
   int _getCrossAxisCount(BuildContext context) {
-    final responsiveCrossAxisCounts =
-        this.responsiveCrossAxisCounts ??
-        {
-          1400: 3,
-          840: 2,
-          0: 1,
-        };
+    final responsiveCrossAxisCounts = this.responsiveCrossAxisCounts ?? {600: 1, 900: 2, 1200: 3};
 
     final width = MediaQuery.of(context).size.width;
     final sortedBreakpoints = responsiveCrossAxisCounts.keys.toList()
@@ -69,14 +67,9 @@ class ResponsivePagedSliverView<P, T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final crossAxisCount = _getCrossAxisCount(context);
 
+    final basePad = context.paddingSymmetric(horizontal: 16);
     final effectivePadding =
-        padding ??
-        EdgeInsets.only(
-          right: 8,
-          left: 8,
-          top: 8,
-          bottom: MediaQuery.of(context).padding.bottom + 72,
-        );
+        padding ?? basePad.copyWith(bottom: MediaQuery.of(context).padding.bottom + 72);
 
     final delegate = PagedChildBuilderDelegate<T>(
       itemBuilder: itemBuilder,
@@ -109,9 +102,9 @@ class ResponsivePagedSliverView<P, T> extends StatelessWidget {
           ),
       newPageProgressIndicatorBuilder:
           newPageProgressIndicatorBuilder ??
-          (_) => const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Center(child: CircularProgressIndicator.adaptive()),
+          (ctx) => Padding(
+            padding: ctx.paddingAll(16),
+            child: const Center(child: CircularProgressIndicator.adaptive()),
           ),
     );
 
@@ -120,36 +113,79 @@ class ResponsivePagedSliverView<P, T> extends StatelessWidget {
     return SliverPadding(
       padding: effectivePadding,
       sliver: isGrouped
-          ? _buildGroupedList(delegate)
-          : _buildNormalListOrGrid(delegate, crossAxisCount),
+          ? _ResponsiveGroupedListSliver<P, T>(
+              pagingController: pagingController,
+              groupBy: groupBy!,
+              sortGroups: sortGroups,
+              groupSeparatorBuilder: groupSeparatorBuilder,
+              delegate: delegate,
+            )
+          : _ResponsiveNormalListOrGridSliver<P, T>(
+              pagingController: pagingController,
+              delegate: delegate,
+              crossAxisCount: crossAxisCount,
+              gridMainAxisSpacing: gridMainAxisSpacing,
+              gridCrossAxisSpacing: gridCrossAxisSpacing,
+              separated: separated,
+            ),
     );
   }
+}
 
-  /// -------------------------------
-  ///   GROUPED LIST BUILDER
-  /// -------------------------------
-  Widget _buildGroupedList(PagedChildBuilderDelegate<T> delegate) {
+class _ResponsiveGroupedListSliver<P, T> extends StatelessWidget {
+  final PagingController<P, T> pagingController;
+  final String Function(T item) groupBy;
+  final bool sortGroups;
+  final Widget Function(String group)? groupSeparatorBuilder;
+  final PagedChildBuilderDelegate<T> delegate;
+
+  const _ResponsiveGroupedListSliver({
+    required this.pagingController,
+    required this.groupBy,
+    required this.sortGroups,
+    this.groupSeparatorBuilder,
+    required this.delegate,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return PagedSliverGroupedListView<P, T, String>(
       pagingController: pagingController,
-      groupBy: groupBy!,
+      groupBy: groupBy,
       sort: sortGroups,
-      groupSeparatorBuilder: (group) =>
-          groupSeparatorBuilder?.call(group) ?? const SizedBox(height: 32),
+      groupSeparatorBuilder: (group) => groupSeparatorBuilder?.call(group) ?? 32.hBox,
       builderDelegate: delegate,
     );
   }
+}
 
-  /// -------------------------------
-  ///   NORMAL LIST OR GRID
-  /// -------------------------------
-  Widget _buildNormalListOrGrid(
-    PagedChildBuilderDelegate<T> delegate,
-    int crossAxisCount,
-  ) {
+class _ResponsiveNormalListOrGridSliver<P, T> extends StatelessWidget {
+  final PagingController<P, T> pagingController;
+  final PagedChildBuilderDelegate<T> delegate;
+  final int crossAxisCount;
+  final double gridMainAxisSpacing;
+  final double gridCrossAxisSpacing;
+  final bool separated;
+
+  const _ResponsiveNormalListOrGridSliver({
+    required this.pagingController,
+    required this.delegate,
+    required this.crossAxisCount,
+    required this.gridMainAxisSpacing,
+    required this.gridCrossAxisSpacing,
+    required this.separated,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     if (crossAxisCount <= 1) {
-      return PagedSliverList<P, T>(
+      return PagedSliverList.separated(
         pagingController: pagingController,
         builderDelegate: delegate,
+        separatorBuilder: (_, _) {
+          if (!separated) return const SizedBox.shrink();
+          return gridMainAxisSpacing.hBox;
+        },
       );
     }
 

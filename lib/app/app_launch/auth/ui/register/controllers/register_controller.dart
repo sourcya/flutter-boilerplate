@@ -39,8 +39,6 @@ class RegisterController extends GetxController {
   final Rxn<LoginMethod> currentLoginMethod = Rxn();
   final loginMethods = <LoginMethod>[
     LoginMethod.email,
-    LoginMethod.google,
-    LoginMethod.apple,
   ];
 
   Worker? _validationWorker;
@@ -74,25 +72,7 @@ class RegisterController extends GetxController {
   }
 
   Future<void> registerBy({required LoginMethod method}) async {
-    currentLoginMethod.value = method;
-    if (method == LoginMethod.email) {
-      currentLoginMethod.value = LoginMethod.email;
-    } else {
-      AppController.instance.loadingStatus.value =
-          const LoadingStatus.register();
-      currentLoginMethod.value = null;
-      final result = await authRepository.loginViaAuth0(method: method);
-      result.when(
-        success: (User user) async {
-          _navigateToHome();
-        },
-        error: (NetworkException exception) {
-          AppController.instance.loadingStatus.value =
-              const LoadingStatus.idle();
-          Alert.error(message: exception.message);
-        },
-      );
-    }
+    currentLoginMethod.value = LoginMethod.email;
   }
 
   Future<void> register() async {
@@ -106,8 +86,8 @@ class RegisterController extends GetxController {
       password: passwordController.text,
     );
     result.when(
-      success: (User user) async {
-        _navigateToHome();
+      success: (User user) {
+        unawaited(_navigateToHome());
       },
       error: (NetworkException exception) {
         Alert.error(message: exception.message);

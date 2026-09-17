@@ -5,12 +5,14 @@ class BuildModalNextButton extends StatelessWidget {
   final Rx<StickyActionBarStatus> status;
   final VoidCallback? onPressed;
   final String? label;
+  final bool hideOnKeyboardVisible;
 
   const BuildModalNextButton({
     required this.status,
     this.label,
     this.onPressed,
     this.listenToUpdates = true,
+    this.hideOnKeyboardVisible = true,
   });
 
   @override
@@ -18,31 +20,39 @@ class BuildModalNextButton extends StatelessWidget {
     final button = listenToUpdates
         ? Obx(() {
             return _buildButton(
+              context: context,
               status: status,
               onPressed: onPressed,
               label: label,
             );
           })
         : _buildButton(
+            context: context,
             label: label,
             status: status,
             onPressed: onPressed,
           );
 
-    return KeyboardVisibilityBuilder(
-      builder: (context, isKeyboardVisible) {
-        if (isKeyboardVisible) {
-          return const SizedBox.shrink();
-        }
-        return Padding(
-          padding: EdgeInsets.only(bottom: 4.0.r),
-          child: button,
-        );
-      },
-    );
+    return hideOnKeyboardVisible
+        ? KeyboardVisibilityBuilder(
+            builder: (context, isKeyboardVisible) {
+              if (isKeyboardVisible) {
+                return const SizedBox.shrink();
+              }
+              return Padding(
+                padding: context.paddingOnly(bottom: 4.0),
+                child: button,
+              );
+            },
+          )
+        : Padding(
+            padding: context.paddingOnly(bottom: 4.0),
+            child: button,
+          );
   }
 
   Widget _buildButton({
+    required BuildContext context,
     String? label,
     required Rx<StickyActionBarStatus> status,
     VoidCallback? onPressed,
@@ -58,10 +68,7 @@ class BuildModalNextButton extends StatelessWidget {
     return CustomElevatedButton(
       onPressed: isEnabled ? onPressed : null,
       isLoading: isLoading,
-      margin: EdgeInsets.symmetric(
-        horizontal: 8.r,
-        vertical: 12.r,
-      ),
+      margin: context.paddingSymmetric(horizontal: 8, vertical: 12),
       label: btnLabel,
     );
   }

@@ -5,7 +5,7 @@ PlatformNavBar buildCustomNavigationBar({
   required StatefulNavigationShell navigationShell,
 }) {
   final controller = AppController.instance;
-  controller.updateBottomNavIndex(navigationShell.currentIndex);
+  controller.bottomNavIndex = navigationShell.currentIndex;
 
   return CustomPlatformNavBar(
     currentIndex: controller.currentBottomNavIndex,

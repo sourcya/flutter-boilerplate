@@ -20,11 +20,9 @@ class FeatureChip extends StatelessWidget {
   final bool? isMaxWidth;
   final ShapeBorder? shape;
 
-  final double? elevation;
-
   const FeatureChip({
     this.label,
-    this.color = Colors.black,
+    this.color = AppColors.baseblack,
     this.icon,
     this.backgroundColor,
     this.padding,
@@ -40,26 +38,23 @@ class FeatureChip extends StatelessWidget {
     this.isMaxWidth,
     this.margin,
     this.shape,
-    this.elevation,
   });
 
   @override
   Widget build(BuildContext context) {
-    final label = isLabelTranslatable
-        ? this.label?.tr(context: context)
-        : this.label;
+    final label =
+        isLabelTranslatable ? this.label?.tr(context: context) : this.label;
     double labelFontSize =
-        fontSize ?? (PlayxLocalization.isCurrentLocaleArabic() ? 14.sp : 15.sp);
+        fontSize ?? (PlayxLocalization.isCurrentLocaleArabic() ? 13.sp : 14.sp);
     final labelLength = label?.length ?? 0;
 
     if (decreaseFontSizeByLength && labelLength > 10) {
-      labelFontSize =
-          labelFontSize -
-          (labelLength > 35
+      labelFontSize = labelFontSize -
+          (labelLength > 25
                   ? 2
                   : labelLength > 20
-                  ? 1
-                  : 0)
+                      ? 1
+                      : 0)
               .sp;
     }
 
@@ -75,7 +70,7 @@ class FeatureChip extends StatelessWidget {
       ),
       textAlign: textAlign ?? TextAlign.center,
       maxLines: maxLines,
-      textOverflow: TextOverflow.ellipsis,
+      overflow: TextOverflow.ellipsis,
     );
 
     final isMaxWidth = this.isMaxWidth ?? (context.width <= 600);
@@ -83,34 +78,31 @@ class FeatureChip extends StatelessWidget {
     return Container(
       margin: margin,
       child: Material(
-        color: backgroundColor ?? context.colors.chipBackgroundColor,
-        elevation: elevation ?? (context.isDark ? 2 : 0),
-        shadowColor: isCupertino(context) ? Colors.black : null,
-        shape:
-            shape ??
+        color: backgroundColor ?? context.colors.surfaceContainer,
+        elevation: 2,
+        shadowColor: isCupertino(context) ? context.colors.black : null,
+        shape: shape ??
             RoundedRectangleBorder(
               side: borderSide ?? BorderSide(color: context.colors.onSurface),
-              borderRadius: BorderRadius.circular(16.r),
+              borderRadius: BorderRadius.circular(8.r),
             ),
         child: Container(
-          padding:
-              contentPadding ??
+          padding: contentPadding ??
               padding ??
-              EdgeInsets.symmetric(
+              context.paddingSymmetric(
                 vertical: (label?.length ?? 10) > 28
-                    ? 10.r
-                    : defaultVerticalPadding.r,
-                horizontal: (label?.length ?? 10) > 5 ? 12.r : 24.r,
+                    ? 10
+                    : defaultVerticalPadding,
+                horizontal: (label?.length ?? 10) > 5 ? 12 : 24,
               ),
           child: icon != null
               ? Row(
-                  mainAxisSize: isMaxWidth
-                      ? MainAxisSize.max
-                      : MainAxisSize.min,
+                  mainAxisSize:
+                      isMaxWidth ? MainAxisSize.max : MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     icon!.buildIconWidget(
-                      size: iconSize ?? icon!.size ?? 20.r,
+                      size: iconSize ?? 20.r,
                       color: color,
                     ),
                     SizedBox(

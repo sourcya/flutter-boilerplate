@@ -1,4 +1,11 @@
-part of '../ui.dart';
+import 'dart:collection';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_boilerplate/core/utils/extensions.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:sliver_tools/sliver_tools.dart';
+
+enum GroupedListOrder { asc, desc }
 
 @immutable
 class SliverGroupedGridView<T, E> extends StatefulWidget {
@@ -9,8 +16,7 @@ class SliverGroupedGridView<T, E> extends StatefulWidget {
   final Widget Function(E value)? groupSeparatorBuilder;
   final Widget Function(T element)? groupHeaderBuilder;
   final Widget Function(BuildContext context, T element)? itemBuilder;
-  final Widget Function(BuildContext context, T element, int index)?
-  indexedItemBuilder;
+  final Widget Function(BuildContext context, T element, int index)? indexedItemBuilder;
   final GroupedListOrder order;
   final bool sort;
   final Widget separator;
@@ -35,7 +41,7 @@ class SliverGroupedGridView<T, E> extends StatefulWidget {
     this.itemBuilder,
     this.indexedItemBuilder,
     this.itemComparator,
-    this.order = GroupedListOrder.ASC,
+    this.order = GroupedListOrder.asc,
     this.sort = true,
     this.separator = const SizedBox.shrink(),
     this.footer,
@@ -46,12 +52,10 @@ class SliverGroupedGridView<T, E> extends StatefulWidget {
        assert(groupSeparatorBuilder != null || groupHeaderBuilder != null);
 
   @override
-  State<SliverGroupedGridView<T, E>> createState() =>
-      _SliverGroupedGridViewState<T, E>();
+  State<SliverGroupedGridView<T, E>> createState() => _SliverGroupedGridViewState<T, E>();
 }
 
-class _SliverGroupedGridViewState<T, E>
-    extends State<SliverGroupedGridView<T, E>> {
+class _SliverGroupedGridViewState<T, E> extends State<SliverGroupedGridView<T, E>> {
   final LinkedHashMap<String, GlobalKey> _keys = LinkedHashMap();
   List<T> _sortedElements = [];
 
@@ -59,65 +63,60 @@ class _SliverGroupedGridViewState<T, E>
   Widget build(BuildContext context) {
     _sortedElements = _sortElements();
 
-    return MultiSliver(children: buildSlivers());
+    return MultiSliver(children: _pageSliverChildren(context));
   }
 
-  List<Widget> buildSlivers() {
+  List<Widget> _pageSliverChildren(BuildContext context) {
     final grouped = _groupElements();
     final slivers = <Widget>[];
 
     for (final entry in grouped.entries) {
       final groupItems = entry.value;
-      final groupKey = widget.groupBy(groupItems.first);
 
-      // Group Header
       slivers.add(
         SliverToBoxAdapter(
-          child: _buildGroupSeparator(groupItems.first),
+          child: _SliverGroupedGroupHeader<T, E>(
+            firstInGroup: groupItems.first,
+            groupBy: widget.groupBy,
+            groupHeaderBuilder: widget.groupHeaderBuilder,
+            groupSeparatorBuilder: widget.groupSeparatorBuilder,
+          ),
         ),
       );
 
-      // Grid Items
       slivers.add(
         SliverPadding(
-          padding: const EdgeInsets.all(8),
+          padding: context.paddingAll(8),
           sliver: SliverAlignedGrid.count(
             crossAxisCount: widget.crossAxisCount,
             mainAxisSpacing: widget.mainAxisSpacing,
             crossAxisSpacing: widget.crossAxisSpacing,
             itemCount: groupItems.length,
-            itemBuilder: (context, index) => _buildItem(
-              context,
-              groupItems[index],
-              index,
-            ),
+            itemBuilder: (ctx, index) {
+              final element = groupItems[index];
+              final key = GlobalKey();
+              _keys['$index'] = key;
+              return _SliverGroupedGridCell<T>(
+                element: element,
+                index: index,
+                itemBuilder: widget.itemBuilder,
+                indexedItemBuilder: widget.indexedItemBuilder,
+              );
+            },
           ),
         ),
       );
 
-      // Optional Separator Between Groups
       if (widget.separator != const SizedBox.shrink()) {
         slivers.add(SliverToBoxAdapter(child: widget.separator));
       }
     }
 
-    // Optional Footer
     if (widget.footer != null) {
       slivers.add(SliverToBoxAdapter(child: widget.footer));
     }
 
     return slivers;
-  }
-
-  Widget _buildItem(BuildContext context, T element, int index) {
-    final key = GlobalKey();
-    _keys['$index'] = key;
-    return Container(
-      key: UniqueKey(),
-      child: widget.indexedItemBuilder == null
-          ? widget.itemBuilder!(context, element)
-          : widget.indexedItemBuilder!(context, element, index),
-    );
   }
 
   List<T> _sortElements() {
@@ -146,7 +145,7 @@ class _SliverGroupedGridViewState<T, E>
         return compareResult!;
       });
 
-      if (widget.order == GroupedListOrder.DESC) {
+      if (widget.order == GroupedListOrder.desc) {
         elements = elements.reversed.toList();
       }
     }
@@ -161,11 +160,50 @@ class _SliverGroupedGridViewState<T, E>
     }
     return map;
   }
+}
 
-  Widget _buildGroupSeparator(T element) {
-    if (widget.groupHeaderBuilder == null) {
-      return widget.groupSeparatorBuilder!(widget.groupBy(element));
+class _SliverGroupedGroupHeader<T, E> extends StatelessWidget {
+  final T firstInGroup;
+  final E Function(T element) groupBy;
+  final Widget Function(T element)? groupHeaderBuilder;
+  final Widget Function(E value)? groupSeparatorBuilder;
+
+  const _SliverGroupedGroupHeader({
+    required this.firstInGroup,
+    required this.groupBy,
+    this.groupHeaderBuilder,
+    this.groupSeparatorBuilder,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (groupHeaderBuilder == null) {
+      return groupSeparatorBuilder!(groupBy(firstInGroup));
     }
-    return widget.groupHeaderBuilder!(element);
+    return groupHeaderBuilder!(firstInGroup);
+  }
+}
+
+class _SliverGroupedGridCell<T> extends StatelessWidget {
+  final T element;
+  final int index;
+  final Widget Function(BuildContext context, T element)? itemBuilder;
+  final Widget Function(BuildContext context, T element, int index)? indexedItemBuilder;
+
+  const _SliverGroupedGridCell({
+    required this.element,
+    required this.index,
+    this.itemBuilder,
+    this.indexedItemBuilder,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: UniqueKey(),
+      child: indexedItemBuilder == null
+          ? itemBuilder!(context, element)
+          : indexedItemBuilder!(context, element, index),
+    );
   }
 }

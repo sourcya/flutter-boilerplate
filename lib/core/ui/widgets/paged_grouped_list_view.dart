@@ -1,7 +1,9 @@
-part of '../ui.dart';
+import 'package:flutter/material.dart';
+import 'package:grouped_list/sliver_grouped_list.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
-class PagedGroupedListView<PageKeyType, ItemType, SortType>
-    extends BoxScrollView {
+class PagedGroupedListView<PageKeyType, ItemType, SortType> extends BoxScrollView {
   const PagedGroupedListView({
     super.key,
     required this.pagingController,
@@ -81,8 +83,7 @@ class PagedGroupedListView<PageKeyType, ItemType, SortType>
   }
 }
 
-class PagedSliverGroupedListView<PageKeyType, ItemType, SortType>
-    extends StatelessWidget {
+class PagedSliverGroupedListView<PageKeyType, ItemType, SortType> extends StatelessWidget {
   const PagedSliverGroupedListView({
     super.key,
     required this.pagingController,
@@ -146,8 +147,7 @@ class PagedSliverGroupedListView<PageKeyType, ItemType, SortType>
           groupComparator: groupComparator,
           groupSeparatorBuilder: groupSeparatorBuilder,
           groupHeaderBuilder: groupHeaderBuilder,
-          indexedItemBuilder: (context, item, index) =>
-              itemBuilder(context, index),
+          indexedItemBuilder: (context, item, index) => itemBuilder(context, index),
           itemComparator: itemComparator,
           order: order,
           sort: sort,

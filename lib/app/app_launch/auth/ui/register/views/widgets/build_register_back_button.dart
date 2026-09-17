@@ -7,19 +7,15 @@ class BuildRegisterBackButton extends GetView<RegisterController> {
   Widget build(BuildContext context) {
     return Obx(() {
       return AnimatedOpacity(
-        opacity: controller.currentLoginMethod.value == LoginMethod.email
-            ? 1
-            : 0,
+        opacity:
+            controller.currentLoginMethod.value == LoginMethod.email ? 1 : 0,
         duration: const Duration(milliseconds: 500),
 
         /// Back button
         child: Container(
           width: double.infinity,
           alignment: AlignmentDirectional.centerStart,
-          padding: EdgeInsets.symmetric(
-            vertical: 4.r,
-            horizontal: 4.r,
-          ),
+          padding: context.paddingSymmetric(vertical: 4, horizontal: 4),
           child: IconButton(
             onPressed: () {
               controller.currentLoginMethod.value = null;

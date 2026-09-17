@@ -4,8 +4,8 @@ package_rename_config:
     package_name: io.sourcya.app
   ios:
     app_name: Sourcya
-    bundle_name: Sourcya
+    bundle_name: sourcya
     package_name: io.sourcya.app
   web:
     app_name: Sourcya
-    description: Sourcya App.
+    description: Sourcya Flutter application.

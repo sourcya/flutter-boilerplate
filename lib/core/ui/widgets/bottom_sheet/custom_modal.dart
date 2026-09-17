@@ -6,42 +6,18 @@ enum StickyActionBarStatus {
   confirm,
   disabled,
   retry,
-  loading;
+  loading
+  ;
 
   String get label => switch (this) {
-    retry => AppTrans.retryText.tr(),
-    confirm => AppTrans.confirm.tr(),
-    _ => AppTrans.next.tr(),
+    retry => AppTrans.retryText,
+    confirm => AppTrans.confirm,
+    _ => AppTrans.next,
   };
 }
 
 class CustomModal {
   const CustomModal._();
-
-  /// Show only page modal
-  static Future<void> showPageModal({
-    required BuildContext context,
-    required SliverWoltModalSheetPage Function(BuildContext context)
-    pageBuilder,
-    VoidCallback? onModalDismissedWithBarrierTap,
-    ValueNotifier<bool>? showModalTopBar,
-    bool barrierDismissible = true,
-  }) {
-    return WoltModalSheet.show<void>(
-      context: context,
-      barrierDismissible: barrierDismissible,
-      pageListBuilder: (ctx) {
-        return [pageBuilder(ctx)];
-      },
-      modalTypeBuilder: (context) {
-        return context.isLandscape || context.isTablet
-            ? CustomWoltModalType()
-            : WoltModalType.bottomSheet();
-      },
-      onModalDismissedWithBarrierTap: onModalDismissedWithBarrierTap,
-      enableDrag: true,
-    );
-  }
 
   static Future<void> showModal({
     required BuildContext context,
@@ -49,31 +25,54 @@ class CustomModal {
     required ValueNotifier<int> pageIndexNotifier,
     VoidCallback? onModalDismissedWithBarrierTap,
     ValueNotifier<bool>? showModalTopBar,
+    WoltModalType Function(BuildContext)? typeBuilder,
   }) {
     return WoltModalSheet.show<void>(
       pageIndexNotifier: pageIndexNotifier,
-      barrierDismissible: true,
+      barrierDismissible: false,
       context: context,
       pageListBuilder: (ctx) {
         return pageListBuilder(ctx);
       },
-      modalTypeBuilder: (context) {
-        return context.isLandscape || context.isTablet
-            ? CustomWoltModalType()
-            : WoltModalType.bottomSheet();
-      },
-      enableDrag: true,
+      modalTypeBuilder:
+          typeBuilder ??
+          (context) {
+            return WoltModalType.dialog();
+          },
+      enableDrag: false,
       onModalDismissedWithBarrierTap: onModalDismissedWithBarrierTap,
-      onModalDismissedWithDrag: onModalDismissedWithBarrierTap,
+    );
+  }
+
+  static Future<void> showPageModal({
+    required BuildContext context,
+    required SliverWoltModalSheetPage Function(BuildContext context) pageBuilder,
+    VoidCallback? onModalDismissedWithBarrierTap,
+    ValueNotifier<bool>? showModalTopBar,
+    bool barrierDismissible = true,
+    WoltModalType Function(BuildContext)? typeBuilder,
+  }) {
+    return WoltModalSheet.show<void>(
+      context: context,
+      barrierDismissible: barrierDismissible,
+      pageListBuilder: (ctx) {
+        return [pageBuilder(ctx)];
+      },
+      modalTypeBuilder:
+          typeBuilder ??
+          (context) {
+            return context.isAppLandscape || !AppUtils.isMobile()
+                ? WoltModalType.dialog()
+                : WoltModalType.bottomSheet();
+          },
+      onModalDismissedWithBarrierTap: onModalDismissedWithBarrierTap,
+      enableDrag: true,
     );
   }
 
   static SliverWoltModalSheetPage buildCustomModalPage({
     required String title,
     required Widget body,
-    List<Widget> Function(BuildContext)? mainContentSlivers,
-    Widget? leading,
-    Widget? trailing,
     bool isSliver = true,
     bool hasSabGradient = true,
     ValueNotifier<bool>? showModalTopBar,
@@ -81,125 +80,116 @@ class CustomModal {
     VoidCallback? onPreviousPressed,
     String? nextLabel,
     VoidCallback? onNextPressed,
-    Widget? nextWidget,
     VoidCallback? onTitlePressed,
     RxBool? showPreviousButton,
     Rx<StickyActionBarStatus>? actionBarStatus,
-    double? fontSize,
     required BuildContext context,
-    bool useSafeArea = true,
+    List<Widget> Function(BuildContext)? mainContentSliversBuilder,
+    Color? backgroundColor,
+    double? navBarHeight,
+    Widget? trailingNavBarWidget,
+    bool hideOnKeyboardVisible = true,
   }) {
     final showTopBar = showModalTopBar?.value ?? true;
 
-    final modalBody = onPreviousPressed == null
-        ? body
-        : PopScope(
-            canPop: false,
-            onPopInvokedWithResult: (didPop, _) {
-              if (didPop) {
-                return;
-              }
-              onPreviousPressed();
-            },
-            child: body,
-          );
+    final modalBody = PopScope(
+      canPop: onPreviousPressed == null,
+      onPopInvokedWithResult: onPreviousPressed != null
+          ? (_, _) {
+              onPreviousPressed.call();
+            }
+          : null,
+      child: body,
+    );
 
     return isSliver
         ? SliverWoltModalSheetPage(
-            hasSabGradient: false,
+            hasSabGradient: hasSabGradient,
             sabGradientColor: context.colors.surface.withValues(alpha: .95),
-            backgroundColor: context.colors.cardColor,
-            surfaceTintColor: context.colors.cardColor,
-            stickyActionBar:
-                nextWidget ??
-                (actionBarStatus != null
-                    ? _buildNextButton(
-                        status: actionBarStatus,
-                        onPressed: onNextPressed,
-                        label: nextLabel,
-                      )
-                    : null),
-            useSafeArea: useSafeArea,
-            topBarTitle: showTopBar
-                ? BuildModalTitleWidget(
-                    title: title,
-                    onTitlePressed: onTitlePressed,
-                    fontSize: fontSize,
+            backgroundColor:
+                backgroundColor ??
+                (AppUtils.isDarkMode()
+                    ? context.colors.surface
+                    : context.colors.surfaceContainerHigh),
+            stickyActionBar: actionBarStatus != null
+                ? _buildNextButton(
+                    status: actionBarStatus,
+                    onPressed: onNextPressed,
+                    label: nextLabel,
+                    hideOnKeyboardVisible: hideOnKeyboardVisible,
                   )
                 : null,
+            topBarTitle: BuildModalTitleWidget(
+              title: title,
+              onTitlePressed: onTitlePressed,
+            ),
+            navBarHeight: navBarHeight ?? (AppUtils.isMobile() ? 48.r : null),
             hasTopBarLayer: showTopBar,
             isTopBarLayerAlwaysVisible: showTopBar,
             trailingNavBarWidget:
-                trailing ??
+                trailingNavBarWidget ??
                 (onClosePressed == null
                     ? null
                     : BuildModalCloseButton(
                         onPressed: onClosePressed,
                       )),
-            leadingNavBarWidget:
-                leading ??
-                (onPreviousPressed == null
-                    ? null
-                    : BuildModalPreviousButton(
-                        onPressed: onPreviousPressed,
-                        showPreviousButton: showPreviousButton,
-                      )),
+            leadingNavBarWidget: onPreviousPressed == null
+                ? null
+                : BuildModalPreviousButton(
+                    onPressed: onPreviousPressed,
+                    showPreviousButton: showPreviousButton,
+                  ),
             mainContentSliversBuilder:
-                mainContentSlivers ??
-                (context) {
-                  return [
-                    modalBody,
-                    if (actionBarStatus != null && onNextPressed != null)
-                      SliverToBoxAdapter(
-                        child: Opacity(
-                          opacity: 0,
-                          child:
-                              nextWidget ??
-                              _buildNextButton(
-                                listenToUpdates: false,
-                                status: actionBarStatus,
-                                onPressed: onNextPressed,
-                                label: nextLabel,
-                              ),
+                mainContentSliversBuilder ??
+                (ctx) => [
+                  modalBody,
+                  if (actionBarStatus != null && onNextPressed != null)
+                    SliverToBoxAdapter(
+                      child: Opacity(
+                        opacity: 0,
+                        child: _buildNextButton(
+                          listenToUpdates: false,
+                          status: actionBarStatus,
+                          onPressed: onNextPressed,
+                          label: nextLabel,
+                          hideOnKeyboardVisible: hideOnKeyboardVisible,
                         ),
                       ),
-                    SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 8.r,
-                      ),
                     ),
-                  ];
-                },
+                ],
           )
         : WoltModalSheetPage(
             hasSabGradient: hasSabGradient,
             sabGradientColor: context.colors.surface.withValues(alpha: .95),
-            backgroundColor: context.colors.cardColor,
-            surfaceTintColor: context.colors.cardColor,
+            backgroundColor:
+                backgroundColor ??
+                (AppUtils.isDarkMode()
+                    ? context.colors.surface
+                    : context.colors.surfaceContainerHigh),
+            navBarHeight: navBarHeight ?? (AppUtils.isMobile() ? 48.r : null),
             hasTopBarLayer: showTopBar,
             isTopBarLayerAlwaysVisible: showTopBar,
-            useSafeArea: useSafeArea,
-            stickyActionBar:
-                nextWidget ??
-                (actionBarStatus != null
-                    ? _buildNextButton(
-                        status: actionBarStatus,
-                        onPressed: onNextPressed,
-                        label: nextLabel,
-                      )
-                    : null),
+            trailingNavBarWidget:
+                trailingNavBarWidget ??
+                (onClosePressed == null
+                    ? null
+                    : BuildModalCloseButton(
+                        onPressed: onClosePressed,
+                      )),
+            stickyActionBar: actionBarStatus != null
+                ? _buildNextButton(
+                    status: actionBarStatus,
+                    onPressed: onNextPressed,
+                    label: nextLabel,
+                    hideOnKeyboardVisible: hideOnKeyboardVisible,
+                  )
+                : null,
             topBarTitle: showTopBar
                 ? BuildModalTitleWidget(
                     title: title,
                     onTitlePressed: onTitlePressed,
-                    fontSize: fontSize,
                   )
                 : const SizedBox.shrink(),
-            trailingNavBarWidget: onClosePressed == null
-                ? null
-                : BuildModalCloseButton(
-                    onPressed: onClosePressed,
-                  ),
             leadingNavBarWidget: onPreviousPressed == null
                 ? null
                 : BuildModalPreviousButton(
@@ -215,12 +205,14 @@ class CustomModal {
     required Rx<StickyActionBarStatus> status,
     VoidCallback? onPressed,
     String? label,
+    bool hideOnKeyboardVisible = true,
   }) {
     return BuildModalNextButton(
       listenToUpdates: listenToUpdates,
       status: status,
       onPressed: onPressed,
       label: label,
+      hideOnKeyboardVisible: hideOnKeyboardVisible,
     );
   }
 }

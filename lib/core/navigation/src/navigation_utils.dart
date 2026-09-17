@@ -4,20 +4,19 @@ class NavigationUtils {
   NavigationUtils._();
 
   static List<String> get mainRoutes => [
-    Routes.dashboard,
-    Routes.settings,
-  ];
+        Routes.dashboard,
+        Routes.settings,
+        Routes.reports,
+        Routes.analytics,
+      ];
 
   static List<String> get routesBottomNav => [
-    Routes.dashboard,
-    Routes.settings,
-    Routes.wishlist,
-  ];
+        Routes.dashboard,
+        Routes.settings,
+      ];
 
   static bool get showBottomNav =>
       routesBottomNav.contains(PlayxNavigation.currentRouteName);
-
-  static bool get canShowDrawer => AppUtils.isMobile();
 
   static GlobalKey<NavigatorState> get navigatorKey =>
       AppPages.router.routerDelegate.navigatorKey;

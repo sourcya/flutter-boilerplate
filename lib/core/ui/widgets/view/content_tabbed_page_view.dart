@@ -15,7 +15,7 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
   final String Function(S tab) tabLabelBuilder;
 
   // Search / Refresh
-  final TextEditingController? searchController;
+  final TextEditingController searchController;
   final Future<void> Function()? onRefresh;
   final Function(String)? onSearchChanged;
   final bool showSearch;
@@ -41,12 +41,15 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
   final Widget Function(
     BuildContext context,
     PagingController<int, dynamic> pc,
+    PaginatorController paginator,
   )?
   tablePagingBuilder;
 
+  /// Builds the list/grid view for a tab given its paging controller
+  final PaginatorController Function(S tab)? paginatorBuilder;
+
   /// Builds the list/grid view for a tab given an item
-  final Widget Function(BuildContext context, dynamic item, int index)?
-  itemPagingBuilder;
+  final Widget Function(BuildContext context, dynamic item, int index)? itemPagingBuilder;
 
   final Widget? topWidget;
 
@@ -56,8 +59,47 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
   final RxBool isTableView;
 
   final bool addPopScope;
+  final bool useScaffold;
 
   final Widget Function(Widget child)? toggleSwitchDecorator;
+
+  final double? verticalSpaceBetweenHeaderAndContent;
+  final bool isInitialized;
+  final double? searchMaxWidth;
+
+  /// Optional suffix chip label builder for tab toggle items (e.g. count badges).
+  final String? Function(S?)? suffixChipLabelBuilder;
+
+  /// Font weight for the tab label text.
+  final FontWeight? tabFontWeight;
+
+  /// Font weight for the suffix chip label text.
+  final FontWeight? tabSuffixChipFontWeight;
+
+  /// Minimum width constraint for each tab item.
+  final double? tabMinItemWidth;
+
+  /// Border radius override for the toggle switch.
+  final BorderRadius? tabBorderRadius;
+
+  /// Padding for each individual tab item.
+  final EdgeInsetsGeometry? tabItemPadding;
+
+  /// Padding for the toggle switch container.
+  final EdgeInsetsGeometry? tabPadding;
+
+  /// Color of text/icons when unselected in the tab toggle.
+  final Color? tabOnUnselectedColor;
+
+  /// Color for the suffix chip label text in the tab toggle.
+  final Color? tabSuffixChipColor;
+
+  /// Font size for the suffix chip label text in the tab toggle.
+  final double? tabSuffixChipFontSize;
+
+  final double? tabItemFontSize;
+  // Internal: created once and reused across builds (stable reference).
+  final PaginatorController _effectivePaginatorController;
 
   ContentTabbedLandscapeViewPage({
     super.key,
@@ -69,7 +111,7 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
     this.contentBuilder,
     this.tableBuilder,
     this.listBuilder,
-    this.searchController,
+    required this.searchController,
     this.onRefresh,
     this.onSearchChanged,
     this.filterButton,
@@ -82,19 +124,36 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
     this.emptyMessage = AppTrans.emptyResponse,
     this.emptyMessageBuilder,
     this.pagingControllerBuilder,
+    this.paginatorBuilder,
     this.tablePagingBuilder,
     this.itemPagingBuilder,
     this.topWidget,
     this.toggleSwitchDecorator,
+    this.suffixChipLabelBuilder,
+    this.tabFontWeight,
+    this.tabSuffixChipFontWeight,
+    this.tabMinItemWidth,
+    this.tabBorderRadius,
+    this.tabItemPadding,
+    this.tabPadding,
+    this.tabOnUnselectedColor,
+    this.tabSuffixChipColor,
+    this.tabSuffixChipFontSize,
+    this.tabItemFontSize,
     RxBool? isTableView,
     this.addPopScope = false,
-  }) : isTableView = isTableView ?? false.obs;
+    this.useScaffold = true,
+    this.verticalSpaceBetweenHeaderAndContent,
+    this.isInitialized = true,
+    this.searchMaxWidth,
+  }) : isTableView = isTableView ?? false.obs,
+       _effectivePaginatorController = paginatorBuilder?.call(tabs.first) ?? PaginatorController();
 
   @override
   Widget build(BuildContext context) {
     final toggleWidgetChild =
         customToggleBuilder?.call(context) ??
-        (showTabToggle ? _buildTabsToggle(context) : null);
+        (showTabToggle ? _ContentTabbedTabsToggleSection<S>(page: this) : null);
 
     final toggleWidget = toggleWidgetChild != null
         ? toggleSwitchDecorator?.call(toggleWidgetChild) ?? toggleWidgetChild
@@ -111,12 +170,13 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
         // 2️⃣ Use pagingController if provided (dynamic type)
         if (pagingControllerBuilder != null) {
           final pc = pagingControllerBuilder!(tab);
+          final paginator = _effectivePaginatorController;
 
           if (isTable) {
             return SizedBox(
               height: context.height * .8,
               child:
-                  tablePagingBuilder?.call(context, pc) ??
+                  tablePagingBuilder?.call(context, pc, paginator) ??
                   tableBuilder?.call(context, tab) ??
                   const SizedBox.shrink(),
             );
@@ -127,8 +187,7 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
                       ResponsivePagedSliverView(
                         pagingController: pc,
                         itemBuilder: itemPagingBuilder!,
-                        emptyDataMessage:
-                            emptyMessageBuilder?.call(tab) ?? emptyMessage,
+                        emptyDataMessage: emptyMessageBuilder?.call(tab) ?? emptyMessage,
                       ),
                     ],
                   )
@@ -144,135 +203,174 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
       });
     }).toList();
 
-    return CustomScaffold(
-      title: title,
-      addPopScope: addPopScope,
-      child: RefreshIndicator(
-        onRefresh: onRefresh ?? () async {},
-        child: Column(
-          children: [
-            12.r.boxR,
-            if (topWidget != null) topWidget!,
-            ValueListenableBuilder(
-              valueListenable: AppController.instance.drawerController,
-              builder: (context, value, child) {
-                return _buildHeader(
-                  context,
-                  toggleWidget: toggleWidget,
-                  drawerControllerValue: value,
-                );
-              },
-            ),
-            if (togglePosition == TogglePosition.belowHeader &&
-                toggleWidget != null)
-              Padding(
-                padding: EdgeInsets.only(left: 8.r),
-                child: toggleWidget,
-              ),
-            Expanded(
-              child: tabController != null
-                  ? TabBarView(controller: tabController, children: tabsContent)
-                  : Obx(() {
-                      final selected = selectedTabRx?.value;
-                      final selectedIndex = selected != null
-                          ? tabs.indexOf(selected)
-                          : -1;
-                      if (selectedIndex < 0) {
-                        return const SizedBox.shrink();
-                      }
-
-                      return AnimatedSwitcher(
-                        duration: 250.ms,
-                        child: tabsContent[selectedIndex],
-                      );
-                    }),
-            ),
-          ],
+    Widget body = Column(
+      children: [
+        12.hBox,
+        if (topWidget != null) topWidget!,
+        ValueListenableBuilder(
+          valueListenable: AppController.instance.drawerController,
+          builder: (context, value, child) {
+            return _ContentTabbedHeaderBar<S>(
+              page: this,
+              toggleWidget: toggleWidget,
+              drawerControllerValue: value,
+            );
+          },
         ),
-      ),
-    );
-  }
+        if (togglePosition == TogglePosition.belowHeader && toggleWidget != null)
+          Padding(
+            padding: context.paddingOnly(start: 8.0),
+            child: toggleWidget,
+          ),
+        if (verticalSpaceBetweenHeaderAndContent != null)
+          SizedBox(
+            height: verticalSpaceBetweenHeaderAndContent,
+          ),
+        Expanded(
+          child: tabController != null
+              ? TabBarView(controller: tabController, children: tabsContent)
+              : Obx(() {
+                  final selected = selectedTabRx?.value;
+                  final selectedIndex = selected != null ? tabs.indexOf(selected) : -1;
+                  if (selectedIndex < 0) {
+                    return const SizedBox.shrink();
+                  }
 
-  // ---------------- HEADER ----------------
-  Widget _buildHeader(
-    BuildContext context, {
-    Widget? toggleWidget,
-    required AdvancedDrawerValue drawerControllerValue,
-  }) {
+                  return AnimatedSwitcher(
+                    duration: 250.ms,
+                    child: tabsContent[selectedIndex],
+                  );
+                }),
+        ),
+      ],
+    );
+
+    if (addPopScope && !useScaffold) {
+      body = PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) {
+          if (didPop || kIsWeb) return;
+          if (Navigator.of(context).canPop()) {
+            Navigator.of(context).pop();
+          }
+          AppNavigation.navigateToHome();
+        },
+        child: body,
+      );
+    }
+
+    if (useScaffold) {
+      return CustomScaffold(
+        isInitialized: isInitialized,
+        title: title,
+        addPopScope: addPopScope,
+        childBuilder: (_) => RefreshIndicator.adaptive(
+          onRefresh: onRefresh ?? () async {},
+          child: body,
+        ),
+      );
+    } else {
+      return body;
+    }
+  }
+}
+
+class _ContentTabbedHeaderBar<S> extends StatelessWidget {
+  final ContentTabbedLandscapeViewPage<S> page;
+  final Widget? toggleWidget;
+  final AdvancedDrawerValue drawerControllerValue;
+
+  const _ContentTabbedHeaderBar({
+    required this.page,
+    this.toggleWidget,
+    required this.drawerControllerValue,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final showTableModeToggle =
-        showTableToggle &&
-        contentBuilder == null &&
-        ((tableBuilder != null || pagingControllerBuilder != null) &&
-            (listBuilder != null || itemPagingBuilder != null));
+        page.showTableToggle &&
+        page.contentBuilder == null &&
+        ((page.tableBuilder != null || page.pagingControllerBuilder != null) &&
+            (page.listBuilder != null || page.itemPagingBuilder != null));
 
     final isDrawerOpen = drawerControllerValue.visible;
 
-    // Drawer takes 25% of screen width when open
-    final double availableWidth = isDrawerOpen
-        ? context.width * 0.75
-        : context.width;
+    final double availableWidth = isDrawerOpen ? context.width * 0.75 : context.width;
     const breakpointWidth = 1100;
     final isNarrow = availableWidth < breakpointWidth;
 
-    // Build the left side: title + toggle if after title
     final leftWidgets = <Widget>[
+      8.wBox,
       CustomText(
-        title,
-        fontSize: 20.sp,
-        fontWeight: FontWeight.w500,
-        textOverflow: TextOverflow.ellipsis,
+        page.title,
+        fontSize: 24.sp,
+        fontWeight: FontWeight.w600,
+        overflow: TextOverflow.ellipsis,
       ),
-      if (togglePosition == TogglePosition.afterTitle && toggleWidget != null)
+      if (page.togglePosition == TogglePosition.afterTitle && toggleWidget != null)
         Flexible(
           child: Padding(
-            padding: EdgeInsetsDirectional.only(start: 8.r),
+            padding: context.paddingOnly(start: 8.0),
             child: toggleWidget,
           ),
         ),
-      8.r.boxW,
-      // const Spacer(),
+      8.wBox,
     ];
 
-    // Build right-side widgets (search, filter, table toggle, endActionButton, toggle after search/end)
     final rightWidgets = <Widget>[
-      if (showSearch) SizedBox(child: _buildSearchBar(context)),
-      if (togglePosition == TogglePosition.afterSearch && toggleWidget != null)
+      if (page.showSearch)
+        CustomSearch(
+          onChanged: page.onSearchChanged,
+          controller: page.searchController,
+          maxWidth: page.searchMaxWidth ?? 308.0.r,
+        ),
+      if (page.togglePosition == TogglePosition.afterSearch && toggleWidget != null)
         Flexible(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.r),
+            padding: context.paddingSymmetric(horizontal: 8.0),
             child: toggleWidget,
           ),
         ),
-      if (filterButton != null) filterButton!,
+      if (page.filterButton != null)
+        Padding(
+          padding: context.paddingOnly(end: 8.0, start: 8),
+          child: page.filterButton ?? const SizedBox.shrink(),
+        ),
       if (showTableModeToggle)
         Flexible(
-          child: Obx(
-            () => ViewToggle(
-              isTableView: isTableView.value,
-              onToggle: (v) => isTableView.value = v,
+          child: Padding(
+            padding: context.paddingOnly(start: 8.0),
+            child: Obx(
+              () => ViewToggle(
+                isTableView: page.isTableView.value,
+                onToggle: (v) => page.isTableView.value = v,
+              ),
             ),
           ),
         ),
-      if (togglePosition == TogglePosition.end && toggleWidget != null)
+      if (page.togglePosition == TogglePosition.end && toggleWidget != null)
         Flexible(
           child: Padding(
-            padding: EdgeInsets.only(left: 8.r),
+            padding: context.paddingOnly(start: 8.0),
             child: toggleWidget,
           ),
         ),
-      if (endActionButton != null) endActionButton!,
+      if (page.endActionButton != null) page.endActionButton ?? const SizedBox.shrink(),
+      8.wBox,
     ];
 
     if (isNarrow) {
-      // Two-row layout for narrow screens
       return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 4.r),
+        padding: context.paddingSymmetric(
+          horizontal: 8.0,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(children: leftWidgets),
-            SizedBox(height: 4.r),
+            4.hBox,
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: rightWidgets,
@@ -280,88 +378,91 @@ class ContentTabbedLandscapeViewPage<S> extends StatelessWidget {
           ],
         ),
       );
-    } else {
-      // Single row layout for wide screens
-      return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 4.r),
-        child: Row(
-          children: [
-            4.boxW,
-            ...leftWidgets,
-            (context.width < 480 || context.height < 480 ? 40.r : 80.r).boxW,
-            Row(mainAxisSize: MainAxisSize.min, children: rightWidgets),
-          ],
-        ),
-      );
     }
-  }
 
-  // ---------------- SEARCH ----------------
-  Widget _buildSearchBar(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(maxWidth: 300.r),
-      margin: EdgeInsets.symmetric(horizontal: 4.r),
-      child: CustomTextField(
-        controller: searchController,
-        onChanged: onSearchChanged,
-        prefix: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconInfo.svg(
-              Assets.icons.search,
-              color: context.colors.subtitleTextColor,
-              size: 18.r,
-            ).buildIconWidget(),
-          ],
-        ),
-        fillColor: context.colors.cardColor,
-        hint: AppTrans.search.tr(context: context),
-        contentPadding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 8.r),
+    return Padding(
+      padding: context.paddingSymmetric(
+        horizontal: 8.0,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            child: Row(mainAxisSize: MainAxisSize.min, children: leftWidgets),
+          ),
+          Flexible(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: rightWidgets,
+            ),
+          ),
+        ],
       ),
     );
   }
+}
 
-  // ---------------- TAB TOGGLE ----------------
-  Widget _buildTabsToggle(BuildContext context) {
-    return tabController != null
+class _ContentTabbedTabsToggleSection<S> extends StatelessWidget {
+  final ContentTabbedLandscapeViewPage<S> page;
+
+  const _ContentTabbedTabsToggleSection({required this.page});
+
+  @override
+  Widget build(BuildContext context) {
+    return page.tabController != null
         ? ListenableBuilder(
-            listenable: tabController!,
-            builder: (_, __) {
-              final selectedIndex = tabController!.index;
-              final S selectedItem = tabs[selectedIndex];
+            listenable: page.tabController!,
+            builder: (_, _) {
+              final selectedIndex = page.tabController!.index;
+              final S selectedItem = page.tabs[selectedIndex];
               return ToggleSwitch<S>(
-                // width: context.width > 840 ? context.width * .5 : null,
                 initialItem: selectedItem,
-                items: tabs,
+                items: page.tabs,
                 useNewStyle: true,
                 isCompact: true,
-                itemLabel: tabLabelBuilder,
+                isScrollable: true,
+                fontWeight: page.tabFontWeight,
+                suffixChipFontWeight: page.tabSuffixChipFontWeight,
+                onUnselectedColor: page.tabOnUnselectedColor,
+                suffixChipColor: page.tabSuffixChipColor,
+                suffixChipFontSize: page.tabSuffixChipFontSize,
+                minItemWidth: page.tabMinItemWidth,
+                borderRadius: page.tabBorderRadius,
+                itemPadding: page.tabItemPadding,
+                padding: page.tabPadding,
+                itemLabel: page.tabLabelBuilder,
+                fontSize: page.tabItemFontSize,
                 isItemSelected: (value) => selectedItem == value,
                 onItemChanged: (value) {
                   if (value == null) return;
-                  final newIndex = tabs.indexOf(value);
-                  if (newIndex != -1) tabController?.animateTo(newIndex);
+                  final newIndex = page.tabs.indexOf(value);
+                  if (newIndex != -1) page.tabController?.animateTo(newIndex);
                 },
+                suffixChipLabel: page.suffixChipLabelBuilder,
               );
             },
           )
-        : selectedTabRx != null
+        : page.selectedTabRx != null
         ? Obx(() {
-            final S? selectedItem = selectedTabRx?.value;
+            final S? selectedItem = page.selectedTabRx?.value;
 
             return ToggleSwitch<S>(
-              // width: context.width > 840 ? context.width * .5 : null,
               initialItem: selectedItem,
-              items: tabs,
+              items: page.tabs,
               useNewStyle: true,
               isCompact: true,
-              itemLabel: tabLabelBuilder,
+              isScrollable: true,
+              onUnselectedColor: page.tabOnUnselectedColor,
+              borderRadius: page.tabBorderRadius,
+              itemPadding: page.tabItemPadding,
+              padding: page.tabPadding,
+              itemLabel: page.tabLabelBuilder,
               isItemSelected: (value) => selectedItem == value,
               onItemChanged: (value) {
                 if (value == null || value == selectedItem) return;
-                selectedTabRx?.value = value;
+                page.selectedTabRx?.value = value;
               },
+              suffixChipLabel: page.suffixChipLabelBuilder,
             );
           })
         : const SizedBox.shrink();

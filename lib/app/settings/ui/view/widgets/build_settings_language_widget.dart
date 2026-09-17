@@ -6,10 +6,11 @@ class BuildSettingsLanguageWidget extends GetView<SettingsController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return BuildSettingsTile(
+      return SettingsTile(
         title: AppTrans.language,
         subtitle: controller.currentLocale.value?.name ?? '',
         icon: Icons.language,
+        showDivider: true,
         onTap: () {
           controller.showSettingsModalPageSheet(
             context,
@@ -28,7 +29,10 @@ class BuildSettingsLanguageWidget extends GetView<SettingsController> {
     return BuildSettingsPage.buildModalPage(
       title: AppTrans.language,
       items: controller.supportedLocales,
-      onItemSelected: (lang) => controller.handleLanguageSelection(lang),
+      onItemSelected: (lang) {
+        controller.handleLanguageSelection(lang);
+        AppNavigation.pop();
+      },
       itemName: (lang) => lang.name,
       isItemSelected: (lang) => controller.currentLocale.value == lang,
       onBackButtonPressed: isOnlyPage

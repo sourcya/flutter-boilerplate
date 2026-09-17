@@ -6,10 +6,7 @@ class BuildRegisterTermsWidget extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 12.r,
-        vertical: 4.r,
-      ),
+      padding: context.paddingSymmetric(horizontal: 12, vertical: 4),
       width: double.infinity,
       child: Row(
         children: [

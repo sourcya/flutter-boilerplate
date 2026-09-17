@@ -1,38 +1,28 @@
-import 'dart:io';
-
 import 'package:playx/playx.dart';
 
-/// contains global keys
 abstract class Constants {
   Constants._();
 
-  static const String? googleSignInServerId = null;
-
-  //APP UPDATES
-  static const String? appleId = null;
-  static const String playStoreId = 'io.sourcya.tmt.track';
+  static const String appleId = 'idXXXXXXXXXX';
+  static const String playStoreId = 'io.sourcya.app';
 
   static const String playStoreUrl =
-      'https://play.google.com/store/apps/details?id=io.sourcya.tmt.track';
-  static const String iosStoreUrl = '';
+      'https://play.google.com/store/apps/details?id=io.sourcya.app';
+  static const String iosStoreUrl =
+      'https://apps.apple.com/app/idXXXXXXXXXX';
 
-  static String storeUrl = Platform.isAndroid
+  static String storeUrl = PlayxPlatform.isAndroid
       ? playStoreUrl
-      : Platform.isIOS
+      : PlayxPlatform.isIOS
       ? iosStoreUrl
       : '';
 
   static const String storeCountry = 'sa';
   static String storeLanguage = PlayxLocalization.currentLocale.languageCode;
 
-  static const bool shouldUseGoogleSignIn = true;
-
-  static const bool shouldUseBiometricAuth = true;
-
-  static String auth0ClientId = '';
-  static String auth0Domain = 'sourcya.eu.auth0.com';
-
-  static String auth0WebClientId = '';
-
-  static String whatsappNumber = '';
+  static const String webUrl = 'https://sourcya.io';
+  static const String telephoneNumber = '+966 11 000 0000';
+  static const String phoneNumber = '+966 50 000 0000';
+  static const String contactWhatsappNumber = '+966 50 000 0000';
+  static const String whatsappNumber = '966500000000';
 }

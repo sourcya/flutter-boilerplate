@@ -21,6 +21,8 @@ abstract class Dimens {
 
   static const bottomNavBarHeight = 56.0;
 
+  static const double bigScreenWidthThreshold = 840;
+
   static double fieldTextSize = 16.sp;
 }
 
@@ -35,6 +37,6 @@ Dimens get dimens {
   return isTablet
       ? TabletDimens()
       : isSmallMobile
-      ? SmallMobileDimens()
-      : MobileDimens();
+          ? SmallMobileDimens()
+          : MobileDimens();
 }

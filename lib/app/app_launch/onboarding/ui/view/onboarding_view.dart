@@ -1,30 +1,17 @@
 part of '../imports/onboarding_imports.dart';
 
 class OnBoardingView extends GetView<OnBoardingController> {
+  const OnBoardingView({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return PlatformScaffold(
-      backgroundColor: context.colors.surface,
-      body: SafeArea(
-        child: Column(
-          children: [
-            const Expanded(child: BuildOnboardingPageViewWidget()),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 8.r, horizontal: 8.w),
-              child: const Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    BuildOnboardingPageIndicatorsWidget(),
-                    Spacer(),
-                    BuildOnboardingPageSkipWidget(),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+    return CustomScaffold(
+      includeAppBar: false,
+      useSafeArea: false,
+      backgroundColor: context.colors.authPageBackground,
+      // attachPortraitConstraint: context.isAppPortrait,
+      bodyAlignment: Alignment.topCenter,
+      child: const BuildOnboardingPageViewWidget(),
     );
   }
 }

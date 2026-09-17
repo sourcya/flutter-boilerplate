@@ -50,16 +50,20 @@ class IconInfo {
   }
 
   Widget buildIconWidget({Color? color, double? size}) {
-    final iconColor = color ?? this.color;
     final iconSize = size ?? this.size;
+    final iconColor = color ?? this.color;
     if (icon != null) {
       return Icon(icon, color: iconColor, size: iconSize);
     } else if (svgIcon != null) {
-      return ImageViewer.svgAsset(
-        svgIcon!,
-        color: iconColor,
+      return SizedBox(
         width: iconSize,
         height: iconSize,
+        child: ImageViewer.svgAsset(
+          svgIcon!,
+          color: iconColor,
+          width: iconSize,
+          height: iconSize,
+        ),
       );
     } else if (assetIcon != null) {
       return ImageViewer.asset(

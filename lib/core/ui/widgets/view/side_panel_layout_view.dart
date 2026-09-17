@@ -9,8 +9,7 @@ class SidePanelLayoutView<T> extends StatelessWidget {
 
   // Builders
   final Widget Function(BuildContext context, T item) contentBuilder;
-  final Widget Function(BuildContext context, T item, bool selected)?
-  sideItemBuilder;
+  final Widget Function(BuildContext context, T item, bool selected)? sideItemBuilder;
 
   // Header
   final bool showSearch;
@@ -20,14 +19,23 @@ class SidePanelLayoutView<T> extends StatelessWidget {
   final Widget? endActionButton;
 
   // Optional Sidebar Widget (like stepper)
-  final Widget Function(BuildContext context, T selectedItem, List<T> items)?
-  sidebarBuilder;
+  final Widget Function(BuildContext context, T selectedItem, List<T> items)? sidebarBuilder;
 
   final List<BreadcrumbItem> breadcrumbs;
+  final bool? attachBreadcrumb;
+  final bool showNotificationButton;
+  final bool isInitialized;
+
+  /// Gutter around side nav + content card (Figma: 16 on all sides).
+  final EdgeInsetsGeometry? sideRowPadding;
+
+  /// Page-level data state; sidebar stays visible while loading (loader in content card only).
+  final RxDataState? dataState;
 
   const SidePanelLayoutView({
     super.key,
     required this.title,
+    this.dataState,
     required this.items,
     required this.selectedItem,
     required this.contentBuilder,
@@ -39,154 +47,287 @@ class SidePanelLayoutView<T> extends StatelessWidget {
     this.endActionButton,
     this.sidebarBuilder,
     this.breadcrumbs = const [],
+    this.attachBreadcrumb,
+    this.showNotificationButton = false,
+    this.isInitialized = true,
+    this.sideRowPadding,
   });
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: title,
-      actions: const [],
-      breadcrumbs: breadcrumbs,
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(child: SizedBox(height: 12.r)),
-          _buildHeader(context),
-          SliverToBoxAdapter(child: SizedBox(height: 8.r)),
-          SliverToBoxAdapter(child: _buildSidePanelLayout(context)),
-          SliverToBoxAdapter(
-            child: SizedBox(height: 16.r + context.mediaQuery.padding.bottom),
-          ),
-        ],
-      ),
-    );
-  }
+    final showInlineHeader = showSearch || filterButton != null || endActionButton != null;
 
-  // -------------------------------
-  // Header
-  // -------------------------------
-  Widget _buildHeader(BuildContext context) {
-    return SliverToBoxAdapter(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.0.r),
-        child: Row(
+    return CustomScaffold(
+      isInitialized: isInitialized,
+      title: title,
+      bodyAlignment: Alignment.topCenter,
+      backgroundColor: context.colors.sidePanelPageBackground,
+      breadcrumbs: breadcrumbs,
+      attachBreadcrumb: attachBreadcrumb,
+      showNotificationButton: showNotificationButton,
+      childBuilder: (_) => SafeArea(
+        top: false,
+        left: false,
+        right: false,
+        child: Column(
           children: [
-            8.boxR,
-            CustomText(title, fontSize: 20.sp, fontWeight: FontWeight.w500),
-            const Spacer(),
-            if (showSearch) _buildSearchBar(context),
-            if (filterButton != null) filterButton!,
-            if (endActionButton != null) endActionButton!,
+            if (showInlineHeader) ...[
+              12.hBox,
+              _SidePanelHeader(
+                title: title,
+                showSearch: showSearch,
+                searchController: searchController,
+                onSearchChanged: onSearchChanged,
+                filterButton: filterButton,
+                endActionButton: endActionButton,
+              ),
+              16.hBox,
+            ],
+            Expanded(
+              child: dataState != null
+                  ? RxDataStateWidget(
+                      rxData: dataState!,
+                      onInitial: (_) => _sidePanelRow(context),
+                      onLoading: (_) => _sidePanelRow(context),
+                      onSuccess: (_) => _sidePanelRow(context),
+                    )
+                  : _sidePanelRow(context),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSearchBar(BuildContext context) {
+  Widget _sidePanelRow(BuildContext context) {
+    return _SidePanelSideRow<T>(
+      items: items,
+      selectedItem: selectedItem,
+      contentBuilder: contentBuilder,
+      sideItemBuilder: sideItemBuilder,
+      sidebarBuilder: sidebarBuilder,
+      sideRowPadding: sideRowPadding,
+      dataState: dataState,
+    );
+  }
+}
+
+class _SidePanelHeader extends StatelessWidget {
+  final String title;
+  final bool showSearch;
+  final TextEditingController? searchController;
+  final Function(String)? onSearchChanged;
+  final Widget? filterButton;
+  final Widget? endActionButton;
+
+  const _SidePanelHeader({
+    required this.title,
+    required this.showSearch,
+    required this.searchController,
+    required this.onSearchChanged,
+    required this.filterButton,
+    required this.endActionButton,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: context.paddingSymmetric(horizontal: 16),
+      child: Row(
+        children: [
+          if (showSearch)
+            _SidePanelSearchBar(
+              searchController: searchController,
+              onSearchChanged: onSearchChanged,
+            ),
+          if (filterButton != null) filterButton!,
+          if (endActionButton != null) endActionButton!,
+        ],
+      ),
+    );
+  }
+}
+
+class _SidePanelSearchBar extends StatelessWidget {
+  final TextEditingController? searchController;
+  final Function(String)? onSearchChanged;
+
+  const _SidePanelSearchBar({
+    required this.searchController,
+    required this.onSearchChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(maxWidth: 300.r),
       child: CustomTextField(
         controller: searchController,
         onChanged: onSearchChanged,
-        prefix: Icon(Icons.search, color: context.colors.onSurface),
+        prefix: IconInfo.svg(
+          Asset.icons.search,
+          size: 24.r,
+          color: context.colors.onSurface,
+        ).buildIconWidget(),
         fillColor: context.colors.cardColor,
         hint: AppTrans.search.tr(context: context),
-        contentPadding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 8.r),
+        contentPadding: context.paddingSymmetric(horizontal: 8, vertical: 8),
       ),
     );
   }
+}
 
-  // -------------------------------
-  // SidePanel Layout
-  // -------------------------------
-  Widget _buildSidePanelLayout(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(width: 12.r),
-        // Sidebar (custom or default)
-        if (sidebarBuilder != null)
-          Obx(() {
-            final selected = selectedItem.value;
-            return sidebarBuilder!(context, selected, items);
-          })
-        else
-          _buildDefaultSidebar(context),
-        SizedBox(width: 16.r),
-        // Content
-        Expanded(child: _buildContentArea(context)),
-        SizedBox(width: 12.r),
-      ],
+class _SidePanelSideRow<T> extends StatelessWidget {
+  final List<T> items;
+  final Rx<T> selectedItem;
+  final Widget Function(BuildContext context, T item) contentBuilder;
+  final Widget Function(BuildContext context, T item, bool selected)? sideItemBuilder;
+  final Widget Function(BuildContext context, T selectedItem, List<T> items)? sidebarBuilder;
+  final EdgeInsetsGeometry? sideRowPadding;
+  final RxDataState? dataState;
+
+  const _SidePanelSideRow({
+    required this.items,
+    required this.selectedItem,
+    required this.contentBuilder,
+    required this.sideItemBuilder,
+    required this.sidebarBuilder,
+    this.dataState,
+    this.sideRowPadding,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: sideRowPadding ?? context.paddingAll(16),
+      child: SizedBox(
+        height: context.height,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 16.r,
+          children: [
+            if (sidebarBuilder != null)
+              Obx(() {
+                final selected = selectedItem.value;
+                return sidebarBuilder!(context, selected, items);
+              })
+            else
+              _SidePanelDefaultSidebar<T>(
+                items: items,
+                selectedItem: selectedItem,
+                sideItemBuilder: sideItemBuilder,
+              ),
+            Expanded(
+              child: _SidePanelContentArea<T>(
+                selectedItem: selectedItem,
+                contentBuilder: contentBuilder,
+                dataState: dataState,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
+}
 
-  // -------------------------------
-  // Default Sidebar
-  // -------------------------------
-  Widget _buildDefaultSidebar(BuildContext context) {
-    return Container(
-      width: context.width * .16,
-      padding: EdgeInsets.symmetric(vertical: 20.r),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: items.asMap().entries.map((entry) {
-          final index = entry.key;
-          final item = entry.value;
-          return AnimatedContainer(
-                duration: 250.ms,
-                margin: EdgeInsets.only(bottom: 14.r),
-                child: Obx(() {
-                  final isSelected = selectedItem.value == item;
-                  return InkWell(
-                    borderRadius: BorderRadius.circular(9999),
-                    onTap: () => selectedItem.value = item,
-                    child: sideItemBuilder != null
-                        ? sideItemBuilder!(context, item, isSelected)
-                        : Container(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 12.r,
-                              horizontal: 12.r,
-                            ),
-                            decoration: BoxDecoration(
-                              color: isSelected ? context.colors.primary : null,
-                              borderRadius: BorderRadius.circular(
-                                isSelected ? 9999 : 8.r,
+class _SidePanelDefaultSidebar<T> extends StatelessWidget {
+  final List<T> items;
+  final Rx<T> selectedItem;
+  final Widget Function(BuildContext context, T item, bool selected)? sideItemBuilder;
+
+  const _SidePanelDefaultSidebar({
+    required this.items,
+    required this.selectedItem,
+    required this.sideItemBuilder,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 173.r,
+      child: Padding(
+        padding: context.paddingSymmetric(vertical: 16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: items.asMap().entries.map((entry) {
+            final index = entry.key;
+            final item = entry.value;
+            return AnimatedContainer(
+                  duration: 250.ms,
+                  margin: context.paddingOnly(bottom: 16),
+                  child: Obx(() {
+                    final isSelected = selectedItem.value == item;
+                    return InkWell(
+                      borderRadius: BorderRadius.circular(12.r),
+                      onTap: () => selectedItem.value = item,
+                      child: sideItemBuilder != null
+                          ? sideItemBuilder!(context, item, isSelected)
+                          : Container(
+                              padding: context.paddingSymmetric(
+                                vertical: 12,
+                                horizontal: 12,
+                              ),
+                              decoration: BoxDecoration(
+                                color: isSelected ? context.colors.primary : null,
+                                borderRadius: BorderRadius.circular(12.r),
+                              ),
+                              child: Row(
+                                children: [
+                                  IconInfo.svg(
+                                    Asset.icons.svgIcActive,
+                                    size: 16.r,
+                                    color: isSelected
+                                        ? context.colors.colorScheme.onPrimary
+                                        : context.colors.onSurface,
+                                  ).buildIconWidget(),
+                                  8.wBox,
+                                  Expanded(
+                                    child: CustomText(
+                                      item.toString(),
+                                      textStyle: context.bodyMediumTS.copyWith(
+                                        color: isSelected
+                                            ? context.colors.colorScheme.onPrimary
+                                            : context.colors.onSurface,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.circle,
-                                  size: 16.r,
-                                  color: isSelected
-                                      ? Colors.white
-                                      : context.colors.onSurface,
-                                ),
-                                SizedBox(width: 8.r),
-                                Expanded(child: Text(item.toString())),
-                              ],
-                            ),
-                          ),
-                  );
-                }),
-              )
-              .animate()
-              .fadeIn(duration: 250.ms)
-              .slideX(
-                begin: -0.1,
-                end: 0,
-                duration: 250.ms,
-                delay: (60 * index).ms,
-              );
-        }).toList(),
+                    );
+                  }),
+                )
+                .animate()
+                .fadeIn(duration: 250.ms)
+                .slideX(
+                  begin: -0.1,
+                  end: 0,
+                  duration: 250.ms,
+                  delay: (60 * index).ms,
+                );
+          }).toList(),
+        ),
       ),
     );
   }
+}
 
-  // -------------------------------
-  // Content Area
-  // -------------------------------
-  Widget _buildContentArea(BuildContext context) {
+class _SidePanelContentArea<T> extends StatelessWidget {
+  final Rx<T> selectedItem;
+  final Widget Function(BuildContext context, T item) contentBuilder;
+  final RxDataState? dataState;
+
+  const _SidePanelContentArea({
+    required this.selectedItem,
+    required this.contentBuilder,
+    this.dataState,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return AnimatedSize(
       duration: 500.ms,
       curve: Curves.easeInOutCubic,
@@ -228,19 +369,22 @@ class SidePanelLayoutView<T> extends StatelessWidget {
         child: Obx(() {
           final selected = selectedItem.value;
           return Card(
-            margin: EdgeInsetsDirectional.only(end: 24.r),
-            color: context.colors.cardColor,
+            margin: EdgeInsets.zero,
+            color: context.colors.sidePanelContentSurface,
             shape: RoundedRectangleBorder(
               side: BorderSide(
-                color: context.colors.borderColor,
+                color: context.colors.cardBorderColor,
               ),
               borderRadius: BorderRadius.circular(16.r),
             ),
             key: ValueKey(selected),
             child: Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 24.r, vertical: 16.r),
-              child: contentBuilder(context, selected),
+              width: context.width,
+              height: double.infinity,
+              padding: context.paddingSymmetric(horizontal: 24, vertical: 16),
+              child: (dataState?.value.isLoading ?? false)
+                  ? const Center(child: CustomLoading())
+                  : contentBuilder(context, selected),
             ),
           );
         }),
