@@ -2,7 +2,7 @@
 
 A generic, production-ready Flutter starter for Android, iOS, and Web — built by Sourcya as the base for new client apps. It ships with navigation, dependency injection, networking, theming, localization (English/Arabic), a responsive UI kit, and a fully worked reference feature (`Products`) so a new project starts from working, idiomatic code instead of a blank `main.dart`.
 
-**Copy this repository to start a new product, then add your product's features on top of it. Do not add business logic from other Sourcya products (e.g. Madaan/TMT) into this boilerplate.**
+**Copy this repository to start a new product, then add your product's features on top of it.
 
 ## 📖 Full documentation
 
