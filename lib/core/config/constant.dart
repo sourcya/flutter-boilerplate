@@ -3,12 +3,13 @@ import 'package:playx/playx.dart';
 abstract class Constants {
   Constants._();
 
-  static const String? appleId = null;
+  static const String appleId = 'idXXXXXXXXXX';
   static const String playStoreId = 'io.sourcya.app';
 
   static const String playStoreUrl =
       'https://play.google.com/store/apps/details?id=io.sourcya.app';
-  static const String iosStoreUrl = '';
+  static const String iosStoreUrl =
+      'https://apps.apple.com/app/idXXXXXXXXXX';
 
   static String storeUrl = PlayxPlatform.isAndroid
       ? playStoreUrl

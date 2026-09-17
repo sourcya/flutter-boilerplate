@@ -22,6 +22,12 @@ class AppController extends GetxController with AppAuthMixin, AppDrawerMixin {
       label: AppTrans.support,
     ),
     CustomNavigationDestinationItem(
+      icon: IconInfo.svg(Assets.icons.icSettings),
+      label: AppTrans.settings,
+      navigationIndex: 1,
+      route: Routes.settings,
+    ),
+    CustomNavigationDestinationItem(
       icon: IconInfo.svg(Assets.icons.icLogout),
       label: AppTrans.logout,
     ),
@@ -47,8 +53,7 @@ class AppController extends GetxController with AppAuthMixin, AppDrawerMixin {
 
   Future<void> updateAppModules({List<AppModule>? modules}) async {
     try {
-      final appModules =
-          modules ?? await MyPreferenceManger.instance.getActiveAppModules();
+      final appModules = modules ?? await MyPreferenceManger.instance.getActiveAppModules();
       activeAppModules.assignAll(appModules);
       await MyPreferenceManger.instance.saveActiveAppModules(appModules);
 
@@ -62,15 +67,20 @@ class AppController extends GetxController with AppAuthMixin, AppDrawerMixin {
       moduleDrawerItems.assignAll(drawerItems);
       moduleDrawerItems.refresh();
 
-      final currentRoute = PlayxNavigation.currentRouteName;
+      // The router may not have resolved an initial route yet this early in
+      // boot (e.g. right after app start), in which case GoRouter throws
+      // instead of returning null.
+      String? currentRoute;
+      try {
+        currentRoute = PlayxNavigation.currentRouteName;
+      } on Object {
+        currentRoute = null;
+      }
       final moduleRoutes = allModuleDrawerItems
           .map((item) => item.route)
           .whereType<String>()
           .toSet();
-      final enabledRoutes = drawerItems
-          .map((item) => item.route)
-          .whereType<String>()
-          .toSet();
+      final enabledRoutes = drawerItems.map((item) => item.route).whereType<String>().toSet();
       if (currentRoute != null &&
           moduleRoutes.contains(currentRoute) &&
           !enabledRoutes.contains(currentRoute)) {

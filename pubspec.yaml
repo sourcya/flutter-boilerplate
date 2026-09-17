@@ -45,7 +45,12 @@ dev_dependencies:
   package_rename: ^1.10.1
   rps:
 
+# Project scripts, powered by the `rps` dev dependency (no global install needed).
+# Run any script below with: dart run rps <script-name>
+# Example: dart run rps setup
 scripts:
+  # Renames the package/app, regenerates launcher icons, and creates a debug keystore.
+  # Run once when starting a new project from this boilerplate.
   setup:
     $before: echo Setting up project...
     $script: >-
@@ -53,25 +58,39 @@ scripts:
       dart run package_rename --path="package_rename_config.yaml" &&
       flutter pub run flutter_project_name_changer:main sourcya &&
       dart run flutter_launcher_icons &&
+      dart run flutter_native_splash:create &&
       dart run scripts/generate_keystore.dart
     $after: echo Project setup complete.
+  # Runs `flutter analyze` over the project.
   analyze:
     $script: flutter analyze
+  # Builds the release web bundle (see README > Web build and deployment).
   build-web:
     $script: flutter build web --release
+  # Runs `flutter clean`.
   clean:
     $script: flutter clean
+  # Formats all Dart files with `dart format`.
   format:
     $script: dart format .
+  # Runs build_runner once to (re)generate code (e.g. asset/model generators).
   gen:
     $script: dart run build_runner build --delete-conflicting-outputs
+  # Regenerates launcher icons from `flutter_launcher_icons.yaml` after changing the logo.
   icons:
     $script: dart run flutter_launcher_icons
+  # Applies `package_rename_config.yaml` (app name, bundle/package id) to android/ios/web.
   rename:
     $script: dart run package_rename --path="package_rename_config.yaml"
+  # Regenerates native splash screens from the `flutter_native_splash` config below
+  # after changing the logo or splash colors.
+  splash:
+    $script: dart run flutter_native_splash:create
+  # Runs `flutter test` if a test/ directory exists, otherwise skips.
   test:
     $script: >-
       if [ -d test ]; then flutter test; else echo "No test directory; skipping."; fi
+  # Watches for file changes and re-runs build_runner incrementally.
   watch:
     $script: dart run build_runner watch --delete-conflicting-outputs
 
@@ -113,13 +132,17 @@ flutter:
     - assets/animation/
     - assets/images/
     - assets/images/icons/
+    - assets/images/logo/
     - assets/translations/
     - assets/fonts/
     - assets/env/
     - assets/fonts/cairo/
     - assets/fonts/segoe/
-    - assets/icons/
 
+# Regenerate with: dart run rps splash (after changing the logo or colors below).
+# Web is intentionally excluded: web/index.html already ships its own bespoke,
+# translated (en/ar) loading screen, so a native splash there would just be a
+# redundant, never-dismissed overlay underneath it.
 flutter_native_splash:
   color: "#14213D"
   color_dark: "#14213D"
@@ -130,6 +153,6 @@ flutter_native_splash:
     image: assets/images/logo.png
     icon_background_color: "#14213D"
     icon_background_color_dark: "#14213D"
-  web: true
+  web: false
   ios: true
   android: true

@@ -7,9 +7,9 @@ class Icons {
 
   Icons._internal();
 
-  final String logo = 'assets/icons/logo.svg';
-  final String google = 'assets/icons/google.svg';
-  final String apple = 'assets/icons/apple.svg';
+  final String logo = 'assets/images/logo/logo.svg';
+  final String google = 'assets/images/logo/google.svg';
+  final String apple = 'assets/images/logo/apple.svg';
 
   final String plus = 'assets/images/icons/ic_plus.svg';
   final String icEye = 'assets/images/icons/ic_eye.svg';
