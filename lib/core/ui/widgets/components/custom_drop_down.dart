@@ -18,6 +18,9 @@ class CustomDropDown<T> extends StatelessWidget {
   final Offset offset;
   final Widget? bottomWidget;
   final VoidCallback? onBottomWidgetTap;
+  final bool isLoading;
+  final String? errorMessage;
+  final VoidCallback? onRetry;
 
   const CustomDropDown({
     required this.items,
@@ -36,10 +39,54 @@ class CustomDropDown<T> extends StatelessWidget {
     this.color,
     this.bottomWidget,
     this.onBottomWidgetTap,
+    this.isLoading = false,
+    this.errorMessage,
+    this.onRetry,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return _stateShell(
+        context,
+        child: Row(
+          children: [
+            SizedBox(
+              width: 18.r,
+              height: 18.r,
+              child: CenterLoading.adaptive(color: context.colors.primary),
+            ),
+            12.wBox,
+            CustomText(
+              AppTrans.loadingStatusLoading,
+              color: context.colors.subtitleTextColor,
+            ),
+          ],
+        ),
+      );
+    }
+    if (errorMessage != null) {
+      return _stateShell(
+        context,
+        child: Row(
+          children: [
+            Expanded(
+              child: CustomText(
+                errorMessage!,
+                color: context.colors.error,
+                maxLines: 1,
+                textOverflow: TextOverflow.ellipsis,
+              ),
+            ),
+            if (onRetry != null)
+              TextButton(
+                onPressed: onRetry,
+                child: CustomText(AppTrans.retryText, color: context.colors.primary),
+              ),
+          ],
+        ),
+      );
+    }
     return DropdownButtonHideUnderline(
       child: DropdownButton2<T>(
         isExpanded: true,
@@ -47,7 +94,7 @@ class CustomDropDown<T> extends StatelessWidget {
             CustomText(
               hint ?? '',
               fontSize: 14.sp,
-              color: Colors.grey,
+              color: context.colors.subtitleTextColor,
             ),
         items: [
           ..._itemsWidgets(context),
@@ -86,7 +133,7 @@ class CustomDropDown<T> extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
-              color: color ?? Colors.grey,
+              color: color ?? context.colors.cardBorderColor,
             ),
             color: context.colors.surface,
           ),
@@ -94,7 +141,7 @@ class CustomDropDown<T> extends StatelessWidget {
         ),
         iconStyleData: IconStyleData(
           iconEnabledColor: context.colors.primary,
-          iconDisabledColor: Colors.grey,
+          iconDisabledColor: context.colors.mutedForeground,
         ),
         dropdownStyleData: DropdownStyleData(
           maxHeight: 400.r,
@@ -111,7 +158,7 @@ class CustomDropDown<T> extends StatelessWidget {
           ),
         ),
         menuItemStyleData: MenuItemStyleData(
-          padding: contentPadding ?? EdgeInsets.only(left: 14.r, right: 14.r),
+          padding: contentPadding ?? context.paddingOnly(start: 14, end: 14),
         ),
       ),
     );
@@ -173,6 +220,25 @@ class CustomDropDown<T> extends StatelessWidget {
               ],
             ),
       ),
+    );
+  }
+
+  Widget _stateShell(BuildContext context, {required Widget child}) {
+    return Container(
+      width: double.infinity,
+      padding: padding ??
+          EdgeInsetsDirectional.only(
+            start: 12.r,
+            end: 14.r,
+            top: 12.r,
+            bottom: 12.r,
+          ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: color ?? context.colors.cardBorderColor),
+        color: context.colors.surface,
+      ),
+      child: child,
     );
   }
 }

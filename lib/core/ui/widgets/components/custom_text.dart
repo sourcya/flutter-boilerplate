@@ -23,8 +23,12 @@ class CustomText extends StatelessWidget {
   final bool isSelectable;
   final int? readMoreTextLength;
   final List<Shadow>? shadows;
+  final Color? firstWordColor;
   final Color? strokeColor;
   final double? strokeWidth;
+  final bool isResponsive;
+  final bool? softWrap;
+  final BuildContext? translationContext;
 
   const CustomText(
     this.text, {
@@ -44,6 +48,10 @@ class CustomText extends StatelessWidget {
     this.isSelectable = false,
     this.readMoreTextLength,
     this.shadows,
+    this.isResponsive = true,
+    this.softWrap,
+    this.translationContext,
+    this.firstWordColor,
   })  : icon = null,
         iconColor = null,
         iconSize = null,
@@ -73,6 +81,10 @@ class CustomText extends StatelessWidget {
     this.shadows,
     this.strokeColor,
     this.strokeWidth,
+    this.isResponsive = true,
+    this.softWrap,
+    this.translationContext,
+    this.firstWordColor,
   });
 
   const CustomText.stroke(
@@ -95,13 +107,19 @@ class CustomText extends StatelessWidget {
     this.isSelectable = false,
     this.readMoreTextLength,
     this.shadows,
+    this.isResponsive = true,
+    this.softWrap,
+    this.translationContext,
+    this.firstWordColor,
   })  : icon = null,
         iconColor = null,
         iconSize = null;
 
   @override
   Widget build(BuildContext context) {
-    final translatedText = isTranslatable ? text.tr(context: context) : text;
+    final translatedText = isTranslatable
+        ? text.tr(context: translationContext ?? context)
+        : text;
 
     final effectiveTextStyle = textStyle?.copyWith(
           color: color,
@@ -149,7 +167,7 @@ class CustomText extends StatelessWidget {
             : strokeColor != null
                 ? StrokeText(
                     text: translatedText,
-                    strokeColor: strokeColor ?? Colors.black,
+                    strokeColor: strokeColor ?? AppColors.baseblack,
                     strokeWidth: strokeWidth ?? 3,
                     textStyle: effectiveTextStyle,
                     maxLines: maxLines,
@@ -162,6 +180,7 @@ class CustomText extends StatelessWidget {
                     maxLines: maxLines,
                     textAlign: textAlign,
                     overflow: textOverflow,
+                    softWrap: softWrap,
                   );
 
     if (icon == null) {

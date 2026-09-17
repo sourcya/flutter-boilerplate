@@ -13,8 +13,8 @@ class CustomDialog extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         shape: Style.dialogRoundedRectangleBorder,
         color: context.colors.surface,
-        margin: EdgeInsets.all(8.r),
-        child: Padding(padding: Style.defaultPadding, child: child),
+        margin: context.paddingAll(8),
+        child: Padding(padding: Style.defaultPadding(context), child: child),
       ),
     );
   }

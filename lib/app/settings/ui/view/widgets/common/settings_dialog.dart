@@ -27,14 +27,12 @@ class BuildSettingsDialog<T> extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: EdgeInsets.all(12.0.r),
-            child: Text(
+            padding: context.paddingAll(12.0),
+            child: CustomText(
               title,
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w500,
-                color: context.colors.onSurface,
-              ),
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+              color: context.colors.onSurface,
             ),
           ),
           Column(
@@ -43,21 +41,15 @@ class BuildSettingsDialog<T> extends StatelessWidget {
                 .map(
                   (item) => CustomCard(
                     margin:
-                        EdgeInsets.symmetric(horizontal: 3.w, vertical: 4.h),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 2.w,
-                      vertical: 2.h,
-                    ),
+                        context.paddingSymmetric(horizontal: 3, vertical: 4),
+                    padding: context.paddingSymmetric(horizontal: 2, vertical: 2),
                     child: Obx(() {
                       return ListTile(
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 6.w,
-                          vertical: 6.h,
-                        ),
+                        contentPadding: context.paddingSymmetric(horizontal: 6, vertical: 6),
                         trailing: isItemSelected(item)
                             ? Icon(
                                 Icons.check,
-                                // color: context.colors.primary,
+                                color: context.colors.primary,
                                 size: 20.r,
                               )
                             : null,
@@ -66,7 +58,7 @@ class BuildSettingsDialog<T> extends StatelessWidget {
                             ? Container(
                                 width: 36.w,
                                 height: 36.h,
-                                padding: EdgeInsets.symmetric(horizontal: 6.w),
+                                padding: context.paddingSymmetric(horizontal: 6),
                                 alignment: Alignment.center,
                                 child: ImageViewer.svgAsset(
                                   itemIcon!(item),
@@ -76,24 +68,18 @@ class BuildSettingsDialog<T> extends StatelessWidget {
                                 ? Container(
                                     width: 36.w,
                                     height: 36.h,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 6.w,
-                                    ),
+                                    padding: context.paddingSymmetric(horizontal: 6),
                                     alignment: Alignment.center,
                                     child: itemIconWidget!(item),
                                   )
                                 : null,
                         title: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 4.w,
-                            vertical: 4.h,
-                          ),
-                          child: Text(
+                          padding: context.paddingSymmetric(horizontal: 4, vertical: 4),
+                          child: CustomText(
                             itemName(item),
-                            style: TextStyle(
-                              // color: context.colors.onSurface,
-                              fontSize: 14.sp,
-                            ),
+                            isTranslatable: false,
+                            fontSize: 14.sp,
+                            color: context.colors.onSurface,
                           ),
                         ),
                       );

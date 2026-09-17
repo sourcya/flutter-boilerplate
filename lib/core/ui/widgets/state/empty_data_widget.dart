@@ -3,17 +3,19 @@ part of '../../ui.dart';
 class EmptyDataWidget extends OrientationWidget {
   final VoidCallback? onRetryClicked;
   final String? error;
+  final double? animationHeight;
 
   const EmptyDataWidget({
     super.key,
     this.onRetryClicked,
     this.error,
+    this.animationHeight,
   });
 
   @override
   Widget buildLandscape(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(4.0.r),
+      padding: context.paddingAll(4.0),
       child: Center(
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -21,6 +23,7 @@ class EmptyDataWidget extends OrientationWidget {
             Expanded(
               child: Lottie.asset(
                 Assets.animations.noDataAnimation,
+                height: animationHeight,
               ),
             ),
             SizedBox(
@@ -33,7 +36,7 @@ class EmptyDataWidget extends OrientationWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(4.0.r),
+                      padding: context.paddingAll(4.0),
                       child: CustomText(
                         error ?? AppTrans.emptyResponse.tr(context: context),
                         textAlign: TextAlign.center,
@@ -67,7 +70,7 @@ class EmptyDataWidget extends OrientationWidget {
   @override
   Widget buildPortrait(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(4.0.r),
+      padding: context.paddingAll(4.0),
       child: OptimizedScrollView(
         child: Center(
           child: Column(
@@ -75,12 +78,13 @@ class EmptyDataWidget extends OrientationWidget {
             children: [
               Lottie.asset(
                 Assets.animations.noDataAnimation,
+                height: animationHeight,
               ),
               SizedBox(
                 height: 6.r,
               ),
               Padding(
-                padding: EdgeInsets.all(4.0.r),
+                padding: context.paddingAll(4.0),
                 child: CustomText(
                   error ?? AppTrans.emptyResponse.tr(context: context),
                   textAlign: TextAlign.center,

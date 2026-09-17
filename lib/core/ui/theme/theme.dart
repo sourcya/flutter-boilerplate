@@ -11,3 +11,11 @@ class AppThemeConfig {
         initialThemeIndex: PlayxTheme.isDeviceInDarkMode() ? 1 : 0,
       );
 }
+
+extension ThemeExtension on XTheme {
+  String get displayName => name;
+
+  String get shortLabel => id == LightTheme.theme.id
+      ? AppTrans.lightThemeShortLabel
+      : AppTrans.darkThemeShortLabel;
+}

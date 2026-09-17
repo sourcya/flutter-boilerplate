@@ -8,7 +8,7 @@ class BuildRegisterEmailFieldWidget extends GetView<RegisterController> {
     return BuildRegisterFieldWidget(
       label: AppTrans.emailOrUsernameLabel,
       textField: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.0.r),
+        padding: context.paddingSymmetric(horizontal: 4.0),
         child: CustomTextField(
           hint: AppTrans.emailHint,
           controller: controller.emailController,
@@ -17,10 +17,7 @@ class BuildRegisterEmailFieldWidget extends GetView<RegisterController> {
             IsRequired(AppTrans.emailRequired.tr(context: context)),
             IsEmail(AppTrans.notEmailError.tr(context: context)),
           ]),
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 14.r,
-            vertical: 10.r,
-          ),
+          contentPadding: context.paddingSymmetric(horizontal: 14, vertical: 10),
           prefix: Icon(
             Icons.email,
             color: context.colors.onSurface,

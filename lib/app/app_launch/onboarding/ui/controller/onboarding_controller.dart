@@ -2,44 +2,49 @@ part of '../imports/onboarding_imports.dart';
 
 class OnBoardingController extends GetxController {
   final pageController = PageController();
+  final GlobalKey pageKey = GlobalKey();
 
   final currentIndex = 0.obs;
   final isCompleted = false.obs;
 
-  final pages = <OnBoarding>[
-    OnBoarding(
-      title: AppTrans.firstBoardingTitle,
-      subtitle: AppTrans.firstBoardingSubTitle,
-      lottieAsset: Assets.animations.firstBoardingAnimation,
-    ),
-    OnBoarding(
-      title: AppTrans.secondBoardingTitle,
-      subtitle: AppTrans.secondBoardingSubTitle,
-      lottieAsset: Assets.animations.secondBoardingAnimation,
-    ),
-    OnBoarding(
-      title: AppTrans.thirdBoardingTitle,
-      subtitle: AppTrans.thirdBoardingSubTitle,
-      lottieAsset: Assets.animations.thirdBoardingAnimation,
-    ),
-  ];
+  final pages = onboardingPages;
 
-  Future<void> handleNextOrSkip() async {
+  Future<void> onNextOrSkip() async {
     if (isCompleted.value) {
-      MyPreferenceManger.instance.saveOnBoardingShown();
-
+      await MyPreferenceManger.instance.saveOnBoardingShown();
       AppNavigation.navigateFromOnBoardingToLogin();
     } else {
-      pageController.animateToPage(
+      await pageController.animateToPage(
         currentIndex.value + 1,
-        duration: const Duration(milliseconds: 350),
-        curve: Curves.easeInOut,
+        duration: ResponsiveConfig.animationDuration,
+        curve: ResponsiveConfig.animationCurve,
       );
     }
+  }
+
+  void onPrevious() {
+    final idx = pageController.hasClients ? pageController.page!.round() : currentIndex.value;
+    if (idx <= 0) return;
+    pageController.animateToPage(
+      idx - 1,
+      duration: ResponsiveConfig.animationDuration,
+      curve: ResponsiveConfig.animationCurve,
+    );
+  }
+
+  void onSkip() {
+    MyPreferenceManger.instance.saveOnBoardingShown();
+    AppNavigation.navigateFromOnBoardingToLogin();
   }
 
   void onPageChanged(int value) {
     currentIndex.value = value;
     isCompleted.value = value == pages.length - 1;
+  }
+
+  @override
+  void onClose() {
+    pageController.dispose();
+    super.onClose();
   }
 }

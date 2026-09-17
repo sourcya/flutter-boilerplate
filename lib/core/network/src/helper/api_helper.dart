@@ -1,4 +1,3 @@
-import 'package:flutter_boilerplate/app/app_launch/auth/data/data_sources/auth0_auth_data_source.dart';
 import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart';
 import 'package:flutter_boilerplate/core/models/models.dart';
 import 'package:flutter_boilerplate/core/network/network.dart';
@@ -19,11 +18,6 @@ class ApiHelper {
 
   final _client = ApiClient.client;
   final _preferenceManger = MyPreferenceManger.instance;
-  final _auth0DataSource = Auth0AuthDataSource(
-    client: ApiClient.client,
-    auth0: ApiClient.auth0,
-    auth0Web: ApiClient.auth0Web,
-  );
 
   static NetworkResult<T> unableToProcessError<T>() =>
       const NetworkResult.error(
@@ -33,46 +27,21 @@ class ApiHelper {
         ),
       );
 
-  Future<bool> isLoggedIn({bool checkAuth0 = true}) async {
+  Future<bool> isLoggedIn() async {
     try {
-      final loginMethod = await _preferenceManger.loginMethod;
-
-      final checkAuth0Credentials =
-          checkAuth0 && loginMethod != null && loginMethod != LoginMethod.email;
-
-      final isLoggedInAndSavedToPref = await _preferenceManger.isLoggedIn;
-
-      if (checkAuth0Credentials) {
-        return await _auth0DataSource.isLoggedIn && isLoggedInAndSavedToPref;
-      }
-      return isLoggedInAndSavedToPref;
+      return _preferenceManger.isLoggedIn;
     } catch (e) {
       return false;
     }
   }
 
-  Future<bool> isLoggedOut({bool checkAuth0 = true}) async =>
-      !(await isLoggedIn(checkAuth0: checkAuth0));
+  Future<bool> isLoggedOut() async => !(await isLoggedIn());
 
   Future<void> logout() async {
     await _preferenceManger.signOut();
-
-    final loginMethod = await _preferenceManger.loginMethod;
-
-    final logOutFromAuth0 =
-        loginMethod != null && loginMethod != LoginMethod.email;
-
-    if (logOutFromAuth0) {
-      try {
-        await _auth0DataSource.logout();
-      } catch (e) {
-        Sentry.captureException(e);
-      }
-    }
   }
 
-  Future<String?> get profileImageUrl async =>
-      (await _auth0DataSource.getCredentials())?.user.pictureUrl.toString();
+  Future<String?> get profileImageUrl async => null;
 
   Future<NetworkResult<MediaItem>> uploadImage({
     required MediaItem image,
@@ -123,21 +92,6 @@ class ApiHelper {
     required ApiUserInfo user,
     String? jwtToken,
   }) {
-    // bool isImageError = false;
-    // if (updatedImage != null && updatedImage.id == null) {
-    //   final uploadRes = await ApiHelper.instance.uploadImage(
-    //     image: updatedImage,
-    //     jwtToken: token,
-    //   );
-    //   uploadRes.when(
-    //     success: (MediaItem success) {
-    //       updatedImage = success;
-    //     },
-    //     error: (NetworkException error) {
-    //       isImageError = true;
-    //     },
-    //   );
-    // }
     return updateProfileName(
       firstName: user.firstName,
       lastName: user.lastName,
@@ -157,7 +111,6 @@ class ApiHelper {
       body: {
         'firstName': firstName,
         'lastName': lastName,
-        // if (!isImageError) 'image': updatedImage?.id,
       },
       headers: {
         'Authorization': 'Bearer $token',

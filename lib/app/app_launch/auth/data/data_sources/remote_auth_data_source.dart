@@ -2,6 +2,7 @@ import 'package:flutter_boilerplate/app/app_launch/auth/data/models/models.dart'
 import 'package:flutter_boilerplate/core/models/models.dart';
 import 'package:flutter_boilerplate/core/network/network.dart';
 import 'package:flutter_boilerplate/core/network/src/helper/api_helper.dart';
+import 'package:flutter_boilerplate/core/preferences/preference_manger.dart';
 import 'package:flutter_boilerplate/core/ui/ui.dart';
 import 'package:playx/playx.dart';
 
@@ -114,6 +115,121 @@ class RemoteAuthDataSource {
         'pin': pin,
       },
       fromJson: ApiUser.fromJson,
+    );
+  }
+
+  Future<NetworkResult<bool>> forgetPassword({
+    required String email,
+  }) {
+    return client.post<bool>(
+      Endpoints.forgetPassword,
+      attachCustomHeaders: false,
+      body: {
+        'email': email,
+      },
+      shouldHandleUnauthorizedRequest: false,
+      fromJson: (json) {
+        if (json == true) return true;
+        if (json is Map<String, dynamic>) {
+          return json['ok'] == true;
+        }
+        return false;
+      },
+    );
+  }
+
+  Future<NetworkResult<String>> verifyForgetPasswordOtpCode({
+    required String code,
+    required String email,
+  }) async {
+    final res = await client.post<String>(
+      Endpoints.verifyForgetPasswordOtpCode,
+      attachCustomHeaders: false,
+      body: {'email': email, 'otp': code},
+      shouldHandleUnauthorizedRequest: false,
+      fromJson: (json) {
+        if (json is Map<String, dynamic>) {
+          return json['jwt'] as String? ?? '';
+        }
+        return '';
+      },
+    );
+
+    if (res is NetworkError<String>) {
+      final raw = res.error.message;
+      if (raw.contains('Invalid OTP')) {
+        return const NetworkResult.error(
+          ApiException(errorMessage: AppTrans.invalidOtpCodeError),
+        );
+      }
+      if (raw.contains('OTP has expired')) {
+        return const NetworkResult.error(
+          ApiException(errorMessage: AppTrans.passwordOtpExpiredMessage),
+        );
+      }
+    }
+    return res;
+  }
+
+  Future<NetworkResult<bool>> resetPassword({
+    required String password,
+    required String token,
+  }) {
+    return client.post<bool>(
+      Endpoints.resetPassword,
+      attachCustomHeaders: false,
+      body: {
+        'password': password,
+        'passwordConfirmation': password,
+      },
+      shouldHandleUnauthorizedRequest: false,
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+      ),
+      fromJson: (_) => true,
+    );
+  }
+
+  Future<NetworkResult<ApiUser>> changePassword({
+    required String password,
+    required String oldPassword,
+  }) async {
+    final res = await client.post<ApiUser>(
+      Endpoints.changePassword,
+      body: {
+        'currentPassword': oldPassword,
+        'password': password,
+        'passwordConfirmation': password,
+      },
+      shouldHandleUnauthorizedRequest: false,
+      fromJson: ApiUser.fromJson,
+    );
+
+    if (res is NetworkError<ApiUser>) {
+      final raw = res.error.message;
+      if (raw.contains('current password is invalid')) {
+        return const NetworkResult.error(
+          ApiException(errorMessage: AppTrans.invalidCurrentPasswordError),
+        );
+      }
+    }
+    return res;
+  }
+
+  /// Lightweight session check (`GET /users/me`).
+  ///
+  /// [shouldHandleUnauthorizedRequest] is `false` so a 401/403 here does not
+  /// recurse into [SessionManager.handleUnauthorizedResponse].
+  Future<NetworkResult<ApiUserInfo>> getProfile() async {
+    final token = await MyPreferenceManger.instance.token ?? '';
+    return client.get<ApiUserInfo>(
+      Endpoints.profile,
+      fromJson: ApiUserInfo.fromJson,
+      attachCustomHeaders: false,
+      shouldHandleUnauthorizedRequest: false,
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
     );
   }
 }

@@ -29,6 +29,5 @@ class AppUtils {
 }
 
 extension AppUtilsExtension on BuildContext {
-  bool get isDarkMode => AppUtils.isDarkMode();
   bool get isTablet => mediaQuery.size.width >= 600;
 }

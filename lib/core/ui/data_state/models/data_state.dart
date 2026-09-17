@@ -71,13 +71,13 @@ sealed class DataState<T> {
 
   T? get data {
     if (this is Initial<T>) {
-      return this.data;
+      return data;
     }
     if (this is Loading<T>) {
-      return this.data;
+      return data;
     }
     if (this is Success<T>) {
-      return this.data;
+      return data;
     }
     return null;
   }

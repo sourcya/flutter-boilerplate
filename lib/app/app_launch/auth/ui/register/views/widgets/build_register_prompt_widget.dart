@@ -6,11 +6,7 @@ class BuildRegisterPromptWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-        right: 8.r,
-        left: 8.r,
-        bottom: 8.r,
-      ),
+      padding: context.paddingOnly(end: 8, start: 8, bottom: 8),
       width: double.infinity,
       child: CustomText(
         AppTrans.loginPrompt,

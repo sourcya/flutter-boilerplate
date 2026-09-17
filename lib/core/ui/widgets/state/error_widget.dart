@@ -13,7 +13,7 @@ class ErrorDataWidget extends OrientationWidget {
   @override
   Widget buildLandscape(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(4.0.r),
+      padding: context.paddingAll(4.0),
       child: Center(
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -33,7 +33,7 @@ class ErrorDataWidget extends OrientationWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(4.0.r),
+                      padding: context.paddingAll(4.0),
                       child: CustomText(
                         error,
                         textAlign: TextAlign.center,
@@ -67,7 +67,7 @@ class ErrorDataWidget extends OrientationWidget {
   @override
   Widget buildPortrait(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(4.0.r),
+      padding: context.paddingAll(4.0),
       child: OptimizedScrollView(
         child: Center(
           child: Column(
@@ -80,7 +80,7 @@ class ErrorDataWidget extends OrientationWidget {
                 height: 6.r,
               ),
               Padding(
-                padding: EdgeInsets.all(4.0.r),
+                padding: context.paddingAll(4.0),
                 child: CustomText(
                   error,
                   textAlign: TextAlign.center,

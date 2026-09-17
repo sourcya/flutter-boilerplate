@@ -70,7 +70,7 @@ class _TextPainterWithStroke extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     const defaultTextStyle = TextStyle(
       fontSize: 24,
-      color: Colors.black,
+      color: AppColors.baseblack,
     );
 
     final mergedTextStyle = defaultTextStyle.merge(textStyle);
@@ -84,7 +84,7 @@ class _TextPainterWithStroke extends CustomPainter {
     );
 
     final mainTextStyle = mergedTextStyle.copyWith(
-      color: mergedTextStyle.color ?? Colors.black,
+      color: mergedTextStyle.color ?? AppColors.baseblack,
     );
 
     final strokePainter = TextPainter(

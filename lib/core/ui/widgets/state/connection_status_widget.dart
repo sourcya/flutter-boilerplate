@@ -72,7 +72,7 @@ class _ConnectionStatusWidgetState extends State<ConnectionStatusWidget> {
           },
           focusNode: widget.focusNode,
           child: Padding(
-            padding: EdgeInsets.all(4.0.r),
+            padding: context.paddingAll(4.0),
             child: CustomText(
               AppTrans.noInternetConnectionDismissBannerMsg,
               color: Colors.white,
@@ -99,7 +99,7 @@ class _ConnectionStatusWidgetState extends State<ConnectionStatusWidget> {
             },
             focusNode: widget.focusNode,
             child: Padding(
-              padding: EdgeInsets.all(4.0.r),
+              padding: context.paddingAll(4.0),
               child: CustomText(
                 AppTrans.refresh,
                 color: Colors.white,

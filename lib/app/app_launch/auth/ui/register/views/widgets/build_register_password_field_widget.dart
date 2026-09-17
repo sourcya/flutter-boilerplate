@@ -31,10 +31,7 @@ class BuildRegisterPasswordFieldWidget extends GetView<RegisterController> {
               AppTrans.passwordMinLengthError.tr(context: context),
             ),
           ]),
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 14.r,
-            vertical: 10.r,
-          ),
+          contentPadding: context.paddingSymmetric(horizontal: 14, vertical: 10),
           prefix: Icon(
             Icons.lock,
             color: context.colors.onSurface,

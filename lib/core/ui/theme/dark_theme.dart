@@ -1,7 +1,9 @@
 part of '../ui.dart';
 
-// ignore: avoid_classes_with_only_static_members
+
 class DarkTheme {
+  DarkTheme._();
+
   static String darkThemeId = 'dark';
   static String darkThemeName = AppTrans.darkTheme;
 
@@ -11,14 +13,14 @@ class DarkTheme {
         brightness: Brightness.dark,
         appBarTheme: AppBarTheme(
           centerTitle: true,
-          color: colors.appBar,
+          backgroundColor: colors.appBar,
           scrolledUnderElevation: 2,
           elevation: 2,
         ),
         useMaterial3: true,
         colorScheme: colors.colorScheme,
         sliderTheme: const SliderThemeData(
-          showValueIndicator: ShowValueIndicator.always,
+          showValueIndicator: ShowValueIndicator.onDrag,
         ),
         cupertinoOverrideTheme: CupertinoThemeData(
           barBackgroundColor: colors.primary.withValues(alpha: .93),
@@ -29,6 +31,7 @@ class DarkTheme {
           textTheme: CupertinoTextThemeData(primaryColor: colors.primary),
         ),
         splashColor: colors.primary.withValues(alpha: .5),
+        hoverColor: colors.primary.withValues(alpha: .02),
         applyElevationOverlayColor: true,
         fontFamily: fontFamily(),
         textTheme: const TextTheme().apply(fontFamily: fontFamily()),

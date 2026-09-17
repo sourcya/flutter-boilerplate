@@ -6,18 +6,13 @@ class BuildMobileLoginTextField extends GetView<OtpLoginController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 5.h,
-      ),
+      padding: context.paddingSymmetric(vertical: 5),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.w,
-              vertical: 5.h,
-            ),
+            padding: context.paddingSymmetric(horizontal: 10, vertical: 5),
             child: CustomText(
               AppTrans.phoneNumberLabel.tr(context: context),
               fontSize: 16.sp,
@@ -25,9 +20,7 @@ class BuildMobileLoginTextField extends GetView<OtpLoginController> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.w,
-            ),
+            padding: context.paddingSymmetric(horizontal: 10),
             child: CustomTextField(
               // label: AppTrans.phoneNumberLabel.tr,
               hint: AppTrans.phoneNumberHint.tr(context: context),

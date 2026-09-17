@@ -22,10 +22,7 @@ class BuildRegisterConfirmPasswordWidget extends GetView<RegisterController> {
             onPressed: controller.changeHideConfirmPasswordState,
             // color: context.colors.secondary,
           ),
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 14.r,
-            vertical: 10.r,
-          ),
+          contentPadding: context.paddingSymmetric(horizontal: 14, vertical: 10),
           validator: qValidator([
             IsRequired(
               AppTrans.passwordRequired.tr(context: context),

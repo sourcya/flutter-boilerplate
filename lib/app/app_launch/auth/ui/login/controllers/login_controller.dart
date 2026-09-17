@@ -1,115 +1,180 @@
 part of '../imports/login_imports.dart';
 
-///Login controller to setup data to the ui.
 class LoginController extends GetxController {
-  final AuthRepository authRepository;
+  final AuthRepository repo;
 
-  LoginController({
-    required this.authRepository,
-  });
+  LoginController({required this.repo});
 
   final hidePassword = true.obs;
+  final rememberMe = true.obs;
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final emailFocusNode = FocusNode();
+  final passwordFocusNode = FocusNode();
 
   final isEmailValid = false.obs;
   final isPasswordValid = false.obs;
-
   final isFormValid = false.obs;
   Worker? _validationWorker;
 
-  final Rxn<LoginMethod> currentLoginMethod = Rxn();
-  final loginMethods = <LoginMethod>[
-    LoginMethod.email,
-    LoginMethod.google,
-    LoginMethod.apple,
-  ];
-
   @override
   void onInit() {
-    if (kDebugMode) {
-      // emailController.text = 'bbbb@mail.com';
-      // passwordController.text = '123456';
-      // isEmailValid.value = true;
-      // isPasswordValid.value = true;
-      // isFormValid.value = true;
-    }
     super.onInit();
-    listenToValidationState();
+    emailController.addListener(_syncValidationFromTextControllers);
+    passwordController.addListener(_syncValidationFromTextControllers);
+    _validationListener();
   }
 
-  void listenToValidationState() {
-    _validationWorker = everAll([
-      isEmailValid,
-      isPasswordValid,
-    ], (callback) {
-      final isValid = isEmailValid.value && isPasswordValid.value;
-      isFormValid.value = isValid;
-    });
+  void _validationListener() {
+    _validationWorker = everAll(
+      [
+        isEmailValid,
+        isPasswordValid,
+      ],
+      (_) {
+        isFormValid.value = isEmailValid.value && isPasswordValid.value;
+      },
+    );
   }
 
-  Future<void> loginBy({required LoginMethod method}) async {
-    currentLoginMethod.value = method;
-    if (method == LoginMethod.email) {
-      currentLoginMethod.value = LoginMethod.email;
-    } else {
-      AppController.instance.loadingStatus.value = const LoadingStatus.login();
+  void _syncValidationFromTextControllers() {
+    final email = emailController.text.trim();
+    final password = passwordController.text;
 
-      currentLoginMethod.value = null;
-      final result = await authRepository.loginViaAuth0(method: method);
-      result.when(
-        success: (User user) {
-          _navigateToHome();
-        },
-        error: (NetworkException exception) {
-          Alert.error(message: exception.message);
-          AppController.instance.loadingStatus.value =
-              const LoadingStatus.idle();
-        },
-      );
+    isEmailValid.value = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email);
+    isPasswordValid.value = password.isNotEmpty;
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    unawaited(_restoreSavedLoginFields());
+  }
+
+  Future<void> _restoreSavedLoginFields() async {
+    final prefs = MyPreferenceManger.instance;
+    final username = await prefs.getSavedUsername();
+    final password = await prefs.getSavedPassword();
+
+    if (username != null &&
+        password != null &&
+        username.isNotEmpty &&
+        password.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        emailController.text = username;
+        passwordController.text = password;
+        isEmailValid.value = true;
+        isPasswordValid.value = true;
+        isFormValid.value = true;
+      });
+      rememberMe.value = true;
+      return;
     }
+
+    rememberMe.value = await prefs.shouldRememberUser;
   }
 
-  Future<void> login() async {
-    if (!isFormValid()) return;
+  Future<void> signIn() async {
+    if (!isFormValid.value) return;
     FocusManager.instance.primaryFocus?.unfocus();
-    AppController.instance.loadingStatus.value = const LoadingStatus.login();
-    final result = await authRepository.loginViaEmailAndPassword(
-      email: emailController.text,
-      password: passwordController.text,
-    );
-    result.when(
-      success: (User user) async {
-        // if (saveLoginInfo.value) {
-        //   await authRepository.saveLoginInfo(
-        //     email: emailController.text,
-        //     password: passwordController.text,
-        //   );
-        // }
-        await _navigateToHome();
-      },
-      error: (NetworkException exception) {
-        AppController.instance.loadingStatus.value = const LoadingStatus.idle();
-        Alert.error(message: exception.message);
-      },
-    );
-  }
-
-  Future<void> _navigateToHome() async {
-    AppController.instance.loadingStatus.value = const LoadingStatus.idle();
-    AppNavigation.navigateFromLoginToHome();
+    TextInput.finishAutofillContext(shouldSave: rememberMe.value);
+    try {
+      AppController.instance.loadingStatus.value = const LoadingStatus.login();
+      final result = await repo.loginViaEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      if (result is NetworkError<User>) {
+        Alert.error(message: result.error.message);
+        return;
+      }
+      final user = (result as NetworkSuccess<User>).data;
+      await AppController.instance.updateCurrentUser(user: user.info);
+      final prefs = MyPreferenceManger.instance;
+      await prefs.saveRememberMe(rememberMe.value);
+      if (rememberMe.value) {
+        await prefs.saveUserCredentials(
+          username: emailController.text,
+          password: passwordController.text,
+        );
+      } else {
+        await prefs.forgetUsernameAndPassword();
+      }
+      AppNavigation.navigateFromLoginToHome();
+    } catch (e) {
+      Alert.error(message: e.toString(), isMessageTranslatable: false);
+    } finally {
+      AppController.instance.loadingStatus.value = const LoadingStatus.idle();
+    }
   }
 
   void navigateToRegister() {
     AppNavigation.navigateFromLoginToRegister();
   }
 
+  void onRememberMeChanged(bool? value) {
+    if (value == null) return;
+    rememberMe.value = value;
+  }
+
+  void toggleRememberMe() {
+    rememberMe.value = !rememberMe.value;
+  }
+
+  void onForgotPassword() {
+    AppNavigation.navigateFromLoginToForgetPassword();
+  }
+
+  Future<void> onTelephoneContact({BuildContext? context}) async {
+    final canLaunch = await launchPhoneNumber(
+      number: Constants.telephoneNumber,
+    );
+    if (!canLaunch) {
+      await Clipboard.setData(
+        const ClipboardData(text: Constants.telephoneNumber),
+      );
+      Alert.success(message: AppTrans.phoneNumberCopiedToClipboard);
+    }
+  }
+
+  Future<void> onPhoneContact({BuildContext? context}) async {
+    final canLaunch = await launchPhoneNumber(
+      number: Constants.phoneNumber,
+    );
+    if (!canLaunch) {
+      await Clipboard.setData(
+        const ClipboardData(text: Constants.phoneNumber),
+      );
+      Alert.success(message: AppTrans.phoneNumberCopiedToClipboard);
+    }
+  }
+
+  void onWhatsappContact({BuildContext? context}) {
+    unawaited(contactSupportViaWhatsapp(context: context));
+  }
+
+  void focusEmailField() {
+    if (!emailFocusNode.hasFocus) {
+      emailFocusNode.requestFocus();
+    }
+  }
+
+  void focusPasswordField() {
+    if (!passwordFocusNode.hasFocus) {
+      passwordFocusNode.requestFocus();
+    }
+  }
+
   @override
   void onClose() {
     super.onClose();
+    emailController.removeListener(_syncValidationFromTextControllers);
+    passwordController.removeListener(_syncValidationFromTextControllers);
     emailController.dispose();
     passwordController.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
     _validationWorker?.dispose();
   }
 }

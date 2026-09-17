@@ -24,13 +24,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
     }
-// Tell Gradle to exclude the Android library (without Admin)
-// that is added by the objectbox_flutter_libs package for debug builds.
-    configurations {
-        named("debugImplementation") {
-            exclude(group = "io.objectbox", module = "objectbox-android")
-        }
-    }
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
@@ -44,12 +37,6 @@ android {
         targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        manifestPlaceholders.putAll(
-            mapOf(
-                "auth0Domain" to "sourcya.eu.auth0.com",
-                "auth0Scheme" to "https"
-            )
-        )
         multiDexEnabled = true
     }
 
@@ -98,7 +85,6 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
     val multidex_version = "2.0.1"
     implementation("androidx.multidex:multidex:$multidex_version")
-    debugImplementation("io.objectbox:objectbox-android-objectbrowser:4.3.0")
 }
 
 flutter {

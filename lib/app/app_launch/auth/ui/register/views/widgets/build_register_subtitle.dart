@@ -6,10 +6,7 @@ class BuildRegisterSubtitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: 12.r,
-        horizontal: 4.r,
-      ),
+      padding: context.paddingSymmetric(vertical: 12, horizontal: 4),
       width: double.infinity,
       child: CustomText(
         AppTrans.registerSubtitle,

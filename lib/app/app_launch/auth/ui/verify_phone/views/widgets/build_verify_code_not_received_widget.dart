@@ -16,9 +16,7 @@ class BuildVerifyCodeNotReceivedWidget extends GetView<VerifyPhoneController> {
 
   Widget _buildDidNotReceiveCodeText(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 8.h,
-      ),
+      padding: context.paddingSymmetric(horizontal: 8),
       child: CustomText(
         AppTrans.verifyPhoneCodeNotReceived,
         fontSize: 15.sp,
@@ -30,9 +28,7 @@ class BuildVerifyCodeNotReceivedWidget extends GetView<VerifyPhoneController> {
 
   Widget _buildResendCodeButton(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 8.h,
-      ),
+      padding: context.paddingSymmetric(horizontal: 8),
       child: TextButton(
         onPressed: controller.resendCode,
         child: CustomText(

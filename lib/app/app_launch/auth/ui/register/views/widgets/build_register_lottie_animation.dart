@@ -6,24 +6,14 @@ class BuildRegisterLottieAnimation extends GetView<RegisterController> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 4.0.r),
+      padding: context.paddingSymmetric(vertical: 4.0),
       child: Obx(() {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 500),
           child: Padding(
             padding: controller.currentLoginMethod.value == LoginMethod.email
-                ? EdgeInsets.only(
-                    top: 16.0.r,
-                    bottom: 8.r,
-                    right: 8.0.r,
-                    left: 8.r,
-                  )
-                : EdgeInsets.only(
-                    top: 60.0.r,
-                    bottom: 8.r,
-                    right: 8.0.r,
-                    left: 8.r,
-                  ),
+                ? context.paddingOnly(top: 16.0, bottom: 8, end: 8.0, start: 8)
+                : context.paddingOnly(top: 60.0, bottom: 8, end: 8.0, start: 8),
             child: CircleAvatar(
               radius: controller.currentLoginMethod.value == LoginMethod.email
                   ? context.height * .05

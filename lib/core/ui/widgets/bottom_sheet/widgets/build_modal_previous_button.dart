@@ -18,7 +18,7 @@ class BuildModalPreviousButton extends StatelessWidget {
     return Obx(() {
       return showPreviousButton!.value
           ? IconButton(
-              padding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 8.r),
+              padding: context.paddingSymmetric(horizontal: 8, vertical: 8),
               visualDensity: VisualDensity.comfortable,
               icon: Icon(Icons.adaptive.arrow_back),
               onPressed: onPressed,
