@@ -23,16 +23,18 @@ Because of this, **native splash (`flutter_native_splash`) is deliberately exclu
 
 ## Deploying to Vercel
 
-`vercel.json` at the repo root drives the deployment:
+`vercel.json` at the repo root drives the deployment, split across Vercel's two build-lifecycle steps:
 
 ```json
 {
+  "installCommand": "bash scripts/vercel_install.sh",
   "buildCommand": "bash scripts/vercel_build.sh",
   "outputDirectory": "build/web"
 }
 ```
 
-`scripts/vercel_build.sh` installs/locates a Flutter SDK, writes `assets/env/keys.env` from the `ENVIRONMENT_KEY` (or legacy `ENVIROMENT_KEY`) project variable, runs `flutter build web --release`, **and then copies this `docs/` folder into `build/web/docs/`** so a single Vercel deployment serves both:
+- `scripts/vercel_install.sh` locates or installs the Flutter SDK (cloning the `stable` branch into `.vercel_flutter/` if one isn't already on `PATH`) and runs `flutter pub get`.
+- `scripts/vercel_build.sh` re-resolves the same Flutter SDK (install and build run as separate processes, so it can't rely on the install step's shell state — both scripts share this logic via `scripts/_vercel_flutter.sh`), writes `assets/env/keys.env` from the `ENVIRONMENT_KEY` (or legacy `ENVIROMENT_KEY`) project variable, runs `flutter build web --release`, **and then copies this `docs/` folder into `build/web/docs/`** so a single Vercel deployment serves both:
 
 - `/` — the Flutter web app (SPA rewrite: any path that isn't `/docs` or `/docs/*` falls back to `/index.html`, per the `rewrites` rule in `vercel.json`).
 - `/docs` — this documentation site (docsify — a client-side markdown renderer, no build step; it's just static files served as-is).
