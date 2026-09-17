@@ -51,3 +51,41 @@ lib/app/<feature>/
   });
   ```
 - No UI logic should leak into the Repository; UI Models out, API Models enclosed.
+
+### Abstract + Impl split, and self-registration
+
+Repositories (and their datasources) should be split into an abstract class and an `Impl`, and the repository should own its own DI registration via a static `registerInstance()` - called from the feature's `PlayxBinding.onInitApp()` (see the `dependency-injection` skill), not from `AppConfig.bootDependencies()`. Reference: `lib/app/products/data/repository/products_repository.dart`.
+
+```dart
+abstract class ProductsRepository {
+  static ProductsRepository get instance => getIt<ProductsRepository>();
+
+  static void registerInstance() {
+    if (!getIt.isRegistered<ProductsDatasource>()) {
+      getIt.registerLazySingleton<ProductsDatasource>(
+        () => ProductsDatasourceImpl(client: ...),
+      );
+    }
+    if (!getIt.isRegistered<ProductsRepository>()) {
+      getIt.registerLazySingleton<ProductsRepository>(
+        () => ProductsRepositoryImpl(dataSource: getIt<ProductsDatasource>()),
+      );
+    }
+  }
+
+  Future<NetworkResult<DataWrapper<List<Product>>>> getPaginatedProducts({
+    required int page,
+    CancelToken? cancelToken,
+  });
+}
+
+class ProductsRepositoryImpl implements ProductsRepository {
+  final ProductsDatasource _dataSource;
+  ProductsRepositoryImpl({required ProductsDatasource dataSource}) : _dataSource = dataSource;
+
+  @override
+  Future<NetworkResult<DataWrapper<List<Product>>>> getPaginatedProducts({...}) { ... }
+}
+```
+
+Guard every registration with `isRegistered` checks so `registerInstance()` is idempotent - `onInitApp()` may run more than once across the app's lifetime depending on navigation setup.

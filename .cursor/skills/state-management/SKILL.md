@@ -11,11 +11,13 @@ The app relies heavily on `GetX` for business logic and state, cleanly separated
 
 Bindings are scoped to the page router. You must handle injection efficiently without leaking memory.
 
-- `onInitApp`: Used globally when the Playx version exposes it. Register Repositories and Datasources here if not done in `AppConfig.bootDependencies()`.
+- `onInitApp`: Runs once at app startup, before this route's `onEnter` ever fires. Use it to register this feature's Repository/Datasource via a static `registerInstance()` on the repository (see `lib/app/products/data/repository/products_repository.dart` and the `dependency-injection` skill), instead of registering feature-scoped dependencies in `AppConfig.bootDependencies()`.
   ```dart
-  getIt.registerLazySingleton<DriversDatasource>(() => DriversDatasourceImpl());
+  @override
+  Future<void> onInitApp() async {
+    ProductsRepository.registerInstance();
+  }
   ```
-  This boilerplate's current Playx version does not declare `onInitApp` on `PlayxBinding`. Register feature datasources/repositories in `bootDependencies()` until that API is available.
 - `onEnter`: Called when navigating to the screen. Initialize your Controllers here.
   ```dart
   Get.put<XController>(XController());

@@ -18,16 +18,38 @@ Core utilities, services, and managers that live throughout the entire applicati
 
 The `PlayxBinding` class dictates the local scope of your features. You must split your memory allocations properly to avoid leaks.
 
-- **`onInitApp()`** (when the Playx version exposes it):
-  Use this strictly for `getIt.registerLazySingleton`. This is meant for `Datasource` and `Repository` layers. These data handlers are stateless and should be lazy singletons alive throughout the app run once imported by the binding.
+- **`onInitApp()`**:
+  Supported on this boilerplate's `PlayxBinding` (Playx Navigation 2.1.0+) - it runs once at app startup, before the route's `onEnter` ever fires. Use it for a feature's `Datasource`/`Repository` registration instead of cramming everything into `AppConfig.bootDependencies()`. The canonical shape, following `lib/app/products/`:
+
+  The repository owns its own registration via a static `registerInstance()`, guarded with `isRegistered` checks so it's safe to call more than once:
+  ```dart
+  // products_repository.dart
+  abstract class ProductsRepository {
+    static ProductsRepository get instance => getIt<ProductsRepository>();
+
+    static void registerInstance() {
+      if (!getIt.isRegistered<ProductsDatasource>()) {
+        getIt.registerLazySingleton<ProductsDatasource>(
+          () => ProductsDatasourceImpl(client: ...),
+        );
+      }
+      if (!getIt.isRegistered<ProductsRepository>()) {
+        getIt.registerLazySingleton<ProductsRepository>(
+          () => ProductsRepositoryImpl(dataSource: getIt<ProductsDatasource>()),
+        );
+      }
+    }
+    // ...abstract methods...
+  }
+  ```
+  The binding just calls it:
   ```dart
   @override
   Future<void> onInitApp() async {
-    getIt.registerLazySingleton<XDatasource>(() => XDatasourceImpl());
-    getIt.registerLazySingleton<XRepository>(() => XRepositoryImpl(...));
+    ProductsRepository.registerInstance();
   }
   ```
-  This boilerplate currently uses Playx Navigation without `onInitApp` on `PlayxBinding`. Until that API is available, register feature datasources and repositories in `AppConfig.bootDependencies()` instead. Do not add a fake `@override onInitApp()` that does not exist on the current binding class.
+  Keep `AppConfig.bootDependencies()` for things that are truly app-wide and unrelated to any single route (e.g. `MyPreferenceManger`, `EnvManger`, `ApiClient`, `AuthRepository`, `DashboardRepository`). Use `onInitApp()` specifically for feature-scoped datasources/repositories that belong to a routed feature - it keeps the registration co-located with the feature instead of piling into `app_config.dart`.
 
 - **`onEnter(context, state)`**:
   Use this to allocate your UI Controller logic via `Get.put`. This code runs when the route is actively pushed onto the screen.

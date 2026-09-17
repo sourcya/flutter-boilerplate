@@ -11,18 +11,18 @@ This app relies heavily on a custom design system built on top of Flutter widget
 
 Never use the raw Flutter equivalents. Always use the `Custom*` implementations:
 
-| Standard Widget | Tradoddy Replacement | Why? |
+| Standard Widget | Sourcya Replacement | Why? |
 | --- | --- | --- |
 | `Text` | `CustomText` | Handles localized fonts (Cairo/Segoe), translation (`.tr()`), and responsive design automatically. |
 | `Scaffold` | `CustomScaffold` | Handles platform-specifics, loading overlays, and standard App Bar consistency. Pass title directly as `title: '...'`. |
 | `ElevatedButton` | `CustomElevatedButton` | Includes loading states optionally, standardized border radius, and gradients. |
-| `Card` | `CustomCard` | Theme-aware. Use `CustomCard.glass(...)` for premium/web aesthetic with glassmorphism. |
+| `Card` | `CustomCard` | Theme-aware container (`lib/core/ui/widgets/components/custom_card.dart`). Configure via `color`, `elevation`, `shadowBorderRadius`, `shouldShowCustomShadow`, `enableHover` — there is no `.glass(...)` factory, don't invent one. |
 | `TextField` | `CustomTextField` | Unified input style, validation, error/label handling, and focus management. |
 | `Chip` | `FeatureChip` | For tags/capsules. Auto-scales text size and handles colors based on current theme. |
 
-## 🌟 Visual Excellence & Glassmorphism
+## 🌟 Visual Excellence
 
-- **Aesthetics First**: Aim for modern, premium designs. Use transparent overlays and `CustomCard.glass` to build visually stunning layouts.
+- **Aesthetics First**: Aim for modern, premium designs using the real widget APIs above — check the widget's actual constructor in `lib/core/ui/widgets/components/` before assuming a param or named factory exists.
 - **Colors**: Never hardcode Hex colors. Always depend on `context.colors.primary`, `surface`, `success`, etc.
 - **Elevation**: Avoid raw Shadows. Rely on App Theme components or `Style.shadowSmall(context)`.
 

@@ -1,0 +1,2 @@
+- [Docs Home](README.md)
+- [Open the App](/)
